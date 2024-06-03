@@ -1,0 +1,203 @@
+{% include "citas/base/base.html" %}
+{% block content %}
+      <style>
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+      display: flex;
+      box-shadow: #0303036e 1px 2px 10px 4px;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: #fff;
+      border-radius: 2rem;
+      background: #000; /* Puedes cambiar el fondo aquí */
+      }
+
+      .box-input {
+  position: relative;
+}
+
+.border {
+      background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  
+  padding: 2px;
+  border-radius: 2rem;
+  border: 0;
+}
+
+.input {
+  background-color: #000000;
+  width: 100%;
+  border-radius: 2rem;
+  height: 50px;
+  padding: 0 19px 0 10px;
+  font-size: 1.1em;
+  position: relative;
+  border: none;
+  color: white;
+  outline: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.box-input::after,
+.box-input::before {
+  content: "";
+  width: 130px;
+  height: 30px;
+  position: absolute;
+  z-index: -1;
+}
+
+.box-input::after {
+  bottom: 0;
+  right: 0;
+}
+
+.box-input::before {
+  top: 0;
+  left: 0;
+}
+
+.input::placeholder {
+  transition: all 0.5s ease-in, transform 0.2s ease-in 0.6s;
+}
+
+.input:focus::placeholder {
+  padding-left: 165px;
+  transform: translateY(-50px);
+}
+
+
+      </style>
+
+
+<section class="vh-100 vw-100 " 
+      style="background-image: url(https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain);
+      background-position: center; background-repeat: no-repeat; background-size: cover;">
+
+      <div class="w-100 mt-5 p-1 position-absolute " style="bottom: 0.1rem;">
+            <h3 class="font-primary " style=" text-shadow: #000 1px 2px 3px;">
+                  ClickEstudios <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-danger" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                  </svg>
+            </h3>
+
+            <div class="blur font-secondary bg-white bg-opacity-50 p-2   m-1" style="border-radius: 1.8rem;">
+                  <span class="w-100 text-center">
+                        <span class="text-black" >Capturando Momentos Inolvidables</span>
+                  </span>
+                  <p class="text-black-50 " style="font-size: 14px; text-align: justify;">
+                        ¿Buscas un estudio de fotografía profesional que capture la esencia de tus momentos más especiales?
+                  </p>
+                  <span class="w-100 d-none">
+                        <span class="text-black">Nuestro equipo de expertos</span>
+                  </span>
+                  <p class="text-black-50 d-none" style="font-size: 14px; text-align: justify;">
+                        trabajará contigo para crear una experiencia única y personalizada, asegurando que tus fotos sean exactamente como las imaginas.
+                  </p>
+            </div>
+      </div>
+
+</section>
+
+<section class="mb-5 pb-5">
+      <!-- Your dashboard content here -->
+      <h3 class="font-primary mt-2 p-1">
+            Galeria
+      </h3>
+            <div class="swiper-container  p-1  justify-content-center " 
+            style=" width: 100%; height:   35vh; border-radius: 2rem;
+             overflow-y: visible !important; overflow-x: hidden;">
+                  <div class="swiper-wrapper overflow-visible " style=" height: 15rem; ">
+                    <div class="swiper-slide " 
+                        style="background-image: url(https://th.bing.com/th/id/R.4d3e9213744393d6b1c74867524b23e2?rik=KbIQUW4bS9T0Pg&pid=ImgRaw&r=0);
+                        background-position: center; background-repeat: no-repeat;
+                        background-size: cover; text-shadow: #000 1px 2px 3px;"
+                         >
+                         <!-- Experiencia y profesionalismo -->
+                        </div>
+                    <div class="swiper-slide bg-primary"      
+                    style="background-image: url(https://i.pinimg.com/originals/eb/40/95/eb40957d667100a4b4e17821a2987fb4.jpg);
+                    background-position: center; background-repeat: no-repeat;
+                    background-size: cover; text-shadow: #000 1px 2px 3px;" >
+                        <!-- Calidad excepcional -->
+                  </div>
+
+                    <div class="swiper-slide bg-secondary"
+                    style="background-image: url(https://i.pinimg.com/originals/95/d5/db/95d5db6f618259f335908d27fc7c7a36.jpg);
+                    background-position: center; background-repeat: no-repeat;
+                    background-size: cover; text-shadow: #000 1px 2px 3px;" >
+                    <!-- Atención personalizada -->
+                  </div>
+                    <!-- Más slides aquí -->
+                  </div>
+                  <!-- Si deseas, puedes añadir paginación, botones de navegación, etc. -->
+                  <!-- <div class="swiper-pagination"></div>
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div> -->
+                </div>
+                <p style="text-align: justify;" class="d-none">
+                  No te conformes con fotos mediocres. Elige ClickEstudios y captura la magia de tus momentos especiales para siempre.
+                </p>
+                <section class="mt-1 w-100  m-0">
+
+                
+                <div class="mt-2 p-1">
+                  <h5 class="p-0 m-0">¡Elige tu día perfecto!</h5>
+                  <p class="text-white-50 p-0 m-0" style="font-size: 14px;">
+                        Agenda tu sesión de fotos hoy mismo y elige el día que mejor se adapte a tu agenda.
+                  </p>
+
+                  <div class="w-100 mt-1">
+                        <div class="box-input  mb-1">
+                              <div class="border border-0">
+                                <input type="text" name="text" class="input" placeholder="Correo Electronico">
+                              </div>
+                            </div>
+                        <div class="form-floating text-black">
+                              <input type="date" name=""  id="date" class="text-black mt-2 form-control " style="border-radius: 2rem;">
+                              <label for="date">Elige tu dia</label>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+                              <button class="font-primary text-white p-2 border-0" 
+                                    style="border-radius: 1.5rem; 
+                                    text-shadow: #999999 1px 2px 3px;
+                                    width: 7rem;
+                                          background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+">
+                                    Enviar Cita
+                              </button>
+                        </div>
+
+                  </div>
+                  <p></p>
+                </div>
+                
+      </section>
+      <script>
+            var swiper = new Swiper('.swiper-container', {
+              effect: 'cards',
+              grabCursor: true,
+              cardsEffect: {
+                rotate: true,
+                perSlideRotate: 10,
+                perSlideOffset: 14,
+                slideShadows: true,
+              },
+              pagination: {
+                el: '.swiper-pagination',
+              },
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+            });
+          </script>
+          
+
+{% endblock %}
