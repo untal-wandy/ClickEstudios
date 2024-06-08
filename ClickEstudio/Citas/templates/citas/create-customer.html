@@ -1,12 +1,128 @@
-{% include "citas/base/base.html" %}
+{% extends "citas/base/base.html" %}
 {% block content %}
+      <style>
+            .form-control {
+                  border-radius: 1rem;
+                  
+            }
+      .background-container {
+      border-radius: 1rem;
+        position: relative;
+        width: 100%;
+        height: 300px; /* Ajusta la altura según sea necesario */
+        background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
+        color: white; /* Cambia el color del texto según sea necesario */
+    }
+      </style>
       <section>
+            <div class="background-container">
+                  <div class="content">
+                      <!-- Aquí va el contenido -->
+                  </div>
+              </div>
+            <div>
+                  <h3 class="font-primary mt-4 mb-3">
+                        Informacion personal 
+                  </h3>
+          
+            </div>
             <form action="" method="post">
                   {% csrf_token %}
-                  {{form}}
-                  <button>
-                        Crear
-                  </button>
+                  <div class="form-floating">
+                        {{form.name}}
+                        <label for="id_name">Nombre y apellidos</label>
+                  </div>
+                  <div>
+                        <p style="font-size: 12px;" class="text-white-50 mt-2 mb-2 ">
+                              Elige cómo quieres que te avisemos recuerda que puedes alternar entre un <strong>correo electronico</strong>  o de tu numero <strong>celular</strong>
+                        </p>
+                  </div>
+                  <div class="mb-2 ms-1"> Preferencia de notificacion
+                        <span id="btn-alterd" 
+                        class="btn p-1 ps-3 pe-3  border-1 text-white "
+                        style="border: solid 1px rgba(255, 255, 255, 0.733);  border-radius: 2rem;
+                        font-weight: bold;"
+                        onclick="OpenDiv()">
+                        Correo electronico
+                  </span> 
+                  </div>
+                  <div class="d-flex ">
+                              <div class="d-flex flex-wrap justify-content-center align-content-center">
+                              </div>
+                        <div id="email"  class="w-100" >
+                                    <div class="form-floating ">
+                                          {{ form.email }}
+                                          <label for="id_email">Correo electronico</label>
+                                    </div>
+                        </div>
+                        <div id="number" class="w-100" style="display: none;">
+                              <div class="form-floating w-100">
+                                    {{ form.number }}
+                                    <label for="id_number">Numero </label>
+                              </div>
+                        </div>
+                  </div>
+                
+                  <span class=" d-flex justify-content-center mt-5">
+                        <button style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
+                          border-radius: 1.5rem; height: auto;
+                          width: 15rem;" class="text-white p-2">Siguiente</button>
+                      </span>
+                      <span class="w-100 text-center mt-3 d-flex justify-content-center">
+                              <strong>
+                                    Cancelar
+                              </strong>
+                      </span>
             </form>            
+      </section>  
+      <section class="d-none">
+            {% include "citas/components/calendary.html" %}
       </section>
+
+      <script>
+            function OpenDiv() {
+                  let alterd = document.getElementById("btn-alterd"); 
+                  var email = document.getElementById("email");
+                  var number = document.getElementById("number");
+                  
+                  if (email.style.display === "none") {
+                        email.style.display = "block";
+                        number.style.display = "none";
+                        alterd.innerHTML = "Correo electronico";
+                        
+                        } else {
+                              email.style.display = "none";
+                              number.style.display = "block";
+                              alterd.innerHTML = "Numero Celular";
+
+                  }
+            }
+
+            function NumbersFomat(value) {
+    // Elimina todos los caracteres no numéricos
+    var number = value.replace(/\D/g, '');
+    // Agrega guiones después de los primeros 3 dígitos y los siguientes 7 dígitos
+    var N = number.replace(/(\d{3})(\d{3})(\d{1})/, '$1-$2-$3');
+    return N;
+  }
+  document.getElementById('id_number').addEventListener('input', function(e) {
+            let n = document.getElementById('id_number')
+            n.value = n.value.substring(0,12);
+            e.target.value = NumbersFomat(e.target.value);
+  });
+
+      </script>
 {% endblock  %}

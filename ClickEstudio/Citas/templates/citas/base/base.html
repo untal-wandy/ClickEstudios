@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
@@ -23,6 +24,7 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
 
 
@@ -54,8 +56,37 @@
       -webkit-backdrop-filter: blur(30px) !important;
       backdrop-filter: blur(30px) !important;
     }
+
+
+    .div-btn-floting button {
+      background-color: transparent;
+      margin-top: 0.4rem;
+      border: 0;
+
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+
+    }
+    .div-btn-floting{
+      width: 42px;
+      margin-right: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-radius: 2rem;
+      
+    }
+    .size-secundary
+    {
+      font-size: 14px;
+    }
+
   </style>
-  <body>
+  <body class='p-2'>
         <div class="w-100 position-fixed d-none position-relative   d-flex top-0 bg-black bg-opacity-10 blur p-2"
         style="z-index: 2;">
           <h5 class="font-primary">
@@ -70,10 +101,179 @@
             </svg>
           </button>
         </div>
+        <div class="position-fixed div-btn-floting p-1 bottom-0 end-0 me-3 mb-3" style="z-index: 10;">
+            <button>
+              <svg viewBox="0 0 256 259" style=""  width="40" height="40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="m67.663 221.823 4.185 2.093c17.44 10.463 36.971 15.346 56.503 15.346 61.385 0 111.609-50.224 111.609-111.609 0-29.297-11.859-57.897-32.785-78.824-20.927-20.927-48.83-32.785-78.824-32.785-61.385 0-111.61 50.224-110.912 112.307 0 20.926 6.278 41.156 16.741 58.594l2.79 4.186-11.16 41.156 41.853-10.464Z" fill="#00E676"/><path d="M219.033 37.668C195.316 13.254 162.531 0 129.048 0 57.898 0 .698 57.897 1.395 128.35c0 22.322 6.278 43.947 16.742 63.478L0 258.096l67.663-17.439c18.834 10.464 39.76 15.347 60.688 15.347 70.453 0 127.653-57.898 127.653-128.35 0-34.181-13.254-66.269-36.97-89.986ZM129.048 234.38c-18.834 0-37.668-4.882-53.712-14.648l-4.185-2.093-40.458 10.463 10.463-39.76-2.79-4.186C7.673 134.63 22.322 69.058 72.546 38.365c50.224-30.692 115.097-16.043 145.79 34.181 30.692 50.224 16.043 115.097-34.18 145.79-16.045 10.463-35.576 16.043-55.108 16.043Zm61.385-77.428-7.673-3.488s-11.16-4.883-18.136-8.371c-.698 0-1.395-.698-2.093-.698-2.093 0-3.488.698-4.883 1.396 0 0-.697.697-10.463 11.858-.698 1.395-2.093 2.093-3.488 2.093h-.698c-.697 0-2.092-.698-2.79-1.395l-3.488-1.395c-7.673-3.488-14.648-7.674-20.229-13.254-1.395-1.395-3.488-2.79-4.883-4.185-4.883-4.883-9.766-10.464-13.253-16.742l-.698-1.395c-.697-.698-.697-1.395-1.395-2.79 0-1.395 0-2.79.698-3.488 0 0 2.79-3.488 4.882-5.58 1.396-1.396 2.093-3.488 3.488-4.883 1.395-2.093 2.093-4.883 1.395-6.976-.697-3.488-9.068-22.322-11.16-26.507-1.396-2.093-2.79-2.79-4.883-3.488H83.01c-1.396 0-2.79.698-4.186.698l-.698.697c-1.395.698-2.79 2.093-4.185 2.79-1.395 1.396-2.093 2.79-3.488 4.186-4.883 6.278-7.673 13.951-7.673 21.624 0 5.58 1.395 11.161 3.488 16.044l.698 2.093c6.278 13.253 14.648 25.112 25.81 35.575l2.79 2.79c2.092 2.093 4.185 3.488 5.58 5.58 14.649 12.557 31.39 21.625 50.224 26.508 2.093.697 4.883.697 6.976 1.395h6.975c3.488 0 7.673-1.395 10.464-2.79 2.092-1.395 3.487-1.395 4.882-2.79l1.396-1.396c1.395-1.395 2.79-2.092 4.185-3.487 1.395-1.395 2.79-2.79 3.488-4.186 1.395-2.79 2.092-6.278 2.79-9.765v-4.883s-.698-.698-2.093-1.395Z" fill="#FFF"/></svg>
+            </button>
+            <button class='d-none' style=" background-color: rgba(255, 255, 255, 0.342);
+            -webkit-backdrop-filter: blur(10px) !important;
+            backdrop-filter: blur(10px) !important; color: aqua; filter: sepia(20%);"> 
+              <svg xmlns="http://www.w3.org/2000/svg"  width="40" height="40" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256"><path fill="#0A0A08" d="M128 23.064c34.177 0 38.225.13 51.722.745 12.48.57 19.258 2.655 23.769 4.408 5.974 2.322 10.238 5.096 14.717 9.575 4.48 4.479 7.253 8.743 9.575 14.717 1.753 4.511 3.838 11.289 4.408 23.768.615 13.498.745 17.546.745 51.723 0 34.178-.13 38.226-.745 51.723-.57 12.48-2.655 19.257-4.408 23.768-2.322 5.974-5.096 10.239-9.575 14.718-4.479 4.479-8.743 7.253-14.717 9.574-4.511 1.753-11.289 3.839-23.769 4.408-13.495.616-17.543.746-51.722.746-34.18 0-38.228-.13-51.723-.746-12.48-.57-19.257-2.655-23.768-4.408-5.974-2.321-10.239-5.095-14.718-9.574-4.479-4.48-7.253-8.744-9.574-14.718-1.753-4.51-3.839-11.288-4.408-23.768-.616-13.497-.746-17.545-.746-51.723 0-34.177.13-38.225.746-51.722.57-12.48 2.655-19.258 4.408-23.769 2.321-5.974 5.095-10.238 9.574-14.717 4.48-4.48 8.744-7.253 14.718-9.575 4.51-1.753 11.288-3.838 23.768-4.408 13.497-.615 17.545-.745 51.723-.745M128 0C93.237 0 88.878.147 75.226.77c-13.625.622-22.93 2.786-31.071 5.95-8.418 3.271-15.556 7.648-22.672 14.764C14.367 28.6 9.991 35.738 6.72 44.155 3.555 52.297 1.392 61.602.77 75.226.147 88.878 0 93.237 0 128c0 34.763.147 39.122.77 52.774.622 13.625 2.785 22.93 5.95 31.071 3.27 8.417 7.647 15.556 14.763 22.672 7.116 7.116 14.254 11.492 22.672 14.763 8.142 3.165 17.446 5.328 31.07 5.95 13.653.623 18.012.77 52.775.77s39.122-.147 52.774-.77c13.624-.622 22.929-2.785 31.07-5.95 8.418-3.27 15.556-7.647 22.672-14.763 7.116-7.116 11.493-14.254 14.764-22.672 3.164-8.142 5.328-17.446 5.95-31.07.623-13.653.77-18.012.77-52.775s-.147-39.122-.77-52.774c-.622-13.624-2.786-22.929-5.95-31.07-3.271-8.418-7.648-15.556-14.764-22.672C227.4 14.368 220.262 9.99 211.845 6.72c-8.142-3.164-17.447-5.328-31.071-5.95C167.122.147 162.763 0 128 0Zm0 62.27C91.698 62.27 62.27 91.7 62.27 128c0 36.302 29.428 65.73 65.73 65.73 36.301 0 65.73-29.428 65.73-65.73 0-36.301-29.429-65.73-65.73-65.73Zm0 108.397c-23.564 0-42.667-19.103-42.667-42.667S104.436 85.333 128 85.333s42.667 19.103 42.667 42.667-19.103 42.667-42.667 42.667Zm83.686-110.994c0 8.484-6.876 15.36-15.36 15.36-8.483 0-15.36-6.876-15.36-15.36 0-8.483 6.877-15.36 15.36-15.36 8.484 0 15.36 6.877 15.36 15.36Z"/></svg>
+            </button>
+            <button id="btn-action" class="font-primary flex-wrap p-2 text-black bg-white d-flex justify-content-center align-content-center  border-0" 
+            style="border-radius: 1rem; 
+            font-size: 12px;
+            width: 5rem;
+            height: auto;
+            ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+              <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+            </svg> Agendar
+            </button>
+            <div id="myDiv" class="position-fixed card  me-2 bg-black bg-opacity-50 blur end-0 p-3" style="display: none;
+            border-radius: 1rem;
+            border: 1px rgba(255, 255, 255, 0.562) solid;
+             width: 300px; bottom: 4rem;">
+              <!-- Content of the div -->
+              <span class="btns-plan d-flex text-white-50 w-100">
+                <div class="btns-plan d-flex text-white-50 w-100">
+                  <button onclick='OpenDiv(this.id)'  id="planA">
+                    Basico
+                  </button>
+                  <button style="border: 1px white solid; border-top: 0; border-bottom: 0;
+                    border-radius: 0;" 
+                     onclick='OpenDiv(this.id)'  id="planB">
+                    Recomendado
+                  </button>
+                  <button onclick='OpenDiv(this.id)'  id="planC">
+                    Primiun
+                  </button>
+                </div>
+              </span>
+
+              <div id="planADiv" class="mt-3" style="display: none;">
+                <h3 class="font-primary p-1 text-white">
+                      Basico
+                </h3>
+                <span>
+                  3 Fotos digitales recortadas
+                </span> <br>
+                <span>
+                  1 fondo a elegir
+                </span> <br>
+                <span>
+                  1 cambio de ropa (al cliente)
+                </span>
+                <span> <br>
+                  20 minutos de session
+                </span>
+                <span>
+                  RD$2,000.00
+                </span> <br>
+                <span class=" d-flex justify-content-center">
+                  <button style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
+                    border-radius: 1.5rem; height: auto;
+                    width: 15rem;" class="text-white p-2">Agendar</button>
+                </span>
+              </div>
+              <div id="planBDiv" style="display: none;" class="mt-3">
+              <h3 class="font-primary p-1 text-white">
+                  Recomendado
+              </h3>
+            <span>
+              3 Fotos digitales recortadas
+            </span> <br>
+            <span>
+              2 fondo a elegir
+            </span> <br>
+            <span>
+              2 cambio de ropa (al cliente)
+            </span>
+            <span> <br>
+              35 minutos de session
+            </span>
+            <span>
+              RD$3,500.00
+            </span> <br>
+            <span class=" d-flex justify-content-center">
+              <button style="
+                background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%) !important; 
+                border-radius: 1.5rem; height: auto;
+                width: 15rem;" class="text-white p-2">Agendar</button>
+            </span>
+              </div>
+              <div id="planCDiv" style="display: none;">
+                <h3 class="font-primary p-1 text-white">
+                  Primiun
+                </h3>
+            <span>
+              10 Fotos digitales recortadas
+            </span> <br>
+            <span>
+              2 fondo a elegir
+            </span> <br>
+            <span>
+              2 cambio de ropa (al cliente)
+            </span>
+            <span> <br>
+              1 hora de session
+            </span>
+            <span>
+              Maquillaje Professional
+            </span>
+            <span>
+              RD$5,500.00
+            </span> <br>
+            <span class=" d-flex justify-content-center">
+              <button style="background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%) !important; 
+                border-radius: 1.5rem; height: auto;
+                width: 15rem;" class="text-white p-2">Agendar</button>
+            </span>
+              </div>
+              <script>
+                function OpenDiv(id) {
+                  var divA = document.getElementById("planADiv");
+                  var divB = document.getElementById("planBDiv");
+                  var divC = document.getElementById("planCDiv");
+
+                  if (id === "planA") {
+                    divA.style.display = "block";
+                    divB.style.display = "none";
+                    divC.style.display = "none";
+                  } else if (id === "planB") {
+                    divA.style.display = "none";
+                    divB.style.display = "block";
+                    divC.style.display = "none";
+                  } else if (id === "planC") {
+                    divA.style.display = "none";
+                    divB.style.display = "none";
+                    divC.style.display = "block";
+                  }
+                }
+              </script>
+              <style>
+                span {
+                  color: white;
+                }
+                .btns-plan button
+                {
+                  width: max-content;
+                  height: 2rem;
+                  color: white;
+                }
+                </style>
+            </div>
+
+            <script>
+              document.getElementById("btn-action").addEventListener("click", function() {
+                var myDiv = document.getElementById("myDiv");
+                if (myDiv.style.display === "none") {
+                  myDiv.style.display = "block";
+                } else {
+                  myDiv.style.display = "none";
+                }
+              });
+            </script>
+        </div>
           {% block content %}
 
           {% endblock  %}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   </body>
 </html>

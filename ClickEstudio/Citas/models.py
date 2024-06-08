@@ -5,9 +5,9 @@ from datetime import datetime
 class Customer(models.Model):
       name = models.CharField(max_length=255)
       last_name = models.CharField(max_length=255)
-      dni = models.CharField(max_length=20, unique=True)
-      email = models.EmailField(default='example@gmail.com')  
-      number = models.CharField(max_length=20)
+      dni = models.CharField(max_length=20, unique=True, blank=True, null=True)
+      email = models.EmailField(default='example@gmail.com', blank= True, null=True)  
+      number = models.CharField(max_length=20, blank=True, null=True)
       date_created = models.DateTimeField(auto_now_add=True)
 
       def __str__(self):
