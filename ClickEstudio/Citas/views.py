@@ -4,7 +4,7 @@ from . import forms, models
 
 
 class DashboardCitas(TemplateView):
-      template_name = 'citas/dashboard.html'
+      template_name = 'citas/inicio.html'
 
       
 class CustomerCreateView(CreateView):

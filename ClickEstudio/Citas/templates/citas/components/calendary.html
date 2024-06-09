@@ -1,3 +1,9 @@
+<h3 class="font-primary mt-4 mb-3 text-center">
+      ¡Selecciona mes, día y hora especial para tus fotos! 
+</h3>
+<p style="font-size: 12px; " class="text-white-50 d-none mb-3">
+      ¡Estamos emocionados de capturar tus momentos mágicos! Escoge la fecha en la que brillarás frente a la cámara y prepara tu sonrisa más radiante.
+</p>
 <div class="calendar-container font-primary">
       <div class="calendar-header">
           <select id="month" class=" text-white bg-black" 
@@ -10,6 +16,25 @@
       <div class="calendar-grid" id="calendar">
           <!-- Days will be dynamically added here -->
       </div>
+  </div>
+  <div class="mt-3">
+      {% include "citas/components/reloj.html" %}
+  </div>
+
+  <div class="d-flex w-100 justify-content-center flex-wrap mt-4">
+      <span class=" d-flex justify-content-center mt-3">
+            <button onclick="Next()" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
+              border-radius: 1.5rem; height: auto;
+              width: 10rem;" class="text-white p-2">Siguiente</button>
+          </span>
+          <span  onclick="Last()" class="w-100 text-center mt-3 d-flex justify-content-center">
+            <!-- <a href="{% url "citas:dashboard-citas" %}"> -->
+                   <strong>
+                        Atras
+                  </strong>
+
+            <!-- </a> -->
+          </span>  
   </div>
   
   <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">

@@ -1,14 +1,18 @@
-<h3 class='font-primary mb-5 mt-4 text-center'>
+<div class="swiper-container position-relative p-2 w-100">
+<h3 class='font-primary mb-3 text-end'>
       Nuestros Planes
 </h3>
-<div class="swiper-container position-relative">
-      <div class="swiper-wrapper">
-          <div class="swiper-slide" >
+      <div class="swiper-wrapper d-flex  overflow-scroll p-2" >
+          <div class="swiper-slides p-2" style="border: white 1px solid; 
+            border-top: #89f7fe 1px solid;
+            border-right: #66a6ff 1px solid;
+            border-radius: 2rem;">
             <div class="mt-3">
-                  <h3 class="font-primary p-1 text-white">
+                  <h3 class="font-primary p-1" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         Basico
-                  </h3>
-                  <div class='size-secundary'>
+                    </h3>
+                    
+                  <div >
                         <span>
                               3 Fotos digitales recortadas
                             </span> <br>
@@ -22,22 +26,33 @@
                               20 minutos de session
                             </span>
                             <span>
-                              <strong>RD$1,500.00</strong>
+                              <strong>RD$2,000.00</strong>
                             </span> <br>
                   </div>
-                  <span class=" d-flex justify-content-center mt-5">
+                  <span class=" d-flex justify-content-center mt-5 pt-3">
+                        <a href="{% url "citas:create-customer"  1 %}">
+
                     <button style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
                       border-radius: 1.5rem; height: auto;
                       width: 15rem;" class="text-white p-2">Agendar</button>
+                        </a>
                   </span>
             </div>
           
           </div>
-          <div class="swiper-slide" >
+          <div class="swiper-slides p-2" style="border: white 1px solid;
+            border-top: #f78ca0 1px solid;
+            border-right: #f9748f solid;
+            border-bottom: white 1px solid;
+            border-radius: 2rem;" >
                   <div class="mt-3">
-                        <h3 class="font-primary p-1 text-white">
-                              Recomendado
-                        </h3>
+                        <h3 class="font-primary p-1" style="background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                              Recomendado 
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill p-0 m-0 mb-1" viewBox="0 0 16 16">
+                              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                              </svg>
+                          </h3> 
+                          
                         <span>
                               3 Fotos digitales recortadas
                         </span> <br>
@@ -53,19 +68,26 @@
                         <span> <br>
                               <strong>RD$3,500.00</strong>
                         </span> <br>
-                        <span class=" d-flex justify-content-center mt-5">
+                        <span class=" d-flex justify-content-center mt-5 pt-3">
+                              <a href="{% url "citas:create-customer" 2 %}">
+
                               <button style="
                               background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%) !important; 
                               border-radius: 1.5rem; height: auto;
                               width: 15rem;" class="text-white p-2">Agendar</button>
+                              </a>
                         </span>
                   </div>
           </div>
-          <div class="swiper-slide" >
+          <div class="swiper-slides p-2" style="border: white 1px solid;
+            border-top: 1px solid #d9afd9 ;
+            border-right: 1px solid #97d9e1;
+            border-radius: 2rem;" >
                   <div class='mt-3'>
-                        <h3 class="font-primary p-1 text-white">
-                              Primiun
-                        </h3>
+                        <h3 class="font-primary p-1" style="background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                              Premium
+                          </h3>
+                          
                         <span>
                               10 Fotos digitales recortadas
                         </span> <br>
@@ -84,10 +106,13 @@
                         <span>
                              <strong> RD$5,500.00</strong>
                         </span> <br>
-                        <span class=" d-flex justify-content-center mt-5">
+                        <span class=" d-flex justify-content-center mt-5 pt-3">
+                              <a href="{% url "citas:create-customer" 3 %}">
+
                               <button style="background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%) !important; 
                                     border-radius: 1.5rem; height: auto;
                                     width: 15rem;" class="text-white p-2">Agendar</button>
+                              </a>h
                               </span>
                   </div>
           </div>
@@ -96,7 +121,7 @@
       {% comment %} <div class="swiper-pagination"></div> {% endcomment %}
       <!-- Add Navigation -->
       </div>
-      <div class='mt-3 d-flex justify-content-end'>
+      <div class='mt-2 d-flex justify-content-end d-none'>
             <button id='last' class='bg-transparent border-0 d-block d-none text-white-50' onclick='Last()'> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
@@ -116,12 +141,12 @@
             let  Last = ()=> {
                   document.querySelector('.swiper-button-prev').click();
             }
-            window.addEventListener('load', () => {
-                  setTimeout(() => {
-                        // Tu código aquí
-                        Next()
-                  }, 5000);
-            });
+            // window.addEventListener('load', () => {
+            //       setTimeout(() => {
+            //             // Tu código aquí
+            //             Next()
+            //       }, 10000);
+            // });
       </script>
       <div class="swiper-button-next d-none"></div>
       <div class="swiper-button-prev d-none"></div>
@@ -133,16 +158,16 @@
   <style>
 
 
-      .swiper-slide {
+      .swiper-slides {
             background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-content: center;
+            min-height: 20rem;
+            min-width: 310px;
+            margin: 0.3rem;
 
       }
   </style>
   
-  <script>
+  <!-- <script>
       const swiper = new Swiper('.swiper-container', {
           effect: 'fade', // Cambiar esto para utilizar shaders
           pagination: {
@@ -179,6 +204,6 @@
           // Aplica el material de shader a los elementos del carrusel
       };
   
-      initShaders();
+      initShaders(); -->
   </script>
   
