@@ -28,13 +28,12 @@
       </style>
 
 <main>
-      <form action="" method="post">
-            {% csrf_token %}
-
-
-      </form>
+      
 </main>
 
+
+<form action="" method="post">
+      {% csrf_token %}
 
 <div class="swiper-container">
       <div class="swiper-wrapper">
@@ -50,14 +49,15 @@
           </div>
           <div class="swiper-slide">
             {% include "citas/components/confirmation.html" %}
-
           </div>
+          {{form.plan_choice}}
       </div>
       <!-- Botones de navegación (opcional) -->
       <div class="swiper-button-prev d-none"></div>
       <div class="swiper-button-next d-none"></div>
   </div>
-  
+</form>
+
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <!-- Swiper JS -->
@@ -81,9 +81,26 @@
               },
           });
       });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                  const url = window.location.href;
+                  const regex = /\/create-customer\/(\d+)/;
+                  const match = url.match(regex);
+                  if (match) {
+                        const number = match[1];
+                        console.log("Número extraído de la URL:", number);
+                         document.getElementById('id_plan_choice').value = number;
+                  } else {
+                         console.log("No se encontró un número en la URL.");
+                  }
+                  // Set the number to the input field
+            });
   </script>
   
   <style>
+      #id_plan_choice  {
+            display: none !important;
+      }
       #divs-btns 
       {
             display: none;

@@ -21,23 +21,24 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock-fill mt-2  text-white" viewBox="0 0 16 16">
                   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
                 </svg>
-            <input type="text" id="time-picker" 
+            <input type="time" id="time-picker" 
             style="border-radius: 1rem !important; border: 1px rgb(0, 0, 0) solid !important;  outline: none !important; " class="flatpickr-input text-white bg-black" placeholder="Selecciona la hora" value="08:30">
+            {{form.date_time_choice}}
       </div>
   </div>
 
   <!-- Incluir los scripts de Flatpickr -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          flatpickr("#time-picker", {
-              enableTime: true,
-              noCalendar: true,
-              dateFormat: "H:i",
-              minTime: "08:00",
-              maxTime: "09:00",
-              time_24hr: true
-          });
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+        const timePicker = document.getElementById('time-picker');
+        const dateTimeChoice = document.getElementById('id_date_time_choice');
+
+        timePicker.addEventListener('change', function() {
+            dateTimeChoice.value = timePicker.value;
+        });
+    });
+    
+
       
   </script>
