@@ -1,0 +1,71 @@
+{% extends "citas/base/base.html" %}
+{% block content %}
+<style>
+      .background-container {
+            position: relative;
+            width: 100%;
+            height: 45vh; /* Ajusta la altura según sea necesario */
+            background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-position: center;
+        }
+    
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
+            color: white; /* Cambia el color del texto según sea necesario */
+        }
+</style>
+<div class="background-container " id="bg-service">
+      <div class="content">
+          <!-- Aquí va el contenido -->
+      </div>
+</div>
+<div>
+      <h3 class='font-primary w-100 text-center mt-3'> 
+            Aun no hay servicios disponibles 
+      </h3>
+      <p class='text-white-50 text-center'>
+            Por favor, ten paciencia, estamos trabajando arduamente.      </p>
+</div>
+
+<div  class='p-2 mt-1 position-fixed w-100 bottom-0 bg-black bg-opacity-10 blur p-4 ps-2 pe-4'
+      style=''>
+      {% if img %}
+      <h3 class='font-primary mb-4'>
+            {% comment %} Servicios   {{s.name}} {% endcomment %}
+            </h3>
+            {% else %}
+                  <h3 class='font-primary text-center mb-4'>
+                        {% comment %} No hay servicios por el momento {% endcomment %}
+                        </h3>
+      {% endif %}
+            <a href="{% url "citas:dashboard-citas" %}">
+                        <button class='border-0 p-1 pe-4 ps-4 mb-4 font-primary' 
+                        style='border-radius: 1rem;'>
+            Atras 
+      </button>
+      </a>
+</div>
+<script>
+      setInterval(function() {
+            var images = [
+                  "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
+                  "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
+                  "https://cdn.shopify.com/s/files/1/0047/9035/3966/products/ellatop.jpg?v=1615583910",
+                  "https://i.pinimg.com/736x/3d/87/ba/3d87bad974bee313d330fb2755708e81.jpg",
+               
+            ];
+            var randomIndex = Math.floor(Math.random() * images.length);
+            var imageUrl = images[randomIndex];
+            document.getElementById("bg-service").style.backgroundImage = "url(" + imageUrl + ")";
+}, 4000); 
+
+</script>
+{% endblock  %}

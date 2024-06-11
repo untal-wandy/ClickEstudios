@@ -38,6 +38,16 @@ class ServiceImage(models.Model):
 
       def __str__(self):
             return self.name
+      
+      
+class ServiceRelatedImage(models.Model):
+    service = models.ForeignKey(ServiceImage, related_name='service_img', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='related_service_images/', blank=True, null=True)
+    img_url = models.URLField(default='', blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.moment.name} - {"Related Image"}'
 
 
 

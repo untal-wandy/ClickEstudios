@@ -10,6 +10,8 @@ class DashboardCitas(TemplateView):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
+            context['service'] = models.ServiceImage.objects.all()
+
             return context
 
       
@@ -69,6 +71,19 @@ class GalleryMomentSelect(DetailView):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
             context['moment'] = self.model.objects.get(id=self.kwargs.get('pk'))
+
+            
+            return context
+      
+      
+class ServiceSelect(DetailView):
+      model = models.ServiceImage
+      template_name = 'citas/service-select.html'
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).service_img.all()
+            context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
 
             
             return context
