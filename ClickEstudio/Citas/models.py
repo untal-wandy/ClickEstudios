@@ -68,3 +68,12 @@ class MomentRelatedImage(models.Model):
 
     def __str__(self):
         return f'{self.moment.name} - {"Related Image"}'
+  
+  
+class Setting(models.Model):
+      name = models.CharField(max_length=255, default='Setting')
+      icon = models.ImageField(upload_to='setting_images/')
+      date_created = models.DateTimeField(auto_now_add=True)
+      
+      def __str__(self):
+            return self.name

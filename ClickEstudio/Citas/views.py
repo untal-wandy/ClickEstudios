@@ -11,6 +11,8 @@ class DashboardCitas(TemplateView):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service'] = models.ServiceImage.objects.all()
+            context['setting'] = models.Setting.objects.get(name='icon')
+
 
             return context
 
