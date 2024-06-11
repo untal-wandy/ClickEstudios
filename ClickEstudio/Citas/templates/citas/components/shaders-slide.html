@@ -1,3 +1,12 @@
+<style>
+      .swiper-slides button 
+      {
+            text-shadow: 1px 2px 3px rgb(44, 44, 44);
+      }
+      .swiper-slides {
+            height: max-content;
+      }
+</style>
 <div class="swiper-container position-relative p-2 w-100">
 <h3 class='font-primary mb-3 text-end'>
       Nuestros Planes
@@ -31,15 +40,16 @@
                   </div>
                   <span class=" d-flex justify-content-center mt-5 pt-3">
                         <a href="{% url "citas:create-customer"  1 %}">
-
                     <button style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
                       border-radius: 1.5rem; height: auto;
                       width: 15rem;" class="text-white p-2">Agendar</button>
                         </a>
                   </span>
+
             </div>
-          
           </div>
+
+
           <div class="swiper-slides p-2" style="border: white 1px solid;
             border-top: #f78ca0 1px solid;
             border-right: #f9748f solid;
@@ -103,7 +113,7 @@
                         <span>
                               Maquillaje Professional
                         </span>
-                        <span>
+                        <span> <br>
                              <strong> RD$5,500.00</strong>
                         </span> <br>
                         <span class=" d-flex justify-content-center mt-5 pt-3">
@@ -112,11 +122,345 @@
                               <button style="background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%) !important; 
                                     border-radius: 1.5rem; height: auto;
                                     width: 15rem;" class="text-white p-2">Agendar</button>
-                              </a>h
+                              </a>
                               </span>
                   </div>
           </div>
+
+
+          {% comment %} bby {% endcomment %}
+          <div class="swiper-slides p-2" style="border: white 1px solid;
+          border-top: 1px solid #ff9a9e ;
+          border-right: 1px solid #fad0c4;
+          border-radius: 2rem;" >
+                <div class='mt-3'>
+                      <h3 class="font-primary p-1" style="background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); 
+                      
+                      -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            Baby Junior
+                        </h3>
+                        
+                      <span>
+                            5 Fotos digitales 
+                      </span> <br>
+                      <span>
+                            1 fondo a elegir
+                      </span> <br>
+                      <span>
+                              ...
+                        </span>
+                      <span> <br>
+                            20 minutos de session
+                      </span>
+                      <span>
+                            {% comment %} Maquillaje Professional {% endcomment %}
+                      </span>
+                      <span> <br>
+                           <strong> RD$2,500.00</strong>
+                      </span> <br>
+                      <span class=" d-flex justify-content-center mt-5 pt-3">
+                            <a href="{% url "citas:create-customer" 4 %}">
+                            <button style="
+                              background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%) !important; 
+                              border-radius: 1.5rem; height: auto;
+                              width: 15rem;" class="text-white p-2">Agendar</button>
+                            </a>
+                            </span>
+                </div>
+        </div>
+
+            {% comment %} bb2 {% endcomment %}
+            <div class="swiper-slides p-2" style="border: white 1px solid;
+            border-top: 1px solid #ffecd2 ;
+            border-right: 1px solid #fcb69f;
+            border-radius: 2rem;" >
+                  <div class='mt-3'>
+                        <h3 class="font-primary p-1" style="background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                              Baby 
+                          </h3>
+                          
+                        <span>
+                              10 Fotos digitales 
+                        </span> <br>
+                        <span>
+                              1 fondo a elegir
+                        </span> <br>
+                        <span>
+                              2 cambio de ropa 
+                        </span>
+                        <span> <br>
+                              30 minutos de session
+                        </span>
+                        <span>
+                              {% comment %} Maquillaje Professional {% endcomment %}
+                        </span>
+                        <span> <br>
+                             <strong> RD$3,500.00</strong>
+                        </span> <br>
+                        <span class=" d-flex justify-content-center mt-5 pt-3">
+                              <a href="{% url "citas:create-customer" 5 %}">
+                              <button style="background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%) !important; 
+                                    border-radius: 1.5rem; height: auto;
+                                    width: 15rem;" class="text-white p-2">Agendar</button>
+                              </a>
+                              </span>
+                  </div>
+          </div>
+
+          <!--  -->
+          <div class="swiper-slides p-2" style="border: white 1px solid;
+          border-top: 1px solid #84fab0 ;
+          border-right: 1px solid #8fd3f4;
+          border-radius: 2rem;" >
+                <div class='mt-3'>
+                      <h3 class="font-primary p-1" style="background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            15 Años Basic
+                        </h3>
+                        
+                      <span>
+                            Maquillaje Professional
+                      </span> <br>
+                      <span>
+                            Vestido y Accesorios
+                      </span> <br>
+                      <span>
+                            Numero 15 sin Helio
+                      </span>
+                      <span> <br>
+                        Un Cambio de Ropa (Del cliente)
+                        </span>
+                      <span>
+                        20 Fotografias Digitales 
+                        </span>
+                      <span> <br>
+                        <span>
+                              1 Poster 11x14 Enmarcado 
+                        </span>
+                        <span> <br>
+                           <strong> RD$12,500.00</strong>
+                      </span> <br>
+                      <span class=" d-flex justify-content-center mt-5 pt-3">
+                            <a href="{% url "citas:create-customer" 6 %}">
+                            <button style="background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%) !important; 
+                                  border-radius: 1.5rem; height: auto;
+                                  width: 15rem;" class="text-white p-2">Agendar</button>
+                            </a>
+                            </span>
+                </div>
+        </div>
+
+<!--  -->
+
+<div class="swiper-slides p-2" style="border: white 1px solid;
+border-top: 1px solid #d299c2 ;
+border-right: 1px solid #fef9d7;
+border-radius: 2rem;" >
+      <div class='mt-3'>
+            <h3 class="font-primary p-1" style="
+background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+                  -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                  15 Años Primium
+              </h3>
+              
+            <span>
+                  Maquillaje Professional
+            </span> <br>
+            <span>
+                  Vestido y Accesorios
+            </span> <br>
+            <span>
+                  Numero 15 sin Helio
+            </span>
+            <span> <br>
+              Un Cambio de Ropa (Del cliente)
+              </span>
+            <span>
+              20 Fotografias Impresa Tamaño 5x7
+              </span>
+            <span> <br>
+              <span>
+                    1 Poster 11x14 Enmarcado 
+              </span>
+              <span> <br>
+                  <span>
+                        Entrega de Fotografias Digitales Seleccionadas
+                  </span>
+                  <span> <br>
+                 <strong> RD$15,000.00</strong>
+            </span> <br>
+            <span class=" d-flex justify-content-center mt-5 pt-3">
+                  <a href="{% url "citas:create-customer" 7 %}">
+                  <button style="background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%) !important; 
+                        border-radius: 1.5rem; height: auto;
+                        width: 15rem;" class="text-white p-2">Agendar</button>
+                  </a>
+                  </span>
       </div>
+</div>
+
+
+<!--  -->
+<!--  -->
+
+<div class="swiper-slides p-2" style="border: white 1px solid;
+border-top: 1px solid #f5f7fa ;
+border-right: 1px solid #c3cfe2;
+border-radius: 2rem;" >
+      <div class='mt-3'>
+            <h3 class="font-primary p-1" style="
+background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);            
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                  15 Años Silver
+              </h3>
+              
+            <span>
+                  Album de digital  8x10 de 30 fotografias
+            </span> <br>
+            <span>
+                  1 Poster 16x20 Enmarcada
+            </span> <br>
+            <span>
+                  Maquillaje Profesional + Peinado
+            </span>
+            <span> <br>
+                  Vestido y Accesorios
+            </span>
+            <span>
+                  Numero 15 sin Helio
+            </span>
+            <span> <br>
+              <span>
+                  Un Cambio de Ropa (Del cliente)
+              </span>
+              <span> <br>
+                  <span>
+                        Fotografias Digitales Seleccionadas
+                  </span>
+                  <span> <br>
+                 <strong> RD$22,000.00</strong>
+            </span> <br>
+            <span class=" d-flex justify-content-center mt-5 pt-3">
+                  <a href="{% url "citas:create-customer" 8 %}">
+                  <button style="background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important; 
+                        border-radius: 1.5rem; height: auto;
+                        width: 15rem;" class="text-white p-2">Agendar</button>
+                  </a>
+                  </span>
+      </div>
+</div>
+
+
+<!-- Paquetes -->
+<div class="swiper-slides p-2" style="border: white 1px solid; 
+border-top: #fdfcfb 1px solid;
+border-right: #e2d1c3 1px solid;
+border-radius: 2rem;">
+<div class="mt-3">
+      <h3 class="font-primary p-1" style="background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Paquete 1
+        </h3>
+        
+      <div >
+            <span>
+                  5 Fotos digitales 
+                </span> <br>
+                <span>
+                  30 Minutos de session
+                  </span> <br>
+                <span>
+                  <strong>RD$2,500.00</strong>
+                </span> <br>
+      </div>
+      <span class=" d-flex justify-content-center mt-5 pt-3">
+            <a href="{% url "citas:create-customer"  9 %}">
+        <button style="background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%) !important; 
+          border-radius: 1.5rem; height: auto;
+          width: 15rem;" class="text-white p-2">Agendar</button>
+            </a>
+      </span>
+
+</div>
+</div>
+
+
+<div class="swiper-slides p-2" style="border: white 1px solid; 
+border-top: #fdfcfb 1px solid;
+border-right: #e2d1c3 1px solid;
+border-radius: 2rem;">
+<div class="mt-3">
+      <h3 class="font-primary p-1" style="background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Paquete 2
+        </h3>
+        
+      <div >
+            <span>
+                  10 Fotos digitales 
+                </span> <br>
+                <span>
+                  40 Minutos de session, Toga, Birrete
+                  </span> <br>
+                  <span>
+                        1 Foto Enmarcada 8x11
+                  </span> <br>
+                <span>
+                  <strong>RD$4,000.00</strong>
+                </span> <br>
+      </div>
+      <span class=" d-flex justify-content-center mt-5 pt-3">
+            <a href="{% url "citas:create-customer"  10 %}">
+        <button style="background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%) !important; 
+          border-radius: 1.5rem; height: auto;
+          width: 15rem;" class="text-white p-2">Agendar</button>
+            </a>
+      </span>
+
+</div>
+</div>
+
+
+
+<div class="swiper-slides p-2" style="border: white 1px solid; 
+border-top: #fdfcfb 1px solid;
+border-right: #e2d1c3 1px solid;
+border-radius: 2rem;">
+<div class="mt-3">
+      <h3 class="font-primary p-1" style="background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Paquete 3
+        </h3>
+        
+      <div >
+            <span>
+                  15 Fotos digitales 
+                </span> <br>
+                <span>
+                  1 Hora de session
+                  </span> <br>
+                  <span>
+                        15 fotos Impresas 5x7
+                  </span> <br>
+                  <span>
+                        1 Hora de session, Toga, Birrete
+                  </span> <br>
+                  <span>
+                        1 Foto Enmarcada 8x11
+                  </span> <br>
+                <span>
+                  <strong>RD$5,000.00</strong>
+                </span> <br>
+      </div>
+      <span class=" d-flex justify-content-center mt-5 pt-3">
+            <a href="{% url "citas:create-customer"  11 %}">
+        <button style="background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%) !important; 
+          border-radius: 1.5rem; height: auto;
+          width: 15rem;" class="text-white p-2">Agendar</button>
+            </a>
+      </span>
+
+</div>
+</div>
+
+
+</div>
       <!-- Add Pagination -->
       {% comment %} <div class="swiper-pagination"></div> {% endcomment %}
       <!-- Add Navigation -->
@@ -160,8 +504,7 @@
 
       .swiper-slides {
             background-color: #000;
-            min-height: 20rem;
-            min-width: 310px;
+            min-width: 315px;
             margin: 0.3rem;
 
       }
