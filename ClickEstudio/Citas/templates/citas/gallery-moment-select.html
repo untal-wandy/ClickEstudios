@@ -1,0 +1,64 @@
+{% extends 'citas/base/base.html' %}
+
+{% block content %}
+
+<div class="gallery w-100  ">
+      {% if img %}
+            {% for m in img %}
+            <div class="image-container">
+                  {% if m.image  %}
+                        <img src="{{ m.image.url }}" id='{{m.id}}' alt="">
+
+                  {% endif %}
+            </div>
+            {% endfor %}
+            {% else %}
+      {% endif %}
+</div>
+<div  class='p-2 mt-1 position-fixed w-100 bottom-0 bg-black bg-opacity-10 blur p-4 ps-2 pe-4'
+      style=''>
+      {% if img %}
+      <h3 class='font-primary mb-4'>
+            Galeria de Momentos   {{moment.name}}
+            </h3>
+            {% else %}
+                  <h3 class='font-primary text-center mb-4'>
+                        No hay imagenes en esta galeria
+                        </h3>
+      {% endif %}
+                  <a href="{% url "citas:dashboard-citas" %}">
+                        <button class='border-0 p-1 pe-4 ps-4 mb-4 font-primary' 
+                        style='border-radius: 1rem;'>
+            Atras 
+      </button>
+      </a>
+</div>
+
+<style>
+      .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10rem;
+            {% comment %} justify-content: center; {% endcomment %}
+      }
+
+      .image-container {
+            margin: 4px;
+      }
+
+      img {
+            width: 120px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+      }
+      img:hover {
+            scale(1.2);
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 16px;
+      }
+
+</style>
+{% endblock %}

@@ -34,3 +34,7 @@ class AppointmentForm(forms.ModelForm):
             # Add the 'form-control' class to all form fields
             for field in self.fields:
                   self.fields[field].widget.attrs['class'] = 'form-control'
+                  
+                  
+                  
+                  

@@ -1,11 +1,16 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, DetailView
+from django.views.generic import TemplateView, CreateView, DetailView, View
 from . import forms, models
 from django.urls import reverse 
 from django.http import HttpResponseRedirect
 
 class DashboardCitas(TemplateView):
       template_name = 'citas/inicio.html'
+                  
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['moment'] = models.MomentImage.objects.all()
+            return context
 
       
 class CustomerCreateView(CreateView):
@@ -22,7 +27,8 @@ class CustomerCreateView(CreateView):
             else:
                   print(form.errors)
                   return super().form_invalid(form) 
-      
+
+            
       # def post(self, request, *args, **kwargs):
       #   f = self.form_class(request.POST)
       #   if f.is_valid():
@@ -54,6 +60,21 @@ class CustomerDetailView(DetailView):
             context['c'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
+      
+class GalleryMomentSelect(DetailView):
+      model = models.MomentImage
+      template_name = 'citas/gallery-moment-select.html'
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
+            context['moment'] = self.model.objects.get(id=self.kwargs.get('pk'))
+
+            
+            return context
+      
+      
+
       
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
