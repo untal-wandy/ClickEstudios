@@ -1,0 +1,110 @@
+{% extends "citas/base/base.html" %}
+{% block content %}
+      <style>
+            {% comment %} body 
+            {
+                  background: white;
+                  color: black;
+                  height: 90vh;
+            } {% endcomment %}
+            .section-admin div
+            {
+                  border: 1px solid rgba(82, 82, 82, 0.767);
+                  border-radius: 1.3rem;
+                  padding: 4px;
+                  margin: 4px;
+            }
+            div a 
+            {
+
+                  {% comment %} color: black; {% endcomment %}
+            }
+            div
+            {
+                  color: white; 
+            }
+
+            .background-container {
+            position: relative;
+            width: 100%;
+            height: 45vh; /* Ajusta la altura según sea necesario */
+            background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-position: center;
+        }
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
+            color: white; /* Cambia el color del texto según sea necesario */
+        }
+
+      </style>
+      <div class="background-container vh-100 mb-5 pb-5" style='' id="bg-admin" >
+            <div class="content">
+                <!-- Aquí va el contenido -->
+            </div>
+        </div> 
+<section class='section-admin d-flex position-fixed  top-0 h-100 '>
+      <div class="border-0" style=" width: 260px;">
+            <h3   class="font-primary  text-center w-100 " style=" text-shadow: #000 1px 2px 3px;">
+                  ClickEstudios 
+                  <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                      </svg>
+            </h3>
+      </div>
+            <!-- <div class="w-10 shadow border-0 "> 
+            </div> --> 
+            
+            <div class="w-100 border-0 mt-1">
+                  <div class="border-0 d-flex justify-content-end">
+                        <button class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary"
+                              style="border-radius: 1.5rem; ">
+                              Crear Cita
+                        </button>
+                        <button id="menu-admin" class="bg-white border-0 rounded-circle" style="width: 2rem; height: 2rem;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill p-0 m-0" viewBox="0 0 16 16">
+                                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
+                                  </svg>
+                        </button>
+                  </div>
+                  <div style="height: 90vh;" class=" shadow p-3 blur border-0  d-flex flex-wrap justify-content-center  overflow-scroll">
+                  
+                        {% include "citas/administration/list-citas.html" %}
+                  </div>
+            </div>
+      </section>
+      <div id="div-menu-admin" style="display: none;" >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore exercitationem blanditiis modi voluptatibus voluptatem praesentium optio mollitia quasi fugiat repellendus ullam incidunt fuga suscipit rerum error, nam atque ipsam.  
+      </div>
+
+      <script>
+            setInterval(function() {
+            let images = [
+                  "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
+                  "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
+                  "https://cdn.shopify.com/s/files/1/0047/9035/3966/products/ellatop.jpg?v=1615583910",
+                  "https://i.pinimg.com/736x/3d/87/ba/3d87bad974bee313d330fb2755708e81.jpg",
+            ];
+            let randomIndex = Math.floor(Math.random() * images.length);
+            let imageUrl = images[randomIndex];
+            document.getElementById("bg-admin").style.backgroundImage = "url(" + imageUrl + ")";
+}, 4000); 
+
+function MenuAdmin() {
+      var div = document.getElementById("div-menu-admin");
+      if (div.style.display === "none") {
+            div.style.display = "block";
+      } else {
+            div.style.display = "none";
+      }
+}
+      </script>
+
+{% endblock  %}

@@ -1,0 +1,82 @@
+
+<style>
+      .h3s h3 
+      {
+            font-size: 12px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+      }
+      #span-plan 
+      {
+            display: none !important;
+      }
+      .div-btns button
+      {
+            border-radius: 1rem;
+            padding: 3px 15px;
+            border: 0;
+            margin: 4px;
+            margin-right: 0;
+      }
+</style>
+
+<div class="border-0  w-100">
+      <h6 class="w-100 font-primary ">
+            Lista de Agendas
+      </h6>
+      <p class=" text-white-50">
+            Facilita la planificación diaria, semanal o mensual, permitiendo distribuir el tiempo de manera eficiente y optimizar la productividad.
+      </p>
+</div>
+
+{% if c %}
+      {% for c in c %}
+            <div class="card bg-black  bg-opacity-50 " 
+                  style="width: 23rem;">
+                  <div class="card-body border-0 " >
+                        <h6 class="card-title text-white font-primary mt-2" > {{c.name}} </h6>
+                              <h6 class='text-white'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+                                          <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
+                                          <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
+                                        </svg>    {{c.email}} <br> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                          <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                                        </svg> {{c.number}}
+                              </h6>
+                              <span class="w-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3 text-white" viewBox="0 0 16 16">
+                                          <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
+                                          <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                    </svg><span class="text-white-50" 
+                                    style="font-size: 16px;"> {{ c.date_choice|date:"d/M/Y" }}
+                                    </span><br>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill text-white" viewBox="0 0 16 16">
+                                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                        </svg> <span class="text-white-50" style="font-size: 16px;"> {{c.date_time_choice}} </span><br>
+                                    
+                              </span>
+                        {% comment %} <h6 class="card-subtitle mb-2 text-white text-body-secondary"> 
+                              {{ c.date_choice|date:"d/M/Y" }}   {{ c.date_time_choice}}
+                        </h6> {% endcomment %}
+                        <p class="card-text">
+                              {% include "citas/components/plans.html" %}
+                        </p>
+                        <div class="w-100 border-0">
+                              <hr>
+                        </div>
+                        {% comment %} <a href="#" class="card-link">Card link</a> {% endcomment %}
+                        {% comment %} <a href="#" class="card-link">Another link</a> {% endcomment %} 
+                        <div class="d-flex div-btns border-0 justify-content-end">
+                              <button class="font-primary  bg-transparent text-white">
+                                    Terminado
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle-fill text-white" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                  </svg> -->
+                              </button>
+                              <button class="font-primary text-white-50 bg-transparent" 
+                                    style="border: 1px solid rgba(75, 75, 75, 0.774);">Cancelar</button>
+                        </div>
+                  </div>
+            </div>
+      {% endfor %}
+{% endif %}

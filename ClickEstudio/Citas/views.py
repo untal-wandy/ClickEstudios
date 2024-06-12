@@ -21,6 +21,15 @@ class DashboardCitas(TemplateView, Mail):
             return context
       
 
+class CitasAdministrations(TemplateView, Mail):
+      template_name = 'citas/administration/aministrations.html'
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['c'] = models.Customer.objects.all()
+            return context
+      
+
 
       
 class CustomerCreateView(CreateView, Mail):
@@ -34,8 +43,8 @@ class CustomerCreateView(CreateView, Mail):
                   form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
                   instance = form.save() 
                   
-                  self.SendGmail(form.instance.email, 'Confirmacion', 
-                              'Esta es la confirmacion de tu cita, gracias por elegirnos.')
+                  # self.SendGmail(form.instance.email, 'Confirmacion', 
+                  #             'Esta es la confirmacion de tu cita, gracias por elegirnos.')
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': instance.id}))
             else:
                   print(form.errors)
