@@ -3,8 +3,13 @@ from django.views.generic import TemplateView, CreateView, DetailView, View
 from . import forms, models
 from django.urls import reverse 
 from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
+from django.conf import settings
+from .Options import Mail 
 
-class DashboardCitas(TemplateView):
+
+
+class DashboardCitas(TemplateView, Mail):
       template_name = 'citas/inicio.html'
                   
       def get_context_data(self, **kwargs):
@@ -12,12 +17,13 @@ class DashboardCitas(TemplateView):
             context['moment'] = models.MomentImage.objects.all()
             context['service'] = models.ServiceImage.objects.all()
             context['setting'] = models.Setting.objects.get(name='icon')
-
-
+            print(self.SendGmail('untal.wandy@gmail.com', 'Prueba', 'Esto es una prueba de correo'))
             return context
+      
+
 
       
-class CustomerCreateView(CreateView):
+class CustomerCreateView(CreateView, Mail):
       model = models.Customer
       form_class = forms.CustomerForm
       template_name = 'citas/create-customer.html'  
@@ -27,10 +33,19 @@ class CustomerCreateView(CreateView):
             if form.is_valid():
                   form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
                   instance = form.save() 
+                  
+                  self.SendGmail(form.instance.email, 'Confirmacion', 
+                              'Esta es la confirmacion de tu cita, gracias por elegirnos.')
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': instance.id}))
             else:
                   print(form.errors)
                   return super().form_invalid(form) 
+            
+            
+            
+            
+            
+
 
             
       # def post(self, request, *args, **kwargs):
