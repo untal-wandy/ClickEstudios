@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, DetailView, View
+from django.views.generic import TemplateView, CreateView, DetailView, View, UpdateView
 from . import forms, models
 from django.urls import reverse 
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
 from .Options import Mail 
-
+from django.urls import reverse_lazy
 
 
 class DashboardCitas(TemplateView, Mail):
@@ -118,13 +118,57 @@ class ServiceSelect(DetailView):
       
       
 class ServiceCreateView(CreateView):
-            model = models.ServiceImage
-            form_class = forms.ServiceImageForm
-            template_name = 'citas/create-service.html'
+      model = models.ServiceImage
+      form_class = forms.ServiceImageForm
+      template_name = 'citas/create-service.html'
+      success_url = reverse_lazy('citas:service-create')
 
-            def form_valid(self, form):
-                  form.save()
-                  return super().form_valid(form)
+      def form_valid(self, form):
+            # Imprime los datos POST para depuración
+            print(self.request.POST)
+            # Guarda el formulario y luego llama a super().form_valid(form) para redirigir
+            # response = super().form_valid(form)
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            # Imprime los errores del formulario para depuración
+            print(form.errors)
+            return super().form_invalid(form)
+      
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service'] = models.ServiceImage.objects.all()
+            context['service_admin'] = True
+            # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
+            return context
+      
+      
+class ServiceUpdateView(UpdateView):
+      model = models.ServiceImage
+      form_class = forms.ServiceImageForm
+      template_name = 'citas/update-service.html'
+      success_url = reverse_lazy('citas:service-create')
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).image.url
+            context['service_admin'] = True
+            # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
+            return context
+      
+      
+      
+      def form_valid(self, form):
+            print(self.request.POST)
+            # Guarda el formulario y luego llama a super().form_valid(form) para redirigir
+            # response = super().form_valid(form)
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            # Imprime los errores del formulario para depuración
+            print(form.errors)
+            return super().form_invalid(form)
 
       
 """

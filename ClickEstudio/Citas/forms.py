@@ -49,5 +49,10 @@ class ServiceImageForm(forms.ModelForm):
                   self.fields[field].widget.attrs['class'] = 'form-control'
             # Add placeholders to form fields
             self.fields['image'].widget.attrs['placeholder'] = 'Image URL'
-            self.fields['description'].widget.attrs['placeholder'] = 'Description'
+            # self.fields['description'].widget.attrs['placeholder'] = 'Description'
+                  
+            widgets = {
+                        'image': forms.ClearableFileInput(attrs={'accept': 'image/*'})
+                  }
+
                   

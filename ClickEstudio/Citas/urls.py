@@ -17,9 +17,14 @@ urlpatterns = [
     # Administrative views
     path('administrations-citas', views.CitasAdministrations.as_view(), 
         name='administrations-citas' ),  
+    
+    path('service-update/<int:pk>', views.ServiceUpdateView.as_view(), name='service-update'),
+    
+    path('service-create/', views.ServiceCreateView.as_view(), name='service-create'),
 
 
     # Ajax views
     path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
+    path('delete-service/', views_ajax.DeleteService, name='delete-service'),
 
 ]

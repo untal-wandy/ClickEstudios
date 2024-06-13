@@ -1,39 +1,68 @@
 <div class="mt-2">
+      {% if user.is_authenticated %}
+      <h3 class='font-primary mb-3 text-start'>
+            Lista de nuestros servicios
+      </h3>      {% else %}
       <h3 class='font-primary mb-3 text-start'>
             Nuestros servicios
       </h3>
+      {% endif %}
+
+
       <section class="section d-flex overflow-scroll pe-4 " style="direction: rtl;">
 
 
       {% if service %}
             {% for s in service %}
-                  <a href="{% url "citas:service-select" s.id %}">
-                        <div>
-                              <img src="{{s.image.url}}" alt="">
-                              <span>
-                                    {{s.name}}
-                              </span>
-                              <button>
-                                    Ver mas
-                              </button>
-                        </div>
-                  </a>
+            <div id='delete-c{{s.id}}'>
+                  <a href="{% url "citas:service-select" s.id %}"
+                  class='position-relative'>
+                  <img src="{{s.image.url}}" alt="">
+                  <span>
+                        {{s.name}}
+                        </span>
+                        <button>
+                              Ver mas
+                        </button> 
+                  </a> 
+                  {% if service_admin %}
+
+                              <br>
+                              <div>
+                                   <a href="{% url "citas:service-update" s.id %}">
+                                          <button>
+                                                Editar
+                                          </button>
+                                   </a>
+                                    <button  onclick='DeledeteService(this.id)' id='{{s.id}}'  class='border-0'>
+                                          Eliminar
+                                    </button>
+                              </div>
+
+                        {% endif %}
+                        
+            </div>
+                              
             {% endfor %}
                         
       {% endif %}
 
-
-
       </section>
 </div>
 <style>
+      .section {
+            height: 30rem;
+      }
       .section div {
             min-width: 300px;
             min-height: 200px;
+            max-width: 300px;
+            max-height: 200px;
             margin: 0.2rem;
       }
 
       .section  div img {
+            object-fit: cover;
             max-width: 300px;
             max-height: 200px;
             min-width: 300px;
@@ -63,5 +92,15 @@
 </style>
 
 <script>
+      function DeledeteService(I) {
+            document.getElementById('delete-c'+I).style.display = 'none';
+            $.ajax({
+                  url: '/delete-service/',
+                  data: {
+                        s_id: I
+                  }
+            })
+      }
       
 </script>
+

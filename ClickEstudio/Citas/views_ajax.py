@@ -7,3 +7,10 @@ def FinishedCita(request):
             c.finished = True
             c.save()
       return JsonResponse(list(),  safe=False)
+
+
+
+def DeleteService(request):
+      s = models.ServiceImage.objects.get(id=request.GET.get('s_id'))
+      s.delete()
+      return JsonResponse(list(),  safe=False)
