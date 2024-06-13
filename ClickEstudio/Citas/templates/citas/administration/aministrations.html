@@ -51,41 +51,49 @@
             </div>
         </div> 
 <section class='section-admin d-flex position-fixed  top-0 h-100 '>
-      <div class="border-0" style=" width: 260px;">
-            <h3   class="font-primary  text-center w-100 " style=" text-shadow: #000 1px 2px 3px;">
-                  ClickEstudios 
-                  <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
-                      </svg>
-            </h3>
-      </div>
+
             <!-- <div class="w-10 shadow border-0 "> 
             </div> --> 
             
-            <div class="w-100 border-0 mt-1">
-                  <div class="border-0 d-flex justify-content-end">
-                        <button class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary"
-                              style="border-radius: 1.5rem; ">
-                              Crear Cita
-                        </button>
-                        <button id="menu-admin" class="bg-white border-0 rounded-circle" style="width: 2rem; height: 2rem;">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill p-0 m-0" viewBox="0 0 16 16">
-                                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
-                                  </svg>
-                        </button>
+            <div class="w-100 border-0 mt-1 ">
+                  <div class="d-flex border-0 blur p-1">
+                        <div class="border-0 w-50 d-flex start-0  " style=" ">
+                              <h3   class="font-primary   w-100 " style=" text-shadow: #000 1px 2px 3px;">
+                                    ClickEstudios 
+                                    <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16">
+                                          <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                                        </svg>
+                              </h3>
+                        </div>
+                        <div class="border-0 d-flex justify-content-end w-50 ">
+                              <button class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary"
+                                    style="border-radius: 1.5rem; ">
+                                    Crear Cita
+                              </button>
+                              <button id="btn-admin" onclick="MenuAdmin()" class="bg-white border-0 rounded-circle" style="width: 2rem; height: 2rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill p-0 m-0" viewBox="0 0 16 16">
+                                          <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
+                                        </svg>
+                              </button>
+                        </div>
                   </div>
-                  <div style="height: 90vh;" class=" shadow p-3 blur border-0  d-flex flex-wrap justify-content-center  overflow-scroll">
+                  <div style="height: 90vh;" class=" shadow p-3 m-2 blur border-0  d-flex flex-wrap justify-content-center  overflow-scroll">
                   
                         {% include "citas/administration/list-citas.html" %}
                   </div>
             </div>
-      </section>
-      <div id="div-menu-admin" style="display: none;" >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore exercitationem blanditiis modi voluptatibus voluptatem praesentium optio mollitia quasi fugiat repellendus ullam incidunt fuga suscipit rerum error, nam atque ipsam.  
+      <div id="div-menu-admin" class="position-fixed bg-black bg-opacity-50 end-0"  
+            style="display: none; top: 4rem; width: max-content;" >
+            <div class="d-flex flex-column border-0">
+                  <a href="#" class="text-white p-2">Planes</a>
+                  <a href="#" class="text-white p-2">Servicios</a>
+                  <a href="#" class="text-white p-2">Galeria de Momentos</a>
+            </div>
       </div>
+      </section>
 
       <script>
-            setInterval(function() {
+      setInterval(function() {
             let images = [
                   "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
                   "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
@@ -96,15 +104,17 @@
             let imageUrl = images[randomIndex];
             document.getElementById("bg-admin").style.backgroundImage = "url(" + imageUrl + ")";
 }, 4000); 
+      let div = document.getElementById("div-menu-admin");
+           
 
-function MenuAdmin() {
-      var div = document.getElementById("div-menu-admin");
-      if (div.style.display === "none") {
-            div.style.display = "block";
-      } else {
-            div.style.display = "none";
+
+      function MenuAdmin() {
+            if (div.style.display === "none") {
+                  div.style.display = "block";
+            } else {
+                  div.style.display = "none";
+            }
       }
-}
       </script>
 
 {% endblock  %}
