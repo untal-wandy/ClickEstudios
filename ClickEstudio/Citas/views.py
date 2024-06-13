@@ -115,6 +115,14 @@ class ServiceSelect(DetailView):
             return context
       
       
+class ServiceCreateView(CreateView):
+            model = models.ServiceImage
+            form_class = forms.ServiceImageForm
+            template_name = 'citas/create-service.html'
+
+            def form_valid(self, form):
+                  form.save()
+                  return super().form_valid(form)
 
       
 """

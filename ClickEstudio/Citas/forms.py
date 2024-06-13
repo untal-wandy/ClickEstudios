@@ -37,4 +37,17 @@ class AppointmentForm(forms.ModelForm):
                   
                   
                   
+class ServiceImageForm(forms.ModelForm):
+      class Meta:
+            model = models.ServiceImage
+            fields = '__all__'  # Include all fields
+
+      def __init__(self, *args, **kwargs):
+            super(ServiceImageForm, self).__init__(*args, **kwargs)
+            # Add the 'form-control' class to all form fields
+            for field in self.fields:
+                  self.fields[field].widget.attrs['class'] = 'form-control'
+            # Add placeholders to form fields
+            self.fields['image'].widget.attrs['placeholder'] = 'Image URL'
+            self.fields['description'].widget.attrs['placeholder'] = 'Description'
                   
