@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, views_ajax
 
 app_name = 'citas'
 urlpatterns = [
@@ -18,5 +18,8 @@ urlpatterns = [
     path('administrations-citas', views.CitasAdministrations.as_view(), 
         name='administrations-citas' ),  
 
+
+    # Ajax views
+    path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
 
 ]

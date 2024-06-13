@@ -26,7 +26,9 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['c'] = models.Customer.objects.all()
+            context['c'] = models.Customer.objects.filter(finished=False)
+            context['setting'] = models.Setting.objects.get(name='icon')
+
             return context
       
 

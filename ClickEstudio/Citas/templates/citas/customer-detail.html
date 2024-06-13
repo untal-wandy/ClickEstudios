@@ -108,7 +108,15 @@
                               </a>
                               </span>
                         </div>
-                </div>
+
+                        {% if user.is_authenticated %}
+                              <script>
+                                    setTimeout(function() {
+                                          window.location.href = '/administrations-citas';
+                                    }, 5000);
+                              </script>
+                        {% endif %}
+                  </div>
             {% comment %} Detalles Adicionales: <span class="text-white-50" style="font-size: 20px;">[Cualquier información adicional relevante]</span><br> {% endcomment %}
             {% comment %} Si tiene alguna pregunta o necesita reprogramar su cita, no dude en p {% endcomment %}
                   

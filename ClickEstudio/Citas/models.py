@@ -15,6 +15,8 @@ class Customer(models.Model):
       date_time_choice = models.TimeField(default='10:00') 
       plan_choice = models.IntegerField(default=2)
       
+      finished = models.BooleanField(default=False)
+      
       def __str__(self):
             return f"{self.name} {self.last_name}"
   
