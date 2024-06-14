@@ -17,6 +17,8 @@ class DashboardCitas(TemplateView, Mail):
             context['moment'] = models.MomentImage.objects.all()
             context['service'] = models.ServiceImage.objects.all()
             context['setting'] = models.Setting.objects.get(name='icon')
+            context['plans'] = models.Plans.objects.all()
+
             # print(self.SendGmail('untal.wandy@gmail.com', 'Prueba', 'Esto es una prueba de correo'))
             return context
       
