@@ -31,8 +31,6 @@ class CitasAdministrations(TemplateView, Mail):
             context['c'] = models.Customer.objects.filter(finished=False)
             context['setting'] = models.Setting.objects.get(name='icon')
             context['plans'] = models.Plans.objects.all()
-
-
             return context
       
 
@@ -116,6 +114,7 @@ class ServiceSelect(DetailView):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).service_img.all()
             context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
+            context['plans'] = self.model.objects.get(id=self.kwargs.get('pk')).services.all()
 
             
             return context

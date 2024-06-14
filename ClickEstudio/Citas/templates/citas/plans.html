@@ -22,7 +22,7 @@
 </style>
 {% load humanize %}
 {% if plans %}
-      <div class='d-flex '>
+      <div id='div-plans' class='d-flex '>
             {% for p in plans %}
             <div id='delete-c{{p.id}}' class='background-container border-0 m-2 overflow-hidden' 
             style='background-image: url( {{p.img.url}} );

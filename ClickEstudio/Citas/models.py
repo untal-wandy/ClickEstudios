@@ -82,6 +82,7 @@ class Setting(models.Model):
 class Plans(models.Model):
       name = models.CharField(max_length=255, default='Plan')
       description = models.TextField(default='Descripción del plan', blank=True, null=True)
+      service = models.ForeignKey(ServiceImage, related_name='services', on_delete=models.CASCADE, blank=True, null=True)
       img = models.ImageField(upload_to='media/')
       price = models.IntegerField(default=0)
       date_created = models.DateTimeField(auto_now_add=True)
@@ -91,8 +92,8 @@ class Plans(models.Model):
       
 # Carateristicas de los planes
 class CaratPlanes(models.Model):
-      plans = models.ForeignKey(Plans, related_name='plans', on_delete=models.CASCADE)
-      name = models.CharField(max_length=255, default='Plan')
+      plans = models.ForeignKey(Plans, related_name='plans', on_delete=models.CASCADE, blank=True, null=True)
+      name = models.CharField(max_length=255, default='Plan o Servicio')
       date_created = models.DateTimeField(auto_now_add=True)
       
       def __str__(self):
