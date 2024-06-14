@@ -23,6 +23,13 @@
             color: tomato !important;
             border-color: tomato !important;
       }
+      .section-admin div
+      {
+            border: 1px solid rgba(82, 82, 82, 0.767);
+            border-radius: 2rem;
+            padding: 4px;
+            margin: 4px;
+      }
 </style>
 
 <div class="border-0  w-100 d-none">
@@ -37,7 +44,7 @@
 {% if c %}
       {% for c in c %}
             <div id='list-c{{c.id}}' class="card bg-black  bg-opacity-50 " 
-                  style="width: 23rem;">
+                  style="width: 23rem; height:14rem ;">
                   <div class="card-body border-0 " >
                         <h6 class="card-title text-white font-primary mt-2" > {{c.name}} </h6>
                               <h6 class='text-white'>
