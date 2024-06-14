@@ -158,7 +158,6 @@ class ServiceUpdateView(UpdateView):
             return context
       
       
-      
       def form_valid(self, form):
             print(self.request.POST)
             # Guarda el formulario y luego llama a super().form_valid(form) para redirigir
@@ -169,6 +168,62 @@ class ServiceUpdateView(UpdateView):
             # Imprime los errores del formulario para depuración
             print(form.errors)
             return super().form_invalid(form)
+      
+      
+class MomentImgeCreate(CreateView):
+      model = models.MomentImage
+      form_class = forms.MomentImageForm
+      template_name = 'citas/moment-image-create.html'
+      success_url = reverse_lazy('citas:moment-image-create')
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['moment'] = models.MomentImage.objects.all()
+            context['service_admin'] = True
+            # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
+            return context
+      
+      
+      def form_valid(self, form):
+            print(self.request.POST, self.request.FILES)
+            
+            # Guarda el formulario y luego llama a super().form_valid(form) para redirigir
+            # response = super().form_valid(form)
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            # Imprime los errores del formulario para depuración
+            print(form.errors)
+            return super().form_invalid(form)
+      
+      
+      
+class MomentImgeUpdate(UpdateView):
+      model = models.MomentImage
+      form_class = forms.MomentImageForm
+      template_name = 'citas/moment-image-update.html'
+      success_url = reverse_lazy('citas:moment-image-create')
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['moment'] = models.MomentImage.objects.all()
+            context['service_admin'] = True
+            # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
+            return context
+      
+      
+      def form_valid(self, form):
+            print(self.request.POST, self.request.FILES)
+            
+            # Guarda el formulario y luego llama a super().form_valid(form) para redirigir
+            # response = super().form_valid(form)
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            # Imprime los errores del formulario para depuración
+            print(form.errors)
+            return super().form_invalid(form)
+
 
       
 """

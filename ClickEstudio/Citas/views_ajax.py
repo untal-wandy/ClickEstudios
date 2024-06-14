@@ -14,3 +14,8 @@ def DeleteService(request):
       s = models.ServiceImage.objects.get(id=request.GET.get('s_id'))
       s.delete()
       return JsonResponse(list(),  safe=False)
+
+def DeleteMomentImage(request):
+      m = models.MomentImage.objects.get(id=request.GET.get('m_id'))
+      m.delete()
+      return JsonResponse(list(),  safe=False)

@@ -21,10 +21,15 @@ urlpatterns = [
     path('service-update/<int:pk>', views.ServiceUpdateView.as_view(), name='service-update'),
     
     path('service-create/', views.ServiceCreateView.as_view(), name='service-create'),
+    
+    path('moment-image-create/', views.MomentImgeCreate.as_view(), name='moment-image-create'),
+    path('moment-image-update/<int:pk>', views.MomentImgeUpdate.as_view(), name='moment-image-update'),
 
 
     # Ajax views
     path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
     path('delete-service/', views_ajax.DeleteService, name='delete-service'),
+    path('delete-moment-image/', views_ajax.DeleteMomentImage, name='delete-moment-image'),
+
 
 ]

@@ -5,54 +5,38 @@
 
       <div class="carrousel d-flex overflow-scroll ps-3">
             {% for m in moment %}       
-                  <a href="{% url "citas:gallery-moment-select" m.id %}">
-                        <div class="d-flex flex-wrap  justify-content-center align-content-center" style=" min-width: 300px; height: 200px; 
-                        background-image: url({{m.image.url}}) ;
-
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: cover; ">
-                        <span class=" h-100 font-primary w-100 text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(4px) !important;
-                        backdrop-filter: blur(4px);
-                        text-shadow: 1px 2px 3px #000;
-                        font-size: 16px;">
-                              {{m.name}}
-                        </span>
-                        </div>
-                  </a>
+                  <div>
+                        <a id='delete-c{{m.id}}' href="{% url "citas:gallery-moment-select" m.id %}">
+                              <div class="d-flex flex-wrap  justify-content-center align-content-center" style=" min-width: 300px; height: 200px; 
+                              background-image: url({{m.image.url}}) ;
+                              
+                              background-position: center;
+                              background-repeat: no-repeat;
+                              background-size: cover; ">
+                                          <span class=" h-100 font-primary w-100  text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(4px) !important;
+                                          backdrop-filter: blur(4px);
+                                          text-shadow: 1px 2px 3px #000;
+                                          font-size: 16px;">
+                                                {{m.name}}
+                                          </span>
+                                    </div>
+                              </a>
+                              {% if service_admin %}
+                                    <div id='delete-c1{{m.id}}' style='display: flex;' class=' justify-content-end'>
+                                          <button onclick='DeledeteMomentImage({{m.id}})' id='{{m.id}}' class='border-0' style='background-color: #000; color: #fff;'>
+                                                Eliminar
+                                          </button>
+                                          <a href="{% url "citas:moment-image-update" m.id %}">
+                                                <button class='bg-transparent  font-primary text-white border-1' 
+                                                style='border-radius: 1rem; border: solid white 1px;
+                                                width: 5rem;'>
+                                                Editar
+                                          </button>
+                                    </a>
+                                    </div>
+                              {% endif %}
+                  </div>
             {% endfor %}
-
-            <!-- <div class="d-flex flex-wrap  justify-content-center align-content-center" style="min-width: 300px; height: 200px; background-image: url('https://th.bing.com/th/id/OIP.peiiF__837AFnD373XM2_gHaE7?rs=1&pid=ImgDetMain') ;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover; ">
-                  <span class=" h-100 font-primary w-100 text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(4px) !important;
-                  backdrop-filter: blur(4px);
-                  text-shadow: 1px 2px 3px #000;
-                  font-size: 16px;">
-                        Cumpleaños
-                  </span>
-            </div>            <div class="d-flex flex-wrap  justify-content-center align-content-center" style="min-width: 300px; height: 200px; background-image: url('https://lebanana.com/wp-content/uploads/2023/03/310920933_867403398003814_2856778672749714148_n.jpg') ;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover; ">
-                  <span class=" h-100 font-primary w-100 text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(4px) !important;
-                  backdrop-filter: blur(4px);
-                  text-shadow: 1px 2px 3px #000;
-                  font-size: 16px;">
-                        Corporativas
-                  </span>
-            </div>            <div class="d-flex flex-wrap  justify-content-center align-content-center" style="min-width: 300px; height: 200px; background-image: url('https://i.pinimg.com/originals/c0/e6/e5/c0e6e5c3c17b27dce1547a3971b7c434.jpg') ;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover; ">
-                  <span class=" h-100 font-primary w-100 text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(4px) !important;
-                  backdrop-filter: blur(4px);
-                  text-shadow: 1px 2px 3px #000;
-                  font-size: 16px;">
-                        Graduaciones
-                  </span>
-            </div> -->
       </div>
 
 </div>
@@ -63,3 +47,16 @@
             margin: 0.5rem;
       }
 </style>
+<script>
+      function DeledeteMomentImage(I) {
+            document.getElementById('delete-c'+I).style.display = 'none';
+            
+            $.ajax({
+                  url: '/delete-moment-image/',
+                  data: {
+                        m_id: I
+                  }
+            })
+            document.getElementById('delete-c1'+I).style.display = 'none';
+      }
+</script>

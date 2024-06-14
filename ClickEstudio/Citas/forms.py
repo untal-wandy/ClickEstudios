@@ -56,3 +56,12 @@ class ServiceImageForm(forms.ModelForm):
                   }
 
                   
+                  
+class MomentImageForm(forms.ModelForm):
+            class Meta:
+                  model = models.MomentImage
+                  fields = ['name', 'image']
+                  widgets = {
+                        'name': forms.TextInput(attrs={'class': 'form-control'}),
+                        'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+                  }
