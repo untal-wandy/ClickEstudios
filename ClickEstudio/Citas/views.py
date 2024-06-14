@@ -30,6 +30,8 @@ class CitasAdministrations(TemplateView, Mail):
             context = super().get_context_data(**kwargs)
             context['c'] = models.Customer.objects.filter(finished=False)
             context['setting'] = models.Setting.objects.get(name='icon')
+            context['plans'] = models.Plans.objects.all()
+
 
             return context
       
@@ -142,6 +144,8 @@ class ServiceCreateView(CreateView):
             context = super().get_context_data(**kwargs)
             context['service'] = models.ServiceImage.objects.all()
             context['service_admin'] = True
+            context['plans'] = models.Plans.objects.all()
+
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
@@ -156,6 +160,8 @@ class ServiceUpdateView(UpdateView):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).image.url
             context['service_admin'] = True
+            context['plans'] = models.Plans.objects.all()
+
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
@@ -182,6 +188,8 @@ class MomentImgeCreate(CreateView):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
+            context['plans'] = models.Plans.objects.all()
+
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
@@ -210,6 +218,8 @@ class MomentImgeUpdate(UpdateView):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
+            context['plans'] = models.Plans.objects.all()
+
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
@@ -225,6 +235,54 @@ class MomentImgeUpdate(UpdateView):
             # Imprime los errores del formulario para depuración
             print(form.errors)
             return super().form_invalid(form)
+      
+      
+      
+      
+class PlansCreate(CreateView):
+      model = models.Plans
+      form_class = forms.PlansForm
+      template_name = 'citas/plans-create.html'
+      success_url = reverse_lazy('citas:plans-create')
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['plans'] = models.Plans.objects.all()
+
+            # context['moment'] = models.MomentImage.objects.all()
+            context['service_admin'] = True
+            return context
+      
+      def form_valid(self, form):
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            return super().form_invalid(form)
+      
+      
+ 
+class PlansUpdate(UpdateView):
+      model = models.Plans
+      form_class = forms.PlansForm
+      template_name = 'citas/plans-update.html'
+      success_url = reverse_lazy('citas:plans-create')
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).img.url
+            # context['moment'] = models.MomentImage.objects.all()
+            context['service_admin'] = True
+            context['plans'] = models.Plans.objects.all()
+
+            return context
+      
+      def form_valid(self, form):
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            return super().form_invalid(form)
+
+
 
 
       

@@ -25,11 +25,15 @@ urlpatterns = [
     path('moment-image-create/', views.MomentImgeCreate.as_view(), name='moment-image-create'),
     path('moment-image-update/<int:pk>', views.MomentImgeUpdate.as_view(), name='moment-image-update'),
 
+    path('plans-create/', views.PlansCreate.as_view(), name='plans-create'),
+    path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
 
     # Ajax views
     path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
     path('delete-service/', views_ajax.DeleteService, name='delete-service'),
     path('delete-moment-image/', views_ajax.DeleteMomentImage, name='delete-moment-image'),
+    path('delete-plans/', views_ajax.DeletePlans, name='delete-plans'),
+
 
 
 ]

@@ -19,3 +19,11 @@ def DeleteMomentImage(request):
       m = models.MomentImage.objects.get(id=request.GET.get('m_id'))
       m.delete()
       return JsonResponse(list(),  safe=False)
+
+
+
+def DeletePlans(request):
+      p = models.Plans.objects.get(id=request.GET.get('p_id'))
+      p.delete()
+      return JsonResponse(list(),  safe=False)
+
