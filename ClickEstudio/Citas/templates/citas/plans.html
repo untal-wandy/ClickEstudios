@@ -1,12 +1,13 @@
+{% if service_admin %}
 <style>
       .background-container {
             position: relative;
             width: 100%;
-            height: 45vh; /* Ajusta la altura según sea necesario */
+            height: 50vh; /* Ajusta la altura según sea necesario */
             background-size: cover;
             background-position: center;
             border-radius: 1.5rem;
-        }
+      }
 
         .content {
             position: absolute;
@@ -18,13 +19,38 @@
             box-sizing: border-box;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.098), rgb(0, 0, 0));
             color: white; /* Cambia el color del texto según sea necesario */
-        }
+      }
 </style>
+{% else %}
+<style>
+      .background-container {
+            position: relative;
+            width: 100%;
+            height: 45vh; /* Ajusta la altura según sea necesario */
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem;
+      }
+
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.098), rgb(0, 0, 0));
+            color: white; /* Cambia el color del texto según sea necesario */
+      }
+</style>
+{% endif %}
+
 {% load humanize %}
 {% if plans %}
       <div id='div-plans' class='d-flex '>
             {% for p in plans %}
-            <div id='delete-c{{p.id}}' class='background-container border-0 m-2 overflow-hidden' 
+            <div id='delete-p{{p.id}}' class='background-container border-0 m-2 overflow-hidden' 
             style='background-image: url( {{p.img.url}} );
             max-width: 320px; min-width: 320px; border-radius: 2rem; '>
                   <div class='content position-relative border-0'>
@@ -33,19 +59,28 @@
                         </h5>
                         <div class='p-2  overflow-scroll' 
                               style='border-radius: 0.8rem; height: 12rem;   font-size: 14px; text-shadow: 1px 2px 3px black;'>
+                              <span id='span-list{{p.id}}'>
                               {% if p.plans %}
                                     {% for pl in p.plans.all  %}
-                                          <li>{{pl.name}}</li>
+                                                <li id=''>{{pl.name}}</li>
                                     {% endfor %}
-                        {% endif %}
+                              {% endif %}
+                              </span>
                         </div>
                         <strong class='font-primary ' style='font-style: italic;'>
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi p-0 m-0 bi-currency-dollar" viewBox="0 0 16 16">
                                     <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
                                   </svg> {{p.price|intcomma}}
                         </strong>
-                        <div class=' start-0 p-2  w-100 d-flex justify-content-end position-absolute bottom-0'> 
+                        <div class=' start-0 p-2  w-100 d-flex flex-wrap justify-content-end position-absolute bottom-0'> 
                               {% if service_admin %}
+                                    <div id='caract{{p.id}}' class='d-flex w-100'>
+                                          <input type="text" id='input{{p.id}}' placeholder='Agregar caracteristica'> 
+                                          <button onclick='CreateCaract(this.id)' id='{{p.id}}'>
+                                                Agregar
+                                          </button>
+                                    </div>
+
                                     <button onclick='DeledetePlans(this.id)' id="{{p.id}}" class='rounded-4 font-primary me-1 text-white  bg-transparent border-0'>
                                           Eliminar
                                     </button>
@@ -55,14 +90,15 @@
                                           border: 1px white solid;'>
                                           Editar
                                     </button>
+                                    </a>
                               {% else %}
                               <a href="{% url "citas:create-customer" p.id %}">
                                     <button class=' bg-transparent  text-white font-primary' 
                                     style='width: 7rem; height: 2rem; border-radius: 1rem; 
                                     border: 1px white solid;'>
                                     Agendar
-                              </button>
-                        </a>
+                                    </button>
+                              </a>
                         {% endif %}
                         </div>
                   </div>
@@ -78,29 +114,36 @@
 
 
 <script>
-      setInterval(function() {
-            let img = [
-                  "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
-
-                  "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
-
-                  "https://cdn.shopify.com/s/files/1/0047/9035/3966/products/ellatop.jpg?v=1615583910",
-
-                  "https://i.pinimg.com/736x/3d/87/ba/3d87bad974bee313d330fb2755708e81.jpg",
-            ];
-            let random = Math.floor(Math.random() * img.length);
-            let url = img[random];
-            document.getElementById("bg-plans").style.backgroundImage = "url(" + url + ")";
-      }, 4000); 
-
       function DeledetePlans(I) {
-            document.getElementById('delete-c'+I).style.display = 'none';
-            
+            document.getElementById('delete-p'+I).style.display = 'none';
+           $.ajax({
+                 url: '/delete-plans/',
+                 data: {
+                       p_id: I
+                 }
+           })
+      }
+
+      function CreateCaract(C) {
+            let div = document.getElementById('span-list'+C);
+            let li = document.createElement('li');
+         
+            li.innerHTML = document.getElementById('input'+C).value
+            div.appendChild(li);
             $.ajax({
-                  url: '/delete-plans/',
+                  url: '/create-caract/',
                   data: {
-                        p_id: I
-                  }
+                        id: C,
+                        input: document.getElementById('input'+C).value
+                  },
+                  
+
             })
+            
+//            var input = document.getElementById('input'+C).value;
+//            var div = document.getElementById('caract'+C);
+//            var p = document.createElement('span-list'+C);
+//            p.innerHTML = input;
+//            div.appendChild(p);
       }
 </script>

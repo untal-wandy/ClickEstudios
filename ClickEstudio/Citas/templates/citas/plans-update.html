@@ -1,10 +1,15 @@
 {% extends "citas/base/base.html" %}
 {% block content %}
 <style>
-      input {
+      input, #id_service {
             border-radius: 1rem !important;
       }
 </style>
+<div class='p-1'>
+      <h5 class='font-primary text-white'>
+            Crear un nuevo Plan
+      </h5>
+</div>
 <section class='w-100 d-flex justify-content-center mt-5'>
       <form action="" method="post" style='width: 30rem;' enctype="multipart/form-data">
              {% csrf_token %}
@@ -14,7 +19,11 @@
                   {{form.name}}
                   <label for="id_name">Nombre del servicio</label>
             </div>
-            <div class='form-floating'>
+            <div class='form-floating '>
+                  {{form.service}}
+                  <label for="id_service">Elige un servicio</label>
+            </div>
+            <div class='form-floating '>
                   {{form.price}}
                   <label for="id_price">Precio del plan</label>
             </div>

@@ -4,6 +4,10 @@
       input {
             border-radius: 1rem !important;
       }
+      #base-plans
+      {
+          display: none !important;
+      }
 </style>
 <section class='w-100 d-flex justify-content-center mt-5'>
       <form action="" method="post" style='width: 30rem;' enctype="multipart/form-data">
@@ -11,6 +15,10 @@
             <div class='form-floating mb-1'>
                   {{form.name}}
                   <label for="id_name">Nombre del servicio</label>
+            </div>
+            <div class='form-floating '>
+                  {{form.service}}
+                  <label for="id_service">Elige un servicio</label>
             </div>
             <div class='form-floating'>
                   {{form.price}}

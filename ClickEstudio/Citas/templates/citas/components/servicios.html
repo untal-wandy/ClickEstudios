@@ -1,32 +1,28 @@
 <div class="mt-2">
       {% if user.is_authenticated %}
-      <h5 class='font-primary mb-3 text-start'>
-            Lista de nuestros servicios
-      </h5>      {% else %}
-      <h5 class='font-primary mb-3 text-start'>
-            Nuestros servicios
-      </h5>
+            <h5 class='font-primary mb-3 text-start'>
+                  Lista de nuestros servicios
+            </h5>      
+      {% else %}
+            <h5 class='font-primary mb-3 text-start'>
+                  Nuestros servicios
+            </h5>
       {% endif %}
-
-
       <section class="section d-flex overflow-scroll pe-4 " style="direction: rtl;">
-
-
       {% if service %}
             {% for s in service %}
             <div id='delete-c{{s.id}}'>
                   <a href="{% url "citas:service-select" s.id %}"
-                  class='position-relative'>
-                  <img src="{{s.image.url}}" alt="">
-                  <span>
-                        {{s.name}}
+                        class='position-relative'>
+                        <img src="{{s.image.url}}" alt="">
+                        <span>
+                              {{s.name}}
                         </span>
                         <button>
                               Ver mas
                         </button> 
                   </a> 
                   {% if service_admin %}
-
                               <br>
                               <div>
                                    <a href="{% url "citas:service-update" s.id %}">
@@ -34,19 +30,15 @@
                                                 Editar
                                           </button>
                                    </a>
-                                    <button  onclick='DeledeteService(this.id)' id='{{s.id}}'  class='border-0'>
+                                    <button onclick='DeledeteService(this.id)'
+                                    id='{{s.id}}'  class='border-0'>
                                           Eliminar
                                     </button>
                               </div>
-
-                        {% endif %}
-                        
-            </div>
-                              
-            {% endfor %}
-                        
+                  {% endif %}
+            </div> 
+            {% endfor %}             
       {% endif %}
-
       </section>
 </div>
 <style>
@@ -92,15 +84,14 @@
 </style>
 
 <script>
-      function DeledeteService(I) {
-            document.getElementById('delete-c'+I).style.display = 'none';
-            $.ajax({
-                  url: '/delete-service/',
-                  data: {
-                        s_id: I
-                  }
-            })
-      }
-      
+function DeledeteService(I) {
+      document.getElementById('delete-c'+I).style.display = 'none';
+      $.ajax({
+            url: '/delete-service/',
+            data: {
+                  s_id: I
+            }
+      })
+}
 </script>
 

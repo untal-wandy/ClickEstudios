@@ -60,7 +60,7 @@ class ServiceImageForm(forms.ModelForm):
 class MomentImageForm(forms.ModelForm):
             class Meta:
                   model = models.MomentImage
-                  fields = ['name', 'image']
+                  fields = ['name', 'image', ]
                   widgets = {
                         'name': forms.TextInput(attrs={'class': 'form-control'}),
                         'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
@@ -70,10 +70,11 @@ class MomentImageForm(forms.ModelForm):
 class PlansForm(forms.ModelForm):
     class Meta:
         model = models.Plans
-        fields = ['name', 'description', 'img', 'price']
+        fields = ['name', 'description', 'img', 'price', 'service', ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'img': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'service': forms.Select(attrs={'class': 'form-control'}),
         }

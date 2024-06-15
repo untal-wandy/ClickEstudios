@@ -1,5 +1,5 @@
 from . import models 
-
+from django.http import JsonResponse
 
 def FinishedCita(request):
       c = models.Customer.objects.get(id=request.GET.get('c_id'))
@@ -26,4 +26,23 @@ def DeletePlans(request):
       p = models.Plans.objects.get(id=request.GET.get('p_id'))
       p.delete()
       return JsonResponse(list(),  safe=False)
+
+
+def CreateCaract(request):
+      try:
+            p = models.Plans.objects.get(id=request.GET.get('id'))
+            cr = models.CaratPlanes.objects.create(plans=p, name=request.GET.get('input'))
+            caract_list = []
+            for p in p.plans.all():
+                  caract_list.append(
+                        {
+                              'id': p.id,
+                              'name': p.name
+                        }
+                  )
+            return JsonResponse(caract_list,  safe=False)
+      except models.Plans.DoesNotExist:
+            pass
+      return JsonResponse(caract_list,  safe=False)
+
 

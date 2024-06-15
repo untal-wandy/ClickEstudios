@@ -28,11 +28,13 @@ urlpatterns = [
     path('plans-create/', views.PlansCreate.as_view(), name='plans-create'),
     path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
 
+
     # Ajax views
     path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
     path('delete-service/', views_ajax.DeleteService, name='delete-service'),
     path('delete-moment-image/', views_ajax.DeleteMomentImage, name='delete-moment-image'),
     path('delete-plans/', views_ajax.DeletePlans, name='delete-plans'),
+    path('create-caract/', views_ajax.CreateCaract, name='create-caract'),
 
 
 
