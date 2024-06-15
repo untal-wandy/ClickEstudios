@@ -33,16 +33,20 @@ def CreateCaract(request):
             p = models.Plans.objects.get(id=request.GET.get('id'))
             cr = models.CaratPlanes.objects.create(plans=p, name=request.GET.get('input'))
             caract_list = []
-            for p in p.plans.all():
-                  caract_list.append(
-                        {
-                              'id': p.id,
-                              'name': p.name
-                        }
-                  )
-            return JsonResponse(caract_list,  safe=False)
+            dick  =  {
+                        'id': p.id,
+                        'name': p.name
+            }
+                  
+            return JsonResponse(dick,  safe=False)
       except models.Plans.DoesNotExist:
             pass
       return JsonResponse(caract_list,  safe=False)
+
+
+def DeleteCaract(request):
+      cr = models.CaratPlanes.objects.get(id=int(request.GET.get('id')),)
+      cr.delete()
+      return JsonResponse(list(),  safe=False)
 
 

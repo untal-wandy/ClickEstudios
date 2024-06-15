@@ -19,6 +19,17 @@
             box-sizing: border-box;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.098), rgb(0, 0, 0));
             color: white; /* Cambia el color del texto según sea necesario */
+      }     
+      .list {
+            transition: 0.5s;
+            cursor: pointer;
+      }
+      .list:hover {
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            background-color: rgba(3, 3, 3, 0.337);
+            padding: 0.3rem;
+            border-radius: 0.5rem;
       }
 </style>
 {% else %}
@@ -62,7 +73,13 @@
                               <span id='span-list{{p.id}}'>
                               {% if p.plans %}
                                     {% for pl in p.plans.all  %}
-                                                <li id=''>{{pl.name}}</li>
+                                          {% if service_admin %}
+                                                <li id='list{{pl.id}}' value="{{pl.id}}" onclick="DeleteCaract(this.value)"
+                                                      class='w-100 list lis-none'>
+                                                      <span class='text-white '>{{pl.name}}  </span>  </li>
+                                                {% else %}
+                                                <li id='list{{pl.id}}'>{{pl.name}}</li>
+                                          {% endif %}
                                     {% endfor %}
                               {% endif %}
                               </span>
@@ -74,9 +91,9 @@
                         </strong>
                         <div class=' start-0 p-2  w-100 d-flex flex-wrap justify-content-end position-absolute bottom-0'> 
                               {% if service_admin %}
-                                    <div id='caract{{p.id}}' class='d-flex w-100'>
-                                          <input type="text" id='input{{p.id}}' placeholder='Agregar caracteristica'> 
-                                          <button onclick='CreateCaract(this.id)' id='{{p.id}}'>
+                                    <div id='caract{{p.id}}' class='d-flex justify-content-center mb-2   w-100'>
+                                          <input type="text" id='input{{p.id}}' placeholder='Nueva Caracteristica' class="border-0 p-1 text-center"> 
+                                          <button class="border-0 btn font-primary text-white" onclick='CreateCaract(this.id)' id='{{p.id}}'>
                                                 Agregar
                                           </button>
                                     </div>
@@ -114,6 +131,10 @@
 
 
 <script>
+
+
+      let value_caract = 0;
+
       function DeledetePlans(I) {
             document.getElementById('delete-p'+I).style.display = 'none';
            $.ajax({
@@ -127,7 +148,10 @@
       function CreateCaract(C) {
             let div = document.getElementById('span-list'+C);
             let li = document.createElement('li');
+            li.classList.add('list');
+   
          
+
             li.innerHTML = document.getElementById('input'+C).value
             div.appendChild(li);
             $.ajax({
@@ -136,14 +160,29 @@
                         id: C,
                         input: document.getElementById('input'+C).value
                   },
-                  
+                  success: function(response) { 
+                        document.getElementById('input'+C).value = '';
+
+                        
+
+                  }
+
 
             })
-            
+}     
+      function DeleteCaract(C){
+            document.getElementById( 'list' +C).style.display = 'none';
+            $.ajax({
+                  url: '/delete-caract/',
+                  data: {
+                        id: C
+                  }
+            })
+      }
 //            var input = document.getElementById('input'+C).value;
 //            var div = document.getElementById('caract'+C);
 //            var p = document.createElement('span-list'+C);
 //            p.innerHTML = input;
 //            div.appendChild(p);
-      }
+      
 </script>

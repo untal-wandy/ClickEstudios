@@ -35,6 +35,8 @@ urlpatterns = [
     path('delete-moment-image/', views_ajax.DeleteMomentImage, name='delete-moment-image'),
     path('delete-plans/', views_ajax.DeletePlans, name='delete-plans'),
     path('create-caract/', views_ajax.CreateCaract, name='create-caract'),
+    path('delete-caract/', views_ajax.DeleteCaract, name='delete-caract'),
+
 
 
 
