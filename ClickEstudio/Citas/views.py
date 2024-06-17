@@ -29,6 +29,13 @@ class DashboardCitas(TemplateView, Mail):
 class CitasAdministrations(TemplateView, Mail):
       template_name = 'citas/administration/aministrations.html'
       
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+      
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['c'] = models.Customer.objects.filter(finished=False, reserve=False)
@@ -96,8 +103,15 @@ class CustomerDetailView(DetailView):
       
       
 class GalleryMomentSelect(DetailView):
+      
       model = models.MomentImage
       template_name = 'citas/gallery-moment-select.html'
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -112,6 +126,14 @@ class ServiceSelect(DetailView):
       model = models.ServiceImage
       template_name = 'citas/service-select.html'
 
+
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+      
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).service_img.all()
@@ -122,11 +144,20 @@ class ServiceSelect(DetailView):
             return context
       
       
+      
 class ServiceCreateView(CreateView):
       model = models.ServiceImage
       form_class = forms.ServiceImageForm
       template_name = 'citas/create-service.html'
       success_url = reverse_lazy('citas:service-create')
+      
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
 
       def form_valid(self, form):
             # Imprime los datos POST para depuración
@@ -157,6 +188,13 @@ class ServiceUpdateView(UpdateView):
       template_name = 'citas/update-service.html'
       success_url = reverse_lazy('citas:service-create')
       
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+      
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).image.url
@@ -184,6 +222,13 @@ class MomentImgeCreate(CreateView):
       form_class = forms.MomentImageForm
       template_name = 'citas/moment-image-create.html'
       success_url = reverse_lazy('citas:moment-image-create')
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -214,6 +259,14 @@ class MomentImgeUpdate(UpdateView):
       form_class = forms.MomentImageForm
       template_name = 'citas/moment-image-update.html'
       success_url = reverse_lazy('citas:moment-image-create')
+      
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -246,6 +299,14 @@ class PlansCreate(CreateView):
       template_name = 'citas/plans-create.html'
       success_url = reverse_lazy('citas:plans-create')
       
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+      
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['plans'] = models.Plans.objects.all()
@@ -267,6 +328,14 @@ class PlansUpdate(UpdateView):
       form_class = forms.PlansForm
       template_name = 'citas/plans-update.html'
       success_url = reverse_lazy('citas:plans-create')
+      
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -292,7 +361,14 @@ class CustomerUpdate(UpdateView, Options):
       template_name = 'citas/customer-update.html'
       success_url = reverse_lazy('citas:administrations-citas'  )
 
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
       def get_context_data(self, **kwargs):
+        
             c = self.model.objects.get(id=self.kwargs.get('pk'))
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
@@ -301,9 +377,9 @@ class CustomerUpdate(UpdateView, Options):
             return context
 
       def form_valid(self, form):
-            if self.request.POST.get('select') != None:
-                  form.instance.plans =  models.Plans.objects.get(id=self.request.POST.get('select'))
-                  form.save()
+            form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
+            form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
+            form.save() 
             return self.RedirectReverse('citas:customer-update', self.kwargs.get('pk') )
 
       def form_invalid(self, form):
@@ -316,7 +392,14 @@ class HistoriSale(TemplateView, Options):
       template_name = 'citas/histori-sale.html'
       # success_url = reverse_lazy('citas:administrations-citas'  )
 
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
       def get_context_data(self, **kwargs):
+
             c = models.Customer.objects.filter(saled=True, finished=False, reserve=True,)
             total_saled = 0
             for i in c:
