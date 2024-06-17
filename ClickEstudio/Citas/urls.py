@@ -15,6 +15,8 @@ urlpatterns = [
     path('administrations-citas', views.CitasAdministrations.as_view(), 
         name='administrations-citas' ),  
     
+    path('logins/', views.Logins, name='logins'),
+    
     path('customer-update/<int:pk>', views.CustomerUpdate.as_view(), 
          name='customer-update'),
     

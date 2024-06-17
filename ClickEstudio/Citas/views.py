@@ -8,6 +8,9 @@ from django.conf import settings
 from .Options import Mail, Options
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
+from django.contrib.auth import logout, login, authenticate
 
 class DashboardCitas(TemplateView, Mail):
       template_name = 'citas/inicio.html'
@@ -328,7 +331,30 @@ class HistoriSale(TemplateView, Options):
 
 
             return context
+      
+      
+def Logins(request):
+      template_name = 'citas/login.html'
+      success_url = reverse_lazy('citas:administrations-citas'  )
+      error = ''
+      if request.user.is_authenticated:
+            return redirect( '/administrations-citas')
+      if request.method == 'POST':
+            user = request.POST.get("user")
+            pwd = request.POST.get("pwd")
+            
+            user_aut = authenticate(username=user, password=pwd)
+            print(user, pwd, user)
+            if user_aut is not None:
+                  print(user_aut)
+                  login(request, user_aut)
+                  return redirect( '/administrations-citas' )
+            else:
+                 error = 'Usuario o contraseña incorrectos'
 
+          
+
+      return render(request, 'citas/login.html', {'error': error} )
       
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
