@@ -33,6 +33,16 @@ class CitasAdministrations(TemplateView, Mail):
             context['plans'] = models.Plans.objects.all()
             return context
       
+      def post(self, request, *args, **kwargs):
+            print(request.POST.get('reserve'))
+            # customer = models.Customer.objects.get(id=int(request.POST.get('reserve')))
+            # customer.reserve = True
+            # # Perform any additional operations or validations here
+            # customer.save()
+            # return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': customer.pk}))
+            # else:
+            return super().get(request, *args, **kwargs)
+      
 
 
       

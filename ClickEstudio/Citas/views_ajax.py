@@ -49,4 +49,10 @@ def DeleteCaract(request):
       cr.delete()
       return JsonResponse(list(),  safe=False)
 
+def Reserver(request):
+      c = models.Customer.objects.get(id=request.GET.get('id'))
+      if c.reserve == False:
+            c.reserve = True
+            c.save()
+      return JsonResponse(list(),  safe=False)
 
