@@ -42,9 +42,9 @@
   <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   
   <style>
-    #id_date_choice, #id_time_choice{
+     #id_date_choice, #id_time_choice{
         display: none !important;
-    } 
+    }  */
       .calendar-container {
             transition: 0.9s;
             color: rgb(255, 255, 255);
@@ -163,14 +163,14 @@
                       console.log(`Selected date: ${day}/${month + 1}/${year}`);
 
 
-
-
-                    const dateChoiceInput = document.getElementById('id_date_choice');
+                      const dateChoiceInput = document.getElementById('id_date_choice');
                     const selectedDay = dayElement.textContent;
                     const selectedMonth = parseInt(monthSelect.value) + 1;
                     const selectedYear = parseInt(yearSelect.value);
                     dateChoiceInput.value = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
+
+             
 
                   });
                   calendar.appendChild(dayElement);
@@ -182,5 +182,7 @@
           // Initial render
           renderCalendar();
       });
+
+
   </script>
   

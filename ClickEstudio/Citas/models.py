@@ -11,10 +11,13 @@ class Customer(models.Model):
       email = models.EmailField(default='', blank= True, null=True)  
       number = models.CharField(max_length=20, blank=True, null=True)
       date_created = models.DateTimeField(auto_now_add=True)
-      date_choice = models.DateTimeField(default=datetime.now)
+      date_choice = models.DateTimeField(default=datetime.now, blank=True, null=True)
       date_time_choice = models.TimeField(default='10:00') 
       plan_choice = models.IntegerField(default=2, blank=True, null=True)
       finished = models.BooleanField(default=False)
+      reserve = models.BooleanField(default=False)
+      reserver_mount = models.IntegerField(default=500, blank=True, null=True)
+      plans = models.ForeignKey('Plans', related_name='plans_customer', on_delete=models.CASCADE, blank=True, null=True)
       
       def __str__(self):
             return f"{self.name} {self.last_name}"

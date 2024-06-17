@@ -32,31 +32,31 @@
 </main>
 
 
-<form action="" method="post">
+<form action="" method="post" id="form-customer">
       {% csrf_token %}
-
-<div class="swiper-container">
-      <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <section>
-                  {% include "citas/components/form-basic.html" %}
-            </section>  
-          </div>
-          <div class="swiper-slide">
-            <section class="p-1">
-                  {% include "citas/components/calendary.html" %}
-                  </section>
-          </div>
-          <div class="swiper-slide">
-            {% include "citas/components/confirmation.html" %}
-          </div>
-          {{form.plan_choice}}
+      <div class="swiper-container">
+            <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                  <section>
+                        {% include "citas/components/form-basic.html" %}
+                  </section>  
+            </div>
+            <div class="swiper-slide">
+                  <section class="p-1">
+                        {% include "citas/components/calendary.html" %}
+                        </section>
+            </div>
+            <div class="swiper-slide">
+                  {% include "citas/components/confirmation.html" %}
+            </div>
+            {{form.plan_choice}}
+            </div>
+            <!-- Botones de navegación (opcional) -->
+            <div class="swiper-button-prev d-none"></div>
+            <div class="swiper-button-next d-none"></div>
       </div>
-      <!-- Botones de navegación (opcional) -->
-      <div class="swiper-button-prev d-none"></div>
-      <div class="swiper-button-next d-none"></div>
-  </div>
 </form>
+
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -95,6 +95,10 @@
                   }
                   // Set the number to the input field
             });
+
+      document.getElementById('btn-send').addEventListener('click', function() {
+            document.getElementById('form-customer').submit();
+      });
   </script>
   
   <style>

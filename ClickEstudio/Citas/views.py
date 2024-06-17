@@ -42,19 +42,15 @@ class CustomerCreateView(CreateView, Mail):
       template_name = 'citas/create-customer.html'  
 
       def form_valid(self, form):
-            print(self.request.POST)
             if form.is_valid():
                   form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
-                  instance = form.save() 
-                  
-                  # self.SendGmail(form.instance.email, 'Confirmacion', 
-                  #             'Esta es la confirmacion de tu cita, gracias por elegirnos.')
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': instance.id}))
-            else:
-                  print(form.errors)
-                  return super().form_invalid(form) 
-            
-            
+                  form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  form.save() 
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
             
             
             
@@ -286,22 +282,21 @@ class PlansUpdate(UpdateView):
 
 class CustomerUpdate(UpdateView, Options):
       model = models.Customer
-      form_class = forms.CustomerForm
+      form_class = forms.CustomerForm2
       template_name = 'citas/customer-update.html'
       success_url = reverse_lazy('citas:administrations-citas'  )
 
       def get_context_data(self, **kwargs):
             c = self.model.objects.get(id=self.kwargs.get('pk'))
-            print(c.plan_choice)
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
             context['plans'] = models.Plans.objects.all()
-            context['plans_choice'] = models.Plans.objects.get(id=c.plan_choice)         
+            context['plans_choice'] = c.plans if hasattr(c, 'plans') else None
             return context
 
       def form_valid(self, form):
             if self.request.POST.get('select') != None:
-                  form.instance.plan_choice =  self.request.POST.get('select')
+                  form.instance.plans =  models.Plans.objects.get(id=self.request.POST.get('select'))
                   form.save()
             return self.RedirectReverse('citas:customer-update', self.kwargs.get('pk') )
 

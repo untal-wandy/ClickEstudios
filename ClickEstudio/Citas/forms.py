@@ -6,12 +6,32 @@ class CustomerForm(forms.ModelForm):
             model = models.Customer
             fields = '__all__'  # Include all fields
             
+
+
+      def __init__(self, *args, **kwargs):
+            super(CustomerForm, self).__init__(*args, **kwargs)
+            # Add the 'form-control' class to all form fields
+            for field in self.fields:
+                  self.fields[field].widget.attrs['class'] = 'form-control'
+            # Add placeholders to form fields
+            # self.fields['name'].widget.attrs['placeholder'] = 'Nombre y Apellidos'
+            self.fields['last_name'].widget.attrs['placeholder'] = 'Apellidos'
+            self.fields['dni'].widget.attrs['placeholder'] = 'Cedula'
+            # self.fields['email'].widget.attrs['placeholder'] = 'Correo electronico'
+            # self.fields['number'].widget.attrs['placeholder'] = 'Numero de celular'
+            
+            
+            
+class CustomerForm2(forms.ModelForm):
+      class Meta:
+            model = models.Customer
+            fields = '__all__'  # Include all fields
+            
             widgets = {
             'date_choice': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'date_time_choice': forms.TimeInput(attrs={'type': 'time'}),
         }
-
-
+            
       def __init__(self, *args, **kwargs):
             super(CustomerForm, self).__init__(*args, **kwargs)
             # Add the 'form-control' class to all form fields
