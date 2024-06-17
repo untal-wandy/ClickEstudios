@@ -27,8 +27,7 @@
       {
             border: 1px solid rgba(82, 82, 82, 0.767);
             border-radius: 1.9rem;
-            padding: 4px;
-            margin: 4px;
+            
       }
       .delete 
       {
@@ -292,7 +291,7 @@
 
 {% if c %}
       {% for c in c %}
-            <div id='list-c{{c.id}}' class="card  bg-black  bg-opacity-50 " 
+            <div id='list-c{{c.id}}' class="card  m-1 bg-black  bg-opacity-50 " 
                   style="width: 23rem; height:15rem ;">
                   <div class="card-body border-0 " >
                         <h6 class="card-title text-white font-primary mt-2" > {{c.name}} </h6>
@@ -367,7 +366,7 @@
             </div>
       {% endfor %}
       {% else %}
-      <div class='border-0'>
+      <div class='border-0 w-100 h-100 d-flex justify-content-center align-content-center flex-wrap'>
             <h6>
                   Actualmente no hay citas agendadas
             </h6>
