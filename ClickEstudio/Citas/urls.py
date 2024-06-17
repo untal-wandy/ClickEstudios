@@ -41,6 +41,10 @@ urlpatterns = [
     path('create-caract/', views_ajax.CreateCaract, name='create-caract'),
     path('delete-caract/', views_ajax.DeleteCaract, name='delete-caract'),
     path('reserver/', views_ajax.Reserver, name='reserver'),
+    path('sale-service/', views_ajax.SaleService, name='sale-service'),
+    path('sale-cancel/', views_ajax.SaleCancel, name='sale-cancel'),
+
+
 
 
 

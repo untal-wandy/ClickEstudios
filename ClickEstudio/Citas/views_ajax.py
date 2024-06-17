@@ -56,3 +56,23 @@ def Reserver(request):
             c.save()
       return JsonResponse(list(),  safe=False)
 
+def SaleService(request):
+      c = models.Customer.objects.get(id=request.GET.get('id'))
+      print(c.id)
+
+      if c.saled == False:
+            c.saled = True
+            c.saled_mount = c.plans.price
+            c.save()
+            print(c.id)
+      return JsonResponse(list(),  safe=False)
+
+
+def SaleCancel(request):
+      c = models.Customer.objects.get(id=request.GET.get('id'))
+
+      if c.reserve == True:
+            c.reserve = False
+            c.save()
+      return JsonResponse(list(),  safe=False)
+

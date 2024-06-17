@@ -38,8 +38,8 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['c'] = models.Customer.objects.filter(finished=False, reserve=False)
-            context['c_reserver'] = models.Customer.objects.filter(finished=False, reserve=True)
+            context['c'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
+            context['c_reserver'] = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
 
             context['setting'] = models.Setting.objects.get(name='icon')
             context['plans'] = models.Plans.objects.filter()
@@ -329,14 +329,13 @@ class PlansUpdate(UpdateView):
       template_name = 'citas/plans-update.html'
       success_url = reverse_lazy('citas:plans-create')
       
-      
       def get(self, request, *args, **kwargs):
-            if not request.user.is_authenticated:
-                  return redirect('/logins/')
-            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
-            return super().get(request, *args, **kwargs)
-      
-      
+                  if not request.user.is_authenticated:
+                        return redirect('/logins/')
+                  # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+                  return super().get(request, *args, **kwargs)
+            
+            
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).img.url
@@ -411,8 +410,6 @@ class HistoriSale(TemplateView, Options):
             context['c_saled'] = c
             context['total_saled'] = total_saled
            
-
-
             return context
       
       
@@ -434,8 +431,6 @@ def Logins(request):
                   return redirect( '/administrations-citas' )
             else:
                  error = 'Usuario o contraseña incorrectos'
-
-          
 
       return render(request, 'citas/login.html', {'error': error} )
       
