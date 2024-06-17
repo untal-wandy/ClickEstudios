@@ -249,7 +249,7 @@ class PlansCreate(CreateView):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['plans'] = models.Plans.objects.all()
-
+            context['edit'] = True
             # context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
             return context
