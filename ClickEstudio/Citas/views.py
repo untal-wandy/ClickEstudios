@@ -314,11 +314,18 @@ class HistoriSale(TemplateView, Options):
       # success_url = reverse_lazy('citas:administrations-citas'  )
 
       def get_context_data(self, **kwargs):
-            c = self.model.objects.filter(saled=True, finished=False, reserve=True,)
+            c = models.Customer.objects.filter(saled=True, finished=False, reserve=True,)
+            total_saled = 0
+            for i in c:
+                  total_saled += i.plans.price
+                  
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
             context['sale_count'] = c.count()
             context['c_saled'] = c
+            context['total_saled'] = total_saled
+           
+
 
             return context
 

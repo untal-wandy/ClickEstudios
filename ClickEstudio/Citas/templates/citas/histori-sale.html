@@ -1,6 +1,7 @@
 {% extends "citas/base/base.html" %}
 {% block title %}Historial de Ventas{% endblock %}
 {% block content %}
+{% load humanize %}
 <style>
       .background-container {
             position: relative;
@@ -28,13 +29,45 @@
 </style>
       <div class='background-container' id='bg-histori'>
             <div class='content blur'>
-                  <section class='w-100 d-flex justify-content-center flex-wrap'>
+                  <section class='w-100 d-flex justify-content-center flex-wrap '>
                         {% if c_saled %}
-                              {% for c in c_saled %}
-                                    <ul class="list-group">
-                                          <li class="list-group-item"></li>
-                                    </ul>
-                              {% endfor %}
+                              <div class='w-100 text-center mb-4'>
+                                    <h6 class='font-primary'>
+                                          Listado de  ventas 
+                                    </h6>
+                              </div>
+                              <div class='bg-black bg-opacity-50 p-2' style='width: 320px; 
+                              max-height: 90vh;  border-radius: 2rem;'  >
+                                    {% for c in c_saled %}
+                                    <ul class="list-group border-0 mb-3 p-3" style='border-radius: 1rem; '>
+                                          <li class="list-group-item m-0 p-0 border-0 bg-transparent " >
+                                                <strong class='text-white-50'>Cliente:</strong>
+                                                <span class='font-primary'>{{c.name}}</span>
+                                          </li>
+                                          <li class="list-group-item m-0 p-0 border-0 bg-transparent " >
+                                                <strong class='text-white-50'>Plan:</strong>
+                                                <span class='font-primary'>{{c.plans.name}}</span>
+                                          </li>
+                                          <li class="list-group-item m-0 p-0 border-0 bg-transparent " >
+                                                <strong class='text-white-50'>Precio:</strong>
+                                                <span class='font-primary'> ${{c.plans.price|intcomma}}.00</span>
+                                          </li>
+                                          <div class='w-100 text-center'>
+                                                <hr class='w-50'>
+                                          </div>
+                                    </ul>  
+                                    {% endfor %}
+                              </div>
+                              <div class='text-center font-primary pt-2 blur bg-transparent  mt-5 w-100'>
+                                          Total $:  {{total_saled|intcomma}}
+                              </div>
+                              <div class='w-100 text-center mb-5 mt-4'>
+                                    <a href="{% url "citas:administrations-citas" %}" class="font-primary mt-3">
+                                          <button class='bg-transparent  rounded-4 text-white p-1 border-1' style='width: 10rem;'>
+                                                Volver Atras
+                                          </button>
+                                    </a>
+                              </div>
                               {% else %}
                                     <div class="alert alert-warning mt-5 text-center" style='width: 320px; border-radius: 2rem;' role="alert">
                                           <strong> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bug-fill" viewBox="0 0 16 16">
