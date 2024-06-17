@@ -28,6 +28,7 @@ urlpatterns = [
 
     path('plans-create/', views.PlansCreate.as_view(), name='plans-create'),
     path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
+    path('histori-sale/', views.HistoriSale.as_view(), name='histori-sale'),
 
 
     # Ajax views

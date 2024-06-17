@@ -306,6 +306,21 @@ class CustomerUpdate(UpdateView, Options):
       def form_invalid(self, form):
             print(form.errors)
             return super().form_invalid(form)
+      
+class HistoriSale(TemplateView, Options):
+      model = models.Customer
+      # form_class = forms.CustomerForm2
+      template_name = 'citas/histori-sale.html'
+      # success_url = reverse_lazy('citas:administrations-citas'  )
+
+      def get_context_data(self, **kwargs):
+            c = self.model.objects.filter(saled=True, finished=False, reserve=True,)
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['sale_count'] = c.count()
+            context['c_saled'] = c
+
+            return context
 
       
 """
