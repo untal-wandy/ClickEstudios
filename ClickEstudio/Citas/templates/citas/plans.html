@@ -31,6 +31,12 @@
             padding: 0.3rem;
             border-radius: 0.5rem;
       }
+      .border-1 
+      {
+            border: 1px rgba(255, 255, 255, 0.481) solid;
+            border-radius: 2rem;
+      
+      }
 </style>
 {% else %}
 <style>
@@ -91,23 +97,38 @@
                         </strong>
                         <div class=' start-0 p-2  w-100 d-flex flex-wrap justify-content-end position-absolute bottom-0'> 
                               {% if service_admin %}
-                                    <div id='caract{{p.id}}' class='d-flex justify-content-center mb-2   w-100'>
-                                          <input type="text" id='input{{p.id}}' placeholder='Nueva Caracteristica' class="border-0 p-1 text-center"> 
-                                          <button class="border-0 btn font-primary text-white" onclick='CreateCaract(this.id)' id='{{p.id}}'>
-                                                Agregar
-                                          </button>
-                                    </div>
+                                    {% if edit %}
+                                          <div id='caract{{p.id}}' class='d-flex justify-content-center mb-2   w-100'>
+                                                <input type="text" id='input{{p.id}}' placeholder='Nueva Caracteristica' class="border-0 p-1 text-center"> 
+                                                <button class="border-0 btn font-primary text-white" onclick='CreateCaract(this.id)' id='{{p.id}}'>
+                                                      Agregar
+                                                </button>
+                                          </div>
 
-                                    <button onclick='DeledetePlans(this.id)' id="{{p.id}}" class='rounded-4 font-primary me-1 text-white  bg-transparent border-0'>
-                                          Eliminar
-                                    </button>
-                                    <a href="{% url "citas:plans-update"  p.id %}">
-                                          <button  class=' bg-transparent  text-white font-primary' 
-                                          style='width: 7rem; border-radius: 1rem; 
-                                          border: 1px white solid;'>
-                                          Editar
-                                    </button>
-                                    </a>
+                                          <button onclick='DeledetePlans(this.id)' id="{{p.id}}" class='rounded-4 font-primary me-1 text-white  bg-transparent border-0'>
+                                                Eliminar
+                                          </button>
+                                          <a href="{% url "citas:plans-update"  p.id %}">
+                                                <button  class=' bg-transparent  text-white font-primary' 
+                                                style='width: 7rem; border-radius: 1rem; 
+                                                border: 1px white solid;'>
+                                                Editar
+                                          </button>
+                                          </a>
+                                          {% else %}
+                                                <div class='w-100  d-flex justify-content-center '>
+                                                      <div class="form-check rounded-4 p-2 blur" style='transition: none !important;'>
+                                                            
+                                                            <input style='transition: none !important;' 
+                                                            class="form-check-input" type="radio" name="select" value="{{p.id}}" id="flexRadioDefault1{{p.id}}">
+                                                            <label style='transition: none !important;' class="form-check-label font-primary"
+                                                                  for="flexRadioDefault1{{p.id}}">
+                                                              Seleccionar 
+                                                            </label>
+                                                      </div>
+                                                </div>
+                                          {% endif %}
+
                               {% else %}
                               <a href="{% url "citas:create-customer" p.id %}">
                                     <button class=' bg-transparent  text-white font-primary' 

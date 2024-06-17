@@ -20,6 +20,12 @@ class Mail:
                   MailServer.sendmail(settings.EMAIL_HOST, Destinario, Msj.as_string(), ),
                   print(f'Codigo enviado a: {Destinario}')
                
+               
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect
+class Options:
+      def RedirectReverse(self, name, pk):
+            return redirect(reverse(name, kwargs={'pk': pk}))
 
 
 

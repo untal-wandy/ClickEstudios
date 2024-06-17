@@ -13,7 +13,7 @@ class Customer(models.Model):
       date_created = models.DateTimeField(auto_now_add=True)
       date_choice = models.DateTimeField(default=datetime.now)
       date_time_choice = models.TimeField(default='10:00') 
-      plan_choice = models.IntegerField(default=2)
+      plan_choice = models.IntegerField(default=2, blank=True, null=True)
       finished = models.BooleanField(default=False)
       
       def __str__(self):

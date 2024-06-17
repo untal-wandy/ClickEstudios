@@ -5,9 +5,9 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
-from .Options import Mail 
-from django.urls import reverse_lazy
-
+from .Options import Mail, Options
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect
 
 class DashboardCitas(TemplateView, Mail):
       template_name = 'citas/inicio.html'
@@ -272,6 +272,7 @@ class PlansUpdate(UpdateView):
             # context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
             context['plans'] = models.Plans.objects.all()
+            context['edit'] = True
 
             return context
       
@@ -283,6 +284,30 @@ class PlansUpdate(UpdateView):
 
 
 
+class CustomerUpdate(UpdateView, Options):
+      model = models.Customer
+      form_class = forms.CustomerForm
+      template_name = 'citas/customer-update.html'
+      success_url = reverse_lazy('citas:administrations-citas'  )
+
+      def get_context_data(self, **kwargs):
+            c = self.model.objects.get(id=self.kwargs.get('pk'))
+            print(c.plan_choice)
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['plans'] = models.Plans.objects.all()
+            context['plans_choice'] = models.Plans.objects.get(id=c.plan_choice)         
+            return context
+
+      def form_valid(self, form):
+            if self.request.POST.get('select') != None:
+                  form.instance.plan_choice =  self.request.POST.get('select')
+                  form.save()
+            return self.RedirectReverse('citas:customer-update', self.kwargs.get('pk') )
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
 
       
 """

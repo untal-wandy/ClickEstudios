@@ -5,6 +5,12 @@ class CustomerForm(forms.ModelForm):
       class Meta:
             model = models.Customer
             fields = '__all__'  # Include all fields
+            
+            widgets = {
+            'date_choice': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_time_choice': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
 
       def __init__(self, *args, **kwargs):
             super(CustomerForm, self).__init__(*args, **kwargs)
@@ -17,6 +23,7 @@ class CustomerForm(forms.ModelForm):
             self.fields['dni'].widget.attrs['placeholder'] = 'Cedula'
             # self.fields['email'].widget.attrs['placeholder'] = 'Correo electronico'
             # self.fields['number'].widget.attrs['placeholder'] = 'Numero de celular'
+            
 
 
 class AppointmentForm(forms.ModelForm):

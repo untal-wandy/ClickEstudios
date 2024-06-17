@@ -8,8 +8,9 @@
                   height: 90vh;
             } {% endcomment %}
 
-            .list-options {
+            .list-options a {
                   transition: none !important;
+                  margin-left: 1rem !important;
             }
 
             .list-options a:hover 
@@ -57,7 +58,6 @@
             </div>
         </div> 
 <section class='section-admin d-flex position-fixed  w-100  top-0 h-100 '>
-
             <!-- <div class="w-10 shadow border-0 "> 
             </div> --> 
             
@@ -91,9 +91,20 @@
       <div id="div-menu-admin" class="position-fixed blur bg-black bg-opacity-50 end-0"  
             style="display: none; top: 5rem; width: max-content; width: 15rem;" >
             <div class=" list-options d-flex flex-column border-0">
+                  <div class="w-100 border-0">
+                        <h6 class="vr  p-0 m-0 font-primary">
+                              Configuraciones
+                        </h6>
+                  </div>
                   <a href="{% url "citas:plans-create" %}" class="text-white p-2">Planes</a>
                   <a href="{% url "citas:service-create" %}" class="text-white p-2">Servicios</a>
                   <a href="{% url "citas:moment-image-create" %}" class="text-white p-2">Galeria de Momentos</a>
+                  <div class="w-100 border-0">
+                        <h6 class=" vr p-0 m-0 font-primary">
+                              Ventas
+                        </h6>
+                  </div>
+                  <a href="{% url "citas:plans-create" %}" class="text-white p-2">Historial de ventas</a>
             </div>
       </div>
       </section>
