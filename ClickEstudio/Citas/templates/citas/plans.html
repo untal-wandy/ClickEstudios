@@ -65,7 +65,7 @@
 
 {% load humanize %}
 {% if plans %}
-      <div id='div-plans' class='d-flex '>
+      <div id='div-plans' class='d-flex overflow-scroll pb-5'>
             {% for p in plans %}
             <div id='delete-p{{p.id}}' class='background-container border-0 m-2 overflow-hidden' 
             style='background-image: url( {{p.img.url}} );
