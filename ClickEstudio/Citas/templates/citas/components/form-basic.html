@@ -1,86 +1,70 @@
 <div class="background-container " id="bg-con">
       <div class="content">
           <!-- Aquí va el contenido -->
-      </div>
-</div>
-  <div class="p-2">
-<div>
-      <h2 class="font-primary mt-4 mb-4 text-center" 
-            style="font-size: 20px;">
-            Informacion personal 
-      </h2>
-</div>
-
-      <div class="form-floating">
-            {{form.name}}
-            <label for="id_name">Nombre y apellidos</label>
-      </div>
-      <div class="d-none"> 
-            <p style="font-size: 12px;" class="text-white-50 mt-2 mb-2 ">
-                  Elige cómo quieres que te avisemos recuerda que puedes alternar entre un <strong>correo electronico</strong>  o de tu numero <strong>celular</strong>
-            </p>
-      </div>
-     
-      <div class="mb-2 mt-3 d-flex d-none" > 
-            <span class="d-flex align-content-center flex-wrap">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=" p-0 m-0 mt-1 bi bi-bell-fill" viewBox="0 0 16 16">
-                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
-                      </svg>Preferencia de notificacion  
-            </span>
-            <span id="btn-alterd" 
-            class="btn p-1 ps-2 ms-2 pe-2 border-1 text-white "
-            style="border: solid 1px rgba(255, 255, 255, 0.733);  border-radius: 2rem;
-            font-weight: bold;"
-            onclick="OpenDiv()">
-            
-            Correo electronico
-      </span> 
+          <div class="p-2 w-100  d-flex justify-content-center flex-wrap" 
+            style="margin-top: 10rem;">
+            <div class="w-100">
+                  <h2 class="font-primary mt-4 mb-4 text-center" 
+                        style="font-size: 20px;">
+                        Informacion personal 
+                  </h2>
+            </div>
+            <div class="w-100 d-flex  justify-content-center"> 
+                  <div class="d-flex  w-100 flex-wrap justify-content-center " 
+                  style="max-width: 30rem;">
       
-      </div>
-      <div>
-            <h3 class="font-primary mt-1  d-none">
-                  ¿Como quieres que te avisemos?
-            </h3>
-      </div>
-      <div class="d-flex btn-altern w-100 mb-2 ms-3 d-none  ">
-            <button   onclick="OpenDiv3(),ActiveButton(this.id) " id="btn-1" >
-                  Correo electronico
-            </button>
-            <button  onclick="OpenDiv3(),ActiveButton(this.id) " id="btn-2"
-                  style="border: none;">
-                  Numero Celular
-            </button>
-      </div>
-      <div class="d-flex  flex-wrap">
-             
-            <div  class="w-100 mt-2" id="email">
-                  <div class="form-floating ">
-                        {{ form.email }}
-                        <label for="id_email">Correo electronico</label>
+                  <div class="form-floating  w-100">
+                        {{form.name}}
+                        <label for="id_name">Nombre y apellidos</label>
+                  </div>   
+                        
+                  <div  class="w-100 mt-2" id="email">
+                        <div class="form-floating ">
+                              {{ form.email }}
+                              <label for="id_email">Correo electronico</label>
+                        </div>
+                  </div>
+      
+                  <div  class="w-100 mt-2" >
+                        <div class="form-floating w-100" id="number" >
+                              {{ form.number }}
+                              <label for="id_number">Numero </label>
+                        </div>
                   </div>
             </div>
-            <div  class="w-100 mt-2" >
-                  <div class="form-floating w-100" id="number" >
-                        {{ form.number }}
-                        <label for="id_number">Numero </label>
-                  </div>
             </div>
-      </div>
-    
-      <span class=" d-flex justify-content-center text-center mt-3">
-            <span onclick="Next()" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
-              border-radius: 1.5rem; height: auto;
-              width: 10rem;" class="text-white p-2">Siguiente</span>
-          </span>
-          <span class="w-100 text-center mt-3 d-flex justify-content-center">
-            <a href="{% url "citas:dashboard-citas" %}">
-                   <strong>
-                        Atras
-                  </strong>
+          
+            <span class=" d-flex justify-content-center text-center mt-4 w-100">
+                  <span onclick="Next()" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
+                    border-radius: 1.5rem; height: auto;
+                    width: 10rem;" class="text-white p-2">
+                    Siguiente
+                  </span>
+            </span>
+            {% if service_admin %}
 
+            <div class="w-100 text-center mt-3 mb-5">
+                  <a href="{% url "citas:administrations-citas" %}"> 
+                        <span class='text-white-50 border-0 bg-transparent font-primary'>
+                              Atras
+                        </span>      
+                  </a>
+            </div>
+      {% else %}
+      <div class='d-flex justify-content-center mb-5 mt-3'>
+            <a href="{% url "citas:dashboard-citas" %}"> 
+                  <span class='text-white-50 border-0 bg-transparent m font-primary'>
+                        Atras
+                  </span>      
             </a>
-          </span>  
+      </div>
+      {% endif %}
+
+
+      </div>
+      </div>
 </div>
+
 <script>
 setInterval(function() {
             var images = [

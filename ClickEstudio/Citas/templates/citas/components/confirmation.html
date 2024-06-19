@@ -1,35 +1,37 @@
-<section class="mt-5">
-      <h3 class="font-primary mb-4 p-2" style='font-size: 18px;'>
-            Confirmar
-      </h3>
-      <div style="border: 1px solid white; border-radius:  1.5rem;"
-      class="p-2 d-none">
-            <span >
-                  <strong>Plan escogido</strong>: <span class="plan"></span> 
-            </span> <br>
-            <span >
-                  <strong>Fecha y hora selecionada</strong>: <span class="plan"></span> 
-            </span>
+<div class="background-container " id="bg-confirmation">
+      <div class="content">
+            <section class="mt-5 text-center  ">
+                  <h3 class="font-primary mb-1 p-2" style='font-size: 18px;'>
+                        Confirmar
+                  </h3>
+                  <p class="p-2  pt-1 text-white-50 w-100   text-center" style="text-align: justify;">
+                        Recibirás un correo electrónico una vez que hagas clic en confirmar. <br> Además, te notificaremos un día antes de tu cita
+                  </p>
+                  <span class=" d-flex justify-content-center mt-3">
+                        <button id="btn-send" type="submit" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
+                        border-radius: 1.5rem; height: auto;
+                        width: 10rem;" class="text-white p-2">Confirmar</button>
+                  </span>
+                  <span onclick="Last()" class="w-100 text-center text-white-50 mt-3 d-flex justify-content-center">
+                        <strong>
+                              Atras
+                        </strong>
+                  </span>  
+            </section>
       </div>
-      <div>
-            {% comment %} <h3 class="font-primary mt-3">
-                  Recuerda que tu cita es el dia <span class="plan"></span> a las <span class="plan"></span>
-            </h3> {% endcomment %}
-            <p class="p-2  pt-1 text-white-50" style="text-align: justify;">
-                  Se te enviara un correo una vez que hagaz click en confirmar,
-                  tambien ten presente que te avisaremos el dia de tu cita un dia antes de la misma.
-            </p>
-      </div>
-      <span class=" d-flex justify-content-center mt-3">
-            <button id="btn-send" type="submit" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
-              border-radius: 1.5rem; height: auto;
-              width: 10rem;" class="text-white p-2">Confirmar</button>
-          </span>
-          <span onclick="Last()" class="w-100 text-center mt-3 d-flex justify-content-center">
-                   <strong>
-                        Atras
-                  </strong>
-          </span>  
-</section>
-
+</div>
+<script>
+      setInterval(function() {
+            var images = [
+                  "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
+                  "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
+                  "https://cdn.shopify.com/s/files/1/0047/9035/3966/products/ellatop.jpg?v=1615583910",
+                  "https://i.pinimg.com/736x/3d/87/ba/3d87bad974bee313d330fb2755708e81.jpg",
+               
+            ];
+            var randomIndex = Math.floor(Math.random() * images.length);
+            var imageUrl = images[randomIndex];
+            document.getElementById("bg-confirmation").style.backgroundImage = "url(" + imageUrl + ")";
+}, 4000); 
+</script>
 

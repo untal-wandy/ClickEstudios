@@ -53,6 +53,13 @@ class CustomerCreateView(CreateView, Mail):
       model = models.Customer
       form_class = forms.CustomerForm
       template_name = 'citas/create-customer.html'  
+      
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+
+            return context
 
       def form_valid(self, form):
             if form.is_valid():
