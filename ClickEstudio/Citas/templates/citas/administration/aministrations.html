@@ -106,6 +106,18 @@
   }
 }
 
+.input 
+{
+      width: 100%;
+      height: 2.5rem;
+      border-radius: 1.2rem;
+      border: 0px;
+      outline: none;
+      background: #0000006b;
+      color: white;
+      padding-left: 0.9rem;
+}
+
       </style>
 <div class="background-container vh-100 p-0 " style='' id="bg-admin" >
       <div class="content">
@@ -126,11 +138,25 @@
                                           </svg>
                                     </h5>
                               </div>
+                              <div class='w-50 d-flex justify-content-center border-0 '>
+                                    <div class='border-0 ' style="max-width: 20rem;">
+                                          <input type="search" class='input text-center' placeholder="Buscar Cita..">
+                                    </div>
+                              </div>
                               <div class="border-0 d-flex justify-content-end w-50 ">
-                                    <button onclick="MenuAdmin()"  class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary "
+
+                                    <a href="{% url "citas:all-plans" %}">   
+                                          <button onclick="MenuAdmin()"  class="bg-black p-3 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary "
+                                                style="border-radius: 1.5rem; height: 2rem; ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus-fill" viewBox="0 0 16 16">
+                                                      <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0"/>
+                                                </svg> Agendar 
+                                          </button>
+                                    </a> 
+                                    <!-- <button onclick="MenuAdmin()"  class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary "
                                           style="border-radius: 1.5rem; height: 2rem; ">
                                           Menu
-                                    </button> 
+                                    </button>  -->
                                     <button onclick="MenuAdmin()"  class="bg-white border-0 rounded-circle" style="width: 2rem; height: 2rem;"> 
                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill p-0 m-0" viewBox="0 0 16 16">
                                                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
@@ -144,7 +170,9 @@
 
                               {% include "citas/administration/reservados.html" %}
                         </div>
-                              <div class="w-100  flex-wrap border-0" id='cita-list'>
+                              <div class="w-100  flex-wrap border-0 justify-content-center " id='cita-list'
+                               style='display: flex;'>
+       
                                     {% include "citas/administration/list-citas.html" %}
                               </div>
                        </div>

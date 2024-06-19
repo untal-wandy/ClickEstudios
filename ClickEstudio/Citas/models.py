@@ -66,7 +66,7 @@ class MomentImage(models.Model):
 
 
 class MomentRelatedImage(models.Model):
-    moment = models.ForeignKey(MomentImage, related_name='moment_img', on_delete=models.CASCADE)
+    moment = models.ForeignKey(MomentImage, related_name='moment_img', on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to='media/', blank=True, null=True)
     img_url = models.URLField(default='', blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)

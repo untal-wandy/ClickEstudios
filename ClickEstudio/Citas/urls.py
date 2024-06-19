@@ -9,7 +9,8 @@ urlpatterns = [
     path('appointment-create/', views.AppointmentCreateView.as_view(), name='appointment-create'),
     path('customer-detail/<int:pk>', views.CustomerDetailView.as_view(), name='customer-detail'),  
     path('gallery-moment-select/<int:pk>', views.GalleryMomentSelect.as_view(), name='gallery-moment-select'),  
-    path('service-select/<int:pk>', views.ServiceSelect.as_view(), name='service-select'),  
+    path('service-select/<int:pk>', views.ServiceSelect.as_view(), name='service-select'),
+    path('all-plans/', views.Plans.as_view(), name='all-plans'),
 
     # Administrative views
     path('administrations-citas', views.CitasAdministrations.as_view(), 

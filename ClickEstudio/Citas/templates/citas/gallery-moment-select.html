@@ -1,6 +1,45 @@
 {% extends 'citas/base/base.html' %}
 
 {% block content %}
+<style>
+      #id_moment {
+            display: none;
+      }
+.hover-reserver-icon {
+	-webkit-animation: pulse-bot 0.5s ease-in-out infinite both;
+	        animation: pulse-bot 0.5s ease-in-out infinite both;
+}
+
+       @-webkit-keyframes pulse-bot {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulse-bot {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+</style>
 
 <div class="gallery w-100  ">
       {% if img %}
@@ -26,15 +65,67 @@
                         No hay imagenes en esta galeria
                         </h3>
       {% endif %}
-                  <a href="{% url "citas:dashboard-citas" %}">
-                        <button class='border-0 p-1 pe-4 ps-4 mb-4 font-primary' 
-                        style='border-radius: 1rem;'>
-            Atras 
-      </button>
-      </a>
+      {% if service_admin %}
+      <div class='d-flex flex-wrap justify-content-center mb-5 mt-3'>
+            <div class="d-flex w-100 justify-content-center flex-wrap">
+                  <div class="w-100 d-flex justify-content-center">
+                        <img id='img2' src="" alt="" class='rounded-4 mb-2' style='width: 200px;'>
+                  </div>
+                    <form action="" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                        {{form.image}}
+                        <button id="add-btn" class="border-0 mt-2 mb-4 rounded-4 btn font-primary"
+                        style="background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); display: none;">
+                              Agregar Imagen
+                        </button>
+                  </form>
+            </div>
+            <div class="w-100 d-flex justify-content-center mb-2">
+                  <button onclick="AddImg()" class='text-white-50 border-1 rounded-4 p-2 pt-1 pb-1 bg-transparent font-primary'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill hover-reserver-icon" viewBox="0 0 16 16">
+                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+                        </svg> 
+                        Añadir      
+                  </button>                        
+            </div>
+            
+            <div class="w-100 text-center">
+                  <a href="{% url "citas:administrations-citas" %}"> 
+                        <button class='text-white-50 border-0 bg-transparent font-primary'>
+                              Atras
+                        </button>      
+                  </a>
+            </div>
+      </div>
+      {% else %}
+      <div class='d-flex justify-content-center mb-5 mt-3'>
+
+            <a href="{% url "citas:dashboard-citas" %}"> 
+                  <button class='text-white-50 border-0 bg-transparent font-primary'>
+                        Volver a atras
+                  </button>      
+            </a>
+      </div>
+      {% endif %}
 </div>
 
+<script>
+      function AddImg(){
+            document.getElementById('id_image').click();
+      }
+      document.getElementById('id_image').addEventListener('change', function() {
+            document.getElementById('img2').src = URL.createObjectURL(this.files[0]);
+            document.getElementById('add-btn').style.display = 'block';
+            // Perform your desired action here
+      });
+</script>
+
 <style>
+      
+      #id_image 
+      {
+            display: none;
+      }
       .gallery {
             display: flex;
             flex-wrap: wrap;

@@ -117,20 +117,23 @@
                               </a>
                               </span>
                         </div>
-
-                        {% if user.is_authenticated %}
-                              <script>
-                                    setTimeout(function() {
-                                          window.location.href = '/administrations-citas';
-                                    }, 5000);
-                              </script>
-                        {% endif %}
+          
+         
                   </div>
             {% comment %} Detalles Adicionales: <span class="text-white-50" style="font-size: 20px;">[Cualquier información adicional relevante]</span><br> {% endcomment %}
             {% comment %} Si tiene alguna pregunta o necesita reprogramar su cita, no dude en p {% endcomment %}
                   
       </div>
 </div>
+{% if service_admin %}
+      <div class='d-flex justify-content-center mb-5 mt-3'>
+            <a href="{% url "citas:administrations-citas" %}"> 
+                  <button class='text-white-50 border-0 bg-transparent font-primary'>
+                        Volver a atras
+                  </button>      
+            </a>
+      </div>
+{% endif %}
 
 <style>
       #divs-btns {

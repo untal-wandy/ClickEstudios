@@ -105,3 +105,13 @@ class PlansForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'service': forms.Select(attrs={'class': 'form-control'}),
         }
+        
+        
+class MomentRelatedImageForm(forms.ModelForm):
+      class Meta:
+            model = models.MomentRelatedImage
+            fields = ['moment', 'image', ]
+            widgets = {
+                  'moment': forms.Select(attrs={'class': 'form-control'}),
+                  'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            }

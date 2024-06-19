@@ -98,29 +98,44 @@ class CustomerDetailView(DetailView):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+
             context['c'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
       
 class GalleryMomentSelect(DetailView):
-      
       model = models.MomentImage
       template_name = 'citas/gallery-moment-select.html'
-      
-      def get(self, request, *args, **kwargs):
-            if not request.user.is_authenticated:
-                  return redirect('/logins/')
-            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
-            return super().get(request, *args, **kwargs)
-      
+
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
             context['moment'] = self.model.objects.get(id=self.kwargs.get('pk'))
 
-            
+            if self.request.user.is_authenticated:
+                  context['service_admin'] = True
+            # Añadir el formulario al contexto
+            context['form'] = forms.MomentRelatedImageForm()
             return context
-      
+
+      def post(self, request, *args, **kwargs):
+            form = forms.MomentRelatedImageForm(request.POST, request.FILES)
+            if form.is_valid():
+                  # Procesar los datos del formulario, por ejemplo, guardar un modelo
+                  # Suponiendo que tu formulario crea una nueva imagen relacionada con un momento
+                  new_image = form.save(commit=False)
+                  new_image.moment = self.get_object()  # Asumiendo que MomentImage tiene una FK a 
+                  new_image.moment = self.model.objects.get(id=self.kwargs.get('pk'))
+                  new_image.save()
+                  return redirect(reverse('citas:gallery-moment-select', kwargs={'pk': new_image.moment.id}))
+            else:
+                  print(form.errors)
+                  # Si el formulario no es válido, vuelve a mostrar la página con el formulario y errores
+                  self.object = self.get_object()
+                  context = self.get_context_data(object=self.object, form=form)
+                  return self.render_to_response(context)
+            
       
 class ServiceSelect(DetailView):
       model = models.ServiceImage
@@ -376,14 +391,28 @@ class CustomerUpdate(UpdateView, Options):
             return context
 
       def form_valid(self, form):
-            form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
-            form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
-            form.save() 
+            print(form)
+            c = self.model.objects.get(id=self.kwargs.get('pk'))
+            if  self.PlansExist(self.request.POST.get('select')) == True:
+                  form.instance.plan_choice = int(self.request.POST.get('select'))
+                  form.instance.plans = models.Plans.objects.get(id=self.request.POST.get('select'))
+                  form.save() 
+            else:
+                  form.instance.plans = c.plans
+                  form.save() 
+                  
             return self.RedirectReverse('citas:customer-update', self.kwargs.get('pk') )
 
       def form_invalid(self, form):
             print(form.errors)
             return super().form_invalid(form)
+      
+      def PlansExist(self, a):
+            try:
+                  models.Plans.objects.get(id=a)
+                  return True
+            except models.Plans.DoesNotExist:
+                  return False
       
 class HistoriSale(TemplateView, Options):
       model = models.Customer
@@ -417,8 +446,10 @@ def Logins(request):
       template_name = 'citas/login.html'
       success_url = reverse_lazy('citas:administrations-citas'  )
       error = ''
+      
       if request.user.is_authenticated:
             return redirect( '/administrations-citas')
+      
       if request.method == 'POST':
             user = request.POST.get("user")
             pwd = request.POST.get("pwd")
@@ -433,6 +464,18 @@ def Logins(request):
                  error = 'Usuario o contraseña incorrectos'
 
       return render(request, 'citas/login.html', {'error': error} )
+
+
+
+class Plans(TemplateView):
+      model = models.Plans
+      template_name = 'citas/all-plans.html'
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['plans'] =   self.model.objects.all()        
+            context['service'] = True
+            return context
       
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio

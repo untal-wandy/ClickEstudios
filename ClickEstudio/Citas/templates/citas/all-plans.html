@@ -1,0 +1,27 @@
+{% extends "citas/base/base.html" %}
+{% load static %}
+{% block content %}
+      <div>
+            <h5 class='font-primary mb-5 mt-3 p-1'>
+                  Todos nuestros planes
+            </h5>
+      </div>
+      {% include "citas/plans.html" %}
+            {% if service %}
+            <div class='d-flex justify-content-center mb-5 mt-3'>
+                  <a href="{% url "citas:administrations-citas" %}"> 
+                        <button class='text-white-50 border-0 bg-transparent font-primary'>
+                              Volver a atras
+                        </button>      
+                  </a>
+            </div>
+            {% else %}
+            <div class='d-flex justify-content-center mb-5 mt-3'>
+                  <a href="{% url "citas:dashboard-citas" %}"> 
+                        <button class='text-white-50 border-0 bg-transparent font-primary'>
+                              Volver a atras
+                        </button>      
+                  </a>
+            </div>
+            {% endif %}
+{% endblock  %}
