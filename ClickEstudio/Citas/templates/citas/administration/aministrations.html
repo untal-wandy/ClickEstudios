@@ -109,13 +109,14 @@
 .input 
 {
       width: 100%;
-      height: 2.5rem;
+      height: 2.4rem;
       border-radius: 1.2rem;
       border: 0px;
       outline: none;
       background: #0000006b;
       color: white;
       padding-left: 0.9rem;
+      max-width: 10rem;
 }
 
       </style>
@@ -132,27 +133,29 @@
                   <div style="height: 98vh;" class=" shadow p-3  blur w-100 border-0  d-flex flex-wrap justify-content-center  overflow-scroll">
                         <div class="d-flex border-0 blur text-start w-100">
                               <div class="border-0 w-50 d-flex start-0">
-                                    <h5 class="font-primary w-100 " style="text-shadow: #000 1px 2px 3px;">
+                                    <h6 class="font-primary w-100 mt-1" style="text-shadow: #0000009e 1px 2px 3px;">
                                           ClickEstudios 
                                           <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
                                           </svg>
-                                    </h5>
+                                    </h6>
                               </div>
                               <div class='w-50 d-flex justify-content-center border-0 '>
-                                    <div class='border-0 ' style="max-width: 20rem;">
-                                          <input type="search" class='input text-center' placeholder="Buscar Cita..">
+                                    <div class='border-0 ' >
+                                          <input type="search" class='input text-white text-center' placeholder="Buscar Cita..">
                                     </div>
                               </div>
                               <div class="border-0 d-flex justify-content-end w-50 ">
 
-                                    <a href="{% url "citas:all-plans" %}">   
-                                          <button onclick="MenuAdmin()"  class="bg-black p-3 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary "
-                                                style="border-radius: 1.5rem; height: 2rem; ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus-fill" viewBox="0 0 16 16">
-                                                      <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0"/>
-                                                </svg> Agendar 
-                                          </button>
-                                    </a> 
+                                    <div class="border-0">
+                                          <a href="{% url "citas:all-plans" %}">   
+                                                <button onclick="MenuAdmin()"  class="bg-black p-3 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2  "
+                                                      style="border-radius: 1.5rem; height: 2rem; font-size: 14px;" >
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus-fill p-0 m-0" viewBox="0 0 16 16">
+                                                            <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0"/>
+                                                      </svg> Agendar 
+                                                </button>
+                                          </a> 
+                                    </div>
                                     <!-- <button onclick="MenuAdmin()"  class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary "
                                           style="border-radius: 1.5rem; height: 2rem; ">
                                           Menu
