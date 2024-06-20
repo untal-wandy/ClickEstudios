@@ -424,7 +424,7 @@ class CustomerUpdate(UpdateView, Options):
 class HistoriSale(TemplateView, Options):
       model = models.Customer
       # form_class = forms.CustomerForm2
-      template_name = 'citas/histori-sale.html'
+      template_name = 'citas/administration/sale.html'
       # success_url = reverse_lazy('citas:administrations-citas'  )
 
       def get(self, request, *args, **kwargs):
@@ -477,6 +477,16 @@ def Logins(request):
 class Plans(TemplateView):
       model = models.Plans
       template_name = 'citas/all-plans.html'
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['plans'] =   self.model.objects.all()        
+            context['service'] = True
+            return context
+      
+      
+      
+class Sale(TemplateView):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)

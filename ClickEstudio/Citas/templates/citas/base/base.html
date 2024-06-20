@@ -195,7 +195,24 @@
 }
 
 
-
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 45vh; /* Ajusta la altura según sea necesario */
+  background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain');
+  background-size: cover;
+  background-position: center;
+}
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
+  color: white; /* Cambia el color del texto según sea necesario */
+}
 
   </style>
   <body class='overflow-hidden overflow-y-scroll '>
@@ -356,6 +373,22 @@
           {% block content %}
 
           {% endblock  %}
+
+          <script>
+            setInterval(function() {
+              let images = [
+                    "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
+                    "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
+                    "https://cdn.shopify.com/s/files/1/0047/9035/3966/products/ellatop.jpg?v=1615583910",
+                    "https://i.pinimg.com/736x/3d/87/ba/3d87bad974bee313d330fb2755708e81.jpg",
+              ];
+              let randomIndex = Math.floor(Math.random() * images.length);
+                let imageUrl = images[randomIndex];
+                
+                document.querySelector(".bg-dinamic").style.backgroundImage = "url(" + imageUrl + ")";
+            }, 4000); 
+          </script>
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
