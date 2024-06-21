@@ -441,12 +441,28 @@ class HistoriSale(TemplateView, Options):
       def get_context_data(self, **kwargs):
             customers = models.Customer.objects.filter(saled=True, finished=False, reserve=True)
             # Extraer año y mes de la fecha de venta, contar las ventas, y ordenar por el conteo
+            
+            mont_more_solid = customers.annotate(
+            year=ExtractYear('date_created'),  # Asume que 'date_created' es el campo de fecha de venta
+            month=ExtractMonth('date_created')
+            ).values('year', 'month').annotate(
+            sales_count=Count('id')
+            ).order_by('-sales_count').first()
+            
+            
             mont_more_reserver = customers.annotate(
             year=ExtractYear('date_choice'),  # Asume que 'date_choice' es el campo de fecha de venta
             month=ExtractMonth('date_choice')
             ).values('year', 'month').annotate(
             sales_count=Count('id')
             ).order_by('-sales_count').first()
+            
+            most_requested_plan = customers.values('plans').annotate(
+                        plan_count=Count('plans')
+                        ).order_by('-plan_count').first()
+                        
+                 
+            month_solid = calendar.month_name[mont_more_solid['month']].capitalize()
             month_name = calendar.month_name[mont_more_reserver['month']].capitalize()
 
             c = models.Customer.objects.filter(saled=True, finished=False, reserve=True,)
@@ -459,8 +475,9 @@ class HistoriSale(TemplateView, Options):
             context['sale_count'] = c.count()
             context['c_saled'] = c
             context['total_saled'] = total_saled
-            context['mont_more_reserver'] = f" {month_name} con {mont_more_reserver['sales_count']}"
-           
+            context['mont_more_reserver'] = f" {month_name} con {mont_more_reserver['sales_count']} reservas"
+            context['plans_more'] = models.Plans.objects.get(id=most_requested_plan['plans']).name
+            context['mont_more_solid'] =  month_solid 
             return context
       
       
