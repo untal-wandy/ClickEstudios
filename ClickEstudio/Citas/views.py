@@ -425,7 +425,6 @@ from django.db.models import Count, IntegerField
 from django.db.models.functions import ExtractMonth, ExtractYear
 import calendar
 import locale
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class HistoriSale(TemplateView, Options):
       model = models.Customer
       # form_class = forms.CustomerForm2

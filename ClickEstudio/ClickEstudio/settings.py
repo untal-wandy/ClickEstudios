@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     'localhost', 
     'clickestudios.com',
      '64.23.182.234',
-     'www.clickestudios.com',
+     'www.clickestudios.com'
      
      
 ]
