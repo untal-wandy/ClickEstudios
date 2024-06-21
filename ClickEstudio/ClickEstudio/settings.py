@@ -30,7 +30,7 @@ ALLOWED_HOSTS = [
     'clickestudios.com',
      '64.23.182.234',
      'www.clickestudios.com',
-     "*"
+     
      
 ]
 # CSRF_TRUSTED_ORIGINS = 'https://6f6c-2001-1308-2740-ae00-a534-b5c8-c8c4-a8a7.ngrok-free.app'
