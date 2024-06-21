@@ -421,19 +421,33 @@ class CustomerUpdate(UpdateView, Options):
             except models.Plans.DoesNotExist:
                   return False
       
+from django.db.models import Count, IntegerField
+from django.db.models.functions import ExtractMonth, ExtractYear
+import calendar
+import locale
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class HistoriSale(TemplateView, Options):
       model = models.Customer
       # form_class = forms.CustomerForm2
       template_name = 'citas/administration/sale.html'
       # success_url = reverse_lazy('citas:administrations-citas'  )
 
-      def get(self, request, *args, **kwargs):
-            if not request.user.is_authenticated:
-                  return redirect('/logins/')
-            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
-            return super().get(request, *args, **kwargs)
+      # def get(self, request, *args, **kwargs):
+      #       if not request.user.is_authenticated:
+      #             return redirect('/logins/')
+      #       # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+      #       return super().get(request, *args, **kwargs)
       
       def get_context_data(self, **kwargs):
+            customers = models.Customer.objects.filter(saled=True, finished=False, reserve=True)
+            # Extraer año y mes de la fecha de venta, contar las ventas, y ordenar por el conteo
+            mont_more_reserver = customers.annotate(
+            year=ExtractYear('date_choice'),  # Asume que 'date_choice' es el campo de fecha de venta
+            month=ExtractMonth('date_choice')
+            ).values('year', 'month').annotate(
+            sales_count=Count('id')
+            ).order_by('-sales_count').first()
+            month_name = calendar.month_name[mont_more_reserver['month']].capitalize()
 
             c = models.Customer.objects.filter(saled=True, finished=False, reserve=True,)
             total_saled = 0
@@ -445,6 +459,7 @@ class HistoriSale(TemplateView, Options):
             context['sale_count'] = c.count()
             context['c_saled'] = c
             context['total_saled'] = total_saled
+            context['mont_more_reserver'] = f" {month_name} con {mont_more_reserver['sales_count']}"
            
             return context
       
