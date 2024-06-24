@@ -3,6 +3,11 @@
 {% load humanize %}
 {% load static %}
 <style>
+      #DivOtions button
+      {     
+            border:1px grey solid;
+
+      }
       table .border-1 
       {
             border-right: 0 !important; 
@@ -22,7 +27,7 @@
             {% if c_saled %}
 
            
-            <div class=' bg-black bg-opacity-50 flex-wrap ms-5 me-5  p-3 pb-2 pt-2 overflow-scroll  d-flex justify-content-center mt-5' 
+            <div class=' bg-black bg-opacity-50 flex-wrap positiob-related ms-5 me-5  p-3 pb-2 pt-2 overflow-scroll  d-flex justify-content-center mt-5' 
                   style='border-radius: 1.9rem; height: 30rem ;'>
                   <div class="w-100">
                         <table class="w-100">
@@ -34,14 +39,14 @@
                                         <th class='font-primary pt-2 pb-1' style="width: 15%;" scope="col">Nombre y Apellidos</th>
                                         <th class='font-primary pt-2 pb-1' style="width: 16%;" scope="col">Gmail</th>
                                         <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Plan</th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Precio</th>
+                                        <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Precio/Bono</th>
                                         <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Estado </th>
                                         <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Fecha reservada</th>
                                     </tr>
                                   </thead>
                         </table>
                   </div>
-                        <div style="max-height: 16rem;" class="w-100 overflow-scroll">
+                  <div style="max-height: 16rem;" class="w-100 overflow-scroll">
                               <table class="w-100 " 
                   style=' border-radius: 1rem !important; '  >
                   <thead >
@@ -62,11 +67,15 @@
                                     <td class='border-1 ' > {{c.name}} </td>
                                     <td class="border-1"> {{c.email}} </td>
                                     <td class='border-1' > {{c.plans.name}} </td>
-                                    <td class='border-1 d-flex align-content-center ' >  
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar mt-1" viewBox="0 0 16 16">
-                                          <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/></svg>
-                                          {{c.plans.price|intcomma}}.00 </td>
-                                    <td class='border-1' > {% if c.saled == True %} Vendido {% else %} <span class='text-danger'>Reservado con ${{c.saled_mount|intcomma}}.00</span> {% endif %} </td>
+                                    <td class='border-1 d-flex align-content-center'>  
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar me-0 mt-1" viewBox="0 0 16 16">
+                                          <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/></svg> {% if c.saled  == False %} {{c.reserver_mount|intcomma}}.00 /   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar mt-1" viewBox="0 0 16 16">
+                                          <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/></svg> {{c.plans.price|intcomma}}.00
+                                          {% else %} {{c.plans.price|intcomma}}.00  {% endif %}
+                                          
+                                    </td>
+                                    <td class='border-1' > {% if c.saled == True %} Vendido {% else %} <span class='text-danger'>Reservado 
+                                          </span> {% endif %} </td>
                                     <td class='border-1' > {{c.date_choice|date:"F/d/Y" }} </td>
                               </tr>
                               {% endfor %}
@@ -74,12 +83,12 @@
                
                 </table>
                   </div>
-                <div class="w-100">
+                <div class="w-100 position-related">
                <table class="w-100">
                   <thead>
                         <tr >
                           <th class='font-primary ' style="width: 5%;" scope="col"> </th>
-                          <th class='font-primary pb-1 pt-4'  style="width: 15%;" scope="col">  Filtar </th>
+                          <th class='font-primary pb-1 pt-4'  style="width: 15%;" scope="col"> Filtar </th>
                           <th class='font-primary pb-1 pt-4 ' style="width: 16%;" scope="col">Promedio en ventas</th>
                           <th class='font-primary pb-1 pt-4' style="width: 15%;" scope="col">Mas vendido</th>
                           <th class='font-primary pb-1 pt-4' style="width: 15%;"scope="col">En caja</th>
@@ -90,7 +99,7 @@
                       <tbody class='rounded-3'>
                         <td></td>
                         <td>
-                                    <button class="rounded-4 border-0 text-white-50 bg-transparent d-flex align-content-center ">
+                                    <button onclick='DivOtions()' class="rounded-4 border-0 text-white-50 bg-transparent d-flex align-content-center ">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filter mt-1 me-1" viewBox="0 0 16 16">
                                                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
                                               </svg>  Todo
@@ -129,7 +138,29 @@
 
                     </tbody>
                </table>
-                </div>
+               <div id='div-options' class='position-absolute bg-black border-1  p-2' 
+                  style='bottom: 15rem; display: none; margin-left: 2rem; border-radius:1.4rem; width: 8rem;'>
+                  <table>
+                        <tbody>
+                              <tr>
+                                    <button>
+                                          Reservados
+                                    </button>
+                              </tr>
+                              <tr>
+                                    <button>
+                                          Vendidos
+                                    </button>
+                              </tr> <br>
+                              <tr>
+                                    <button>
+                                          Todos
+                                    </button>
+                              </tr>
+                        </tbody>
+                  </table>
+               </div>
+            </div>
             </div>
 
             <div class='d-flex justify-content-start ms-5 mt-3'>
@@ -159,6 +190,15 @@
       </div>
 </div>
 <script>
-      TextSession("Listado de ventas")
+TextSession("Listado de ventas")
+let  DivOtions = ()=> {
+            let optionsDiv = document.getElementById('div-options');
+            if (optionsDiv.style.display === 'none') {
+            optionsDiv.style.display = 'block';
+            } else {
+            optionsDiv.style.display = 'none';
+            }
+      }
+      </script>
 </script>
 {% endblock  %}
