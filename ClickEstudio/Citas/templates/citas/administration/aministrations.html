@@ -107,7 +107,7 @@
 }
 </style>
 <div class="background-container vh-100 p-0" id="bg-admin" >
-      <div class="content blur">
+      <div class="content blur border-0">
             {% include "citas/components/nav.html" %}
                 <!-- Aquí va el contenido -->
             <div style="height: 100vh;" 
@@ -139,6 +139,7 @@
             document.getElementById("bg-admin").style.backgroundImage = "url(" + imageUrl + ")";
 }, 4000); 
            
+      TextSession('Administracion')
 
 
 

@@ -464,7 +464,7 @@ class HistoriSale(TemplateView, Options):
             month_solid = calendar.month_name[mont_more_solid['month']].capitalize()
             month_name = calendar.month_name[mont_more_reserver['month']].capitalize()
 
-            c = models.Customer.objects.filter(saled=True, finished=False, reserve=True,)
+            c = models.Customer.objects.filter( finished=False, reserve=True,)
             total_saled = 0
             for i in c:
                   total_saled += i.plans.price
