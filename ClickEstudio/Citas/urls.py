@@ -11,6 +11,8 @@ urlpatterns = [
     path('gallery-moment-select/<int:pk>', views.GalleryMomentSelect.as_view(), name='gallery-moment-select'),  
     path('service-select/<int:pk>', views.ServiceSelect.as_view(), name='service-select'),
     path('all-plans/', views.Plans.as_view(), name='all-plans'),
+    
+    path('admin-click-estudios', views.Admin.as_view(), name='admin-click-estudios'),
 
     # Administrative views
     path('administrations-citas', views.CitasAdministrations.as_view(), 

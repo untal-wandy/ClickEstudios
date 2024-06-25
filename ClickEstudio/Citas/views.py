@@ -525,6 +525,22 @@ class Sale(TemplateView):
             context['service'] = True
             return context
       
+      
+      
+      
+class Admin(TemplateView):
+      template_name = 'citas/administration/admin.html'
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            return context
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
 """
