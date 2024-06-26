@@ -13,6 +13,8 @@ urlpatterns = [
     path('all-plans/', views.Plans.as_view(), name='all-plans'),
     
     path('admin-click-estudios', views.Admin.as_view(), name='admin-click-estudios'),
+    
+    path('list-user', views.ListUser.as_view(), name='list-user'),
 
     # Administrative views
     path('administrations-citas', views.CitasAdministrations.as_view(), 

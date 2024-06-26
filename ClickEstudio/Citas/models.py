@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 import os
 
 # Create your models here.
@@ -103,3 +104,30 @@ class CaratPlanes(models.Model):
       
       def __str__(self):
             return self.name
+      
+      
+class Role(models.Model):
+      name = models.CharField(max_length=255, default='Indefinido')
+      description = models.TextField(default="Un rol indefinodo podría tener la capacidad de ver ciertos contenidos que no requieran permisos especiales, como páginas informativas o recursos de ayuda y mas")
+      date_created = models.DateTimeField(auto_now_add=True)
+
+      
+      def __str__(self):
+            return self.name
+      
+      
+class UserA(models.Model):
+      user = models.ForeignKey(User, related_name='userA',  on_delete=models.CASCADE, blank=True, null=True)
+      role = models.ForeignKey(Role, related_name='role', on_delete=models.CASCADE, blank=True, null=True)
+      img = models.ImageField(upload_to='media/', blank=True, null=True)
+
+      name = models.CharField(max_length=255)
+      last_name = models.CharField(max_length=255)
+      number = models.CharField(max_length=20,  blank=True, null=True)
+      birthday = models.DateField()
+      date_created = models.DateTimeField(auto_now_add=True,  blank=True, null=True)
+      active = models.BooleanField(default=True)
+      email = models.EmailField()
+
+      def __str__(self):
+            return self.user.username
