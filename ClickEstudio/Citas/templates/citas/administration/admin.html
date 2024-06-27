@@ -34,11 +34,33 @@
                   </h6>
                   {% include "citas/components/btns-admin.html" %}
             </div>
+            <div>
+                  
+            </div>
             
       </div>
 </div>
 <script>
       TextSession('Administracions')
+let  CalFrances = (capital, tasa, plazo) => {
+      const Cuotas = capital * tasa / (1 - Math.pow(1 + tasa, -plazo));
+      let amortizacion = [];
+      let saldo = capital;
+      const interes = saldo * tasa;
+      const amortizacionCapital = Cuotas - interes;
+      saldo -= amortizacionCapital;
+      for (let mes = 1; mes <= plazo; mes++) {
+            amortizacion.push({
+                  Mes: mes, Cuota: Cuotas.toFixed(2), Interes: interes.toFixed(2),
+                  AmortizacionCapital: amortizacionCapital.toFixed(2),
+                  Saldo: saldo.toFixed(2)
+            });
+      }
+      console.log(saldo);
+    return amortizacion;
+}
+
+console.log(CalFrances(13000, 0.15, 6))
 </script>
 
 
