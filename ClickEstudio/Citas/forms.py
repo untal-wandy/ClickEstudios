@@ -115,3 +115,14 @@ class MomentRelatedImageForm(forms.ModelForm):
                   'moment': forms.Select(attrs={'class': 'form-control'}),
                   'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             }
+            
+            
+            
+class RoleForm(forms.ModelForm):
+      class Meta:
+            model = models.Role
+            fields = ['name', 'description'] 
+            widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+        }

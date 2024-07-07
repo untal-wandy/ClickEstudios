@@ -110,7 +110,6 @@ class Role(models.Model):
       name = models.CharField(max_length=255, default='Indefinido')
       description = models.TextField(default="Un rol indefinodo podría tener la capacidad de ver ciertos contenidos que no requieran permisos especiales, como páginas informativas o recursos de ayuda y mas")
       date_created = models.DateTimeField(auto_now_add=True)
-
       
       def __str__(self):
             return self.name

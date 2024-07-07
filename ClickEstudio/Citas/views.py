@@ -561,10 +561,29 @@ class ListUser(TemplateView):
             context['user'] = models.UserA.objects.all()
             context['role'] = models.Role.objects.all()
 
-                        
             return context
       
       
+      
+class CreateRole(CreateView):
+      model = models.Role
+      form_class = forms.RoleForm
+      template_name = 'citas/administration/create-role.html'
+      success_url = reverse_lazy('citas:list-user')
+
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+
+      def form_valid(self, form):
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            return super().form_invalid(form)
       
 
 """

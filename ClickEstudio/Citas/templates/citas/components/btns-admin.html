@@ -27,14 +27,16 @@
       }
 </style>
 <div class='admin-btns d-flex flex-wrap p-1'>
-      <div class="bg-black bg-opacity-50 me-1 mb-1">
-            <span>
-                  Usuarios
-            </span>
-            <p>
-                  Gestión de usuarios: creación, edición, eliminación, asignación de roles y establecimiento de permisos según el rol.
-            </p>
-      </div>
+      <a href="{% url "citas:list-user" %}">
+            <div class="bg-black bg-opacity-50 me-1 mb-1">
+                  <span>
+                        Usuarios
+                  </span>
+                  <p>
+                        Gestión de usuarios: creación, edición, eliminación, asignación de roles y establecimiento de permisos según el rol.
+                  </p>
+            </div>
+      </a>
       <div class="bg-black bg-opacity-50">
             <span>
                   Analisis de datos
