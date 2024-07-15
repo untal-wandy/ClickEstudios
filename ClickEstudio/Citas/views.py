@@ -43,6 +43,8 @@ class CitasAdministrations(TemplateView, Mail):
 
             context['setting'] = models.Setting.objects.get(name='icon')
             context['plans'] = models.Plans.objects.filter()
+            if self.request.user.is_authenticated:
+                  context['service_admin'] = True
             return context
       
       
@@ -585,6 +587,27 @@ class CreateRole(CreateView):
       def form_invalid(self, form):
             return super().form_invalid(form)
       
+
+class CreateUser(CreateView):
+      model = models.UserA
+      form_class = forms.UserAForm
+      template_name = 'citas/administration/create-userA.html'
+      success_url = reverse_lazy('citas:list-user')
+
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+
+      def form_valid(self, form):
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
 
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio

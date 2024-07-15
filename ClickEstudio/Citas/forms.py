@@ -126,3 +126,18 @@ class RoleForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
         }
+            
+class UserAForm(forms.ModelForm):
+      class Meta:
+            model = models.UserA
+            fields = ['user', 'role', 'img', 'name', 'last_name', 'number', 'birthday',  'active', 'email']
+            widgets = {
+                  'birthday': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            }
+
+      def __init__(self, *args, **kwargs):
+            super(UserAForm, self).__init__(*args, **kwargs)
+            # Add the 'form-control' class to all form fields
+            for field in self.fields:
+                  self.fields[field].widget.attrs['class'] = 'form-control'
+

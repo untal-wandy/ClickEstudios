@@ -13,7 +13,7 @@ urlpatterns = [
     path('all-plans/', views.Plans.as_view(), name='all-plans'),
     
     path('admin-click-estudios', views.Admin.as_view(), name='admin-click-estudios'),
-    
+    path('create-user/', views.CreateUser.as_view(), name='create-user'),
     path('list-user', views.ListUser.as_view(), name='list-user'),
 
     # Administrative views
