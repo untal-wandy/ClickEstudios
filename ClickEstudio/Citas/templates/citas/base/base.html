@@ -399,7 +399,18 @@
 
 
           
-       
+       function NumbersFomat(value) {
+// Elimina todos los caracteres no numéricos
+var number = value.replace(/\D/g, '');
+// Agrega guiones después de los primeros 3 dígitos y los siguientes 7 dígitos
+var N = number.replace(/(\d{3})(\d{3})(\d{1})/, '$1-$2-$3');
+return N;
+  }
+  document.getElementById('id_number').addEventListener('input', function(e) {
+            let n = document.getElementById('id_number')
+            n.value = n.value.substring(0,12);
+            e.target.value = NumbersFomat(e.target.value);
+  });
           </script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
