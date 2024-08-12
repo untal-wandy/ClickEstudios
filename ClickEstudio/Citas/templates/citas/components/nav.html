@@ -14,7 +14,9 @@
 .list-options a {
       transition: none !important;
       margin-left: 1.5rem !important;
-      font-size: 12px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45) !important;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
 }
 
 .list-options a:hover 
@@ -49,18 +51,19 @@
 
 
 
-<div class="d-flex border-0 p-1 text-start w-100 p-2">
+<div class="d-flex border-0 p-1 text-start w-100 p-2 ">
       <div class="border-0 w-50 d-flex start-0">
-            <h6 class="font-primary ms-2 text-session text-white-50 w-100 mt-2" style="text-shadow: #0000009e 1px 2px 3px;">
+            <h6 class="font-primary ms-2 text-session text-white-50 w-100 mt-2" 
+                  style="text-shadow: #0000009e 1px 2px 3px; font-size: 14px; ">
             </h6>
       </div>
 
-      <div class='w-50 d-flex justify-content-center border-0 '>
+      <div class='w-50 d-flex justify-content-center border-0  '>
             <div id='input-searching-id' class='border-0 d-flex  align-content-center bg-black bg-opacity-50  flex-wrap '
-                  style="border-radius: 2.5rem; height: 2.2rem; width: 10rem;" >
-                  <input type="search" id="search" class='input  bg-transparent  text-center' placeholder="Buscar">
+                  style="border-radius: 2.5rem; height: 2rem; width: 10rem; font-size: 12px;" >
+                  <input type="search" id="search" class='input  bg-transparent  text-center' placeholder="Buscar Cita">
                    <button onclick="CalendarOpen()" class="border-0 bg-transparent text-white d-flex  me-1  align-content-center  flex-wrap ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-date-fill p-0 m-0 text-white-50" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date-fill p-0 m-0 text-white-50" viewBox="0 0 16 16">
                               <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2"/>
                               <path d="M16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-6.664-1.21c-1.11 0-1.656-.767-1.703-1.407h.683c.043.37.387.82 1.051.82.844 0 1.301-.848 1.305-2.164h-.027c-.153.414-.637.79-1.383.79-.852 0-1.676-.61-1.676-1.77 0-1.137.871-1.809 1.797-1.809 1.172 0 1.953.734 1.953 2.668 0 1.805-.742 2.871-2 2.871zm-2.89-5.435v5.332H5.77V8.079h-.012c-.29.156-.883.52-1.258.777V8.16a13 13 0 0 1 1.313-.805h.632z"/>
                             </svg>
@@ -81,11 +84,11 @@
 
             <div class="border-0">
                   <a href="{% url "citas:all-plans" %}">   
-                        <button onclick="MenuAdmin()"  class="bg-black p-3 pt-1 pb-1 bg-opacity-50 text-white blur border-0 me-2 d-flex flex-wrap align-content-center"
-                              style="border-radius: 1.5rem; width: 7rem; height: 2.2rem; font-size: 14px;" >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus-fill p-0 m-0 mt-1 me-1
+                        <button onclick="MenuAdmin()"  class=" p-3 pt-1 pb-1  text-white blur border-0  d-flex flex-wrap align-content-center"
+                              style="border-radius: 1.5rem; width: 9rem; height: 2.2rem; font-size: 14px;" >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-plus-fill p-0 m-0 mt-1 me-1
                               " viewBox="0 0 16 16">
-                              <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0"/></svg> Agendar 
+                              <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0"/></svg> Agendar Cita
                         </button>
                   </a> 
             </div>
@@ -101,65 +104,20 @@
       </div>
 </div>
 <div id="div-menu-admin" class='w-100 vh-50  border-0' style='display: none;'>
-      <div  class="position-fixed  bg-black  bg-opacity-50 end-0 me-2"  
-            style="top: 3.5rem; width: max-content; width: 15rem; border-radius: 1.8rem;" >
+      <div  class="position-fixed blur bg-black  bg-opacity-25 end-0 me-2"  
+            style="top: 3.5rem; width: max-content; width: 15rem; border-radius: 1.8rem;" > 
             <div class=" list-options d-flex flex-column border-0 p-3">
-                  <div class="w-100 border-0 ">
-                        <h6 class="text-white-50 d-flex align-center flex-wrap  p-0 m-0 font-primary">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear m-0 p-0 me-1   " viewBox="0 0 16 16">
-                                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-                                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-                                  </svg>    Configuraciones
-                        </h6>
-                  </div>
-                  <a href="{% url "citas:plans-create" %}"
-                        class="text-white p-0 pt-1 pb-0">Planes ClickEstudios</a>
-                  <a href="{% url "citas:service-create" %}" 
-                        class="text-white p-0 pt-1 pb-0">Servicios ClickEstudios</a>
-                  <a href="{% url "citas:moment-image-create" %}"
-                        class="text-white p-0 pt-1 pb-0">Galeria de Momentos</a>
-                  <div class="w-100 border-0 mt-3">
-                        <h6 class=" text-white-50 p-0 m-0 d-flex align-center flex-wrap  font-primary">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-receipt me-1" viewBox="0 0 16 16">
-                                    <path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27m.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0z"/>
-                                    <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
-                                  </svg>  Informacion de Ventas
-                        </h6>
-                  </div>
-                  <a href="{% url "citas:histori-sale" %}" 
-                        class="text-white p-0 pt-1 pb-0">Historial</a>
-                  <a href="{% url "citas:histori-sale" %}" 
-                        class="text-white p-0 pt-1 pb-0">Reportes de ventas</a>
-                  <div class="w-100 text-white-50 mt-3 border-0">
-                        <h6 class="  p-0 m-0 d-flex align-center flex-wrap font-primary">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people me-1" viewBox="0 0 16 16">
-                                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
-                                  </svg>  Estados de  Clientes
-                        </h6>
-                  </div>
-                  <a  onclick='openReserver()' 
-                        class="text-white p-0 pt-1 pb-0">
-                        Reservados</a>
-                  <a class="text-white p-0 pt-1 pb-0">
-                        Clientes canselados</a>
+                  {% if permisons.priori >= 3 %}
+                  {% include "citas/components/configuracion-nav.html" %}
+                  {% endif %}
+                  {% if permisons.priori >= 4 %}
+                        {% include "citas/components/admin-nav.html" %}
+                  {% endif %}
+                  {% if permisons.priori >= 2 %}
+                        {% include "citas/components/informacion-ventas-nav.html" %}
+                         {% include "citas/components/estado-clientes-nav.html" %}
+                  {% endif %}
 
-                        {% if service_admin %}
-                              <div class="w-100 text-white-50 mt-3 border-0">
-                              <h6 class="  p-0 m-0 d-flex align-center flex-wrap font-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle me-1" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                                    </svg> Administracion
-                              </h6>
-                        </div>
-                        <a href="{% url "citas:admin-click-estudios" %}" class="text-white p-0 pt-1 pb-0">
-                              Dasboard Admin</a>
-                        <a     href="{% url "citas:list-user" %}"
-                              class="text-white p-0 pt-1 pb-0">
-                              Admin de Usuarios/Roles
-                              </a>
-                              
-                        {% endif %}
             </div>
       </div>
 </div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, MomentImage, ServiceImage, Appointment, MomentRelatedImage,Setting,Plans,CaratPlanes, UserA, Role
+from .models import *
 # Register your models here.
 
 admin.site.register(Customer)
@@ -12,3 +12,4 @@ admin.site.register(Plans)
 admin.site.register(CaratPlanes)
 admin.site.register(UserA)
 admin.site.register(Role)
+admin.site.register(Permisons)

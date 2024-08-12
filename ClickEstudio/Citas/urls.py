@@ -16,6 +16,7 @@ urlpatterns = [
     path('create-user/', views.CreateUser.as_view(), name='create-user'),
     path('list-user', views.ListUser.as_view(), name='list-user'),
 
+
     # Administrative views
     path('administrations-citas', views.CitasAdministrations.as_view(), 
         name='administrations-citas' ),  
@@ -24,6 +25,8 @@ urlpatterns = [
     
     path('customer-update/<int:pk>', views.CustomerUpdate.as_view(), 
          name='customer-update'),
+
+    path('userA-update/<int:pk>', views.UserUpdate.as_view(), name='userA-update'),
     
     
     path('service-update/<int:pk>', views.ServiceUpdateView.as_view(), name='service-update'),

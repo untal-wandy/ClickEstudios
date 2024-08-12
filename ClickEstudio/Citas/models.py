@@ -130,3 +130,17 @@ class UserA(models.Model):
 
       def __str__(self):
             return self.name
+      
+
+class Permisons(models.Model):
+      role = models.ForeignKey(Role, related_name='role_permisons', blank=True, null=True,
+                               on_delete=models.CASCADE)
+      user = models.ForeignKey(User, related_name='permisons', blank=True, null=True,
+                               on_delete=models.CASCADE)
+      priori = models.IntegerField(blank=True, null=True, default=0)
+      active = models.BooleanField(default=True)
+      date_created = models.DateTimeField(auto_now_add=True)
+      
+      def __str__(self):
+            return self.role.name
+      

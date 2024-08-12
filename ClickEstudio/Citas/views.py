@@ -21,7 +21,9 @@ class DashboardCitas(TemplateView, Mail):
             context['service'] = models.ServiceImage.objects.all()
             context['setting'] = models.Setting.objects.get(name='icon')
             context['plans'] = models.Plans.objects.all()
-
+            if self.request.user.is_authenticated:
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+                  context['service_admin'] = True
             # print(self.SendGmail('untal.wandy@gmail.com', 'Prueba', 'Esto es una prueba de correo'))
             return context
       
@@ -40,10 +42,10 @@ class CitasAdministrations(TemplateView, Mail):
             context = super().get_context_data(**kwargs)
             context['c'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
             context['c_reserver'] = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
-
             context['setting'] = models.Setting.objects.get(name='icon')
             context['plans'] = models.Plans.objects.filter()
             if self.request.user.is_authenticated:
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
                   context['service_admin'] = True
             return context
       
@@ -162,6 +164,7 @@ class ServiceSelect(DetailView):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).service_img.all()
             context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = self.model.objects.get(id=self.kwargs.get('pk')).services.all()
 
             
@@ -200,6 +203,7 @@ class ServiceCreateView(CreateView):
             context = super().get_context_data(**kwargs)
             context['service'] = models.ServiceImage.objects.all()
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
 
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
@@ -223,6 +227,7 @@ class ServiceUpdateView(UpdateView):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).image.url
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
 
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
@@ -258,6 +263,7 @@ class MomentImgeCreate(CreateView):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
 
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
@@ -296,6 +302,7 @@ class MomentImgeUpdate(UpdateView):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
 
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
@@ -335,6 +342,7 @@ class PlansCreate(CreateView):
             context = super().get_context_data(**kwargs)
             context['plans'] = models.Plans.objects.all()
             context['edit'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             # context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
             return context
@@ -365,6 +373,7 @@ class PlansUpdate(UpdateView):
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).img.url
             # context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
             context['edit'] = True
 
@@ -395,6 +404,7 @@ class CustomerUpdate(UpdateView, Options):
             c = self.model.objects.get(id=self.kwargs.get('pk'))
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
             context['plans_choice'] = c.plans if hasattr(c, 'plans') else None
             return context
@@ -472,6 +482,7 @@ class HistoriSale(TemplateView, Options):
                   total_saled += i.plans.price
                   
             context = super().get_context_data(**kwargs)
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['service_admin'] = True
             context['sale_count'] = c.count()
             context['c_saled'] = c
@@ -525,6 +536,7 @@ class Sale(TemplateView):
             context = super().get_context_data(**kwargs)
             context['plans'] =   self.model.objects.all()        
             context['service'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             return context
       
       
@@ -541,6 +553,8 @@ class Admin(TemplateView):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            print(True)
             context['service_admin'] = True
             return context
       
@@ -560,9 +574,9 @@ class ListUser(TemplateView):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['user'] = models.UserA.objects.all()
             context['role'] = models.Role.objects.all()
-
             return context
       
       
@@ -608,6 +622,29 @@ class CreateUser(CreateView):
       def form_invalid(self, form):
             print(form.errors)
             return super().form_invalid(form)
+      
+
+
+class UserUpdate(UpdateView, Options):
+      model = models.UserA
+      form_class = forms.UserAForm
+      template_name = 'citas/administration/userA-update.html'
+      success_url = reverse_lazy('citas:administrations-citas'  )
+
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
+
+
+      
 
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
