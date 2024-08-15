@@ -23,7 +23,7 @@
                               </a>
                               {% if service_admin %}
                                     <div id='delete-c1{{m.id}}' style='display: flex;' class=' justify-content-end'>
-                                          <button onclick='DeledeteMomentImage({{m.id}})' id='{{m.id}}' class='border-0' style='background-color: #000; color: #fff;'>
+                                          <button onclick='DeledeteMomentImage()' id='{{m.id}}' class='border-0' style='background-color: #000; color: #fff;'>
                                                 Eliminar
                                           </button>
                                           <a href="{% url "citas:moment-image-update" m.id %}">
