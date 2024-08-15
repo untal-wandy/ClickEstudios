@@ -2,10 +2,9 @@
 {% block content %}
 <style>
       .background-container-l {
-            background-image: url(/static/img/girl-black.jpg); 
+            background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn');
             background-position: center;
             background-repeat: no-repeat;
-            background-size: cover;
             position: relative;
             width: 100%;
             height: 70vh; /* Ajusta la altura según sea necesario */
@@ -28,6 +27,7 @@
             flex-wrap: wrap;
             transition: 0.3s !important;
             align-content: center;
+
       }     
       input {
             border-radius: 1.5rem !important;
@@ -61,11 +61,11 @@
                   </svg>
             </h6>
         
-            <form action="" method="post" class='w-100 ' >
+            <form action="" method="post" class='w-100  ' >
                   {% csrf_token %}
-                  <div class='container-fluid w-100 d-flex justify-content-center flex-wrap' >
+                  <div class='container-fluid w-100 d-flex  justify-content-center flex-wrap' >
                         <div style='width: 25rem; border-radius: 2.5rem;
-                         border: 1px solid #414141;'  class='blur p-3'>
+                         border: 1px solid #414141;'  class=' bg-black blur bg-opacity-10 p-3'>
                               <div class='w-100 text-center '>
                                     {% if error %}
                                     <h6 class='text-danger font-secondary-50 pb-3'>
