@@ -3,6 +3,10 @@
 {% load humanize %}
 {% load static %}
 <style>
+      .font-secundary
+      {
+            font-size: 14px !important;
+      }
       #DivOtions button
       {     
             border:1px grey solid;
@@ -13,6 +17,7 @@
             border-right: 0 !important; 
             border-left: 0 !important; 
             border-color: rgba(74, 74, 74, 0.823);
+            font-size: 12px;
 
       }
       .list-btns button
@@ -27,26 +32,26 @@
             {% if c_saled %}
 
            
-            <div class=' bg-black bg-opacity-50 flex-wrap positiob-related ms-5 me-5  p-3 pb-2 pt-2 overflow-scroll  d-flex justify-content-center mt-5' 
-                  style='border-radius: 1.9rem; height: 30rem ;'>
-                  <div class="w-100">
+            <div class=' bg-black bg-opacity-25 flex-wrap  ms-5 me-5  p-3 pb-2 pt-2 d-flex justify-content-center mt-5'
+                  style='border-radius: 1.9rem; height: 30rem ; overflow-y: hidden; overflow-x: scroll;'>
+                  <div class="w-100 " style="height: max-content;">
                         <table class="w-100">
                               <thead >
                                     <tr >
                                         <th class='font-primary pb-1 pt-4' style="width: 5%;" scope="col"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-at mb-4" viewBox="0 0 16 16">
                                               <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
                                             </svg></th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 15%;" scope="col">Nombre y Apellidos</th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 16%;" scope="col">Gmail</th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Plan</th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Precio/Bono</th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Estado </th>
-                                        <th class='font-primary pt-2 pb-1' style="width: 15%;"scope="col">Fecha reservada</th>
+                                        <th class='font-secundary pt-2 pb-1' style="width: 15%;" scope="col">Nombre y Apellidos</th>
+                                        <th class='font-secundary pt-2 pb-1' style="width: 16%;" scope="col">Gmail</th>
+                                        <th class='font-secundary pt-2 pb-1' style="width: 15%;"scope="col">Plan</th>
+                                        <th class='font-secundary pt-2 pb-1' style="width: 15%;"scope="col">Precio/Bono</th>
+                                        <th class='font-secundary pt-2 pb-1' style="width: 15%;"scope="col">Estado </th>
+                                        <th class='font-secundary pt-2 pb-1' style="width: 15%;"scope="col">Fecha reservada</th>
                                     </tr>
                                   </thead>
                         </table>
                   </div>
-                  <div style="max-height: 16rem;" class="w-100 overflow-scroll">
+                  <div style=" height: max-content; max-height: 16rem; overflow-y: hidden; overflow-x: scroll; " class="w-100  ">
                               <table class="w-100 " 
                   style=' border-radius: 1rem !important; '  >
                   <thead >
@@ -87,13 +92,13 @@
                <table class="w-100">
                   <thead>
                         <tr >
-                          <th class='font-primary ' style="width: 5%;" scope="col"> </th>
-                          <th class='font-primary pb-1 pt-4'  style="width: 15%;" scope="col"> Filtar </th>
-                          <th class='font-primary pb-1 pt-4 ' style="width: 16%;" scope="col">Promedio en ventas</th>
-                          <th class='font-primary pb-1 pt-4' style="width: 15%;" scope="col">Mas vendido</th>
-                          <th class='font-primary pb-1 pt-4' style="width: 15%;"scope="col">En caja</th>
-                          <th class='font-primary pb-1 pt-4' style="width: 15%;"scope="col">Total en reservas</th>
-                          <th class='font-primary pb-1 pt-4' style="width: 15%;"scope="col"> Mes con mas reservas </th>
+                          <th class='font-secundary ' style="width: 5%;" scope="col"> </th>
+                          <th class='font-secundary pb-1 pt-4'  style="width: 15%;" scope="col"> Filtar </th>
+                          <th class='font-secundary pb-1 pt-4 ' style="width: 16%;" scope="col">Promedio en ventas</th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;" scope="col">Mas vendido</th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">En caja</th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">Total en reservas</th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col"> Mes con mas reservas </th>
                         </tr>
                       </thead>
                       <tbody class='rounded-3'>

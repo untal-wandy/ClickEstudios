@@ -84,9 +84,9 @@
 
             <div class="border-0">
                   <a href="{% url "citas:all-plans" %}">   
-                        <button onclick="MenuAdmin()"  class=" p-3 pt-1 pb-1  text-white blur border-0  d-flex flex-wrap align-content-center"
-                              style="border-radius: 1.5rem; width: 9rem; height: 2.2rem; font-size: 14px;" >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-plus-fill p-0 m-0 mt-1 me-1
+                        <button onclick="MenuAdmin()"  class=" p-3 pt-1 pb-1 justify-content-center me-2  text-white bg-black bg-opacity-50 border-0  d-flex flex-wrap align-content-center"
+                              style="border-radius: 1.5rem; width: 10rem; height: 2.2rem; font-size: 14px;" >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-plus-fill d-none p-0 m-0 mt-1 me-1
                               " viewBox="0 0 16 16">
                               <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0"/></svg> Agendar Cita
                         </button>
@@ -104,8 +104,9 @@
       </div>
 </div>
 <div id="div-menu-admin" class='w-100 vh-50  border-0' style='display: none;'>
-      <div  class="position-fixed blur bg-black  bg-opacity-25 end-0 me-2"  
-            style="top: 3.5rem; width: max-content; width: 15rem; border-radius: 1.8rem;" > 
+      <div  class="position-fixed  bg-black end-0 me-2"  
+            style="top: 3.5rem; width: max-content; width: 17rem; border-radius: 1.8rem;   -webkit-backdrop-filter: blur(30px) !important;
+              backdrop-filter: blur(30px) !important;" > 
             <div class=" list-options d-flex flex-column border-0 p-3">
                   {% if permisons.priori >= 3 %}
                   {% include "citas/components/configuracion-nav.html" %}
@@ -117,6 +118,7 @@
                         {% include "citas/components/informacion-ventas-nav.html" %}
                          {% include "citas/components/estado-clientes-nav.html" %}
                   {% endif %}
+                  {% include "citas/components/novedades.html" %}
 
             </div>
       </div>

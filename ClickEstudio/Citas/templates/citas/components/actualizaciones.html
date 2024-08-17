@@ -1,0 +1,162 @@
+{% extends "citas/base/base.html" %}
+{% block content %}
+
+<style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f5f8fa;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+      }
+  
+      .tweet {
+            background-color: #00000087;
+            border-radius: 2.3˝grem;
+            border: 1px solid #52525236;
+            width: 420px; height: max-content;
+            height: 240px;
+            padding: 20px;
+            margin: 20px;
+      }
+  
+      .tweet-header {
+          display: flex;
+          align-items: center;
+          /* margin-bottom: 10px; */
+      }
+  
+      .tweet-header img {
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          /* margin-right: 10px; */
+      }
+  
+      .tweet-header .user-info {
+          font-size: 14px;
+      }
+  
+      .tweet-header .user-info .name {
+          font-weight: bold;
+      }
+  
+      .tweet-header .user-info .handle {
+          color: #bfbfbf;
+      }
+  
+      .tweet-content {
+          font-size: 16px;
+        
+      }
+  
+      .tweet-footer {
+          display: flex;
+          justify-content: space-between;
+          font-size: 14px;
+          color: #657786;
+      }
+  
+      .tweet-footer span {
+          cursor: pointer;
+      }
+  
+      .tweet-footer span:hover {
+          color: #1da1f2;
+      }
+      .tweet-content p 
+      {
+            font-size: 12px;
+      }
+      .img-post 
+      {
+            overflow-x: scroll;
+
+      }
+      .img-post img
+      {
+            height: 100px;
+            width: 100%;
+            border-radius: 0.9rem;
+            padding: 0.3rem;
+          
+      }
+      .img-post img:hover
+      {
+      
+            height: 300px;
+            z-index: 10;
+            object-fit: contain;
+
+      }
+      section
+      {
+            display: flex;
+            flex-wrap:wrap;
+      }
+</style>
+  
+<section class="vh-100 d-block vw-100 ">
+      {% include "citas/components/nav.html" %}
+      <div class="d-flex w-100">
+            {% if tweet %}
+            {% for t in tweet %}
+            <div class="tweet">
+                  <div class="tweet-header">
+                        <!-- <img src="https://via.placeholder.com/50" alt="User Avatar"> -->
+                        <div class="user-info">
+                              <div  id="name" class="name"> {{t.title}} </div>
+                              <div class="handle">@ {{t.sub}} </div>
+                        </div>
+                  </div>
+                  
+                  <div class="d-flex  img-post position-relative ">
+                     
+                        {% for it in t.img_tweet.all %}
+                            <img class='img-t' src="{{ it.img_tweet.url }}" alt="">
+                        {% endfor %}
+                  
+                  </div>
+                  <div class="tweet-content">
+                        <p class="m-0 p-0">
+                              {{t.p}}
+                        </p>
+                  </div>
+                  <!-- <div class="tweet-footer">
+                        <span>💬 3</span>
+                        <span>🔁 7</span>
+                        <span>❤️ 12</span>
+                        </div> -->
+                  </div>
+            {% endfor %}
+      {% endif %}
+      </div>
+</section>
+<script>
+            TextSession('Actualizaciones, Novedades, Noticias')
+</script>
+<!-- <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Selecciona todos los elementos con la clase .img-t
+        const images = document.querySelectorAll('.img-t');
+    
+        // Recorre todos los elementos seleccionados
+        images.forEach(function(image) {
+          // Añade un evento mouseover a cada elemento
+          image.addEventListener('mouseover', function() {
+            alert('¡Has pasado el cursor sobre la imagen!');
+
+           
+          });
+    
+          // Añade un evento mouseout a cada elemento
+          image.addEventListener('mouseout', function() {
+            alert('¡Has dejado de pasar el cursor sobre la imagen!');
+          });
+        });
+      });
+    </script> -->
+
+  {% endblock  %}

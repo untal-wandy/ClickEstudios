@@ -144,3 +144,22 @@ class Permisons(models.Model):
       def __str__(self):
             return self.role.name
       
+
+class Tweet(models.Model):
+      title = models.CharField(max_length=280)  # Límite de caracteres similar a Twitter
+      sub = models.CharField(max_length=280, default='')  # Límite de caracteres similar a Twitter
+      p = models.CharField(max_length=280, default='')  # Límite de caracteres similar a Twitter
+      created_at = models.DateTimeField(auto_now_add=True)
+      updated_at = models.DateTimeField(auto_now=True)
+      is_activate = models.BooleanField(default=True)
+
+      def __str__(self):
+            return self.sub
+      
+
+
+class ImgTweet(models.Model):
+      img = models.ForeignKey(Tweet, related_name='img_tweet', blank=True, null=True,
+                               on_delete=models.CASCADE)
+      img_tweet = models.ImageField(upload_to='media/', blank=True, null=True)
+      is_activate = models.BooleanField(default=True)

@@ -651,6 +651,16 @@ class UserUpdate(UpdateView, Options):
             return context
 
 
+class Actualizaciones(TemplateView):
+      template_name = 'citas/components/actualizaciones.html'
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['tweet'] = models.Tweet.objects.all()
+            context['role'] = models.Role.objects.all()
+            return context
       
 
 """

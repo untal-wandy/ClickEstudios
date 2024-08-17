@@ -33,7 +33,7 @@
             position: relative;
             width: 100%;
             height: 45vh; /* Ajusta la altura según sea necesario */
-            background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain');
+            /* background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain'); */
             background-size: cover;
             background-position: center;
         }
@@ -43,7 +43,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            box-sizing: border-box;
+
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
             color: white; /* Cambia el color del texto según sea necesario */
         }
@@ -106,7 +106,7 @@
   }
 }
 </style>
-<div class="background-container vh-100 p-0" id="bg-admin" >
+<div class="background-containers vh-100 p-0" id="bg-admin" >
       <div class="content blur border-0">
             {% include "citas/components/nav.html" %}
                 <!-- Aquí va el contenido -->
@@ -130,16 +130,7 @@
 </div> 
 
 <script>
-      setInterval(function() {
-            let images = [
-                  "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
-          
-         
-            ];
-            let randomIndex = Math.floor(Math.random() * images.length);
-            let imageUrl = images[randomIndex];
-            document.getElementById("bg-admin").style.backgroundImage = "url(" + imageUrl + ")";
-}, 4000); 
+
            
       TextSession('Listado de citas')
 
