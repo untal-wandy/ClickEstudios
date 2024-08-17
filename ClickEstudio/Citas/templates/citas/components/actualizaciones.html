@@ -14,10 +14,10 @@
   
       .tweet {
             background-color: #00000087;
-            border-radius: 2.3˝grem;
+            border-radius: 2.3rem;
             border: 1px solid #52525236;
             width: 420px; height: max-content;
-            height: 240px;
+            max-height: 240px;
             padding: 20px;
             margin: 20px;
       }
@@ -112,14 +112,14 @@
                         </div>
                   </div>
                   
-                  <div class="d-flex  img-post position-relative ">
+                  <div class="d-flex  img-post position-relative  d-none">
                      
                         {% for it in t.img_tweet.all %}
                             <img class='img-t' src="{{ it.img_tweet.url }}" alt="">
                         {% endfor %}
                   
                   </div>
-                  <div class="tweet-content">
+                  <div class="tweet-content pt-3">
                         <p class="m-0 p-0">
                               {{t.p}}
                         </p>
