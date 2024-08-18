@@ -146,6 +146,7 @@ class Permisons(models.Model):
       
 
 class Tweet(models.Model):
+      img = models.ImageField(upload_to='media/', blank=True, null=True)
       title = models.CharField(max_length=280)  # Límite de caracteres similar a Twitter
       sub = models.CharField(max_length=280, default='')  # Límite de caracteres similar a Twitter
       p = models.CharField(max_length=280, default='')  # Límite de caracteres similar a Twitter

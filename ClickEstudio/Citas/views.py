@@ -309,6 +309,7 @@ class MomentImgeUpdate(UpdateView):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
+            context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).image.url
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
 

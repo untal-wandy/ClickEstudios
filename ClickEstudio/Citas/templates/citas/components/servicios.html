@@ -6,9 +6,9 @@
 </style>
 <div class="mt-2">
       {% if user.is_authenticated %}
-            <h5 class='font-secundary mb-3 text-start ps-2'>
+            <h6 class='font-secundary mb-3  text-start ps-4 mt-5'>
                   Lista de  servicios
-            </h5>      
+            </h6>      
       {% else %}
             <h6 class='font-secundary mb-3 text-center'>
                   Nuestros servicios
@@ -49,7 +49,20 @@
                               </div>
                   {% endif %}
             </div> 
-            {% endfor %}             
+            {% endfor %}    
+      {% else %}     
+      <span class="w-100  justify-content-start align-content-center" 
+            style="max-height: 4rem !important;">
+            <div class="alert alert-warning   m-3 p-3 "  style="max-width: 30rem; 
+            border-radius: 1.5rem; " role="alert">
+            <strong>¡Aviso!</strong> 
+                  <p class="text-black-50 pb-3" style="line-height: 16px; font-size: 14px;"> No hay servicios disponibles,
+                   cuando cree un servicio, este sera visible aqui.  <br><br> 
+                   <strong>Informacion</strong>
+                   Cada servicio puede estar asociado a varios planes, pero un plan no puede estar asociado a múltiples servicios. Por ejemplo, el Servicio A puede incluir los Planes A, B y C; sin embargo, la situación inversa no es posible, es decir, un plan no puede estar vinculado a varios servicios.
+                  </p>
+            </div>
+      </span>
       {% endif %}
       </section>
 </div>

@@ -8,6 +8,7 @@
       .title-s
       {
             color: rgba(255, 255, 255, 0.679);
+            font-size: 14px;
       }
       .mklr 
       {
@@ -35,7 +36,7 @@
             flex-wrap: wrap;
             min-width: 19rem;
             height: 7rem;
-            border-radius:2rem;
+            border-radius:1.2rem;
             cursor: pointer;
             overflow: hidden;
             transition: 0.4s !important;
@@ -146,7 +147,7 @@
                   <h6  class="text-white-50 ms-3 ">
                         Roles disponibles
                   </h6>
-                  <hr class="  mt-1 mb-3 ms-3">
+                  <!-- <hr class="  mt-1 mb-3 ms-3"> -->
             </div>
             <div class="">
                   <a href="{% url "citas:create-role" %}" class="d-flex d-none">
@@ -163,11 +164,12 @@
                   </span>
             </a>
             </div>
-            <div class="d-flex justify-content-center " style="min-height: 10rem ;">
+            <div class="d-flex justify-content-center  o" style="min-height: 1rem ;
+                  overflow-y: hidden; overflow-x: scroll;">
                   {% if role %}
                         {% for r in role  %}
                               <div class='role bg-black bg-opacity-50 p-3 m-1 '>
-                                    <span class='w-100 font-primary mklr'>
+                                    <span class='w-100 font-primary mklr' style="font-size: 14px;">
                                           {{ r.name }}
                                     </span>
                                     <p class='p-mkl  bg-transparent'>
@@ -181,7 +183,7 @@
                   <h6  class="text-white-50 ms-3 w-100 ">
                         Lista de usuarios 
                   </h6>
-                  <hr  class=" mt-1 mb-3 ms-3">
+                  <!-- <hr  class=" mt-1 mb-3 ms-3"> -->
             </div>
             <div class="d-flex m-2">
                   <a href="{% url "citas:create-user" %}" class="d-flex d-none">
@@ -199,7 +201,8 @@
             {% if user %}
             
       
-            <div class='m-1  ms-2 me-2 p-3 bg-black bg-opacity-50' style='border-radius:1.3rem;'>
+            <div class='m-1  ms-2 me-2 p-3 bg-black  bg-opacity-50'
+                   style='border-radius:1.5rem; width: max-content;'>
                   <table>
                         <thead>
                               <tr >
@@ -261,7 +264,7 @@
                   </div>
             {% endif %}
             <div class="d-flex justify-content-start ms-2 mt-3">
-                  <div class="list-btns d-flex">
+                  <div class="list-btns d-none">
                         <a href="/admin-click-estudios" class='d-flex'>
                         <button class="rounded-circle bg-black bg-opacity-50  border-0 text-white d-flex justify-content-center align-content-center flex-wrap" style="height: 2rem; width: 2rem;"> 
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left p-0 m-0" viewBox="0 0 16 16">

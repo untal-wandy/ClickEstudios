@@ -16,10 +16,11 @@
             background-color: #00000087;
             border-radius: 2.3rem;
             border: 1px solid #52525236;
-            width: 420px; height: max-content;
-            max-height: 240px;
+            width: 390px; height: max-content;
+            max-height: 250px;
+            min-height: 180px;
             padding: 20px;
-            margin: 20px;
+            margin: 10px;
       }
   
       .tweet-header {
@@ -105,7 +106,7 @@
             {% for t in tweet %}
             <div class="tweet">
                   <div class="tweet-header">
-                        <!-- <img src="https://via.placeholder.com/50" alt="User Avatar"> -->
+                        <img src="https://via.placeholder.com/50" class="me-1" alt="User Avatar">
                         <div class="user-info">
                               <div  id="name" class="name"> {{t.title}} </div>
                               <div class="handle">@ {{t.sub}} </div>
@@ -123,7 +124,7 @@
                               {{t.p}}
                         </p>
                   </div>
-                  
+
                   <!-- <div class="tweet-footer">
                         <span>💬 3</span>
                         <span>🔁 7</span>
