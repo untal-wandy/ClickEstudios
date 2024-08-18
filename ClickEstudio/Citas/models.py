@@ -2,6 +2,8 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
 import os
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -123,7 +125,7 @@ class UserA(models.Model):
       name = models.CharField(max_length=255)
       last_name = models.CharField(max_length=255)
       number = models.CharField(max_length=20,  blank=True, null=True)
-      birthday = models.DateField()
+      birthday = models.DateField(default=timezone.now)
       date_created = models.DateTimeField(auto_now_add=True,  blank=True, null=True)
       active = models.BooleanField(default=True)
       email = models.EmailField()

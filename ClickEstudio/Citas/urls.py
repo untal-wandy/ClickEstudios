@@ -41,6 +41,7 @@ urlpatterns = [
     path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
     path('histori-sale/', views.HistoriSale.as_view(), name='histori-sale'),
     path('create-rele/', views.CreateRole.as_view(), name='create-role'),
+    path('Facebook/Histori/1213232', views.Facebook, name='facebook'),
     
 
 

