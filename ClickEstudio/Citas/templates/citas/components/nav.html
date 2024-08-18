@@ -51,7 +51,7 @@
 
 
 
-<div class="d-flex border-0 p-1 text-start w-100 p-2 ">
+<div class="d-flex border-0 p-1 text-start w-100 p-2 " style="z-index: 1000;">
       <div class="border-0 w-50 d-flex start-0">
             <h6 class="font-primary ms-2 text-session text-white-50 w-100 mt-2" 
                   style="text-shadow: #0000009e 1px 2px 3px; font-size: 14px; ">
@@ -81,8 +81,15 @@
             </div>      
       </div>
       <div class="border-0 d-flex justify-content-end w-50 ">
-
+            <a href="{% url "citas:administrations-citas" %}" class=" me-1 back-arrow" style="margin-top: 2px;">
+                  <button class='rounded-circle bg-black bg-opacity-50  border-0 text-white d-flex justify-content-center align-content-center flex-wrap' style='height: 2rem; width: 2rem;'> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left p-0 m-0" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                        </svg> 
+                  </button>
+                  </a>
             <div class="border-0">
+                  
                   <a href="{% url "citas:all-plans" %}">   
                         <button onclick="MenuAdmin()"  class=" p-3 pt-1 pb-1 justify-content-center me-2  text-white bg-black bg-opacity-50 border-0  d-flex flex-wrap align-content-center"
                               style="border-radius: 1.5rem; width: 10rem; height: 2.2rem; font-size: 14px;" >
@@ -103,11 +110,11 @@
             </button>
       </div>
 </div>
-<div id="div-menu-admin" class='w-100 vh-50  border-0' style='display: none;'>
+<div id="div-menu-admin" class='w-100 vh-50  border-0' style='display: none; z-index: 1000;'>
       <div  class="position-fixed  bg-black end-0 me-2"  
             style="top: 3.5rem; width: max-content; width: 17rem; border-radius: 1.8rem;   -webkit-backdrop-filter: blur(30px) !important;
               backdrop-filter: blur(30px) !important;" > 
-            <div class=" list-options d-flex flex-column border-0 p-3">
+            <div class=" list-options d-flex flex-column border-0 p-3" style="z-index: 1000;">
                   {% if permisons.priori >= 3 %}
                   {% include "citas/components/configuracion-nav.html" %}
                   {% endif %}

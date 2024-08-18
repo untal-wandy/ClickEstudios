@@ -5,11 +5,11 @@
                   border-radius: 1.5rem; 
                   
             }
-      .background-container {
+      .background-containers {
         position: relative;
         width: 100%;
         height: 45vh; /* Ajusta la altura según sea necesario */
-        background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain');
+        /* background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain'); */
         background-size: cover;
         background-position: center;
     }
@@ -35,31 +35,33 @@
 </main>
 
 
-<form action="" method="post" id="form-customer">
-      {% csrf_token %}
-      <div class="swiper-container">
-            <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                  <section class="w-100">
-                        {% include "citas/components/form-basic.html" %}
-                  </section>  
+<section class="vh-100">
+      <form action="" method="post" id="form-customer">
+            {% csrf_token %}
+            <div class="swiper-container ">
+                  <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                        <section class="w-100">
+                              {% include "citas/components/form-basic.html" %}
+                        </section>  
+                  </div>
+                  <div class="swiper-slide">
+                        <section class="p-1" id="sliders">
+                              {% include "citas/components/calendary.html" %}
+                              </section>
+                  </div>
+                  <div class="swiper-slide">
+                        {% include "citas/components/confirmation.html" %}
+                  </div>
+                  {{form.plan_choice}}
+                  </div>
+                  <!-- Botones de navegación (opcional) -->
+                  <div class="swiper-button-prev d-none"></div>
+                  <div class="swiper-button-next d-none"></div>
             </div>
-            <div class="swiper-slide">
-                  <section class="p-1" id="sliders">
-                        {% include "citas/components/calendary.html" %}
-                        </section>
-            </div>
-            <div class="swiper-slide">
-                  {% include "citas/components/confirmation.html" %}
-            </div>
-            {{form.plan_choice}}
-            </div>
-            <!-- Botones de navegación (opcional) -->
-            <div class="swiper-button-prev d-none"></div>
-            <div class="swiper-button-next d-none"></div>
-      </div>
-</form>
-
+      </form>
+      
+</section>
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">

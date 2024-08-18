@@ -111,19 +111,19 @@
                               <div class="handle">@ {{t.sub}} </div>
                         </div>
                   </div>
-                  
+
                   <div class="d-flex  img-post position-relative  d-none">
-                     
                         {% for it in t.img_tweet.all %}
                             <img class='img-t' src="{{ it.img_tweet.url }}" alt="">
                         {% endfor %}
-                  
                   </div>
+
                   <div class="tweet-content pt-3">
                         <p class="m-0 p-0">
                               {{t.p}}
                         </p>
                   </div>
+                  
                   <!-- <div class="tweet-footer">
                         <span>💬 3</span>
                         <span>🔁 7</span>

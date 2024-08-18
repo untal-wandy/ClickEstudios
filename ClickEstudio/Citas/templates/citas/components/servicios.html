@@ -1,39 +1,51 @@
+<style>
+            .bg-danger
+{
+      background-color: rgb(255, 95, 37) !important;
+}
+</style>
 <div class="mt-2">
       {% if user.is_authenticated %}
-            <h5 class='font-primary mb-3 text-start'>
-                  Lista de nuestros servicios
+            <h5 class='font-secundary mb-3 text-start ps-2'>
+                  Lista de  servicios
             </h5>      
       {% else %}
             <h6 class='font-secundary mb-3 text-center'>
                   Nuestros servicios
             </h6>
       {% endif %}
-      <section class="section d-flex overflow-scroll pe-4 " style="direction: rtl;">
+      <section class="section d-flex overflow-auto pe-4 " style="">
       {% if service %}
             {% for s in service %}
-            <div id='delete-c{{s.id}}'>
+            <div id='delete-c{{s.id}}'  class="position-relative">
                   <a href="{% url "citas:service-select" s.id %}"
                         class='position-relative'>
                         <img src="{{s.image.url}}" alt="">
                         <span>
                               {{s.name}}
                         </span>
-                        <button>
-                              Ver mas
-                        </button> 
                   </a> 
                   {% if service_admin %}
+                  <a href="{% url "citas:service-update" s.id %}">
+                        <button class="border-1">
+                              Editar
+                        </button>
+                 </a>
                               <br>
                               <div>
-                                   <a href="{% url "citas:service-update" s.id %}">
-                                          <button>
-                                                Editar
-                                          </button>
-                                   </a>
-                                    <button onclick='DeledeteService(this.id)'
-                                    id='{{s.id}}'  class='border-0'>
+                              
+                                    <!-- <button 
+                                    id='{{s.id}}'  class='border-0 blur position-absolute top-0 end-0' style="font-size: 14px;">
                                           Eliminar
-                                    </button>
+                                    </button> -->
+                                    {% if service_admin %}
+                                    <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" bg-danger p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex justify-content-center font-primary text-white  delete-icon  border-0" 
+                                    style="border: 1px solid rgba(75, 75, 75, 0.774); 
+                                    width: 1.5rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    </svg> </button>
+                              {% endif %}
                               </div>
                   {% endif %}
             </div> 

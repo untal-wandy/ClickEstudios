@@ -126,17 +126,21 @@
 
 </style>
 
-<section id="div-reserv"  class=" p-1 overflow-scroll  bg-black d-flex flex-wrap  bg-opacity-50 w-100">
-<div class="border-0 font-primary  w-100 d-flex">
+<section id="div-reserv"  class=" p-1 overflow-auto   d-flex flex-wrap   w-100">
+<div class="border-0 font-secundary  w-100 d-flex">
      <div class='w-100 border-0 d-flex justify-content-center position-relative' >
-      <h5 class="text-center text-white  mt-2" >
-            Reservados
-      </h5>
-      <button class='position-absolute end-0 me-2 rounded-circle mt-1 border-0' onclick='openReserver()'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                </svg>
-      </button>
+      <div class="border-0 mt-4  w-100">
+            <h6 class="w-100 font-secundary  d-flex" style="font-size: 14px;"~>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-heart-fill me-1 mt-1" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                      </svg>  Citas reservadas
+            </h6>
+            <p class=" text-white-50 font-secundary ms-3" style="font-size: 14px;">
+                  Los usuarios pueden utilizar la lista de reservas para organizar y gestionar sus  citas
+            </p>
+      </div>
+      
+
      </div>
 </div>
 {% if c_reserver %}
@@ -234,8 +238,12 @@ function SaleCancel(C){
 // Mejoras
 </script>
 {% else %}
-      <div class="text-center w-100 border-0">
-            <h6 class='text-white-50 mt-5 text-center '>No hay citas reservadas</h6>
-      </div>
+<div class="alert alert-warning m-3 p-3 "  style="max-width: 30rem; 
+border-radius: 1.5rem;" role="alert">
+<strong>¡Aviso!</strong> 
+      <p class="text-black-50 " style="line-height: 16px; font-size: 14px;"> No hay citas registradas,
+       cuando un usuario reserve una cita, esta sera visible aqui.
+      </p>
+</div>
 {% endif %}
 </section>

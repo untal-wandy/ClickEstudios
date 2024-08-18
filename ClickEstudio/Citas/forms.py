@@ -69,6 +69,7 @@ class ServiceImageForm(forms.ModelForm):
             model = models.ServiceImage
             fields = '__all__'  # Include all fields
 
+                  
       def __init__(self, *args, **kwargs):
             super(ServiceImageForm, self).__init__(*args, **kwargs)
             # Add the 'form-control' class to all form fields
