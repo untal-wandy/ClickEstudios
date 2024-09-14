@@ -172,7 +172,7 @@
 
                                     <div class="position-sticky  d-flex justify-content-end " style="bottom: 20px;">
                                           <section class="">
-                                                <div class="bg-black bg-opacity-50 mb-1 p-1 rounded-circle scroll-auto-up" >
+                                                <div  onclick="enableAutoScrollUP(this.id, )" class="bg-black bg-opacity-50 mb-1 p-1 rounded-circle scroll-auto-up" >
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
                                                             <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
                                                           </svg>
@@ -192,7 +192,7 @@
                               function enableAutoScroll(buttonSelector, targetSelector){
                                scrollAmount = 10, interval = 50 
                                const button = document.getElementById(buttonSelector);
-                               console.log('siiu ' + targetSelector)
+
                                                 const targetDiv = document.querySelector(targetSelector);
                                                 let scrollInterval;
 
@@ -221,7 +221,38 @@
                                                 }
 
                                                 // Ejemplo de uso:
-                                                enableAutoScroll('.scroll-auto', '.target', 10, 50);
+                                                
+
+                              function enableAutoScrollUP(buttonSelector, targetSelector){
+                               scrollAmount = 10, interval = 50 
+                               const button = document.getElementById(buttonSelector);
+
+                                                const targetDiv = document.querySelector(targetSelector);
+                                                let scrollInterval;
+
+                                                // Función para hacer scroll suave
+                                                function scrollDown() {
+                                                      targetDiv.scrollBy({
+                                                            top: scrollAmount, // Cantidad de scroll en píxeles
+                                                            behavior: 'smooth'
+                                                      });
+                                                }
+
+                                                // Cuando se presiona el botón
+                                                button.addEventListener('mousedown', () => {
+                                                      scrollInterval = setInterval(scrollDown, interval); // Comienza a hacer scroll
+                                                });
+
+                                                // Cuando se suelta el botón
+                                                button.addEventListener('mouseup', () => {
+                                                      clearInterval(scrollInterval); // Detiene el scroll
+                                                });
+
+                                                // También detiene el scroll si el mouse sale del botón
+                                                button.addEventListener('mouseleave', () => {
+                                                      clearInterval(scrollInterval); // Detiene el scroll
+                                                });
+                                                }
 
                               const buttonUP = document.querySelector('.scroll-auto-up');
                               const targetDivUP = document.querySelector('.target');
