@@ -5,24 +5,25 @@
 }
 
 </style>
-<div class="mt-3">
-      <h6 class='font-secundary mb-3 text-start ps-3 m-0 p-0'>
+<div class="mt-3 ">
+      <h6 class='font-secundary mb-3 text-start ps-3 m-0 p-0' style="font-size: 14px;">
             Galeria de momentos
       </h6>
 {% if moment %}
-      <div class="carrousel d-flex overflow-scroll ps-3">
+      <div class="carrousel d-flex overflow-auto ps-3">
             {% for m in moment %}       
                   <div class="position-relative">
                         <a id='delete-c{{m.id}}' href="{% url "citas:gallery-moment-select" m.id %}" style="">
                               <div class="d-flex flex-wrap overflow-hidden  justify-content-center align-content-center" style=" min-width: 300px; height: 200px; 
                               background-image: url({{m.image.url}}) ;
-                              border-radius: 1.5rem !important; 
+                              border-radius: 1rem !important; 
                               background-position: center;
                               background-repeat: no-repeat;
                               background-size: cover; ">
-                                          <span class=" h-100 font-primary w-100  text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(4px) !important;
-                                          backdrop-filter: blur(4px);
-                                          text-shadow: 1px 2px 3px #000;
+                                          <span class=" h-100 font-primary w-100  text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(0px) !important;
+                                          backdrop-filter: blur(0px);
+                                          background-color: #000000b1;
+
                                           font-size: 16px;">
                                                 {{m.name}}
                                           </span>
@@ -37,10 +38,13 @@
                                           <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                                           </svg> </button>
                                           <a href="{% url "citas:moment-image-update" m.id %}">
-                                                <button class='bg-transparent  font-secundary p-1 text-white border-1' 
-                                                style='border-radius: 1rem; border: solid white 1px; font-size: 14px;
-                                                width: 5rem;'>
-                                                Editar
+                                                <button class='bg-transparent  border-0 font-secundary p-1 text-white border-1' 
+                                                style='border-radius: 1rem; 
+                                                /* border: solid white 0px; */
+                                                font-weight: bold;
+                                                 font-size: 14px;
+                                                width:8rem;'>
+                                                Editar Momento
                                           </button>
                                     </a>
                                     </div>
@@ -50,10 +54,10 @@
       </div>
 {% else %}
 <div class="w-100 d-flex justify-content-start">
-      <div class="alert alert-warning m-3 p-3 "  style="max-width: 30rem; 
-      border-radius: 1.5rem;" role="alert">
+      <div class=" m-3 p-3 "  style="max-width: 30rem; background-color: #32323289; 
+      border-radius: 1rem;" role="alert">
       <strong>¡Aviso!</strong> 
-            <p class="text-black-50 " style="line-height: 16px; font-size: 14px;"> No hay imagenes de momentos agregadas, estas seran visible desde aqui.
+            <p class="text-white-50 " style="line-height: 16px; font-size: 14px;"> No hay imagenes de momentos agregadas, estas seran visible desde aqui.
             </p>
       </div>
 </div>

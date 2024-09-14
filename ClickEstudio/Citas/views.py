@@ -14,19 +14,12 @@ from django.contrib.auth import logout, login, authenticate
 
 class DashboardCitas(TemplateView, Mail):
       template_name = 'citas/inicio.html'
-      bg_bg = models.Setting.objects.filter(name='bg-img').exists()
 
-      if bg_bg:
-          bg_img =  models.Setting.objects.get(name='bg-img')
-      else:
-            bg_img = ""
       # El objeto no existe
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service'] = models.ServiceImage.objects.all()
-            context['setting'] = models.Setting.objects.get(name='icon')
-            context['bg_img'] =  self.bg_img
             context['plans'] = models.Plans.objects.all()
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -49,7 +42,6 @@ class CitasAdministrations(TemplateView, Mail):
             context = super().get_context_data(**kwargs)
             context['c'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
             context['c_reserver'] = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
-            context['setting'] = models.Setting.objects.get(name='icon')
             context['plans'] = models.Plans.objects.filter()
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)

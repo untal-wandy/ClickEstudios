@@ -51,14 +51,14 @@
 
 
 
-<div class="d-flex border-0 p-1 text-start w-100 p-2 " style="z-index: 1000;">
+<div class="d-flex border-0 p-1 text-start w-100 p-2 " style="z-index: 1000 !important;">
       <div class="border-0 w-50 d-flex start-0">
             <h6 class="font-primary ms-2 text-session text-white-50 w-100 mt-2" 
                   style="text-shadow: #0000009e 1px 2px 3px; font-size: 14px; ">
             </h6>
       </div>
 
-      <div class='w-50 d-flex justify-content-center border-0  '>
+      <div class='w-50 d-flex justify-content-center border-0  ' style="z-index: 1000 !important;">
             <div id='input-searching-id' class='border-0 d-flex mt-1  align-content-center bg-black bg-opacity-50  flex-wrap '
                   style="border-radius: 2.5rem; height: 2rem; width: 10rem; font-size: 12px;" >
                   <input type="search" id="search" class='input ms-4   bg-transparent  text-center' placeholder="Buscar Cita">
@@ -113,7 +113,7 @@
 <div id="div-menu-admin" class='w-100 vh-50  border-0' style='display: none; z-index: 1000 !important;'>
       <div  class="position-fixed  bg-black end-0 me-2"  
             style="top: 3.5rem; width: max-content; width: 17rem; border-radius: 1.8rem;   -webkit-backdrop-filter: blur(30px) !important;
-              backdrop-filter: blur(30px) !important;" > 
+              backdrop-filter: blur(30px) !important; z-index: 1000 !important;" > 
             <div class=" list-options d-flex flex-column border-0 p-3" style="z-index: 1000;">
                   {% if permisons.priori >= 3 %}
                   {% include "citas/components/configuracion-nav.html" %}

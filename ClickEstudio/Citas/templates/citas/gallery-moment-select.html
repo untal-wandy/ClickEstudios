@@ -39,15 +39,15 @@
   }
 }
 
-</style>
+</style> 
 
-<div class="gallery w-100  ">
+<div class="gallery w-100 vh-100  ">
+      
       {% if img %}
             {% for m in img %}
-            <div class="image-container">
+            <div class="image-container ">
                   {% if m.image  %}
-                        <img src="{{ m.image.url }}" id='{{m.id}}' alt="">
-
+                        <img src="{{ m.image.url }}"  id='{{m.id}}' alt="">
                   {% endif %}
             </div>
             {% endfor %}
@@ -57,15 +57,15 @@
 <div  class='p-2 mt-1 position-fixed w-100 bottom-0 bg-black bg-opacity-10 blur p-4 ps-2 pe-4'
       style=''>
       {% if img %}
-      <h3 class='font-primary mb-4'>
-            Galeria de Momentos   {{moment.name}}
+      <h3 class='font-primary mb-4' style="font-size: 16px;">
+            Galeria de Momentos  (  {{moment.name}} )
             </h3>
             {% else %}
                   <h3 class='font-primary text-center mb-4'>
                         No hay imagenes en esta galeria
-                        </h3>
+                  </h3>
       {% endif %}
-      {% if service_admin %}
+      {% if service_admin %} 
       <div class='d-flex flex-wrap justify-content-center mb-5 mt-3'>
             <div class="d-flex w-100 justify-content-center flex-wrap">
                   <div class="w-100 d-flex justify-content-center">
@@ -74,26 +74,33 @@
                     <form action="" method="post" enctype="multipart/form-data">
                               {% csrf_token %}
                         {{form.image}}
-                        <button id="add-btn" class="border-0 mt-2 mb-4 rounded-4 btn font-primary"
-                        style="background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); display: none;">
-                              Agregar Imagen
+                        <button id="add-btn" class="border-0 text-white mt-2 mb-4  btn font-secundary"
+                        style="background-color: #3b3b3b75 ; display: none; 
+                              border-radius: 2rem !important; font-size: 14px; ">
+                              Agregar 
                         </button>
                   </form>
             </div>
             <div class="w-100 d-flex justify-content-center mb-2">
-                  <button onclick="AddImg()" class='text-white-50 border-1 rounded-4 p-2 pt-1 pb-1 bg-transparent font-primary'>
+                  <button onclick="AddImg()" class='text-white-50 border-0 rounded-4 p-2 pt-1 pb-1 bg-transparent font-primary'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill hover-reserver-icon" viewBox="0 0 16 16">
                         <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
                         </svg> 
-                        Añadir      
+                        Añadir Momento
                   </button>                        
             </div>
             
-            <div class="w-100 text-center">
+            <div class="w-100 text-start">
                   <a href="{% url "citas:administrations-citas" %}"> 
-                        <button class='text-white-50 border-0 bg-transparent font-primary'>
-                              Atras
-                        </button>      
+
+
+                                    <button class='rounded-circle bg-black bg-opacity-50  border-0 text-white d-flex justify-content-center align-content-center flex-wrap' style='height: 2rem; width: 2rem;'> 
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left p-0 m-0" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                                          </svg> 
+                                    </button>
+
+
                   </a>
             </div>
       </div>

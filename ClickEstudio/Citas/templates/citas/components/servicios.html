@@ -4,30 +4,39 @@
       background-color: rgb(255, 95, 37) !important;
 }
 </style>
-<div class="mt-2">
-      {% if user.is_authenticated %}
+<div class="">
+      <!-- {% if user.is_authenticated %}
             <h6 class='font-secundary mb-3  text-start ps-4 mt-5'>
-                  Lista de  servicios
+                  <Lista de  servicios 
             </h6>      
       {% else %}
             <h6 class='font-secundary mb-3 text-center'>
                   Nuestros servicios
             </h6>
-      {% endif %}
+      {% endif %} -->
       <section class="section d-flex overflow-auto pe-4 " style="">
       {% if service %}
             {% for s in service %}
-            <div id='delete-c{{s.id}}'  class="position-relative">
+            <div id='delete-c{{s.id}}'  class="position-relative" >
+                  {% if service_admin %}
+                  <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" p-1 rounded-circle position-absolute end-0 border-0 d-flex justify-content-center font-primary text-white  delete-icon  border-0" 
+                  style="border: 1px solid rgba(75, 75, 75, 0.774); 
+                  background-color: rgba(255, 110, 110, 0.977);
+                  width: 1.5rem; z-index: 10; top: 10px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                  </svg> </button>
+            {% endif %}
                   <a href="{% url "citas:service-select" s.id %}"
                         class='position-relative'>
-                        <img src="{{s.image.url}}" alt="">
+                        <img src="{{s.image.url}}"  alt="" style="border-radius: 1rem;">
                         <span>
                               {{s.name}}
                         </span>
                   </a> 
                   {% if service_admin %}
                   <a href="{% url "citas:service-update" s.id %}">
-                        <button class="border-1">
+                        <button class="border-1" style="font-size: 14px;">
                               Editar
                         </button>
                  </a>
@@ -38,14 +47,7 @@
                                     id='{{s.id}}'  class='border-0 blur position-absolute top-0 end-0' style="font-size: 14px;">
                                           Eliminar
                                     </button> -->
-                                    {% if service_admin %}
-                                    <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" bg-danger p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex justify-content-center font-primary text-white  delete-icon  border-0" 
-                                    style="border: 1px solid rgba(75, 75, 75, 0.774); 
-                                    width: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                    </svg> </button>
-                              {% endif %}
+                  
                               </div>
                   {% endif %}
             </div> 
@@ -53,10 +55,10 @@
       {% else %}     
       <span class="w-100  justify-content-start align-content-center" 
             style="max-height: 4rem !important;">
-            <div class="alert alert-warning   m-3 p-3 "  style="max-width: 30rem; 
+            <div class="   m-3 p-3 "  style="max-width: 30rem;  background-color: #32323289;
             border-radius: 1.5rem; " role="alert">
             <strong>¡Aviso!</strong> 
-                  <p class="text-black-50 pb-3" style="line-height: 16px; font-size: 14px;"> No hay servicios disponibles,
+                  <p class="text-white-50 pb-3" style="line-height: 16px; font-size: 14px;"> No hay servicios disponibles,
                    cuando cree un servicio, este sera visible aqui.  <br><br> 
                    <strong>Informacion</strong>
                    Cada servicio puede estar asociado a varios planes, pero un plan no puede estar asociado a múltiples servicios. Por ejemplo, el Servicio A puede incluir los Planes A, B y C; sin embargo, la situación inversa no es posible, es decir, un plan no puede estar vinculado a varios servicios.
