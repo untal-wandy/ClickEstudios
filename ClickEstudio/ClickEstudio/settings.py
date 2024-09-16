@@ -145,3 +145,8 @@ EMAIL_USER = 'one.wandyy@gmail.com'
 EMAIL_HOST_USER = EMAIL_USER  
 EMAIL_HOST_PASSWORD = 'arui rzne mbhv ttai'
 
+
+# Sistem
+# Redirigir después del logout
+LOGOUT_REDIRECT_URL = '/'
+

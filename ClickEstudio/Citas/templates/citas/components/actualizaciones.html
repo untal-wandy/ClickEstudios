@@ -99,7 +99,7 @@
       }
 </style>
   
-<section class="vh-100 d-block vw-100 ">
+<section class="vh-100 d-block vw-100  bg-black bg-opacity-50">
       {% include "citas/components/nav.html" %}
       <div class="d-flex w-100">
             {% if tweet %}
@@ -132,6 +132,15 @@
                         </div> -->
                   </div>
             {% endfor %}
+            {% else %}
+                  <div class="d-flex justify-content-center flex-wrap w-100  pt-5 mt-5">
+                        <h6 class="w-100 justify-content-center text-center">
+                              Ups!, aun no hay nuevas caracteristicas publicadas por el desarrollador
+                        </h6>
+                        <p class="w-100 text-center text-white-50">
+                              Aun no hay nuevas caracteristicas
+                        </p>
+                  </div>
       {% endif %}
       </div>
 </section>

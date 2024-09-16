@@ -56,10 +56,13 @@ urlpatterns = [
     path('sale-service/', views_ajax.SaleService, name='sale-service'),
     path('sale-cancel/', views_ajax.SaleCancel, name='sale-cancel'),
 
+    path('delete-img-moment/', views_ajax.DeledeteImgMoment, name='delete-img-moment'),
 
 
 
+# Sistem
 
 
+    path('logout/', views.Logouts, name='logout'),  # Ruta para el logout
 
 ]

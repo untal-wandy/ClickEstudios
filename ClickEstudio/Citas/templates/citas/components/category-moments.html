@@ -4,27 +4,45 @@
       background-color: rgb(255, 95, 37) !important;
 }
 
+.moment-div 
+{
+      transition: 0.4s !important;
+}
+
+.moment-div:hover
+{
+      transform: scale(1.4);
+} 
 </style>
-<div class="mt-3  ">
-      <h6 class='font-secundary mb-3 text-start ps-3 m-0 p-0' style="font-size: 14px;">
+<div class="mt-3 bg-white bg-opacity-10 m-1 p-1
+" style="border-radius: 1rem;">
+      <div class="w-100 justify-content-center  mb-2 p-2 d-flex flex-wrap align-content-center" style="width: max-content; border-radius: 0.7rem;"> 
+            <h6 class="text-center m-0 p-0 mt-5
+
+
+            style="font-size: 14px; width: 12rem;" >
             Galeria de momentos
       </h6>
+      </div>
 {% if moment %}
-      <div class="carrousel d-flex overflow-auto ps-3">
-            {% for m in moment %}       
-                  <div class="position-relative">
-                        <a id='delete-c{{m.id}}' href="{% url "citas:gallery-moment-select" m.id %}" style="">
-                              <div class="d-flex flex-wrap overflow-hidden  justify-content-center align-content-center" style=" min-width: 300px; height: 200px; 
+      <div class="carrousel d-flex mt-5
+       overflow-auto flex-wrap  justify-content-center">
+            <div style="max-width: 50rem; " class=" d-flex mt-1 
+            overflow-auto flex-wrap  justify-content-center" >
+                  {% for m in moment %}       
+                  <div class="position-relative m-1 mb-5 " >
+                        <a id='delete-c{{m.id}}' href="{% url "citas:gallery-moment-select" m.id %}" style="" class="">
+                              <div class="d-flex flex-wrap overflow-hidden   justify-content-center align-content-center" style=" min-width: 230px; height: 130px; 
                               background-image: url({{m.image.url}}) ;
                               border-radius: 1rem !important; 
                               background-position: center;
                               background-repeat: no-repeat;
                               background-size: cover; ">
-                                          <span class=" h-100 font-primary w-100  text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(0px) !important;
+                                          <span class=" moment-div h-100 font-primary w-100  text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(0px) !important;
                                           backdrop-filter: blur(0px);
                                           background-color: #000000b1;
 
-                                          font-size: 16px;">
+                                          font-size: 14px;">
                                                 {{m.name}}
                                           </span>
                                     </div>
@@ -51,6 +69,7 @@
                               {% endif %}
                   </div>
             {% endfor %}
+            </div>
       </div>
 {% else %}
 <div class="w-100 d-flex justify-content-start">

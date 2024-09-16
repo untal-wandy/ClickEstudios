@@ -41,32 +41,35 @@
 
 </style> 
 
-<div class="gallery w-100 vh-100  ">
+<div class="gallerys w-100  d-flex flex-wrap justify-content-center overflow-auto" 
+      style="height: 77vh;" >
       
-      {% if img %}
+      <div style="max-width: 50rem; height: max-content;" class="d-flex justify-content-center flex-wrap">
+            {% if img %}
             {% for m in img %}
-            <div class="image-container ">
+            <div class="image-containesr " style="transition: 0.1s !important;">
                   {% if m.image  %}
-                        <img src="{{ m.image.url }}"  id='{{m.id}}' alt="">
+                        <img src="{{ m.image.url }}" onclick="DeledeteImgMoment(this.id)" class="m-1" style="max-width: 600px; " id='{{m.id}}' alt="">
                   {% endif %}
             </div>
             {% endfor %}
             {% else %}
       {% endif %}
+      </div>
 </div>
-<div  class='p-2 mt-1 position-fixed w-100 bottom-0 bg-black bg-opacity-10 blur p-4 ps-2 pe-4'
+<div  class='p-2 mt-1  w-100 bottom-0 bg-black bg-opacity-10 blur p-4 ps-2 pe-4'
       style=''>
       {% if img %}
-      <h3 class='font-primary mb-4' style="font-size: 16px;">
-            Galeria de Momentos  (  {{moment.name}} )
-            </h3>
+                  <h3 class='font-primary mb-4' style="font-size: 16px;">
+                        Galeria de Momentos  (  {{moment.name}} )
+                  </h3>
             {% else %}
                   <h3 class='font-primary text-center mb-4'>
                         No hay imagenes en esta galeria
                   </h3>
       {% endif %}
       {% if service_admin %} 
-      <div class='d-flex flex-wrap justify-content-center mb-5 mt-3'>
+      <div class='d-flex flex-wrap justify-content-center mt-1'>
             <div class="d-flex w-100 justify-content-center flex-wrap">
                   <div class="w-100 d-flex justify-content-center">
                         <img id='img2' src="" alt="" class='rounded-4 mb-2' style='width: 200px;'>
@@ -125,7 +128,20 @@
             document.getElementById('add-btn').style.display = 'block';
             // Perform your desired action here
       });
+
+      function DeledeteImgMoment(I) {
+            document.getElementById(I).style.display = 'none';
+          
+           $.ajax({
+                 url: '/delete-img-moment/',
+                 data: {
+                       delete_img_moment_id: I
+                 }
+           })
+      }
+
 </script>
+
 
 <style>
       
@@ -145,18 +161,14 @@
       }
 
       img {
-            width: 120px;
-            max-height: 200px;
+            width: 240px;
+            max-height: 300px;
             object-fit: cover;
-            border-radius: 16px;
+            border-radius: 14px;
+            transform: 0.5s !important;
+
       }
-      img:hover {
-            scale(1.2);
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 16px;
-      }
+
 
 </style>
 {% endblock %}
