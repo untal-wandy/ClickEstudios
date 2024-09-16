@@ -129,16 +129,13 @@
 	
 	display: flex;
 	/* width: 00px; */
-	height: 30px;
+	height: 40px;
 	color: #fff;
 	/* font-size: 40px; */
 	line-height: 40px;
 	
 	/* position: absolute; */
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+
 	margin: auto;
 	overflow: hidden;
 	
@@ -151,7 +148,7 @@
 }
 
 .container-change ul, p {
-      font-size: 12px;
+      font-size: 14px;
 	margin: 0;
 }
 
@@ -188,28 +185,30 @@
                   </button>
             </a>
       </div>
-      <section class="  mb-5 pb-5 ms-3 pt-5" style="margin-top: 10rem !important; margin-bottom: 6.5rem !important;">
-            <h5   class="font-primary ms-3 text-center w-100  shadow-none" 
-            style=" text-shadow: #000000ad 1px 1px 1px;          
-             font-family: Kavoon, serif !important;
-            font-weight: 800;
-            color: rgb(220, 220, 220);
-            font-style: normal;">
-                  ClickEstudios 
-             <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
-                  </svg> 
-      </h5>
+      <section class="  mb-5 pb-5 pt-5" style="margin-top: 10rem !important; margin-bottom: 6.5rem !important;">
+            <div class="text-center  d-flex justify-content-center " data-aos="fade-left">
+                  <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-record-fill animations-pulse m-0 text-danger ms-3" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                       </svg> 
+                  <h3    class="font-primary text-center ms-2  shadow-none" 
+                  style=" text-shadow: #000000ad 1px 1px 1px;          
+                   font-family: Kavoon, serif !important;
+                  font-weight: 800;
+                  /* letter-spacing: 1px; */
+                  color: rgb(220, 220, 220);
+                  font-style: normal;">
+                        ClickEstudios 
+            </h3>
+            </div>
 
       
-            <span class="p-2   mb-5 pb-5gg w-100 text-center d-flex justify-content-center text-white-50"
+            <span class="p-2   mb-5 pb-5 w-100 text-center d-flex justify-content-center text-white-50"
                   style="font-size: 12px;">
                   
-                  <div class="container-change text-center  " >
+                  <div class="container-change text-center  p-1"  data-aos="fade-right">
                         <!-- <p> !Tu gran día!</p> -->
                           <ul>
-                              <li class="text-white-50 ">
-                                    “El arte de recordar... Fotografías que duran para siempre”</li>
-                              <li class="text-white-50">“Hacemos que tus recuerdos cobren vida”</li>
+                              <li class="text-white-50 "> “El arte de recordar... Fotografías que duran para siempre”</li>
+                              <li class="text-white-50">“Tus momentos especiales, inmortalizados con arte”</li>
                               <li class="text-white-50">“Cada foto cuenta una historia, déjanos contar la tuya”</li>
                               <!-- <li>“Cada foto cuenta una historia, déjanos contar la sIuuu”</li> -->
                           </ul>
@@ -221,15 +220,15 @@
    
       <div class="mt-5 pt-5" data-aos="fade-up" >
             <section class=" overflow-auto mt-2 pt-2 " >
-                  <div  class="text-center d-flex justify-content-center flex-wrap mb-5">
-                        <div class="bg-white bg-opacity-10 ms-3  m-0 mb-2 p-2 d-flex justify-content-center flex-wrap align-content-center" style="width: max-content; border-radius: 1rem;"> 
+                  <div  class="text-center d-flex justify-content-center flex-wrap mb-5 pb-5">
+                        <div class="bg-white bg-opacity-10  m-0 mb-2 p-3 d-flex justify-content-center flex-wrap align-content-center" style="width: max-content; border-radius: 2rem;"> 
                               <h6 class="text-center m-0 p-0"  
-                              style="font-size: 14px; width: 9rem;" >
+                              style="font-size: 14px; width: 10rem;" >
                               Nuestros Servicios  
                         </h6> 
                         </div>
                        <div class="w-100 text-center d-flex justify-content-center">
-                        <p style="font-size: 12px; max-width: 40rem;" class="text-white-50 ms-3 w-100">
+                        <p style="font-size: 12px; max-width: 40rem;" class="text-white-50  w-100">
                               “Capturamos tus momentos más importantes con creatividad y profesionalismo, ofreciendo servicios fotográficos personalizados que transforman recuerdos en imágenes inolvidables”
                         </p>
                        </div>
@@ -237,10 +236,10 @@
                         {% include "citas/components/servicios.html" %}
                   </div>
             </section>
-            <section class=" "  style="margin-top: 0rem;"  >
+            <section class=" "   style="margin-top: 0rem;"  >
                   {% include "citas/components/category-moments.html" %}
             </section>
-            <section class="p-2 d-flex justify-content-center bg-white bg-opacity-10"  style="margin-top: 4rem;"  >
+            <section  class="p-2 d-flex justify-content-center bg-white bg-opacity-10"  style="margin-top: 6rem;"  >
                   {% include "citas/components/contacto.html" %}
             </section>
       </div>

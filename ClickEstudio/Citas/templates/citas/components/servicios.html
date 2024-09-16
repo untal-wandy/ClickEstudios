@@ -14,7 +14,7 @@
                   Nuestros servicios
             </h6>
       {% endif %} -->
-      <section class="section d-flex  pe-4   overflow-y-hidden   overflow-x-auto" style="height: 16rem;">
+      <section class="section d-flex     overflow-y-hidden     overflow-x-auto" style="height: 19rem;">
       {% if service %}
             {% for s in service %}
             <div id='delete-c{{s.id}}'  class="position-relative d-flex flex-wrap  w-100 m-1 p-0" 
@@ -32,11 +32,13 @@
                         <a href="{% url "citas:service-select" s.id %}"
                         class='position-relative  w-100 '>
                         <img src="{{s.image.url}}"  alt=""   class="m-0" style=" filter: brightness(50%); 
-                        width: 410px; height: 210px; 
-                         border-top-left-radius: 1rem;
+                        width: 410px; height: 240px; 
+                        border-radius: 2rem;
+                         /* border-top-left-radius: 1rem;
                          border-top-right-radius: 1rem;
                          border-bottom-left-radius: 1rem;
-                         border-bottom-right-radius: 1rem;
+                         border-bottom-right-radius: 1rem; */
+                         object-fit: cover;
                          ">
                   </a>  
                   </div>
@@ -49,7 +51,7 @@
 
                         <div class="w-100 d-flex justify-content-center ps-2">
                               <div class="d-flex justify-content-center  ">
-                                    {% if service_adminw %}
+                                    {% if service_admin %}
                                     <a class=" " style='max-height: 2rem;' 
                                           href="{% url "citas:service-update" s.id %}">
                                           <button class="border-1" style="font-size: 14px;   border-radius: 2rem;
@@ -67,8 +69,8 @@
                                     </a>
                                     {% endif %}
                               </div>
-                                    <span class="text-white mb-2 mt-2 ms-1 " 
-                                          style="font-size: 14px; max-height: 2rem;">
+                                    <span class="text-white-50 mb-2 mt-2 ms-1 " 
+                                          style="font-size: 14px;font-weight: bold; max-height: 2rem;">
                                           {{s.name}}
                                     </span>
                               </div>
