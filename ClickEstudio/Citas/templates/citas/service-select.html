@@ -28,30 +28,26 @@
             margin-bottom: 10rem;
         }
 </style>
-<div class="background-container vh-100 " id="bg-service">
-      <div class="content vh-100 blur">
-          <!-- Aquí va el contenido -->
-          <div class='position-absolute start-0 top-0 p-1 w-100'>
-            <div class='w-100'>
-                  <h5 class='font-primary d-none text-white text-start'>
-                        Nuestros servicios
+<section class="vh-100">
+      <div class='w-100'>
+            <h5 class='font-primary d-none text-white text-start'>
+                  Nuestros servicios
+            </h5>
+      </div>
+      {% if plans %}
+              {% include "citas/plans.html" %}
+      {% else %}
+            <div class='w-100 text-center d-flex  flex-wrap justify-content-center '>
+                  <h5 class='font-primary w-100 text-center mt-3'> 
+                        Aun no hay servicios disponibles 
                   </h5>
+                  <p class='text-white-50 text-center'>
+                        Por favor, ten paciencia, estamos trabajando arduamente. 
+                  </p>
             </div>
-            {% if plans %}
-            {% include "citas/plans.html" %}
-            {% else %}
-                  <div class='w-100 text-center d-flex  flex-wrap justify-content-center '>
-                        <h5 class='font-primary w-100 text-center mt-3'> 
-                              Aun no hay servicios disponibles 
-                        </h5>
-                        <p class='text-white-50 text-center'>
-                              Por favor, ten paciencia, estamos trabajando arduamente. 
-                        </p>
-                  </div>
-            {% endif %}
-      </div>
-      </div>
-</div>
+      {% endif %}
+</section>
+
 
 
 <div  class='p-2 mt-1 position-fixed w-100 bottom-0  p-4 ps-2 pe-4'

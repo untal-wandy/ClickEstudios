@@ -13,7 +13,7 @@
 }
 .list-options a {
       transition: none !important;
-      margin-left: 1.5rem !important;
+      margin-left: 2.5rem !important;
       font-size: 14px;
       color: rgba(255, 255, 255, 0.45) !important;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
@@ -23,6 +23,11 @@
 {
       background-image: linear-gradient(120deg, #ffaaaa 0%, #bca1ff 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;
       font-weight: bolder;
+}
+
+.list-options svg
+{
+      width: 30px;
 }
 #divs-btns {
       display: none !important;
@@ -110,11 +115,16 @@
             </button>
       </div>
 </div>
-<div id="div-menu-admin" class='w-100 vh-50  border-0' style='display: none; z-index: 1000 !important;'>
-      <div  class="position-fixed  bg-black end-0 me-2"  
-            style="top: 3.5rem; width: max-content; width: 17rem; border-radius: 1.8rem;   -webkit-backdrop-filter: blur(30px) !important;
-              backdrop-filter: blur(30px) !important; z-index: 1000 !important;" > 
-            <div class=" list-options d-flex flex-column border-0 p-3" style="z-index: 1000;">
+
+<div id="div-menu-admin" class='w-100 vh-50  border-0  ' style='display: none; z-index: 1000 !important;'>
+      <div  class="position-fixed   end-0 me-2  bg-black bg-opacity-75"  
+            style="top: 3.5rem; width: max-content; width: 18rem; border-radius: 2rem;   
+           border: 1px solid rgba(128, 128, 128, 0.334);
+              z-index: 1000 !important;" > 
+            <div class=" list-options d-flex flex-column border-0 p-3 " style="z-index: 1000 !important;    -webkit-backdrop-filter: blur(60px) !important;
+            border-radius: 2rem;   
+          
+            backdrop-filter: blur(60px) !important;">
                   {% if permisons.priori >= 3 %}
                   {% include "citas/components/configuracion-nav.html" %}
                   {% endif %}

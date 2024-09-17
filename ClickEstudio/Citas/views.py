@@ -121,16 +121,21 @@ class GalleryMomentSelect(DetailView):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
+            print(self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all())
+            # context['img_true'] = self.model.objects.get(id=self.kwargs.get('pk'))
             context['moment'] = self.model.objects.get(id=self.kwargs.get('pk'))
 
             if self.request.user.is_authenticated:
                   context['service_admin'] = True
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             # Añadir el formulario al contexto
             context['form'] = forms.MomentRelatedImageForm()
             return context
 
       def post(self, request, *args, **kwargs):
+    
             form = forms.MomentRelatedImageForm(request.POST, request.FILES)
+            print(form)
             if form.is_valid():
                   # Procesar los datos del formulario, por ejemplo, guardar un modelo
                   # Suponiendo que tu formulario crea una nueva imagen relacionada con un momento
@@ -139,6 +144,7 @@ class GalleryMomentSelect(DetailView):
                   new_image.moment = self.model.objects.get(id=self.kwargs.get('pk'))
                   new_image.save()
                   return redirect(reverse('citas:gallery-moment-select', kwargs={'pk': new_image.moment.id}))
+                 
             else:
                   print(form.errors)
                   # Si el formulario no es válido, vuelve a mostrar la página con el formulario y errores
@@ -152,19 +158,20 @@ class ServiceSelect(DetailView):
       template_name = 'citas/service-select.html'
 
 
-      def get(self, request, *args, **kwargs):
-            if not request.user.is_authenticated:
-                  return redirect('/logins/')
-            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
-            return super().get(request, *args, **kwargs)
+      # def get(self, request, *args, **kwargs):
+      #       if not request.user.is_authenticated:
+      #             return redirect('/logins/')
+      #       # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+      #       return super().get(request, *args, **kwargs)
       
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).service_img.all()
             context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
-            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = self.model.objects.get(id=self.kwargs.get('pk')).services.all()
+            if  self.request.user.is_authenticated:
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
 
             
             return context
