@@ -14,11 +14,11 @@
                   Nuestros servicios
             </h6>
       {% endif %} -->
-      <section class="section d-flex     overflow-y-hidden     overflow-x-auto" style="height: 19rem;">
+      <section class="section d-flex     flex-wrap" >
       {% if service %}
             {% for s in service %}
-            <div id='delete-c{{s.id}}'  class="position-relative d-flex flex-wrap  w-100 m-1 p-0" 
-                  style="min-width: 410px; height: max-content;">
+            <div id='delete-c{{s.id}}'  class="position-relative  d-flex flex-wrap  w-100 m-1 p-0" 
+                  style="max-width: 410px;  min-width: 410px; height: max-content;">
                   {% if service_admin %}
                   <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" p-1 rounded-circle position-absolute end-0 top-0 border-0 d-flex justify-content-center font-primary text-white  delete-icon  border-0" 
                   style="border: 1px solid rgba(75, 75, 75, 0.774); 
