@@ -18,28 +18,37 @@ class DashboardCitas(TemplateView, Mail):
 
       # El objeto no existe
       def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
              
             count =  models.MomentRelatedImage.objects.count()
             
             
             # Verificar si existen registros en MomentRelatedImage
             if models.MomentRelatedImage.objects.exists():
-                  # Obtener todos los IDs de los objetos en MomentRelatedImage
+                  context['coro'] = True
                   id_list = models.MomentRelatedImage.objects.values_list('id', flat=True)
-                  
+                  print(id_list)
+
                   # Convertir el queryset en una lista
                   id_list = list(id_list)
+
+                  # Asegúrate de elegir un ID distinto para cada imagen
+                  random_ids = random.sample(id_list,count )  # Seleccionar 5 IDs únicos
+
+                  # Asignar una imagen distinta a cada contexto
+                  context['img1'] = models.MomentRelatedImage.objects.get(id=random_ids[0])
+                  context['img2'] = models.MomentRelatedImage.objects.get(id=random_ids[1])
+                  context['img3'] = models.MomentRelatedImage.objects.get(id=random_ids[2])
+                  context['img4'] = models.MomentRelatedImage.objects.get(id=random_ids[3])
+                  # context['img5'] = models.MomentRelatedImage.objects.get(id=random_ids[4])
+                  # print(f"ID aleatorio seleccionado: {random_id}")
                   
-                  # Seleccionar un ID aleatorio de la lista
-                  random_id = random.choice(id_list)
-            
-                  print(f"ID aleatorio seleccionado: {random_id}")
             else:
                   print("No hay imágenes relacionadas en MomentRelatedImage.")
 
             numero_aleatorio = random.randint(1, 10)
 
-            context = super().get_context_data(**kwargs)
+      
             context['moment'] = models.MomentImage.objects.all()
             context['service'] = models.ServiceImage.objects.all()
             

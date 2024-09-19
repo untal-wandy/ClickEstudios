@@ -189,25 +189,69 @@
                   </div>
 
       {% endif %}
-
-      <section class="  mb-5 pb-5 pt-5" style="margin-top: 10rem !important; margin-bottom: 6.5rem !important;">
-           
-             {% if coro %}
-             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img src="..." class="d-block w-100" alt="...">
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+      <style>
+            /* Estilos para ajustar el tamaño de las imágenes */
+            .swiper-slide img {
+              width: 100%;
+              /* max-width: 400px; */
+              height: 100%;
+              border-radius: 1rem; 
+              object-fit: cover;
+            }
+          </style>
+      {% if coro %}
+           <section class='w-100  d-flex' style='height: max-content'>
+            <div class="swiper-container w-100" style="border-radius: 1rem; ">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <img src="{{img1.image.url}}" alt="Imagen 1">
                     </div>
-                    <div class="carousel-item">
-                      <img src="..." class="d-block w-100" alt="...">
+                    <div class="swiper-slide">
+                           <img src="{{img2.image.url}}" alt="Imagen 1">
                     </div>
-                    <div class="carousel-item">
-                      <img src="..." class="d-block w-100" alt="...">
+                    <div class="swiper-slide">
+                           <img src="{{img3.image.url}}" alt="Imagen 1">
                     </div>
+                    <div class="swiper-slide">
+                             <img src="{{img4.image.url}}" alt="Imagen 1">
+                      </div>
+                      <!-- <div class="swiper-slide">
+                             <img src="{{img5.image.url}}" alt="Imagen 1">
+                      </div> -->
                   </div>
                 </div>
-             {% endif %}
-            <div class="text-center  d-flex justify-content-center " data-aos="fade-left">
+              
+           </section>
+      {% endif %}
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+      var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,          // Mostrar 3 slides al mismo tiempo
+            centeredSlides: true,       // Centrar el slide activo
+            spaceBetween: 20,           // Espacio entre slides
+            loop: true,                 // Habilitar loop infinito
+            effect: 'coverflow',        // Efecto de coverflow
+            coverflowEffect: {
+              rotate: 50,               // Rotación de los slides laterales
+              stretch: 0,               // Estiramiento de los slides laterales
+              depth: 10,               // Profundidad de los slides laterales
+              modifier: 1,              // Intensidad del efecto
+              slideShadows: true,       // Sombras detrás de los slides laterales
+            },
+            autoplay: {
+              delay: 1000,              // Retraso de 3 segundos
+              disableOnInteraction: false, // No detener la animación en la interacción del usuario
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+  </script>
+      <section class="  mb-5 pb-5 pt-5" style="margin-top: 2rem !important; margin-bottom: 6.5rem !important;">
+           
+            <div class="text-center  d-flex justify-content-center " >
                   <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-record-fill animations-pulse m-0 text-danger " viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
                        </svg> 
                   <h3    class="font-primary text-center ms-2  shadow-none" 
@@ -225,7 +269,7 @@
             <span class="p-2    w-100 text-center d-flex justify-content-center text-white-50"
                   style="font-size: 12px;">
                   
-                  <div class="container-change text-center  p-1"  data-aos="fade-right">
+                  <div class="container-change text-center  p-1" >
                         <!-- <p> !Tu gran día!</p> -->
                           <ul>
                               <li class="text-white-50 "> “El arte de recordar... Fotografías que duran para siempre”</li>
@@ -239,7 +283,7 @@
             
       
    
-      <div class="" data-aos="fade-up" >
+      <div class="" >
             <section class=" overflow-auto mt-2 pt-2 " >
                   <div  class="text-center d-flex justify-content-center flex-wrap mb-5 pb-5">
                         <div class="bg-white bg-opacity-10  m-0 mb-2 p-3 d-flex justify-content-center flex-wrap align-content-center" style="width: max-content; border-radius: 2rem;"> 
