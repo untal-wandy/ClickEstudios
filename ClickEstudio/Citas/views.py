@@ -11,15 +11,39 @@ from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
+import random
 
 class DashboardCitas(TemplateView, Mail):
       template_name = 'citas/new-inicio.html'
 
       # El objeto no existe
       def get_context_data(self, **kwargs):
+             
+            count =  models.MomentRelatedImage.objects.count()
+            
+            
+            # Verificar si existen registros en MomentRelatedImage
+            if models.MomentRelatedImage.objects.exists():
+                  # Obtener todos los IDs de los objetos en MomentRelatedImage
+                  id_list = models.MomentRelatedImage.objects.values_list('id', flat=True)
+                  
+                  # Convertir el queryset en una lista
+                  id_list = list(id_list)
+                  
+                  # Seleccionar un ID aleatorio de la lista
+                  random_id = random.choice(id_list)
+            
+                  print(f"ID aleatorio seleccionado: {random_id}")
+            else:
+                  print("No hay imágenes relacionadas en MomentRelatedImage.")
+
+            numero_aleatorio = random.randint(1, 10)
+
             context = super().get_context_data(**kwargs)
             context['moment'] = models.MomentImage.objects.all()
             context['service'] = models.ServiceImage.objects.all()
+            
+            # context['coro'] =
             context['plans'] = models.Plans.objects.all()
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
