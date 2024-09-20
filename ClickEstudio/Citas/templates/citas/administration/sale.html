@@ -26,14 +26,14 @@
             
       }
 </style>
-<div class="bg-dinamic background-container vh-100 p-0 " style=''  >
+<div class="bg-dinamic  vh-100 p-0 " style=''  >
       <div class="content vh-100 blur  ">
             {% include "citas/components/nav.html" %}
             {% if c_saled %}
 
            
-            <div class=' bg-black bg-opacity-25 flex-wrap  ms-5 me-5  p-3 pb-2 pt-2 d-flex justify-content-center mt-5'
-                  style='border-radius: 1.9rem; height: 30rem ; overflow-y: hidden; overflow-x: scroll;'>
+            <div class=' bg-white bg-opacity-10 flex-wrap  ms-5 me-5  p-3 pb-2 pt-2 d-flex justify-content-center mt-5' 
+                  style='border-radius: 1.9rem; height: 30rem ; overflow-y: hidden; overflow-x: scroll; align-content: normal;'>
                   <div class="w-100 " style="height: max-content;">
                         <table class="w-100">
                               <thead >
@@ -89,31 +89,32 @@
                 </table>
                   </div>
                 <div class="w-100 position-related">
-               <table class="w-100">
+               <table class="w-100 ">
                   <thead>
                         <tr >
                           <th class='font-secundary ' style="width: 5%;" scope="col"> </th>
-                          <th class='font-secundary pb-1 pt-4'  style="width: 15%;" scope="col"> Filtar </th>
-                          <th class='font-secundary pb-1 pt-4 ' style="width: 16%;" scope="col">Promedio en ventas</th>
+                          <!-- <th class='font-secundary pb-1 pt-4'  style="width: 15%;" scope="col"> Filtar </th> -->
+                          <!-- <th class='font-secundary pb-1 pt-4 ' style="width: 16%;" scope="col">Promedio en ventas</th> -->
                           <th class='font-secundary pb-1 pt-4' style="width: 15%;" scope="col">Mas vendido</th>
                           <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">En caja</th>
-                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">Total en reservas</th>
+                          <!-- <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">Total en reservas</th> -->
                           <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col"> Mes con mas reservas </th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col"> ... </th>
                         </tr>
                       </thead>
                       <tbody class='rounded-3'>
                         <td></td>
-                        <td>
+                        <!-- <td>
                                     <button onclick='DivOtions()' class="rounded-4 border-0 text-white-50 bg-transparent d-flex align-content-center ">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filter mt-1 me-1" viewBox="0 0 16 16">
                                                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
                                               </svg>  Todo
                                     </button>
-                        </td>
+                        </td> -->
 
-                        <td class='' >
+                        <!-- <td class='' >
                                <span style='color: greenyellow; '>0.07+</span>
-                        </td>
+                        </td> -->
                         <td class='' >
                                <span class="d-flex align-content-center ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mt-1 bi-star-fill me-1" viewBox="0 0 16 16">
@@ -128,11 +129,11 @@
                                         </svg> {{total_saled|intcomma}}.00 
                               </span>
                         </td>
-                        <td class='' > 
+                        <!-- <td class='' > 
                               <span class="d-flex align-content-center ">
                                   $ 144,000.00
                               </span>
-                        </td>
+                        </td> -->
                         <td class='' > 
                               <span class="d-flex align-content-center ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mt-1 bi-star-fill me-1" viewBox="0 0 16 16">
@@ -168,7 +169,7 @@
             </div>
             </div>
 
-            <div class='d-flex justify-content-start ms-5 mt-3'>
+            <div class='d-flex d-none justify-content-start ms-5 mt-3'>
                   <div class='list-btns d-flex'>
                         <a href="{% url "citas:administrations-citas" %}">
                         <button class='rounded-circle bg-black bg-opacity-50  border-0 text-white d-flex justify-content-center align-content-center flex-wrap' style='height: 2rem; width: 2rem;'> 
