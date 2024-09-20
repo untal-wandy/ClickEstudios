@@ -27,20 +27,31 @@ class DashboardCitas(TemplateView, Mail):
             if models.MomentRelatedImage.objects.exists():
                   context['coro'] = True
                   id_list = models.MomentRelatedImage.objects.values_list('id', flat=True)
-                  print(id_list)
 
                   # Convertir el queryset en una lista
                   id_list = list(id_list)
 
-                  # Asegúrate de elegir un ID distinto para cada imagen
-                  random_ids = random.sample(id_list,count )  # Seleccionar 5 IDs únicos
+                  # Verificar si la lista tiene suficientes elementos
+                  if len(id_list) >= 5:
+                  # Seleccionar 5 IDs únicos si hay suficientes
+                        random_ids = random.sample(id_list, 5)
+                  else:
+                  # Seleccionar tantos como sea posible si hay menos de 5
+                        random_ids = random.sample(id_list, len(id_list))
 
-                  # Asignar una imagen distinta a cada contexto
-                  context['img1'] = models.MomentRelatedImage.objects.get(id=random_ids[0])
-                  context['img2'] = models.MomentRelatedImage.objects.get(id=random_ids[1])
-                  context['img3'] = models.MomentRelatedImage.objects.get(id=random_ids[2])
-                  context['img4'] = models.MomentRelatedImage.objects.get(id=random_ids[3])
-                  # context['img5'] = models.MomentRelatedImage.objects.get(id=random_ids[4])
+                  # Asignar imágenes y devolver '' si no existe la imagen
+                  def get_image_or_empty(id):
+                        try:
+                              return models.MomentRelatedImage.objects.get(id=id)
+                        except models.MomentRelatedImage.DoesNotExist:
+                              return ''  # Devuelve una cadena vacía si no existe
+
+                  # Asignar las imágenes a los contextos
+                  context['img1'] = get_image_or_empty(random_ids[0]) if len(random_ids) > 0 else ''
+                  context['img2'] = get_image_or_empty(random_ids[1]) if len(random_ids) > 1 else ''
+                  context['img3'] = get_image_or_empty(random_ids[2]) if len(random_ids) > 2 else ''
+                  context['img4'] = get_image_or_empty(random_ids[3]) if len(random_ids) > 3 else ''
+                  context['img5'] = get_image_or_empty(random_ids[4]) if len(random_ids) > 4 else ''
                   # print(f"ID aleatorio seleccionado: {random_id}")
                   
             else:
