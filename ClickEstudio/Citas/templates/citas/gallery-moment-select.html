@@ -99,7 +99,7 @@
                     <form action="" method="post" class="w-100" enctype="multipart/form-data">
                               {% csrf_token %}
                         {{form.image}}
-                        <div class="w-100 d-flex justify-content-center">
+                        <div class="w-100 d-flex d-none justify-content-center">
                               <button id="add-btn" class="border-0 text-white mt-2 mb-4  btn font-secundary"
                               style="background-color: #3b3b3b75 ; display: none; 
                                     border-radius: 2rem !important; font-size: 14px; ">
@@ -126,9 +126,9 @@
       
       
       
-      <div style="max-width: 70rem; height: max-content; margin: 0 auto; border-radius: 2rem;" class="d-flex p-4 bg-white bg-opacity-10 justify-content-center flex-wrap mt-5">
+      <div style="max-width: 70rem; height: max-content; margin: 0 auto; border-radius: 2rem;" class="d-flex p-4 bg-white bg-opacity-10 justify-content-center flex-wrap ">
             {% if img %}
-                  <div class="d-flex flex-wrap w-100 ">
+                  <div class="d-flex flex-wrap w-100 justify-content-around ">
                         {% for m in img %}
                         <div class="image-containesr position-relative " style="transition: 0.1s !important;">
                               {% if m.image  %}
@@ -202,17 +202,33 @@
       {% endif %}
 </div>
 
+<style>
+               @media (max-width: 768px) {  
+                  .image-container 
+                  {
+                        display: flex; flex-wrap: wrap;
+                        justify-content: center;
+                  }
+                  .image-containesr img 
+                  {
+                        width: 185px !important;
+                  }
+               }
+</style>
 <script>
       function AddImg(){
             document.getElementById('id_image').click();
            
 
       }
+      
+
       document.getElementById('id_image').addEventListener('change', function() {
-             document.querySelector('.add-img').innerHTML=''
+            document.querySelector('#add-btn').click();
+            document.querySelector('.add-img').innerHTML=''
             document.querySelector('.add-img').innerHTML='Agregar otra imagen'
-            document.getElementById('img2').classList.remove('d-none')
-            document.getElementById('img2').src = URL.createObjectURL(this.files[0]);
+            // document.getElementById('img2').classList.remove('d-none')
+            // document.getElementById('img2').src = URL.createObjectURL(this.files[0]);
             document.getElementById('add-btn').style.display = 'block';
             // Perform your desired action here
       });

@@ -259,12 +259,12 @@
                                         <div class="swiper-slide">
                                                <img src="{{img5.image.url}}" alt="Imagen 1">
                                         </div> 
-                                          <div class="swiper-slide">
+                                          <!-- <div class="swiper-slide">
                                                 <img src="{{img6.image.url}}" alt="Imagen 1">
                                     </div> 
                                           <div class="swiper-slide">
                                                 <img src="{{img7.image.url}}" alt="Imagen 1">
-                                    </div> 
+                                    </div>  -->
                                     </div>
                                   </div>
                         </div>
@@ -287,16 +287,13 @@
       </div>
             
       <span class="p-0    w-100 text-center d-flex justify-content-center text-white-50"
-      style="font-size: 12px;">
+      style="font-size: 14px;">
       
-      <div class="container-change text-center   " >
+      <div class=" text-center   " >
             <!-- <p> !Tu gran día!</p> -->
-              <ul>
-                  <li class="text-white-50 me-4 "> “El arte de recordar fotografías marcadas ”</li>
-                  <li class="text-white-50 me-4">“Tus momentos especiales, inmortalizados con arte”</li>
-                  <li class="text-white-50 me-4">“Cada foto cuenta una historia, déjanos contar la tuya”</li>
-                  <!-- <li>“Cada foto cuenta una historia, déjanos contar la sIuuu”</li> -->
-              </ul>
+                   <p style="font-size: 12px; max-width: 40rem;" class="text-white-50  w-100">
+                              “Capturamos tus momentos más importantes con creatividad y profesionalismo, ofreciendo servicios fotográficos personalizados que transforman recuerdos en imágenes inolvidables”
+                        </p> 
     </div>
 
 </span>
@@ -345,7 +342,7 @@ function handleMobileChange(e) {
             coverflowEffect: {
               rotate: 0,               // Rotación de los slides laterales
               stretch: 0,               // Estiramiento de los slides laterales
-              depth: 10,               // Profundidad de los slides laterales
+              depth: 0,               // Profundidad de los slides laterales
               modifier: 9,              // Intensidad del efecto
               slideShadows: false,       // Sombras detrás de los slides laterales
             },
@@ -373,17 +370,17 @@ handleMobileChange(mediaQuery);
       <section class="  mb-5 pb-5  " style="margin-top: 2rem !important; margin-bottom: 6rem !important;">
       <div class="" >
             <section class=" overflow-auto  " >
-                  <div  class="text-center d-flex justify-content-center flex-wrap pb-5">
-                        <div class="bg-white bg-opacity-10  m-0 mb-2 p-3 d-flex justify-content-center flex-wrap align-content-center" style="width: max-content; border-radius: 2rem;"> 
+                  <div  class="text-center d-flex justify-content-center flex-wrap  pb-2">
+                        <div class="bg-white bg-opacity-10  m-0  p-3  d-flex justify-content-center flex-wrap align-content-center" style="width: 19rem; border-radius: 2rem;"> 
                               <h6 class="text-center m-0 p-0"  
-                              style="font-size: 14px; width: 10rem;" >
-                              Nuestros Servicios  
+                              style="font-size: 14px; width: 15rem;" >
+                             Selecciona uno nuestros servicios  
                         </h6> 
                         </div>
                        <div class="w-100 text-center d-flex justify-content-center">
-                        <p style="font-size: 12px; max-width: 40rem;" class="text-white-50  w-100">
+                        <!-- <p style="font-size: 12px; max-width: 40rem;" class="text-white-50  w-100">
                               “Capturamos tus momentos más importantes con creatividad y profesionalismo, ofreciendo servicios fotográficos personalizados que transforman recuerdos en imágenes inolvidables”
-                        </p>
+                        </p> -->
                        </div>
                   </div>
                         {% include "citas/components/servicios.html" %}
@@ -392,7 +389,7 @@ handleMobileChange(mediaQuery);
             <section class=" "   style="margin-top: 0rem;"  >
                   {% include "citas/components/category-moments.html" %}
             </section>
-            <section  class="p-2 d-flex justify-content-center bg-white bg-opacity-10"  style="margin-top: 6rem;"  >
+            <section  class="p-2 d-flex justify-content-center bg-white bg-opacity-10"  style="margin-top: 6rem; margin-bottom: 3rem;"  >
                   {% include "citas/components/contacto.html" %}
             </section>
       </div>

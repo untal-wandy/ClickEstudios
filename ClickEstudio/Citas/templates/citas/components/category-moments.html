@@ -14,8 +14,8 @@
       transform: scale(1.4);
 } 
 </style>
-<div  class="  m-2  p-1 pb-5 pt-5  bg-white bg-opacity-10
-" style="border-radius: 1.5rem; ">
+<div  class="  m-2  p-1 pb-1 pt-1  bg-white bg-opacity-10
+" style="border-radius: 2rem; ">
       <div class="w-100 justify-content-center  p-2 d-flex flex-wrap align-content-center" style="width: max-content; border-radius: 0.7rem;"> 
             <h6 class="text-center m-0 p-0 mt-5
             style="font-size: 14px; width: 12rem;" >
@@ -25,12 +25,12 @@
 {% if moment %}
       <div class="carrousel d-flex mb-5 
        overflow-auto flex-wrap  justify-content-center " >
-            <div style="max-width: 70rem; border-radius: 2rem;" class=" d-flex pt-4 pb-4 
+            <div style="max-width: 70rem; border-radius: 2rem;" class=" d-flex pt-1 pb-1
             overflow-auto flex-wrap  justify-content-center" >
                   {% for m in moment %}       
                   <div class="position-relative m-0 " >
                         <a id='delete-c{{m.id}}' href="{% url "citas:gallery-moment-select" m.id %}" style="  border-radius: 1rem !important; " class="">
-                              <div class="d-flex flex-wrap overflow-hidden   justify-content-center align-content-center" style=" min-width: 230px; height: 130px; 
+                              <div class="d-flex flex-wrap overflow-hidden   justify-content-center align-content-center" style=" min-width: 170px; height: 130px; 
                               background-image: url({{m.image.url}}) ;
                               border-radius: 1rem !important; 
                               background-position: center;
