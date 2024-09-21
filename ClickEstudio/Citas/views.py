@@ -52,6 +52,8 @@ class DashboardCitas(TemplateView, Mail):
                   context['img3'] = get_image_or_empty(random_ids[2]) if len(random_ids) > 2 else ''
                   context['img4'] = get_image_or_empty(random_ids[3]) if len(random_ids) > 3 else ''
                   context['img5'] = get_image_or_empty(random_ids[4]) if len(random_ids) > 4 else ''
+                  context['img6'] = get_image_or_empty(random_ids[5]) if len(random_ids) > 5 else ''
+                  context['img7'] = get_image_or_empty(random_ids[6]) if len(random_ids) > 6 else ''
                   # print(f"ID aleatorio seleccionado: {random_id}")
                   
             else:
