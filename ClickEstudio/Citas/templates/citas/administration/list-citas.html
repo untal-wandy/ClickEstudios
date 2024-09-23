@@ -519,7 +519,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-patch-check-fill mt-1 me-1 reserver-icon " viewBox="0 0 16 16">
                                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                                         </svg>
-                                  Reservar Ahora
+                                  Reservar Cita Ahora
                               </button> 
 
 
@@ -548,16 +548,17 @@
                         <h6 class="">¿Con que cantidad desea la reservacion?</h6>
                         <span class="text-white-50 ">Precio del plan <strong>${{c.plans.price|intcomma}}.00</strong> </span>
                        
-                        <p class="text-white-50 " style="font-size: 12px;">
+                        <p class="text-white-50 " style="font-size: 12px; line-height: 14px;">
                               Indique la cantidad con la que desea reservar esta citas, si omites el monto este por defecto sera $500, esto lo puedes modificar en configuracion
                         </p>
    
                         
                             <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-3 "> Ingresar cantidad de reservacion</label>
-                            <input type="number"id="ct-p{{c.id}}"   class="bg-black w-100 bg-opacity-10 p-2  border-0 outline-none" placeholder="Cantidad" min="10" max="{{c.plans.price}}"  style="border-radius: 1rem;">
+                            <input type="text"id="ct-p{{c.id}}"   class="bg-black inputs w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{c.plans.price}}"  style="border-radius: 1rem;">
 
-                         
-      
+                              
+              
+                        
                             <div class="d-flex div-btns border-0 pt-1 justify-content-center">
       
                                     <button onclick="AcPay(this.id)"id="{{c.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
@@ -565,8 +566,8 @@
                                     </button>
                               <!-- </a> -->
             
-                                    <button id='{{c.id}}' onclick='Reserver(this.id)' class="font-primary reserv  bg-transparent reserver text-white d-flex">
-                                              Aplicar pago
+                                    <button id='AS{{c.id}}' onclick='Reserver(this.id)'  class="font-primary d-flex reserv  btnA d-none bg-transparent reserver text-white ">
+                                              Aplicar Pago
                                     </button>
       
                               </div>
@@ -590,17 +591,70 @@
 </section>
 
 <script>
+      document.querySelectorAll('.inputs').forEach(input => {
+          input.addEventListener('input', function(e) {
+              // Remueve todo lo que no sea dígito
+              let value = this.value.replace(/\D/g, '');
+      
+              // Convierte el valor a número y lo compara con el máximo
+              let max = parseInt(this.getAttribute('max'));
+      
+              if (parseInt(value) > max) {
+                  // Si el valor es mayor al máximo, ajusta el valor al máximo permitido
+                  value = max.toString()
+              }
+      
+              // Añade comas en los lugares correctos
+              this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      
+              // Cambia el borde si el valor es igual al máximo
+              if (parseInt(value) === max) {
+                  this.style.border = '2px solid green';
+            } else {
+                  this.style.border = ''; // Restablece el estilo original si no es igual al máximo
+              }
+      
+              // Evita letras y otros caracteres no numéricos
+              if (/\D/.test(e.data)) {
+                  this.value = this.value.replace(e.data, '');
+              }
+      
+              // Verifica si el input tiene algún valor y muestra el botón si es así
+              let id = this.id.replace(/\D/g, '');
+              let btns = document.getElementById('AS'+id)
+
+              document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                              if (btns) {
+                                    btns.click(); // Dispara el click en el botón
+                              }
+                        }
+                  });
+              if (this.value.length > 0) {
+                    btns.classList.remove('d-none')
+                    
+                  } else {
+                  btns.classList.add('d-none')
+              }
+          });
+      });
+                                    </script>
+<script>
       
       let  AcPay = (ID)=>{
+            
       let divBody = document.querySelector('#div-body'+ID);
       let divBody2 = document.querySelector('#div-body2'+ID);
       if (divBody.classList.contains('d-none')) {
             divBody.classList.remove('d-none'); // Si tiene la clase, la quita
             divBody2.classList.add('d-none');
+            
       } else {
             divBody.classList.add('d-none'); // Si no tiene la clase, la agrega
             divBody2.classList.remove('d-none');
       }
+     let inpo =  document.getElementById('ct-p'+ID)
+     inpo.focus();
 }
 
 
@@ -649,8 +703,9 @@
       });
 
       function Reserver(ID){
-            document.getElementById( 'list-c'+ID).classList.add('bounce-out-top');
-            let input = document.getElementById('ct-p'+ID).value
+            let id = ID.replace(/\D/g, '');
+            document.getElementById( 'list-c'+id).classList.add('bounce-out-top');
+            let input = document.getElementById('ct-p'+id).value
             if (!input) {
                   input = 500;
             }
@@ -658,14 +713,15 @@
                   $.ajax({
                     url: '/reserver/',
                     data: {
-                              id: ID,
-                              input:   input
+                              id: id,
+                              input:   input.replace(/,/g, ''),
+
                     },
                     success: function(response) {
                               location.reload();
                     }
             });        
-          }, 1000);
+          }, 1200);
       }
 
 

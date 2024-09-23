@@ -501,7 +501,7 @@ class HistoriSale(TemplateView, Options):
       #       return super().get(request, *args, **kwargs)
       
       def get_context_data(self, **kwargs):
-            customers = models.Customer.objects.filter(saled=True, finished=False, reserve=True)
+            customers = models.Customer.objects.filter(saled=True, finished=False, reserve=True).order_by('-id')
             # Extraer año y mes de la fecha de venta, contar las ventas, y ordenar por el conteo
             
             mont_more_solid = customers.annotate(
@@ -527,7 +527,7 @@ class HistoriSale(TemplateView, Options):
             month_solid = calendar.month_name[mont_more_solid['month']].capitalize()
             month_name = calendar.month_name[mont_more_reserver['month']].capitalize()
 
-            c = models.Customer.objects.filter( finished=False, reserve=True,)
+            c = models.Customer.objects.filter(finished=False, reserve=True)
             total_saled = 0
             total_reserved = 0
             for i in c:

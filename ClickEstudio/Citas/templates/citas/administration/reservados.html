@@ -310,19 +310,19 @@ function SaleCancel(C){
             document.getElementById( 'list-cr' +C).classList.add('slide-out-elliptic-bottom-bck');
             setTimeout(() => {
 
-      }, 500);
+                  // setTimeout(() => {
+                        $.ajax({
+                        url: '/sale-cancel/',
+                        data: {
+                              id: C
+                        },
+                                success: function(response) {
+                                          location.reload();
+                                }
+                  })
+      }, 1000);
 
 
-      // setTimeout(() => {
-            $.ajax({
-            url: '/sale-cancel/',
-            data: {
-                  id: C
-            },
-                    success: function(response) {
-                              location.reload();
-                    }
-      })
       // }, 1000);
 }      
 
