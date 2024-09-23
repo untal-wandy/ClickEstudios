@@ -23,6 +23,7 @@ class Customer(models.Model):
       plans = models.ForeignKey('Plans', related_name='plans_customer', on_delete=models.CASCADE, blank=True, null=True)
       saled = models.BooleanField(default=False, blank=True, null=True)
       saled_mount = models.IntegerField(default=0, blank=True, null=True)
+      price_reserved = models.IntegerField(default=500, blank=True, null=True)
       
       def __str__(self):
             return f"{self.name} {self.last_name}"

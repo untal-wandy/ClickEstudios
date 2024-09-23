@@ -121,10 +121,11 @@
             style="top: 3.5rem; width: max-content; width: 18rem; border-radius: 2rem;   
            border: 1px solid rgba(128, 128, 128, 0.334);
               z-index: 1000 !important;" > 
-            <div class=" list-options d-flex flex-column border-0 p-3 " style="z-index: 1000 !important;    -webkit-backdrop-filter: blur(60px) !important;
+            <div class=" list-options d-flex bg-black bg-opacity-10 flex-column border-0 p-3 " style="z-index: 1000 !important;    -webkit-backdrop-filter: blur(60px) !important;
             border-radius: 2rem;   
           
             backdrop-filter: blur(60px) !important;">
+
                   {% if permisons.priori >= 3 %}
                   {% include "citas/components/configuracion-nav.html" %}
                   {% endif %}
@@ -148,10 +149,13 @@
             <a href="{% url "citas:dashboard-citas" %}"  class="text-white p-0 pt-1 pb-0">
                   Ir al inicio
             </a>
-            <div class="w-100 mt-3 d-flex justify-content-center ">
-                  <a  href="{% url 'citas:logout' %}" class="text-white p-0 m-0 pt-4  pe-5 pb-0  "> Cerrar sesión</a>
-            </div>
-            
+
+
+            <a  href="{% url 'citas:logout' %}" class="text-white-50 text-center p-0 m-0 pt-4  pe-5 pb-0  "> 
+                  Cerrar Session
+            </a> 
+              
+   
             
       </div>
   

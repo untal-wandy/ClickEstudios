@@ -107,10 +107,10 @@
                           <!-- <th class='font-secundary pb-1 pt-4'  style="width: 15%;" scope="col"> Filtar </th> -->
                           <!-- <th class='font-secundary pb-1 pt-4 ' style="width: 16%;" scope="col">Promedio en ventas</th> -->
                           <th class='font-secundary pb-1 pt-4' style="width: 15%;" scope="col">Mas vendido</th>
-                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">En caja</th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">Total Vendido</th>
                           <!-- <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col">Total en reservas</th> -->
                           <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col"> Mes con mas reservas </th>
-                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col"> ... </th>
+                          <th class='font-secundary pb-1 pt-4' style="width: 15%;"scope="col"> Reservado </th>
                         </tr>
                       </thead>
                       <tbody class='rounded-3'>
@@ -140,11 +140,7 @@
                                         </svg> {{total_saled|intcomma}}.00 
                               </span>
                         </td>
-                        <!-- <td class='' > 
-                              <span class="d-flex align-content-center ">
-                                  $ 144,000.00
-                              </span>
-                        </td> -->
+           
                         <td class='' style="font-size: 14px;" > 
                               <span class="d-flex align-content-center text-white-50">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi mt-1 bi-star-fill me-1" viewBox="0 0 16 16">
@@ -152,7 +148,11 @@
                                         </svg>   {{mont_more_reserver}}
                               </span>      
                         </td>
-
+                        <td class='' > 
+                              <span class="d-flex align-content-center  text-white-50">
+                                  $ {{total_reserved|intcomma}}.00
+                              </span>
+                        </td> 
                     </tbody>
                </table>
                <div id='div-options' class='position-absolute bg-black border-1  p-2' 

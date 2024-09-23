@@ -453,7 +453,6 @@ class CustomerUpdate(UpdateView, Options):
             return super().get(request, *args, **kwargs)
       
       def get_context_data(self, **kwargs):
-        
             c = self.model.objects.get(id=self.kwargs.get('pk'))
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
@@ -463,7 +462,6 @@ class CustomerUpdate(UpdateView, Options):
             return context
 
       def form_valid(self, form):
-            print(form)
             c = self.model.objects.get(id=self.kwargs.get('pk'))
             if  self.PlansExist(self.request.POST.get('select')) == True:
                   form.instance.plan_choice = int(self.request.POST.get('select'))
@@ -531,8 +529,12 @@ class HistoriSale(TemplateView, Options):
 
             c = models.Customer.objects.filter( finished=False, reserve=True,)
             total_saled = 0
+            total_reserved = 0
             for i in c:
-                  total_saled += i.plans.price
+                  if i.saled == True:
+                        total_saled += i.plans.price
+                  else:
+                        total_reserved += i.reserver_mount
                   
             context = super().get_context_data(**kwargs)
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -540,6 +542,7 @@ class HistoriSale(TemplateView, Options):
             context['sale_count'] = c.count()
             context['c_saled'] = c
             context['total_saled'] = total_saled
+            context['total_reserved'] = total_reserved
             context['mont_more_reserver'] = f" {month_name} con {mont_more_reserver['sales_count']} reservas"
             context['plans_more'] = models.Plans.objects.get(id=most_requested_plan['plans']).name
             context['mont_more_solid'] =  month_solid 
