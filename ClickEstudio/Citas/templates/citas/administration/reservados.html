@@ -152,7 +152,7 @@
 
 
       <div class="card-body " >
-                 <div id="div-body{{cr.id}}"> 
+            <div id="div-body{{cr.id}}"> 
                               <span class=' w-100 d-flex align-content-center flex-wrap  m-0 pt-2 p-0'>
                                     
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
@@ -192,7 +192,8 @@
                   <div class="pt-2">
                         <span class="text-white-50" style="font-size: 12px !important;">
                               {% if cr.plans.price == cr.reserver_mount %}
-                              Completado ${{cr.price_reserved|intcomma}}.00 
+                              <h6>Monto restante ${{cr.price_reserved|intcomma}}.00 </h6> 
+                              <h6>Monto  de reserva abonado ${{cr.reserver_mount|intcomma}}.00 </h6>
                               {% else %}
                               <h6>Monto restante ${{cr.price_reserved|intcomma}}.00 </h6> 
                               <h6>Monto  de reserva abonado ${{cr.reserver_mount|intcomma}}.00 </h6>
@@ -211,88 +212,147 @@
                               <!-- </a> -->
             
                                     <button id='{{cr.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex"  >
-                                          Completado
+                                          Pago Completado
                                     </button>
+                                    
                                     {% else %}
                                     <button onclick="SaleCancel(this.id)" id="{{cr.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
                                           Cancelar Cita
                                     </button>
                                    
-                                    <button id='{{cr.id}}' class="font-primary text-danger reserv  bg-transparent reserver text-white d-flex" style='color: rgb(255, 69, 69) !important; ''>
+                                    <button id='{{cr.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv  bg-transparent reserver text-white d-flex" style='color: rgb(255, 69, 69) !important; ''>
                                           Completar Pago
                                     </button>
                                     {% endif %}
             
                         
                               </div>
-                 </div>
-           
+            </div>
+      
+            <div id="div-body2{{cr.id}}" class="d-none "> 
+                  <h6 class="">¿Con que cantidad desea la reservacion?</h6>
+                  <span class="text-white-50 ">Precio del plan <strong>${{cr.plans.price|intcomma}}.00</strong> </span>
+                 
+                  <p class="text-white-50 " style="font-size: 12px; line-height: 14px;">
+                       Monto pagado anteriomente <strong>$ {{cr.reserver_mount|intcomma}}.00 </strong> <br>
+                       Monto faltante <strong>${{cr.price_reserved|intcomma}}.00</strong>
+                  </p>
+                  
+                  <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-4 "> Ingresar cantidad de reservacion</label>
+                  <input type="text"id="ct-p{{cr.id}}"   class="bg-black inputs-2 w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{cr.price_reserved}}"  style="border-radius: 1rem;">
+
+                        
+                  <div class="d-flex div-btns border-0 pt-1 justify-content-center">
+                        <button onclick="AcPay(this.id)"id="{{cr.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
+                              No, volver atras
+                        </button>
+      
+                        <button id='AS{{cr.id}}' onclick='Reserver2(this.id)'  class="font-primary d-flex reserv  btnA d-none bg-transparent reserver text-white ">
+                              Aplicar Pago
+                        </button>
+                  </div>
+
+            </div>
 
  
       </div>
 </div>
 
-      <ul id='ul{{cr.id}}' class="list-grou d-none m-1 mt-2  bg-black bg-opacity-50  " 
-      style="border-radius: 1.5rem; max-width: 20rem;">
-      <li class=" list-group-item mt-1 border-0">
-            <div class="d-flex flex-wrap w-100 border-0">
-                  <span class="w-100 d-flex"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
-                              <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
-                              </svg>  {{cr.name}}  </span>
-                  <span class="w-100 d-flex align-content-center ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi mt-1 me-1 bi-telephone-fill" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
-                            </svg> {{cr.number}} </span>
-                  <span class=" span w-100 d-flex align-content-center "> 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi mt-1 me-1 bi-envelope-at-fill" viewBox="0 0 16 16">
-                              <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
-                              <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
-                            </svg> {{cr.email}} </span>
-                  <span class=" span w-100 d-flex align-content-center ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi mt-1 me-1 bi-calendar2-week-fill" viewBox="0 0 16 16">
-                              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5m9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5M8.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM3 10.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
-                            </svg> {{ cr.date_choice|date:"d/M/Y" }} - {{cr.date_time_choice}}</span>
- 
-                  
-                            <span class='span w-100 d-flex align-content-center '>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="m-0 mt-1 me-1 p-0 me-1 bi bi-cash-coin" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
-                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
-                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
-                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
-                                  </svg> <strong></strong>  {{cr.plans.name}}</span>
-                  <span class=" span w-100 d-flex align-content-center ">
-                        <span>
-                              <strong>    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-currency-dollar mt-1 me-1" viewBox="0 0 16 16">
-                                    <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
-                                  </svg> </strong>  RD${{cr.plans.price|intcomma}}.00
-                            </span>
-                  </span>
-                  <span class=" span w-100 "> 
-                        El monto de reservacion es de ${{cr.reserver_mount|intcomma}} </span>
-                  <div class='w-100 border-0'>
-                        <hr class=''>
-                  </div>
-                  <span class=" span w-100 d-flex justify-content-center">
-                        <button onclick="SaleCancel(this.id)" id="{{cr.id}}" class='border-0 rounded-4 font-primary' 
-                        style=' 
-                        font-size: 16px; width: 7rem;'>Cancelar</button>
-                        <button  onclick="SaleService(this.id)" id="{{cr.id}}" class='border-0 rounded-4 font-primary' 
-                        style='  background-image: linear-gradient(120deg, #fbaaff 0%, #bca1ff 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                        font-size: 16px;'>Realizar Pago</button>
-                  </span>
-                  <span class=" span w-100 mt-2 d-flex justify-content-center">
-                  </span>
-            </div>
-      </li>
-      </ul>
+<script>
+            document.querySelectorAll('.inputs-2').forEach(input => {
+          input.addEventListener('input', function(e) {
+              // Remueve todo lo que no sea dígito
+              console.log('Hola')
+              let value = this.value.replace(/\D/g, '');
+      
+              // Convierte el valor a número y lo compara con el máximo
+              let max = parseInt(this.getAttribute('max'));
+      
+              if (parseInt(value) > max) {
+                  // Si el valor es mayor al máximo, ajusta el valor al máximo permitido
+                  value = max.toString()
+              }
+      
+              // Añade comas en los lugares correctos
+              this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      
+              // Cambia el borde si el valor es igual al máximo
+              if (parseInt(value) === max) {
+                  this.style.border = '2px solid green';
+            } else {
+                  this.style.border = ''; // Restablece el estilo original si no es igual al máximo
+              }
+      
+              // Evita letras y otros caracteres no numéricos
+              if (/\D/.test(e.data)) {
+                  this.value = this.value.replace(e.data, '');
+              }
+      
+              // Verifica si el input tiene algún valor y muestra el botón si es así
+              let id = this.id.replace(/\D/g, '');
+              let btns = document.getElementById('AS'+id)
+              
+            //   document.addEventListener('keydown', function(e) {
+            //             if (e.key === 'Enter') {
+            //                   if (btns) {
+            //                         btns.click(); // Dispara el click en el botón
+            //                   }
+            //             }
+            //       });
+              if (this.value.length > 0) {
+                    btns.classList.remove('d-none')
+                    
+                  } else {
+                  btns.classList.add('d-none')
+              }
+          });
+});
+function Reserver2(ID){
+            let id = ID.replace(/\D/g, '');
+            document.getElementById( 'list-cr'+id).classList.add('bounce-out-top');
+            let input = document.getElementById('ct-p'+id).value
 
+            setTimeout(function() {
+                  $.ajax({
+                    url: '/reserver/',
+                    data: {
+                              id: id,
+                              input:   input.replace(/,/g, ''),
+
+                    },
+                    success: function(response) {
+                              location.reload();
+                    }
+            });        
+          }, 1200);
+      }
+
+</script>
 
 {% endfor %}
+
+
 <script>
 
-      function SaleService(C){
+let  AcPay = (ID)=>{
+            
+            let divBody = document.querySelector('#div-body'+ID);
+            let divBody2 = document.querySelector('#div-body2'+ID);
+            if (divBody.classList.contains('d-none')) {
+                  divBody.classList.remove('d-none'); // Si tiene la clase, la quita
+                  divBody2.classList.add('d-none');
+                  
+            } else {
+                  divBody.classList.add('d-none'); // Si no tiene la clase, la agrega
+                  divBody2.classList.remove('d-none');
+            }
+           let inpo =  document.getElementById('ct-p'+ID)
+           inpo.focus();
+      }
+</script>
+<script>
+
+function SaleService(C){
             document.getElementById( 'list-cr' +C).classList.add('slide-out-elliptic-top-bck');
             setTimeout(() => {
 
@@ -326,9 +386,6 @@ function SaleCancel(C){
       // }, 1000);
 }      
 
-
-
-// Mejoras
 </script>
 {% else %}
 

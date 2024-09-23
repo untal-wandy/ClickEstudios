@@ -515,7 +515,7 @@
                         <!-- </a> -->
       
 
-                              <button id='{{c.id}}'onclick="AcPay(this.id)" ' class="font-primary reserv  bg-transparent reserver text-white d-flex">
+                              <button id='{{c.id}}'onclick="AcPay(this.id)"  class="font-primary reserv  bg-transparent reserver text-white d-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-patch-check-fill mt-1 me-1 reserver-icon " viewBox="0 0 16 16">
                                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                                         </svg>
@@ -555,9 +555,6 @@
                         
                             <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-3 "> Ingresar cantidad de reservacion</label>
                             <input type="text"id="ct-p{{c.id}}"   class="bg-black inputs w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{c.plans.price}}"  style="border-radius: 1rem;">
-
-                              
-              
                         
                             <div class="d-flex div-btns border-0 pt-1 justify-content-center">
       
@@ -623,13 +620,13 @@
               let id = this.id.replace(/\D/g, '');
               let btns = document.getElementById('AS'+id)
 
-              document.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') {
-                              if (btns) {
-                                    btns.click(); // Dispara el click en el botón
-                              }
-                        }
-                  });
+            //   document.addEventListener('keydown', function(e) {
+            //             if (e.key === 'Enter') {
+            //                   if (btns) {
+            //                         btns.click(); // Dispara el click en el botón
+            //                   }
+            //             }
+            //       });
               if (this.value.length > 0) {
                     btns.classList.remove('d-none')
                     
@@ -638,7 +635,7 @@
               }
           });
       });
-                                    </script>
+</script>
 <script>
       
       let  AcPay = (ID)=>{
@@ -706,9 +703,6 @@
             let id = ID.replace(/\D/g, '');
             document.getElementById( 'list-c'+id).classList.add('bounce-out-top');
             let input = document.getElementById('ct-p'+id).value
-            if (!input) {
-                  input = 500;
-            }
             setTimeout(function() {
                   $.ajax({
                     url: '/reserver/',

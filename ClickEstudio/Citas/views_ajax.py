@@ -58,11 +58,16 @@ def DeleteCaract(request):
 
 def Reserver(request):
       c = models.Customer.objects.get(id=request.GET.get('id'))
-      print(int(request.GET.get('input')))
+      print(int(request.GET.get('input')), 'Mas', request.GET.get('id'))
       if c.reserve == False:
-            c.reserver_mount = int(request.GET.get('input'))
             c.reserve = True
+            c.reserver_mount = int(request.GET.get('input'))
             c.price_reserved =  c.plans.price -  c.reserver_mount 
+            c.save()
+      else:
+            abonado =   c.reserver_mount  + int(request.GET.get('input'))
+            c.reserver_mount = abonado
+            c.price_reserved =   c.plans.price -  c.reserver_mount
             c.save()
       return JsonResponse(list(),  safe=False)
 
