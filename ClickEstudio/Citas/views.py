@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 import random
 
+from datetime import datetime
 class DashboardCitas(TemplateView, Mail):
       template_name = 'citas/new-inicio.html'
 
@@ -114,6 +115,31 @@ class CustomerCreateView(CreateView, Mail):
             if form.is_valid():
                   form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
                   form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  form.save() 
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
+            
+class CustomerCita(CreateView, Mail):
+      model = models.Customer
+      form_class = forms.CustomerForm
+      template_name = 'citas/crear-cita.html'  
+      
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+
+            return context
+
+      def form_valid(self, form):
+
+            if form.is_valid():
+                  form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
+                  form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  form.instance.date_time_choice = datetime.now()
                   form.save() 
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
 

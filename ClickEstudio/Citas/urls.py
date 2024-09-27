@@ -5,6 +5,7 @@ app_name = 'citas'
 urlpatterns = [
     path('', views.DashboardCitas.as_view(), name='dashboard-citas' ),
     path('create-customer/<int:pk>', views.CustomerCreateView.as_view(), name='create-customer'),
+    path('create-cita/<int:pk>', views.CustomerCita.as_view(), name='create-cita'),
 
     path('appointment-create/', views.AppointmentCreateView.as_view(), name='appointment-create'),
     path('customer-detail/<int:pk>', views.CustomerDetailView.as_view(), name='customer-detail'),  
