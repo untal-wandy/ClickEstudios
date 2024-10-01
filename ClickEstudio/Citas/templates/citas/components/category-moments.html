@@ -1,0 +1,104 @@
+<style>
+      .bg-danger
+{
+      background-color: rgb(255, 95, 37) !important;
+}
+
+.moment-div 
+{
+      transition: 0.4s !important;
+}
+
+.moment-div:hover
+{
+      transform: scale(1.4);
+} 
+</style>
+<div  class="  m-2  p-1 pb-1 pt-1  bg-white bg-opacity-10
+" style="border-radius: 2rem; ">
+      <div class="w-100 justify-content-center  p-2 d-flex flex-wrap align-content-center" style="width: max-content; border-radius: 0.7rem;"> 
+            <h6 class="text-center m-0 p-0 mt-5
+            style="font-size: 14px; width: 12rem;" >
+            Galeria de momentos
+      </h6>
+      </div>
+{% if moment %}
+      <div class="carrousel d-flex mb-5 
+       overflow-auto flex-wrap  justify-content-center " >
+            <div style="max-width: 70rem; border-radius: 2rem;" class=" d-flex pt-1 pb-1
+            overflow-auto flex-wrap  justify-content-center" >
+                  {% for m in moment %}       
+                  <div class="position-relative m-0 " >
+                        <a id='delete-c{{m.id}}' href="{% url "citas:gallery-moment-select" m.id %}" style="  border-radius: 1rem !important; " class="">
+                              <div class="d-flex flex-wrap overflow-hidden   justify-content-center align-content-center" style=" min-width: 170px; height: 130px; 
+                              background-image: url({{m.image.url}}) ;
+                              border-radius: 1rem !important; 
+                              background-position: center;
+                              background-repeat: no-repeat;
+                              background-size: cover; ">
+                                          <span class=" moment-div h-100 font-primary w-100  text-center justify-content-center align-content-center flex-wrap " style="  -webkit-backdrop-filter: blur(0px) !important;
+                                          backdrop-filter: blur(0px);
+                                          border-radius: 1rem !important; 
+                                          background-color: #000000b1;
+
+                                          font-size: 14px;">
+                                                {{m.name}}
+                                          </span>
+                                    </div>
+                              </a>
+                              {% if service_admin %}
+                                    <div id='delete-c1{{m.id}}' style='display: flex;' class=' justify-content-end'>
+                                       
+                                          <button id="{{m.id}}"onclick='DeledeteMomentImage(this.id)' class="  bg-danger p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex font-primary text-white  delete  border-0" 
+                                          style="border: 1px solid rgba(75, 75, 75, 0.774);">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
+                                          <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                          </svg> </button>
+                                          
+                                          <a href="{% url "citas:moment-image-update" m.id %}">
+                                                <button class='bg-transparent  border-0 font-secundary p-1 text-white border-1' 
+                                                style='border-radius: 1rem; 
+                                                /* border: solid white 0px; */
+                                                font-weight: bold;
+                                                 font-size: 14px;
+                                                width:8rem;'>
+                                                Editar Momento
+                                          </button>
+                                    </a>
+                                    </div>
+                              {% endif %}
+                  </div>
+            {% endfor %}
+            </div>
+      </div>
+{% else %}
+<div class="w-100 d-flex justify-content-start">
+      <div class=" m-3 p-3 "  style="max-width: 30rem; background-color: #32323289; 
+      border-radius: 1rem;" role="alert">
+      <strong>¡Aviso!</strong> 
+            <p class="text-white-50 " style="line-height: 16px; font-size: 14px;"> No hay imagenes de momentos agregadas, estas seran visible desde aqui.
+            </p>
+      </div>
+</div>
+{% endif %}
+</div>
+
+<style>
+      .carrousel div {
+            border-radius: 2rem;
+            margin: 0.5rem;
+      }
+</style>
+<script>
+      function DeledeteMomentImage(I) {
+            document.getElementById('delete-c'+I).style.display = 'none';
+            
+            $.ajax({
+                  url: '/delete-moment-image/',
+                  data: {
+                        m_id: I
+                  }
+            })
+            document.getElementById('delete-c1'+I).style.display = 'none';
+      }
+</script>

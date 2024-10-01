@@ -1,0 +1,118 @@
+{% extends "citas/base/base.html" %}
+
+{% block content %}
+<style>
+     .inputs  input 
+      {
+            border-radius: 1.5rem !important ;
+            margin: 0.2rem !important;
+            min-width: 300px;
+            background: #dfdfdfe7;
+            -webkit-backdrop-filter: blur(30px) !important;
+            backdrop-filter: blur(30px) !important;
+      }
+  
+      .background-container {
+            position: relative;
+            width: 100%;
+            height: 45vh; /* Ajusta la altura según sea necesario */
+            /* background-image: url('https://th.bing.com/th/id/OIP.IqjnLkysQHMtDIqzbEqAnAHaLG?w=634&h=950&rs=1&pid=ImgDetMain'); */
+            background-size: cover;
+            background-position: center;
+        }
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
+            color: white; /* Cambia el color del texto según sea necesario */
+        }
+        #divs-btns {
+            display: none !important;
+        }
+</style>
+<div class=" vh-100  bg-black bg-opacity-25 mb-5" >
+      {% if service_admin %}
+            {% include "citas/components/nav.html" %}
+            {% else %}
+                  <div class="position-absolute end-0  d-flex justify-content-end" style="z-index: 10;">
+                        <a href="{% url "citas:logins" %}" >
+                              <button class="bg-transparent rounded-circle blur text-white border-0 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                        </svg>
+                              </button>
+                        </a>
+                  </div>
+      {% endif %}
+
+
+
+     
+      <form action="" method="post" class="mt-5">
+            {% csrf_token %}
+            <div class="d-flex  flex-wrap  flex-wrap mb-5">
+                  <div  class="w-100 mt-2 d-flex inputs  flex-wrap" id="email">
+                        <div class="form-floating  m-1">
+                              {{ form.name }}
+                              <label for="id_name">Nombre</label>
+                        </div>
+                        <div class="form-floating m-1 ">
+                              {{ form.email }}
+                              <label for="id_email">Correo electronico</label>
+                        </div>
+                        <div class="form-floating m-1" id="number" >
+                              {{ form.number }}
+                              <label for="id_number">Numero </label>
+                        </div>
+                        <div class="form-floating  m-1" id="id_date_choice" >
+                              {{ form.date_choice }}
+                              <label for="id_date_choice">Dia, Mes y Año </label>
+                        </div>
+                        <div class="form-floating m-1" id="id_date_time_choice" >
+                              {{ form.date_time_choice }}
+                              <label for="id_date_time_choice">Hora </label>
+                        </div>
+                  </div>
+          
+       
+                  <div  class="w-100 mt-2 d-flex" >
+                        {% include "citas/plans2.html" %}
+                        {% include "citas/plans.html" %}
+                  </div>
+            </div>
+
+            
+            <span class=" d-flex justify-content-center text-center mt-3">
+                  <button  style="
+              border-radius: 1.5rem; height: auto;
+              width: 12rem;" class="text-white bg-white bg-opacity-10 p-2 border-0">
+                  Aceptar cambios   
+            </button>
+      </span>
+</form>
+
+</div>
+</div>
+
+<style>
+      .btn-altern button {
+            background-color: transparent;
+            border: solid 1px rgba(255, 255, 255, 0.733);
+            border-radius: 2rem;
+            font-weight: bold;
+            color: white;
+            margin: 0.3rem;
+            padding: 0.2rem 0.7rem;
+      }
+
+
+</style>
+<script>
+            TextSession('Editando Cita')
+</script>
+{% endblock  %}

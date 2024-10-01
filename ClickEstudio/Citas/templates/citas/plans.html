@@ -1,0 +1,422 @@
+{% if service_admin %}
+<style>
+      .background-container {
+            position: relative;
+            width: 100%;
+            height: 50vh; /* Ajusta la altura según sea necesario */
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem;
+      }
+
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.098), rgb(0, 0, 0));
+            color: white; /* Cambia el color del texto según sea necesario */
+      }     
+      .list {
+            transition: 0s !important;
+            cursor: pointer;
+            list-style:circle;
+      }
+      .list:hover {
+            transition: 0s !important;
+
+            background-color: rgba(240, 240, 240, 0.214) ; 
+            padding: 0.6rem;
+            margin: 0.6rem;
+            border-radius: 1.5rem;
+      }
+      .border-1 
+      {
+            border: 1px rgba(255, 255, 255, 0.481) solid;
+            border-radius: 2rem;
+      
+      }
+</style>
+{% else %}
+<style>
+      .background-container {
+            position: relative;
+            width: 100%;
+            height: 45vh; /* Ajusta la altura según sea necesario */
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem;
+      }
+
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.098), rgb(0, 0, 0));
+            color: white; /* Cambia el color del texto según sea necesario */
+      }
+      .delete-icon {
+            transition: transform 0.3s;
+      }
+      .hover-delete {
+            -webkit-animation: vibrate-2 0.3s linear infinite both;
+            animation: vibrate-2 0.3s linear infinite both;      }
+
+            .bg-delete
+{
+      background-color: rgba(255, 115, 64, 0.865) !important;
+}
+
+
+</style>
+{% endif %}
+
+{% load humanize %}
+<!-- <span class="p-2 ps-4">
+      Listado de planes
+</span> -->
+{% if plans %}
+
+      <div id='div-plans' class='d-flex    p-0 pb-5 ' style="overflow-y: auto; overflow-x: auto;">
+            {% for p in plans %}
+            
+            <div id='delete-p{{p.id}}' class=' p-0  position-relative   m-1' 
+            style='background-image: url({{p.img.url}});
+                  background-position: center; background-position: center; background-size: cover;
+                  background-repeat: no-repeat;
+                  border: 1px solid #41414188 ;
+                  background-color: #0000003f;
+                  width: 300px; min-width: 300px; border-radius: 2rem;
+                  height: max-content; '>
+            
+                  <div class="bg-black bg-opacity-50 w-100 h-100 "  style=" border-radius: 1.9rem;
+                        -webkit-backdrop-filter: blur(8px) !important;
+                        backdrop-filter: blur(8px) !important;">
+<!-- 
+                        <div style="width: 100%; height: 160px;   
+                        border-radius: 1rem;
+                        /* border-top-left-radius: 1rem;
+                        border-top-right-radius: 1rem;
+                        border-bottom-left-radius: 0.5rem;
+                        border-bottom-right-radius: 0.5rem; */
+                        "
+                        class="d-flex overflow-hidden">
+                              <img src="{{p.img.url}}" alt="" class="w-100 h-100  object-fit-cover " >
+                        </div> -->
+                        <!--    <button onclick='DeledetePlans(this.id)' id="{{p.id}}" class='rounded-4 font-secundary me-2 text-white  bg-transparent border-0 position-absolute top-0 end-0'>
+                              Eliminar
+                        </button> -->
+                        {% if service_admin %}
+                              <button onclick='DeledetePlans(this.id)' id="{{p.id}}" class=" bg-delete p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex font-primary text-white  delete-icon  border-0" 
+                              style="border: 1px solid rgba(15, 15, 15, 0.774);      background-color: rgb(255, 97, 97) !important;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
+                              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                              </svg> </button>
+                        {% endif %}
+      
+                        <div class=' p-1 pt-0 position-relative  m-0 border-0 ' style="border-radius: 0rem;" >
+                   
+                              <div style="line-height: 8px;" class="pb-2 pt-2 ">
+                                    <h6 class='font-secondary p-0 m-0 pt-3  ps-2 ' style="font-size: 14px; 
+      
+                                    ">
+                                          {{p.name}}
+                                    </h6>
+                                    <strong class='font-secondary  p-2 mt-1 d-flex align-content-center flex-wrap justify-content-center' 
+                                          style='color: rgba(255, 255, 255, 0.625) ;
+                                          background-color: #3b3b3b75;
+                                          /* border: 1px rgb(98, 98, 98) solid; */
+                                          width: 6rem; height: 1.8rem ; border-radius: 1rem;'>
+                                          <span class=" ">
+                                          $   {{p.price|intcomma}}</span>
+                                    </strong>
+                              </div>
+                              <div id="target{{p.id}}" class=' ps-1 position-relative  rounded-0 align-content-none  target' 
+                                    style='overflow-y: auto; overflow-x: auto; border-radius: 0.8rem; 
+                                    height: 9.5rem;
+                                       font-size: 12px;
+      
+                                       '>
+                                    <div id='span-list{{p.id}}' style=" height: 5rem;
+                                        
+                                        " class=" position-relative  olas caract-list   ">
+                                          {% if p.plans %}
+                                                {% for pl in p.plans.all  %}
+                                                      {% if service_admin %}
+                                                            <li id='list{{pl.id}}' value="{{pl.id}}" onclick="DeleteCaract(this.value)"
+                                                                  class='w-100 list lis-none'>
+                                                                  <span class='text-white '>{{pl.name}}  </span>  </li>
+                                                            {% else %}
+                                                            <li id='list{{pl.id}}'>{{pl.name}}</li>
+                                                      {% endif %}
+                                                {% endfor %}
+                                          {% endif %}
+      
+                                          <div class="position-sticky   d-flex justify-content-end  " style="bottom: 20px; width: max-content; margin-left: 260px;">
+                                                <section class="">
+                                                      <div  onclick="enableAutoScrollUP(this.id, )" class="bg-black bg-opacity-50 mb-1 p-1 rounded-circle scroll-auto-up" >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+                                                                  <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
+                                                                </svg>
+                                                      </div>
+                                                      <div id="btn{{p.id}}"  onclick="enableAutoScroll(this.id, '#target' + {{p.id}})" class="bg-black bg-opacity-50  p-1 rounded-circle scroll-auto" >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+                                                                  <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
+                                                                </svg>
+                                                      </div>
+                                                </section>
+                                          </div>
+                                    </div>
+                              </div>
+                              <script>
+                                    // Nuevoas menjo
+                                                            // Selecciona los elementos
+                                    function enableAutoScroll(buttonSelector, targetSelector){
+                                     scrollAmount = 10, interval = 50 
+                                     const button = document.getElementById(buttonSelector);
+      
+                                                      const targetDiv = document.querySelector(targetSelector);
+                                                      let scrollInterval;
+      
+                                                      // Función para hacer scroll suave
+                                                      function scrollDown() {
+                                                            targetDiv.scrollBy({
+                                                                  top: scrollAmount, // Cantidad de scroll en píxeles
+                                                                  behavior: 'smooth'
+                                                            });
+                                                      }
+      
+                                                      // Cuando se presiona el botón
+                                                      button.addEventListener('mousedown', () => {
+                                                            scrollInterval = setInterval(scrollDown, interval); // Comienza a hacer scroll
+                                                      });
+      
+                                                      // Cuando se suelta el botón
+                                                      button.addEventListener('mouseup', () => {
+                                                            clearInterval(scrollInterval); // Detiene el scroll
+                                                      });
+      
+                                                      // También detiene el scroll si el mouse sale del botón
+                                                      button.addEventListener('mouseleave', () => {
+                                                            clearInterval(scrollInterval); // Detiene el scroll
+                                                      });
+                                                      }
+      
+                                                      // Ejemplo de uso:
+                                                      
+      
+                                    function enableAutoScrollUP(buttonSelector, targetSelector){
+                                     scrollAmount = 10, interval = 50 
+                                     const button = document.getElementById(buttonSelector);
+      
+                                                      const targetDiv = document.querySelector(targetSelector);
+                                                      let scrollInterval;
+      
+                                                      // Función para hacer scroll suave
+                                                      function scrollDown() {
+                                                            targetDiv.scrollBy({
+                                                                  top: scrollAmount, // Cantidad de scroll en píxeles
+                                                                  behavior: 'smooth'
+                                                            });
+                                                      }
+      
+                                                      // Cuando se presiona el botón
+                                                      button.addEventListener('mousedown', () => {
+                                                            scrollInterval = setInterval(scrollDown, interval); // Comienza a hacer scroll
+                                                      });
+      
+                                                      // Cuando se suelta el botón
+                                                      button.addEventListener('mouseup', () => {
+                                                            clearInterval(scrollInterval); // Detiene el scroll
+                                                      });
+      
+                                                      // También detiene el scroll si el mouse sale del botón
+                                                      button.addEventListener('mouseleave', () => {
+                                                            clearInterval(scrollInterval); // Detiene el scroll
+                                                      });
+                                                      }
+      
+                                    const buttonUP = document.querySelector('.scroll-auto-up');
+                                    const targetDivUP = document.querySelector('.target');
+                                    let scrollIntervalUP;
+                                           // Función para hacer scroll suave
+                                    function scrollUP() {
+                                          targetDivUP.scrollBy({
+                                          top: -10, // Cambia este valor para ajustar la velocidad del scroll
+                                          behavior: 'smooth'
+                                          });
+                                    }
+      
+                                    // Cuando se presiona el botón
+                                    buttonUP.addEventListener('mousedown', () => {
+                                          scrollIntervalUP = setInterval(scrollUP, 50); // Comienza a hacer scroll
+                                    });
+      
+                                    // Cuando se suelta el botón
+                                    buttonUP.addEventListener('mouseup', () => {
+                                          clearInterval(scrollIntervalUP); // Detiene el scroll
+                                    });
+      
+                                    // También detiene el scroll si el mouse sale del botón
+                                    buttonUP.addEventListener('mouseleave', () => {
+                                          clearInterval(scrollIntervalUP); // Detiene el scroll
+                                    });
+                                    
+                              </script>
+           
+                              <div class=' start-0 p-2 w-100 d-flex flex-wrap  justify-content-end  bottom-0 '> 
+                                    {% if service_admin %}
+                                          {% if edit %}
+                                                <div id='caract{{p.id}}' class='d-flex justify-content-center mb-2   w-100'>
+                                                      <input type="text" id='input{{p.id}}' 
+                                                      style="font-size: 14px;" placeholder='Agregar Caracteristica' class="border-0 p-1 text-center bg-black bg-opacity-25 text-white"> 
+                                                      <button  class="border-0 btn-add-caract btn font-secundary text-white" style="font-size: 14px;" onclick='CreateCaract(this.id)' id='{{p.id}}'>
+                                                            Agregar
+                                                      </button>
+                                                </div>
+      
+                                                <a href="{% url "citas:plans-update"  p.id %}">
+                                                      <button  class=' bg-transparent  p-1 me-1 text-white font-secundary' 
+                                                      style='width: 5rem; border-radius: 1rem;  font-size: 14px;
+                                                      border: 1px rgb(98, 98, 98) solid;'>
+                                                      Editar
+                                                </button>
+                                                </a>
+                                                {% else %}
+                                                      <div class='w-100  d-flex justify-content-center '>
+                                                            <div class="form-check rounded-4 p-2 blur" style='transition: none !important;'>
+                                                                  
+                                                                  <input style='transition: none !important;' 
+                                                                  class="form-check-input" type="radio" name="select" value="{{p.id}}" id="flexRadioDefault1{{p.id}}">
+                                                                  <label style='transition: none !important;' class="form-check-label font-primary"
+                                                                        for="flexRadioDefault1{{p.id}}">
+                                                                    Seleccionar 
+                                                                  </label>
+                                                            </div>
+                                                      </div>
+                                                {% endif %}
+      
+                                    {% else %}
+                                    <div class=' w-100 d-flex justify-content-center  mt-2 ' >
+                                          <a href="{% url "citas:create-cita" p.id %}" class="w-100  d-flex justify-content-center">
+                                                <button class='  p-1  text-white font-secundary' 
+                                                style='width: 8rem; height: 2.4rem; border-radius: 2rem; 
+                                                font-size: 14px;
+                                                font-weight: bold;
+                                                border: 1px rgba(255, 255, 255, 0) solid; '>
+                                                      Comprar ahora
+                                                </button>
+                                          </a>
+                                          <a href="{% url "citas:create-customer" p.id %}" class="w-100 d-flex justify-content-center">
+                                                <button class='  p-1  text-white-50 bg-black bg-opacity-50 font-secundary' 
+                                                style='width: 8rem; height: 2.4rem; border-radius: 2rem; 
+                                                font-size: 14px;
+                                                font-weight: bold;
+                                                border: 1px rgba(255, 255, 255, 0) solid; '>
+                                                      Agendar  cita
+                                                </button>
+                                          </a>
+                                    </div>
+                              {% endif %}
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      {% endfor %}
+
+      </div>
+{% else %}
+
+            <div class="   m-3 p-3 "  style="max-width: 30rem;  background-color: #32323289;
+            border-radius: 1.5rem; " role="alert">
+            <strong>¡Aviso!</strong> 
+                  <p class="text-white-50 pb-3" style="line-height: 16px; font-size: 14px;"> 
+                   No hay planes registrados,√
+                   cuando agregues planes estos aparenceran aqui.
+                  </p>
+            </div>
+{% endif %}
+
+
+<script>
+
+
+      let value_caract = 0;
+
+      function DeledetePlans(I) {
+            document.getElementById('delete-p'+I).style.display = 'none';
+           $.ajax({
+                 url: '/delete-plans/',
+                 data: {
+                       p_id: I
+                 }
+           })
+      }
+
+      function CreateCaract(C) {
+            let div = document.getElementById('span-list'+C);
+            let li = document.createElement('li');
+            li.classList.add('list');
+   
+         
+
+            li.innerHTML = document.getElementById('input'+C).value
+            div.appendChild(li);
+            $.ajax({
+                  url: '/create-caract/',
+                  data: {
+                        id: C,
+                        input: document.getElementById('input'+C).value
+                  },
+                  success: function(response) { 
+                        document.getElementById('input'+C).value = '';
+
+                        
+
+                  }
+
+
+            })
+}     
+      function DeleteCaract(C){
+            document.getElementById( 'list' +C).style.display = 'none';
+            $.ajax({
+                  url: '/delete-caract/',
+                  data: {
+                        id: C
+                  }
+            })
+      }
+//            var input = document.getElementById('input'+C).value;
+//            var div = document.getElementById('caract'+C);
+//            var p = document.createElement('span-list'+C);
+//            p.innerHTML = input;
+//            div.appendChild(p);
+      
+
+document.querySelectorAll('.delete').forEach(element => {
+            element.addEventListener('mouseover', () => {
+                  element.querySelector('.delete-icon').classList.add('hover-delete');
+            });
+            element.addEventListener('mouseout', () => {
+                  element.querySelector('.delete-icon').classList.remove('hover-delete');
+            });
+      });
+      document.addEventListener('keydown', function(event) {
+                // Verifica si la tecla presionada es Enter
+                if (event.key === 'Enter' || event.keyCode === 13) {
+                    // Encuentra el botón con la clase 'btn-add-caract'
+                    const btn = document.querySelector('.btn-add-caract');
+                    if (btn) {
+                        btn.click();  // Simula un clic en el botón
+                    }
+                }
+            });
+</script>

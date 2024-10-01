@@ -1,0 +1,404 @@
+{% include "citas/base/base.html" %}
+{% block content %}
+<style>
+      .bg-content{
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Ajusta la altura según sea necesario */
+  /* background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn'); */
+  background-size: cover;
+  background-position: center;
+}
+.content-inicio {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.495), rgba(0, 0, 0, 0.982));
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+  color: white; /* Cambia el color del texto según sea necesario */
+}
+
+
+.contac {
+      display: flex;
+      flex-wrap: wrap;
+}
+  .contac  span{
+      padding: 0.3rem;
+      width: 100%;
+}
+  .contac  span a { 
+      margin-top: 1rem;
+      color: white; 
+      text-decoration: none;
+  }
+  /* .contac  span a svg {
+      margin-top: 1rem;
+  } */
+
+@keyframes animations-pulse {
+      0% {
+            transform: scale(1);
+      }
+      50% {
+            transform: scale(1.2);
+      }
+      100% {
+            transform: scale(1);
+      }
+}
+  .animations-pulse {
+  animation: animations-pulse 0.3s infinite;
+}
+.vibrate-1 {
+	-webkit-animation: vibrate-1 0.3s linear infinite both;
+	        animation: vibrate-1 0.3s linear infinite both;
+}
+
+.content-bottom
+{
+ z-index: 3;
+  bottom: 0;
+  width: 100%;
+  min-height: 4rem;
+  box-sizing: border-box;
+  /* background-color: cornflowerblue; */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.992));
+
+  color: white; /* Cambia el color del texto según sea necesario */
+}
+@-webkit-keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+
+
+.container-change {
+	
+	display: flex;
+	/* width: 00px; */
+	height: 30px;
+	color: #fff;
+	/* font-size: 40px; */
+	line-height: 40px;
+	
+	/* position: absolute; */
+
+	margin: auto;
+	overflow: hidden;
+	
+}
+
+.container-change  ul {
+	list-style: none;
+	/* padding-left: 1px; */
+	animation: change 20s infinite;
+}
+
+.container-change ul, p {
+      font-size: 14px;
+	margin: 0;
+}
+
+@keyframes change {
+	
+	0%{ margin-top: 0;}
+	20%{ margin-top: 0;}
+	
+	25% {margin-top: -40px;}
+	50% {margin-top: -40px;}
+	
+	55% {margin-top: -80px;}
+	80% {margin-top: -80px;}
+	
+	85% {margin-top: -40px;}
+	95% {margin-top: -40px;}
+	
+	100% {margin-top: 0;}
+}
+
+</style>
+<div class='position-fixed bottom-0 content-bottom'>
+      
+</div>
+<section class="content-inicio  overflow-auto position-relative " data-aos="zoom-out-down">
+      {% if service_admin %}
+            {% include "citas/components/nav.html" %}
+            {% else %}
+                  <div class="position-absolute end-0  d-flex justify-content-end" style="z-index: 10;">
+                        <a href="{% url "citas:logins" %}" >
+                              <button class="bg-transparent rounded-circle blur text-white border-0 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                        </svg>
+                              </button>
+                        </a>
+                  </div>
+      {% endif %}
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+      <style>
+            /* 
+                  Estilos para ajustar el tamaño de las imágenes
+            */
+            .swiper-wrapper
+            {
+                  /* overflow: scroll; */
+                  display: flex;
+                  border-radius: 1rem; max-height:25rem;   /* Ajusta el ancho como desees, o usa un valor fijo */
+               
+            }
+
+            .swiper-slide img {
+              width: 100%;   
+              aspect-ratio: 16 / 9;
+              height:25rem;
+              /* max-width: 400px; */
+              /* height: 100%; */ 
+            
+              border-radius: 1.5rem; 
+              object-fit:  cover;
+            }
+            @media (max-width: 768px) { 
+                  .swiper-slide img {
+              width: 100%;
+              height:30rem;
+              /* margin: 0 10px;    */
+              /* min-width: 300px; */
+              aspect-ratio: 16 / 9; }
+
+              .clickestudios 
+              {
+                  margin-top: 1rem !important;
+              }
+
+              .swiper-div
+              {
+                  margin-top: 2rem !important;
+                  /* max-height: 30rem !important; */
+              }
+
+              .swiper-int 
+              {
+                  max-height: 40rem !important;
+              }
+
+            }
+
+          </style>
+      {% if coro %}
+
+
+           <section class='w-100   overflow-hidden  swiper-div '  style="height: 30rem;" >
+                        <div  class="swiper-int" style="max-height:25rem;">
+                              <div class="swiper-container m-3 mt-0" style="border-radius: 1rem; ">
+                                    <div class="swiper-wrapper">
+                                      <div class="swiper-slide">
+                                        <img src="{{img1.image.url}}"  alt="Imagen 1">
+                                      </div>
+                                      <div class="swiper-slide">
+                                             <img src="{{img2.image.url}}" alt="Imagen 1">
+                                      </div>
+                                      <div class="swiper-slide">
+                                             <img src="{{img3.image.url}}" alt="Imagen 1">
+                                      </div>
+                                      <div class="swiper-slide">
+                                               <img src="{{img4.image.url}}" alt="Imagen 1">
+                                        </div>
+                                        <div class="swiper-slide">
+                                               <img src="{{img5.image.url}}" alt="Imagen 1">
+                                        </div> 
+                                          <!-- <div class="swiper-slide">
+                                                <img src="{{img6.image.url}}" alt="Imagen 1">
+                                    </div> 
+                                          <div class="swiper-slide">
+                                                <img src="{{img7.image.url}}" alt="Imagen 1">
+                                    </div>  -->
+                                    </div>
+                                  </div>
+                        </div>
+              
+           </section>
+      {% endif %}
+
+      <div class="text-center clickestudios  d-flex justify-content-center  " >
+            <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-record-fill animations-pulse m-0 text-danger " viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                 </svg> 
+            <h1    class="font-primary text-center   shadow-none" 
+            style=" text-shadow: #000000ad 1px 1px 1px;          
+             font-family: Kavoon, serif !important;
+            font-weight: 800;
+            /* letter-spacing: 1px; */
+            color: rgb(220, 220, 220);
+            font-style: normal;">
+                  ClickEstudios 
+      </h1>
+      </div>
+            
+      <span class="p-0    w-100 text-center d-flex justify-content-center text-white-50"
+      style="font-size: 14px;">
+      
+      <div class=" text-center   " >
+            <!-- <p> !Tu gran día!</p> -->
+                   <p style="font-size: 12px; max-width: 40rem;" class="text-white-50  w-100">
+                              “Capturamos tus momentos más importantes con creatividad y profesionalismo, ofreciendo servicios fotográficos personalizados que transforman recuerdos en imágenes inolvidables”
+                        </p> 
+    </div>
+
+</span>
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+      // Crear un MediaQueryList usando matchMedia
+const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+// Función para manejar los cambios en la media query
+function handleMobileChange(e) {
+    if (e.matches) {
+        // Si el ancho de la pantalla es menor o igual a 768px
+        console.log('Pantalla móvil activada');
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,          // Mostrar 3 slides al mismo tiempo
+            centeredSlides: true,       // Centrar el slide activo
+            spaceBetween: 0,           // Espacio entre slides
+            // loop: true,                 // Habilitar loop infinito
+            effect: 'coverflow',        // Efecto de coverflow
+            coverflowEffect: {
+              rotate: 5,               // Rotación de los slides laterales
+              stretch: 0,               // Estiramiento de los slides laterales
+              depth: 90,               // Profundidad de los slides laterales
+              modifier: 9,              // Intensidad del efecto
+              slideShadows: false,       // Sombras detrás de los slides laterales
+            },
+            autoplay: {
+              delay: 3000,              // Retraso de 3 segundos
+              disableOnInteraction: true, // No detener la animación en la interacción del usuario
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+
+    } else {
+        // Si el ancho de la pantalla es mayor a 768px
+        console.log('Pantalla de escritorio activada');
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,          // Mostrar 3 slides al mismo tiempo
+            centeredSlides: true,       // Centrar el slide activo
+            spaceBetween: 60,           // Espacio entre slides
+            // loop: true,                 // Habilitar loop infinito
+            effect: 'coverflow',        // Efecto de coverflow
+            coverflowEffect: {
+              rotate: 0,               // Rotación de los slides laterales
+              stretch: 0,               // Estiramiento de los slides laterales
+              depth: 0,               // Profundidad de los slides laterales
+              modifier: 9,              // Intensidad del efecto
+              slideShadows: false,       // Sombras detrás de los slides laterales
+            },
+            autoplay: {
+              delay: 3000,              // Retraso de 3 segundos
+              disableOnInteraction: true, // No detener la animación en la interacción del usuario
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+
+    }
+}
+
+// Escuchar los cambios en el tamaño de la pantalla
+mediaQuery.addListener(handleMobileChange);
+
+// Ejecutar la función al cargar la página
+handleMobileChange(mediaQuery);
+    
+
+  </script>
+      <section class="  mb-5 pb-5  " style="margin-top: 2rem !important; margin-bottom: 6rem !important;">
+      <div class="" >
+            <section class=" overflow-auto  " >
+                  <div  class="text-center d-flex justify-content-center flex-wrap  pb-2">
+                        <div class="bg-white bg-opacity-10  m-0  p-3  d-flex justify-content-center flex-wrap align-content-center" style="width: 19rem; border-radius: 2rem;"> 
+                              <h6 class="text-center m-0 p-0"  
+                              style="font-size: 14px; width: 15rem;" >
+                             Selecciona uno nuestros servicios  
+                        </h6> 
+                        </div>
+                       <div class="w-100 text-center d-flex justify-content-center">
+                        <!-- <p style="font-size: 12px; max-width: 40rem;" class="text-white-50  w-100">
+                              “Capturamos tus momentos más importantes con creatividad y profesionalismo, ofreciendo servicios fotográficos personalizados que transforman recuerdos en imágenes inolvidables”
+                        </p> -->
+                       </div>
+                  </div>
+                        {% include "citas/components/servicios.html" %}
+                  </div>
+            </section>
+            <section class=" "   style="margin-top: 0rem;"  >
+                  {% include "citas/components/category-moments.html" %}
+            </section>
+            <section  class="p-2 d-flex justify-content-center bg-white bg-opacity-10"  style="margin-top: 6rem; margin-bottom: 3rem;"  >
+                  {% include "citas/components/contacto.html" %}
+            </section>
+      </div>
+</section>
+</section>
+
+<script>
+      AOS.init();
+      window.onload = RemovePulseClass("recordin");
+</script>
+{% endblock %}
+      

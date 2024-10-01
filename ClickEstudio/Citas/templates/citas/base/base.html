@@ -1,0 +1,437 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Click Estudios</title>
+    <link rel="icon"  href="{{setting.icon.url}}"  >
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  </head>
+
+
+  <style>
+*{
+  transition: 0.9s !important;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important;    /* Firefox */
+  -ms-user-select: none !important;     /* IE10+/Edge */
+  user-select: none !important;         /* Standard */
+
+  ::-webkit-scrollbar {
+      width: 0px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+    
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: transparent;
+    }
+    html {
+      touch-action: manipulation;
+      -ms-touch-action: manipulation;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none !important;
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      
+    }
+
+
+}
+.font-secondary {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+    .font-primary {
+      font-family: "Poetsen One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+    body
+    {
+      background-color: black;
+      color: white;
+      font-family: "Open Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+      font-size: 16px;
+    }
+    .blur
+    {
+      -webkit-backdrop-filter: blur(60px) !important;
+      backdrop-filter: blur(60px) !important;
+    }
+
+
+    .div-btn-floting button {
+      background-color: transparent;
+      margin-top: 0.4rem;
+      border: 0;
+
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+
+    }
+    .div-btn-floting{
+      width: 42px;
+      margin-right: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-radius: 2rem;
+      
+    }
+    .size-secundary
+    {
+      font-size: 14px;
+    }
+
+      #planA:hover, #planB:hover, #planC:hover {
+        color: rgb(255, 109, 109);
+        border-color: rgb(255, 109, 109) !important;
+        font-family: "Quicksand", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: bold;    
+      }
+
+
+
+.container {
+  position: absolute;
+  top: 40%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  position: absolute;
+  background-color: transparent;
+  width: calc(var(--i) * 2.5vmin);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: .9vmin solid rgb(0, 200, 255);
+  transform-style: preserve-3d;
+  transform: rotateX(70deg) translateZ(50px);
+  animation: my-move 3s ease-in-out calc(var(--i) * 0.08s) infinite;
+  box-shadow: 0px 0px 15px rgb(124, 124, 124),
+    inset 0px 0px 15px rgb(124, 124, 124);
+}
+
+@keyframes my-move {
+  0%,
+  100% {
+    transform: rotateX(70deg) translateZ(50px) translateY(0px);
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    transform: rotateX(70deg) translateZ(50px) translateY(-50vmin);
+    filter: hue-rotate(180deg);
+  }
+}
+
+#btn-action {
+  transition: 0s !important;
+}
+#btn-action:hover{
+      color: rgb(111, 111, 255) !important; 
+}
+
+.text-primary 
+{
+   color: rgb(69, 69, 255) !important;
+}
+
+
+.background-container, .bg-content{
+  position: relative;
+  width: 100%;
+  height: 45vh; /* Ajusta la altura según sea necesario */
+  /* background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn'); */
+  background-size: cover;
+  background-position: center;
+  filter: blur(30rem);
+}
+
+.bg-content{
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Ajusta la altura según sea necesario */
+  /* background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn'); */
+  background-size: cover;
+  background-position: center;
+  filter: blur(30rem);
+}
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.068), rgb(0, 0, 0));
+  color: white; /* Cambia el color del texto según sea necesario */
+}
+
+  </style>
+  <body  class='overflow-hidden overflow-y-scroll vh-100 '
+   style="
+  background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn');
+    background-position: center; background-repeat: no-repeat; background-size: cover; ">
+    <section id='loaderes' class='  d-flex justify-content-center align-content-center flex-wrap vh-100 w-100 blur position-fixed bg-black  top-0' style='z-index: 15;'>
+      <div class="container position-absolute top-0">
+        <div class="item" style="--i:0;"></div>
+        <div class="item" style="--i:1;"></div>
+        <div class="item" style="--i:2;"></div>
+        <div class="item" style="--i:3;"></div>
+        <div class="item" style="--i:4;"></div>
+        <div class="item" style="--i:5;"></div>
+        <div class="item" style="--i:6;"></div>
+        <div class="item" style="--i:7;"></div>
+        <div class="item" style="--i:8;"></div>
+        <div class="item" style="--i:9;"></div>
+        <div class="item" style="--i:10;"></div>
+        <div class="item" style="--i:11;"></div>
+        <div class="item" style="--i:12;"></div>
+        <div class="item" style="--i:13;"></div>
+        <div class="item" style="--i:14;"></div>
+        <div class="item" style="--i:15;"></div>
+        <div class="item" style="--i:16;"></div>
+        <div class="item" style="--i:17;"></div>
+        <div class="item" style="--i:18;"></div>
+        <div class="item" style="--i:19;"></div>
+        <div class="item" style="--i:20;"></div>
+      </div>
+      <div class='w-100 text-center mt-5 pt-5'>
+        <h3 class="font-primary">
+            ClieckEstudios         
+              <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+            </svg>
+        </h3>
+        <p class="text-white-50" >
+          Capturando la esencia de cada momento, convirtiéndolos en recuerdos eternos.
+        </p>
+      </div>
+      
+  </section>
+  
+
+
+
+        <div id="divs-btns" class="position-fixed  p-4   div-btn-floting p-1 bottom-0 end-0 mb-3" style="z-index: 10;">
+
+          
+          <div id="myDiv" class=" position-fixed m-1 end-0   bg-black bg-opacity-50 blur  p-3 " style="display: none;
+          width: 99%;
+          border-radius: 2.5rem;
+          border: 1px rgba(255, 255, 255, 0.562) solid;
+            bottom: 8rem;">
+            <!-- Content of the div -->
+            <div class="mb-4 w-100 text-center">
+              <h4 class='font-primary text-white-50'>
+                Selecciona uno de nuestros planes
+              </h4>
+            </div>
+     
+</div>
+
+            
+            
+            <span  class="w-100 d-flex flex-wrap  justify-content-center  " style="min-width: 5rem;">
+              <button  class="font-primary flex-wrap   m-0 text-white bg-transparent d-flex justify-content-center align-content-center  border-0" 
+              style="border-radius: 50%; 
+              font-size: 12px; 
+     
+              min-width: 2rem;
+              min-height: 20rem;
+              ">
+              <div>
+ 
+            <span class='mt-3'>
+                  <a  class="text-white-50" href="https://api.whatsapp.com/send?phone=+18099128939&text=Hola!, quiero saber mas sobre sus servicios." >                       
+                          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-whatsapp text-white-50" viewBox="0 0 16 16">
+                              <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                            </svg> WhatsApp
+                  </a>
+            </span> <br>  <br>
+            <span>
+                  <a class="text-white-50" href="https://www.instagram.com/clickestudios_/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-instagram text-white-50" viewBox="0 0 16 16">
+                              <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                            </svg> Instagram
+                  </a>
+            </span> <br>
+            <br>
+            <span>
+              <a class="text-white-50" href="{% url "citas:all-plans" %}" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-event-fill text-white-50" viewBox="0 0 16 16">
+                  <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
+                </svg>Agendar Cita
+              </a>
+        </span> <br>
+              </div>
+              </button>
+              {% comment %} <a href="{% url "citas:create-customer" %}"> {% endcomment %}
+          
+              {% comment %} </a> {% endcomment %}
+            </span>
+
+              <script>
+                window.load =  document.getElementById('loaderes').classList.add('d-none');
+
+
+
+      
+            
+                function OpenDiv2(id) {
+                  var divA = document.getElementById("planADiv");
+                  var divB = document.getElementById("planBDiv");
+                  var divC = document.getElementById("planCDiv");
+
+                  if (id === "planA") {
+                    divA.style.display = "block";
+                    divB.style.display = "none";
+                    divC.style.display = "none";
+                  } else if (id === "planB") {
+                    divA.style.display = "none";
+                    divB.style.display = "block";
+                    divC.style.display = "none";
+                  } else if (id === "planC") {
+                    divA.style.display = "none";
+                    divB.style.display = "none";
+                    divC.style.display = "block";
+                  }
+                }
+              </script>
+              <style>
+                span {
+                  color: white;
+                }
+                .btns-plan button
+                {
+                  width: max-content;
+                  height: 2rem;
+                  color: white;
+                }
+                </style>
+            </div>
+
+            <script>
+         function Agendar() {
+                let myDiv = document.getElementById("myDiv");
+                if (myDiv.style.display === "none") {
+                  myDiv.style.display = "block";
+                  document.getElementById('blured-bg').classList.remove('d-none');
+                } else {
+                  myDiv.style.display = "none";
+                  document.getElementById('blured-bg').classList.add('d-none');
+                }
+              } 
+
+           
+   
+            </script>
+        </div>
+          <div id='blured-bg' class='top-0 h-100 w-100 d-none  blur position-fixed' 
+            style='z-index: 3;' >
+
+          </div>
+          <section class="blur "> 
+                {% block content %}
+
+            {% endblock  %}
+          </section>
+
+          <script>
+     //                 setInterval(function() {
+     //         let images = [
+     //               "https://preview.redd.it/aamna-sharif-v0-5dov0if5cxz91.jpg?width=982&format=pjpg&auto=webp&s=26fc772f9d43b113114a83e262edb478783973a0",
+     //               "https://th.bing.com/th/id/OIP._MbuZO3qrzu-RpuGY0BFrwHaLG?w=867&h=1300&rs=1&pid=ImgDetMain",
+     //               "https://cdn.shopify.com/s/files/1/0047/9035/3966/products/ellatop.jpg?v=1615583910",
+     //               "https://i.pinimg.com/736x/3d/87/ba/3d87bad974bee313d330fb2755708e81.jpg",
+     //         ];
+     //         let randomIndex = Math.floor(Math.random() * images.length);
+     //           let imageUrl = images[randomIndex];
+                //
+     //           document.querySelector(".bg-dinamic").style.backgroundImage = "url(" + imageUrl + ")";
+     //       }, 4000); 
+
+
+          
+       function NumbersFomat(value) {
+// Elimina todos los caracteres no numéricos
+var number = value.replace(/\D/g, '');
+// Agrega guiones después de los primeros 3 dígitos y los siguientes 7 dígitos
+var N = number.replace(/(\d{3})(\d{3})(\d{1})/, '$1-$2-$3');
+return N;
+  }
+  document.getElementById('id_number').addEventListener('input', function(e) {
+            let n = document.getElementById('id_number')
+            n.value = n.value.substring(0,12);
+            e.target.value = NumbersFomat(e.target.value);
+  });
+          </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  </body>
+</html>

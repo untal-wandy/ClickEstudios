@@ -1,0 +1,8 @@
+/vn
+*.pyc
+__pycache__/
+db.sqlite3
+ClickEstudio/Citas/__pycache__/admin.cpython-312.pyc
+ClickEstudio/Citas/__pycache__/models.cpython-312.pyc
+ClickEstudio/Citas/__pycache__/views.cpython-312.pyc
+ClickEstudio/Citas/__pycache__/urls.cpython-312.pyc
