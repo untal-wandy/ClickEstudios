@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views, views_ajax 
 
-handler404 = views_404_
+
 
 app_name = 'citas'
 urlpatterns = [
