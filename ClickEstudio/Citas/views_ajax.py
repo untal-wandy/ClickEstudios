@@ -91,3 +91,14 @@ def SaleCancel(request):
             c.save()
       return JsonResponse(list(),  safe=False)
 
+
+
+def Search(request):
+      lista = []
+      for c in models.Customer.objects.all():
+            dict_customer = { 
+                  'id': c.id,
+                  'name': c.name 
+            }
+            lista.append(dict_customer)
+      return JsonResponse(lista,  safe=False)

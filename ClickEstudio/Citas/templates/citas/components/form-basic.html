@@ -1,13 +1,34 @@
 <div class="background-containers " id="bg-con">
       <div class="contents">
+            <div id="search-div" class="p-2  d-none   justify-content-center  flex-wrap w-100" 
+            style="margin: 0 auto; margin-top: 10rem; max-width: 30rem; ">
+                  <div class="form-floating  w-100">
+                        <input type="search" class="form-control" name="" id="search-client">
+                        <label for="search-client">Buscar cliente</label>
+                  </div>   
+                  <div class="container-list bg-white overflow-auto bg-opacity-10 mt-2" 
+                        style="border-radius: 1rem ; max-height: 15rem;">
+                      
+                  </div>      
+                  <div>
+                        <span onclick="Alternar()" class='rounded-circle bg-white bg-opacity-10  border-0 mt-2 text-white d-flex justify-content-center align-content-center flex-wrap' style='height: 2rem; width: 2rem;'> 
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left p-0 m-0" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                              </svg> 
+                        </span>
+                  </div>
+            </div>
           <!-- Aquí va el contenido -->
-          <div class="p-2 w-100  d-flex justify-content-center flex-wrap" 
-            style="margin-top: 10rem;">
-            <div class="w-100">
-                  <h2 class="font-primary mt-4 mb-4 text-center" 
-                        style="font-size: 20px;">
+          <div id="form-div" class="p-2   d-flex justify-content-center  flex-wrap w-100" 
+            style="margin: 0 auto; margin-top: 10rem; max-width: 30rem; ">
+            <div class="w-100 mb-3" style="line-height: 14px; ">
+                  <h4 class="font-primary mt-4 mb-1 " 
+                        style="font-size: 16px;">
                         Informacion personal 
-                  </h2>
+                  </h4>
+                  <span style="font-size: 14px; " class="text-white-50">
+                        Si el usuario fue anteriormente registrado puedes buscarlo dando click aqui -> <strong style="color: #66a6ff !important;" onclick="Alternar()">Buscar Cliente</strong>
+                  </span>
             </div>
             <div class="w-100 d-flex  justify-content-center"> 
                   <div class="d-flex  w-100 flex-wrap justify-content-center " 
@@ -68,6 +89,9 @@
 <script>
 
 
+document.getElementById('id_email').addEventListener('input', function(e) {
+    this.value = this.value.replace(/\s/g, ''); // Elimina los espacios
+});
 function OpenDiv3() {
       const emailField = document.getElementById("email");
       const numberField = document.getElementById("number");
@@ -93,6 +117,68 @@ function ActiveButton(buttonId) {
             btn2.style.border = "solid 1px rgba(255, 255, 255, 0.733)";
       }
 }
+
+const Alternar = () => {
+      let div = document.getElementById('form-div');
+      let div2 = document.getElementById('search-div');
+      
+  
+      if (div.classList.contains('d-none')) {
+            div.classList.remove('d-none'); 
+            div2.classList.add('d-none'); // Si no la tiene, la agrega
+            // Si tiene la clase, la quita
+      } else {
+            div.classList.add('d-none'); 
+            div2.classList.remove('d-none'); 
+      }
+
+};
+
+window.addEventListener("DOMContentLoaded", function() {
+    ConfigData();
+    
+    function ConfigData() {
+          const url = '/searching-client';
+          $.ajax({
+                url: url,
+                success: function(data) {
+                      const search = document.querySelector('#search-client');
+                      const container = document.querySelector('.container-list'); // Define el contenedor aquí
+                      
+                      search.addEventListener('input', (event) => {
+                            const input_value = event.target.value;
+                            const filtered_data = data.filter((li) => {
+                                  return li.name.toLowerCase().includes(input_value.toLowerCase());
+                                  console.log("Loren")
+                              });
+
+
+                    // Limpia el contenedor antes de agregar nuevos elementos
+                    container.innerHTML = '';
+
+                    for (const c of filtered_data) {
+                        const div = document.createElement('div');
+                        div.classList.add('justify-content-start', 'd-flex', );
+                        div.textContent = c.name; // Asegúrate de agregar contenido al div
+                        container.appendChild(div);
+                        document.querySelector('.container-list').classList.add("p-2")
+                    }
+
+                    // Opcional: Mostrar mensaje si no hay coincidencias
+                    if (filtered_data.length === 0) {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.classList.add("text-white-50", "text-center", "justify-content-center", )
+                        messageDiv.textContent = 'No se encontraron resultados';
+                        container.appendChild(messageDiv);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', status, error);
+            }
+        });
+    }
+});
 </script>
 <style>
       .btn-altern button {
@@ -107,3 +193,4 @@ function ActiveButton(buttonId) {
 
 
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
