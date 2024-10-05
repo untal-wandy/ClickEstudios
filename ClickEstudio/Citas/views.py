@@ -87,8 +87,9 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
+            c_reserver = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
             context['c'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
-            context['c_reserver'] = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
+            context['c_reserver'] = c_reserver
             context['plans'] = models.Plans.objects.filter()
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -108,7 +109,7 @@ class CustomerCreateView(CreateView, Mail):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
-
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             return context
 
       def form_valid(self, form):
@@ -121,6 +122,8 @@ class CustomerCreateView(CreateView, Mail):
       def form_invalid(self, form):
             print(form.errors)
             return super().form_invalid(form)
+      
+      
             
 class CustomerCita(CreateView, Mail):
       model = models.Customer
@@ -705,6 +708,11 @@ class CreateUser(CreateView):
             print(form.errors)
             return super().form_invalid(form)
       
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
 
 
 class UserUpdate(UpdateView, Options):

@@ -55,7 +55,15 @@
 </style>
 
 
-
+<div class="container-list position-absolute shadow    overflow-auto  mt-2" 
+style="border-radius: 1rem ; max-height: 15rem;  width: 30rem;
+position: absolute;
+background-color: rgb(99, 99, 99);
+top: 21%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 10;">
+</div>    
 <div class="d-flex border-0 p-1 text-start w-100 p-2 " style="z-index: 1000 !important;">
       <div class="border-0 w-50 d-flex start-0">
             <h6 class="font-primary ms-2 text-session text-white-50 w-100 mt-2" 
@@ -64,6 +72,10 @@
       </div>
 
       <div class='w-50 d-flex justify-content-center border-0  ' style="z-index: 1000 !important;">
+
+            <input type="search" placeholder="Buscador" class="bg-white ms-2 text-center  bg-opacity-10  outline-none p-1 rounded-5  ps-4" style="width: 15rem;"
+            onclick="SearchAvanced('.container-list', '#search-client' )" name="" id="search-client">
+
             <div id='input-searching-id' class='border-0 d-flex d-none mt-1  align-content-center bg-black bg-opacity-50  flex-wrap '
                   style="border-radius: 2.5rem; height: 2rem; width: 10rem; font-size: 12px;" >
                   <input type="search" id="search" class='input ms-4   bg-transparent  text-center' placeholder="Buscar Cita">
@@ -85,14 +97,16 @@
                   </div>
             </div>      
       </div>
+      
       <div class="border-0 d-flex justify-content-end w-50 ">
-            <a href="{% url "citas:administrations-citas" %}" class=" me-1 back-arrow" style="margin-top: 2px;">
+            <!-- <a href="{% url "citas:administrations-citas" %}" class=" me-1 back-arrow" style="margin-top: 2px;">
                   <button class='rounded-circle bg-black bg-opacity-50  border-0 text-white d-flex justify-content-center align-content-center flex-wrap' style='height: 2rem; width: 2rem;'> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left p-0 m-0" viewBox="0 0 16 16">
                               <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
                         </svg> 
                   </button>
-                  </a>
+                  </a> -->
+                  
             <div class="border-0">
                   
                   <a href="{% url "citas:all-plans" %}">   
@@ -104,6 +118,7 @@
                         </button>
                   </a> 
             </div>
+            
             <!-- <button onclick="MenuAdmin()"  class="bg-black p-2 pt-1 pb-1 bg-opacity-25 text-white blur border-0 me-2 font-primary "
                   style="border-radius: 1.5rem; height: 2rem; ">
                   Menu
@@ -149,6 +164,10 @@
             <a href="{% url "citas:dashboard-citas" %}"  class="text-white p-0 pt-1 pb-0">
                   Ir al inicio
             </a>
+            <a href="{% url "citas:administrations-citas" %}"  class="text-white p-0 pt-1 pb-0">
+                  Punto de venta
+            </a>
+
 
 
             <a  href="{% url 'citas:logout' %}" class="text-white-50 text-center p-0 m-0 pt-4  pe-5 pb-0  "> 
@@ -156,7 +175,6 @@
             </a> 
               
    
-            
       </div>
   
       </div>
@@ -201,15 +219,28 @@ let CalendarOpen = ()=> {
 
 
 document.getElementById("div-menu-admin").addEventListener("click", MenuAdmin);      
-      function MenuAdmin() {
+function MenuAdmin() {
             let div = document.getElementById("div-menu-admin");
-
+            div.focus()
             if (div.style.display === "none") {
                   div.style.display = "block";
             } else {
                   div.style.display = "none";
             }
       }
+
+      document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+      let div = document.getElementById("div-menu-admin");
+            if (div.style.display === "none") {
+
+            } else {
+                  MenuAdmin(); // Llama a la función si se presiona la tecla Esc
+
+            }
+  }
+});
+
 
       function openReserver() {
             let reserver = document.getElementById("reserver-id");
@@ -232,5 +263,76 @@ document.getElementById("div-menu-admin").addEventListener("click", MenuAdmin);
           }
           document.querySelector('.reloj').classList.add('d-none');
           document.querySelector('.reloj-btn').classList.add('d-none');
+
+
+          const inputElement = document.getElementById('search-client'); // Selecciona el input (o cualquier otro elemento)
+
+inputElement.addEventListener('focus', () => {
+  inputElement.classList.add('p-2', 'shadow'); // Agrega la clase si hay foco
+});
+
+inputElement.addEventListener('blur', () => {
+  inputElement.classList.remove('p-2', "shadow"); // Elimina la clase si se pierde el foco
+});
+
+function SearchAvanced(ContainerSelector, SearchSelector){
+      $.ajax({
+            url:  '/searching',
+            success: function(data) {
+                  const container = document.querySelector(ContainerSelector); // Define el contenedor aquí
+                  const search = document.querySelector(SearchSelector);
+                  search.addEventListener('input', (event) => {
+                        const input_value = event.target.value;
+                        const filtered_data = data.filter((li) => {
+                              return li.name.toLowerCase().includes(input_value.toLowerCase());
+                        });
+                  if (search.value == '') { // o puedes usar if (!search)
+                                    container.classList.add('d-none')
+                  }
+                  else {
+                        container.classList.remove('d-none')
+                  }
+                  container.innerHTML = '';
+                  for (const c of filtered_data) {
+                        const d = document.createElement('div');
+                        d.classList.add('justify-content-start', 'd-flex', "bg-black", "bg-opacity-10", "mt-1", "rounded-4", "p-2");
+                        d.id = c.id
+
+                        d.textContent = c.name ; // Asegúrate de agregar contenido al div
+                        d.addEventListener("click", function() {
+                              document.getElementById(this.id).classList.add("bg-danger")
+                               $.ajax({
+                                     url:  '/searching-client',
+                                     data: {
+                                     id: this.id,
+                                     },
+                                     success: (data) => { 
+                                          document.getElementById('id_name').value = data.name
+                                          document.getElementById('id_email').value = data.email
+                                          document.getElementById('id_number').value = data.number
+                                          container.classList.add('d-none')
+                                          search.value = ''
+                                          search.focus()
+                                    } 
+                              })
+                        });
+                        container.appendChild(d);
+                        document.querySelector('.container-list').classList.add("p-2")
+                    }
+
+                    // Opcional: Mostrar mensaje si no hay coincidencias
+                    if (filtered_data.length === 0) {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.classList.add("text-white-50", "text-center", "justify-content-center", )
+                        messageDiv.textContent = 'No se encontraron resultados' +'  ('+ search.value + ')';
+                        container.appendChild(messageDiv);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', status, error);
+            }
+      });
+}
 
           </script>

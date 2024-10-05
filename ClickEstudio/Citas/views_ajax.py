@@ -69,6 +69,9 @@ def Reserver(request):
             c.reserver_mount = abonado
             c.price_reserved =   c.plans.price -  c.reserver_mount
             c.save()
+      if c.reserver_mount ==  c.plans.price:
+            c.saled = True
+            c.save()
       return JsonResponse(list(),  safe=False)
 
 def SaleService(request):
@@ -102,3 +105,14 @@ def Search(request):
             }
             lista.append(dict_customer)
       return JsonResponse(lista,  safe=False)
+
+def SearchingClient(request):
+      c = models.Customer.objects.get(id=int(request.GET.get('id')))
+      # print(request.GET.get("id"),'siuu')÷
+      dict_client = { 
+            'id': c.id,
+            'name': c.name, 
+            'email': c.email,
+            'number': c.number
+      }
+      return JsonResponse(dict_client,  safe=False)         
