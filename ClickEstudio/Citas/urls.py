@@ -42,6 +42,8 @@ urlpatterns = [
     path('moment-image-update/<int:pk>', views.MomentImgeUpdate.as_view(), name='moment-image-update'),
 
     path('plans-create/', views.PlansCreate.as_view(), name='plans-create'),
+    path('crear-gastos/<int:pk>', views.CrearGastos.as_view(), name='crear-gastos'),
+    path('crear-gastos-service/<int:pk>/', views.CrearGastosService.as_view(), name='crear-gastos-service'),
     path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
     path('histori-sale/', views.HistoriSale.as_view(), name='histori-sale'),
     path('create-rele/', views.CreateRole.as_view(), name='create-role'),

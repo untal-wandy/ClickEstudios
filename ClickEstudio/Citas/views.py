@@ -788,12 +788,74 @@ class Gastos(TemplateView):
       template_name = 'citas/components/gastos.html'
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['plans'] =   models.Plans.objects.all()        
+            context['gastos'] =   models.Gastos.objects.all()        
             context['service'] = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['c_saled'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
             return context
       
+class CrearGastos(CreateView):
+      model = models.Gastos
+      form_class = forms.Gastos
+      template_name = 'citas/administration/crear-gasto.html'
+      success_url = reverse_lazy('citas:plans-create')
+
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+
+      def form_valid(self, form):
+            
+            form.instance.plans = models.Plans.objects.get(id=int(self.kwargs.get('pk')))
+            form.save()
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
+
+
+class CrearGastosService(CreateView):
+      model = models.Gastos
+      form_class = forms.Gastos
+      template_name = 'citas/administration/crear-gasto-service.html'
+      success_url = reverse_lazy('citas:plans-create')
+
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+
+      def form_valid(self, form):
+            
+            form.instance.service = models.ServiceImage.objects.get(id=int(self.kwargs.get('pk')))
+            form.save()
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
+
+
 
 # Sistem
 def Logouts(request):

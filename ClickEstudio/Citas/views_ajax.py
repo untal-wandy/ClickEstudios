@@ -165,6 +165,7 @@ def Create_P_Adicionales(request):
 
       p = models.Plans.objects.get(id=request.GET.get('id'))
       p.final_price = int(request.GET.get('input'))
+      
       p.save()
       adicionales_list = []
       return JsonResponse(adicionales_list,  safe=False)    

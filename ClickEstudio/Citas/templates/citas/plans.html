@@ -289,6 +289,20 @@
                                                       Editar
                                                 </button>
                                                 </a>
+
+                                                <div class="w-100 text-center mt-2" style>
+                                                      {% if p.gastos_plan.all %}
+                                                            {% for gp in  p.gastos_plan.all %}
+                                                                  <li clase=''>
+                                                                     {{gp.name}}  ${{gp.price|intcomma}}   
+                                                                  </li>
+                                                            {% endfor %}
+
+                                                            {% endif %}
+                                                            <a clase='bg-white bg-opacity-10 p-3' href="{% url "citas:crear-gastos"  p.id %}">
+                                                                  Crear Gastos
+                                                            </a>
+                                                </div>
                                                 {% else %}
                                                       <div class='w-100  d-flex justify-content-center '>
                                                             <div class="form-check rounded-4 p-2 blur" style='transition: none !important;'>

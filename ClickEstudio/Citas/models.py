@@ -174,3 +174,20 @@ class ImgTweet(models.Model):
                                on_delete=models.CASCADE)
       img_tweet = models.ImageField(upload_to='media/', blank=True, null=True)
       is_activate = models.BooleanField(default=True)
+      
+      
+class Gastos(models.Model):
+      plans = models.ForeignKey(Plans, related_name='gastos_plan', 
+                                on_delete=models.CASCADE,  blank=True, null=True)
+      service = models.ForeignKey(ServiceImage, related_name='gastos_service', 
+                                on_delete=models.CASCADE,  blank=True, null=True)
+      adicionales = models.ForeignKey(Plans, related_name='gastos_adicionales', 
+                                on_delete=models.CASCADE,  blank=True, null=True)
+      name = models.CharField(max_length=100, default='...')
+      description = models.TextField(default='...')
+      price = models.IntegerField(default=0)
+      date = models.DateTimeField(auto_now_add=True)
+      
+      def __str__(self):
+            return self.name
+      
