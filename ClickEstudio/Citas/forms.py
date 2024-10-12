@@ -142,3 +142,24 @@ class UserAForm(forms.ModelForm):
             for field in self.fields:
                   self.fields[field].widget.attrs['class'] = 'form-control'
 
+
+
+
+class Gastos(forms.ModelForm):
+      class Meta:
+            model = models.Gastos
+            fields = ['name', 'description', 'price']
+            widgets = {
+             "description":  forms.Textarea(attrs={'rows': 3, 'placeholder': 'Ingrese una descripción detallada'})
+                  
+            }
+            # You can exclude fields here if needed:
+            # exclude = ['plans', 'adicionales', 'date']
+
+      def __init__(self, *args, **kwargs):
+            super(Gastos, self).__init__(*args, **kwargs)
+            for field in self.fields:
+                        self.fields[field].widget.attrs['class'] = 'form-control'
+
+      # You can customize form fields here (e.g., add widgets, set labels)
+            self.fields['name'].label = 'Nombre del Gasto'  # Change label for 'name' field

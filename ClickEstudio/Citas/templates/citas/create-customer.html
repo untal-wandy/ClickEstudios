@@ -36,6 +36,9 @@
 
 
 <section class="vh-100">
+{% if service_admin %}
+      {% include "citas/components/nav.html" %}
+{% endif %}
       <form action="" method="post" id="form-customer">
             {% csrf_token %}
             <div class="swiper-container ">
@@ -165,5 +168,6 @@ return N;
                   document.querySelector('.swiper-button-prev').click();
             }
 
+            TextSession('Agendando cita')
       </script>
 {% endblock  %}

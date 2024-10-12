@@ -67,6 +67,18 @@
                                                 Editar Servicio
                                           </button>
                                     </a>
+                                    {% if s.gastos_service.all %}
+                                    {% for gp in  p.gastos_service.all %}
+                                          <li clase=''>
+                                             {{gp.name}}  
+                                          </li>
+                                    {% endfor %}
+
+            
+                              {% endif %}
+                              <a href="{% url "citas:crear-gastos-service"  s.id %}">
+                                    Crear Gastos
+                              </a>
                                     {% endif %}
                               </div>
                                     <span class="text-white-50 mb-2 mt-2 ms-1 " 

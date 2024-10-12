@@ -87,8 +87,9 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
+            c_reserver = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
             context['c'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
-            context['c_reserver'] = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
+            context['c_reserver'] = c_reserver
             context['plans'] = models.Plans.objects.filter()
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -108,19 +109,39 @@ class CustomerCreateView(CreateView, Mail):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
-
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             return context
 
       def form_valid(self, form):
-            if form.is_valid():
-                  form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
-                  form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
-                  form.save() 
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
+            form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
+            form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
+            
+            try:
+                  # Intentamos obtener el objeto
+                  objeto = self.model.objects.get(email=form.instance.email)
+                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  objeto.plans_more.add(nuevo_plan)
+                  print(objeto.plans_more)
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
+            
+            except self.model.MultipleObjectsReturned:
+                  # Maneja el caso de múltiples objetos
+                  objetos = self.model.objects.filter(email=form.instance.email)
+                  objeto = objetos.first()  # Tomamos el primero de la lista
+                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  objeto.plans_more.add(nuevo_plan)
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
+            
+            except self.model.DoesNotExist:
+                  if form.is_valid():
+                        form.save()
+                        return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
 
       def form_invalid(self, form):
             print(form.errors)
             return super().form_invalid(form)
+      
+      
             
 class CustomerCita(CreateView, Mail):
       model = models.Customer
@@ -705,6 +726,11 @@ class CreateUser(CreateView):
             print(form.errors)
             return super().form_invalid(form)
       
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
 
 
 class UserUpdate(UpdateView, Options):
@@ -755,6 +781,80 @@ def Facebook(request):
       
 
       return render(request, template_name )
+
+
+
+class Gastos(TemplateView):
+      template_name = 'citas/components/gastos.html'
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['gastos'] =   models.Gastos.objects.all()        
+            context['service'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['c_saled'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
+            return context
+      
+class CrearGastos(CreateView):
+      model = models.Gastos
+      form_class = forms.Gastos
+      template_name = 'citas/administration/crear-gasto.html'
+      success_url = reverse_lazy('citas:plans-create')
+
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+
+      def form_valid(self, form):
+            
+            form.instance.plans = models.Plans.objects.get(id=int(self.kwargs.get('pk')))
+            form.save()
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
+
+
+class CrearGastosService(CreateView):
+      model = models.Gastos
+      form_class = forms.Gastos
+      template_name = 'citas/administration/crear-gasto-service.html'
+      success_url = reverse_lazy('citas:plans-create')
+
+      
+      def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                  return redirect('/logins/')
+            # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
+            return super().get(request, *args, **kwargs)
+      
+
+      def form_valid(self, form):
+            
+            form.instance.service = models.ServiceImage.objects.get(id=int(self.kwargs.get('pk')))
+            form.save()
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            print(form.errors)
+            return super().form_invalid(form)
+      
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            return context
+
 
 
 # Sistem
