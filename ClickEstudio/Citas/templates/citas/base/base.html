@@ -424,6 +424,31 @@ return N;
             n.value = n.value.substring(0,12);
             e.target.value = NumbersFomat(e.target.value);
   });
+
+
+
+
+  // Aqui estaran funciones globales tales como una funcion que habra un div o cierre dicho div
+
+// Esta función alterna la visibilidad de un div al presionar un botón. Si el div está oculto (tiene la clase d-none), se mostrará, y si está visible, se ocultará. Sin embargo, para que la función funcione correctamente, se debe vincular el botón a un evento, como un onclick, que llame a esta función. Aquí hay un ejemplo de cómo usarlo:
+
+//    <div id='divArticle'></div>    
+//   <button id-"btnArticle" onclick='Alternar(this.id, divArticleID)'>  Abrir/Cerrar </button>
+
+function Alternar ( divId){
+
+      let div = document.getElementById(divId);
+  
+      if (div.classList.contains('d-none')) {
+            div.classList.remove('d-none'); // Si tiene la clase, la quita
+            div.classList.add('flip-down')
+      } else {
+            div.classList.add('d-none'); // Si no la tiene, la agrega
+            div.classList.remove('flip-down')
+      }
+
+};
+
           </script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

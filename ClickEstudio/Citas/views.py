@@ -113,11 +113,29 @@ class CustomerCreateView(CreateView, Mail):
             return context
 
       def form_valid(self, form):
-            if form.is_valid():
-                  form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
-                  form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
-                  form.save() 
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
+            form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
+            form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
+            
+            try:
+                  # Intentamos obtener el objeto
+                  objeto = self.model.objects.get(email=form.instance.email)
+                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  objeto.plans_more.add(nuevo_plan)
+                  print(objeto.plans_more)
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
+            
+            except self.model.MultipleObjectsReturned:
+                  # Maneja el caso de múltiples objetos
+                  objetos = self.model.objects.filter(email=form.instance.email)
+                  objeto = objetos.first()  # Tomamos el primero de la lista
+                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
+                  objeto.plans_more.add(nuevo_plan)
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
+            
+            except self.model.DoesNotExist:
+                  if form.is_valid():
+                        form.save()
+                        return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
 
       def form_invalid(self, form):
             print(form.errors)
@@ -764,6 +782,18 @@ def Facebook(request):
 
       return render(request, template_name )
 
+
+
+class Gastos(TemplateView):
+      template_name = 'citas/components/gastos.html'
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['plans'] =   models.Plans.objects.all()        
+            context['service'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['c_saled'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
+            return context
+      
 
 # Sistem
 def Logouts(request):

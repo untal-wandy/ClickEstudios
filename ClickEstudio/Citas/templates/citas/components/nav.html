@@ -55,6 +55,9 @@
 </style>
 
 
+
+
+
 <div class="container-list position-absolute shadow    overflow-auto  mt-2" 
 style="border-radius: 1rem ; max-height: 15rem;  width: 30rem;
 position: absolute;
@@ -71,7 +74,7 @@ z-index: 10;">
             </h6>
       </div>
 
-      <div class='w-50 d-flex justify-content-center border-0  ' style="z-index: 1000 !important;">
+      <div class='w-50 d-flex justify-content-center border-0  ' style="z-index: 100 !important;">
 
             <input type="search" placeholder="Buscador" class="bg-white ms-2 text-center  bg-opacity-10  outline-none p-1 rounded-5  ps-4" style="width: 15rem;"
             onclick="SearchAvanced('.container-list', '#search-client' )" name="" id="search-client">
@@ -295,24 +298,139 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                   container.innerHTML = '';
                   for (const c of filtered_data) {
                         const d = document.createElement('div');
-                        d.classList.add('justify-content-start', 'd-flex', "bg-black", "bg-opacity-10", "mt-1", "rounded-4", "p-2");
+                        d.classList.add('justify-content-start', 'd-flex', "bg-black", "bg-opacity-10", "mt-1", "rounded-4", "p-2",);
                         d.id = c.id
 
-                        d.textContent = c.name ; // Asegúrate de agregar contenido al div
+                        d.textContent = c.name; // Asegúrate de agregar contenido al div
                         d.addEventListener("click", function() {
-                              document.getElementById(this.id).classList.add("bg-danger")
+                              document.getElementById(this.id).classList.add("bg-white", "bg-opacity-10", )
                                $.ajax({
                                      url:  '/searching-client',
                                      data: {
                                      id: this.id,
                                      },
                                      success: (data) => { 
+                                          let name_user =  document.querySelector('.name-user')
+                                          if(name_user){
+                                                name_user.innerHTML = data.name
+                                          }
+                                          let name_email = document.querySelector('.email-user')
+                                          if(name_email){
+                                                name_email.innerHTML = data.email
+                                          } 
+
+                                           document.getElementById('id_container_profile') 
+
+                                           Alternar('id_container_profile')
+
+                                          let pls = document.querySelector('.profile-plans')
+                                          
+                                          if(pls){
+
+                                                pls.innerHTML = ""
+                                          } 
+                                           const container_adicionales = document.createElement('div')
+                                          const title_h6 = document.createElement('h6')
+                                          title_h6.textContent = 'Adicionales'
+                                          data.plans.forEach(plan => {
+                                                const planDiv = document.createElement('div');
+                                                const Div = document.createElement('div');
+                                                Div.classList.add('w-100', 'd-flex', 'justify-content-start', 'flex-wrap')
+                                                const strong_d = document.createElement('strong')
+                                                const span_activate = document.createElement('span')
+                                                
+                                                span_activate.classList.add('w-100', 'text-start')
+                                                if(plan.is_activate === true){
+                                                      span_activate.classList.add( 'text-danger')
+                                                      span_activate.textContent = 'Pendiente'
+                                                }else{span_activate.textContent = 'Terminado'}
+                                                strong_d.textContent = '$ '+ plan.price 
+                                                strong_d.classList.add('text-white', 'text-start', 'w-100')
+                                                
+                                                
+                                                planDiv.classList.add('plan-div'); // Agregar la clase CSS
+                                                planDiv.id = plan.id
+                                                planDiv.addEventListener("click", function() { 
+                                                      if(document.querySelector('.profile-adicionales ')){
+                                                            document.querySelector('.profile-adicionales ').classList.remove('d-none')
+                                                            document.querySelector('.profile-adicionales').classList.add('flip-down');
+                                                            document.querySelector('#id_plan').value = this.id
+                                                      }
+                                                      console.log('ah!')
+                                                      $.ajax({
+                                                      url:  '/adicionales',
+                                                      data: {
+                                                      id: this.id,
+                                                      },
+                                                      success: (adi) => {  
+                                                            if (adi.name === '') {  // Verificas si la longitud es 0
+                                                         
+                                                            }
+                                                            else{
+                                                                  // Obtenemos la lista con la clase "d-adicionales"
+                                                                  const lista = document.querySelector('.list');
+                                                                  lista.innerHTML = ''
+                                                                  for (const a of adi) { 
+                                                                        console.log(a.description)
+                                                                        const nuevoLi = document.createElement('li');
+
+// Asignamos el valor del input al contenido del li
+                                                                              nuevoLi.textContent = a.description;
+
+
+
+
+                                                                              // Agregamos el nuevo li a la lista
+                                                                              lista.appendChild(nuevoLi);
+                                                                  }
+
+                                                                  // let crear_adicionales = document.querySelector('.list-adicionales')
+                                                                  // if(crear_adicionales){
+                                                                  //       crear_adicionales.innerHTML = ''
+                                                                  // }
+
+                                                            }
+
+                                                      }
+                                                });
+
+                                          })
+
+                                                // Crear la imagen
+                                                const img = document.createElement('img');
+                                                img.src = plan.img; // Reemplaza con la ruta de tu imagen
+                                                img.alt = plan.name;
+                                                img.classList.add('plan-img'); // Agregar la clase CSS
+
+                                                // Crear el span superpuesto
+                                                const span = document.createElement('span');
+                                                span.innerHTML = plan.name;
+                                                span.classList.add('plan-overlay'); // Agregar la clase CSS
+
+                                                // Agregar la imagen y el span al div
+                                                planDiv.appendChild(img);
+                                                planDiv.appendChild(span);
+                                                Div.appendChild(strong_d)
+                                                Div.appendChild(span_activate)
+                                                planDiv.appendChild(Div)
+
+                                                // Agregar el div principal al contenedor de planes
+
+                                                if(pls){
+
+                                                      pls.appendChild(planDiv);
+                                                }
+                                          })
+                                     
+
                                           document.getElementById('id_name').value = data.name
                                           document.getElementById('id_email').value = data.email
                                           document.getElementById('id_number').value = data.number
                                           container.classList.add('d-none')
                                           search.value = ''
                                           search.focus()
+
+
                                     } 
                               })
                         });
@@ -334,5 +452,7 @@ function SearchAvanced(ContainerSelector, SearchSelector){
             }
       });
 }
+
+
 
           </script>

@@ -22,6 +22,7 @@ urlpatterns = [
 
 
     # Administrative views
+    path('gastos', views.Gastos.as_view(), name='gastos'),
     path('administrations-citas', views.CitasAdministrations.as_view(), 
         name='administrations-citas' ),  
     
@@ -49,6 +50,10 @@ urlpatterns = [
 
 
     # Ajax views
+    path('terminar-cita', views_ajax.Terminar_Cita, name='terminar-cita'),
+    path('crear-adicionales', views_ajax.CreateAdicionales, name='crear-adicionales'),
+    path('crear-p-adicionales', views_ajax.Create_P_Adicionales, name='crear-p-adicionales'),
+    path('adicionales', views_ajax.Adicionales, name='adicionales'),
     path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
     path('delete-service/', views_ajax.DeleteService, name='delete-service'),
     path('delete-moment-image/', views_ajax.DeleteMomentImage, name='delete-moment-image'),

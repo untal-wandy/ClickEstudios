@@ -1,0 +1,314 @@
+<style>
+      .profile-container {
+          width: 750px;
+          margin: 20px auto;
+          text-align: center;
+          border: 1px solid #292929;
+          padding: 20px;
+          border-radius: 1.5rem;
+          -webkit-backdrop-filter: blur(40px) !important;
+          backdrop-filter: blur(40px) !important;
+      }
+
+      .profile-header {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          padding: 10px;
+      }
+
+      .profile-header img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+      }
+
+      .profile-info {
+          text-align: left;
+          margin-left: 15px;
+      }
+
+      .profile-info h2 {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 0;
+      }
+
+      .profile-info p {
+          font-size: 14px;
+          color: #8e8e8e;
+          margin: 0;
+      }
+
+      .profile-stats {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 15px;
+      }
+
+      .profile-stats div {
+          text-align: center;
+      }
+
+      .profile-stats div p {
+          font-size: 16px;
+          margin: 0;
+      }
+
+      .profile-stats div span {
+          font-size: 14px;
+          color: #8e8e8e;
+      }
+
+      .bio {
+          font-size: 14px;
+          text-align: left;
+          margin-top: 10px;
+          color: #8e8e8e;
+      }
+
+      .profile-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2px;
+          margin-top: 15px;
+      }
+
+      .profile-grid img {
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 1.5rem;
+      }
+
+
+      /* Estilo para el div del plan */
+.plan-div {
+   position: relative;
+   width: 200px; /* Ajusta según tus necesidades */
+   height: max-content;
+   margin: 10px;
+   overflow: hidden;
+  
+
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para la imagen del plan */
+.plan-img {
+   width: 100%;
+   height: 200px;
+   object-fit: cover;
+   border-radius: 20px;
+}
+
+/* Estilo para el overlay (superposición) */
+.plan-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5); /* Fondo negro al 50% */
+   color: white;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 18px;
+   border-radius: 8px;
+}
+  </style>
+  <style>
+    @keyframes flip-down {
+  0% {
+      transform: rotateX(-90deg);
+      opacity: 0;
+  }
+  100% {
+      transform: rotateX(0deg);
+      opacity: 1;
+  }
+}
+
+/* Clase que aplicará la animación */
+.flip-down {
+  animation: flip-down 1s ease-out forwards;
+  transform-origin: top; /* Punto de rotación */
+  opacity: 0; /* Oculto por defecto */
+}
+</style>
+
+<div class='position-absolute  bg-black bg-opacity-75 d-none w-100 overflow-scroll h-100 top-0 ' id="id_container_profile"
+      style="z-index: 100 !important;   
+   ">  
+
+   <div class="profile-container position-relative">
+
+            <button class="position-absolute p-3 end-0 top-0" onclick=" Alternar('id_container_profile')">
+                  Cerrar 
+            </button>
+        <!-- Cabecera del perfil -->
+        <div class="profile-header">
+            <img src="https://via.placeholder.com/80" alt="Perfil">
+            <div class="profile-info">
+                <h2 class="name-user"></h2>
+                <p class="email-user"></p>
+            </div>
+        </div>
+
+        <!-- Estadísticas del perfil -->
+        <div class="profile-stats d-none">
+            <div>
+                <p>500</p>
+                <span>Fotos tomadas</span>
+            </div>
+            <div>
+                <p>1.2k</p>
+                <span>Videos tomados</span>     
+            </div>
+            <div>
+                <p>300</p>
+                <span>Recursos utilizados</span>
+            </div>
+        </div>
+
+        <div class="profile-plans d-flex flex-wrap">
+        </div>
+        <!-- Adicionales -->
+            <div class="profile-adicionales d-none text-start mt-2">
+                  <strong>
+                        Listado de Adicionales
+                  </strong>
+                  <div class="list-adicionales "> 
+                        <div class="list  bg-white bg-opacity-10 rounded-4 mb-2 mt-2 p-2 overflow-scroll" style="max-height: 10rem;">
+
+                        </div>
+
+                        <section class="d-flex">
+                            <div class="d-block w-100  p-1">
+                                <input type="text" name="adicionales-text mt-1" 
+                                placeholder="Agrega los detalles de los adicionales" id="d-adicionales" class="bg-white outline-none  bg-opacity-10 rounded-4 p-2 justify-content-center text-center" 
+                                    style="width: 100%; height: 70px ;"> 
+                                    <button onclick="agregarElementoALista()" id="add-adicionales" class="border-1 m-1 p-2 rounded-5 bg-white bg-opacity-10 border-0 ps-4 pe-4">
+                                        Agregar detalles
+                                    </button>
+                            </div>
+                            <div class="d-block w-100  p-1">
+                                <input type="text"  name="adicionales-text mt-1" 
+                                placeholder="Precio total de los adicionales" id="p-adicionales" class="bg-white outline-none  bg-opacity-10 rounded-4 p-2 inputs-2 justify-content-center text-center" 
+                                    style="width: 100%; height:70px ;"> 
+                                    <button onclick="FinalPrice()" id="precio-adicionales" class="border-1 m-1 p-2 rounded-5 bg-white bg-opacity-10 border-0 ps-4 pe-4">
+                                         Precio de los adicionales
+                                    </button>
+                            </div>
+                        </section>
+                  </div>
+                  <div class="w-100 text-start">
+                      <strong>
+                          Opciones
+                      </strong>
+                      <div>
+                          <button onclick="TerminarCita()" id="add-adicionales" class="border-1 m-1 p-2 rounded-5 bg-danger bg-opacity-10 border-0 ps-4 pe-4">
+                              Terminar Cita
+                          </button>
+                      </div>
+                  </div>
+            </div>
+    </div>
+</div>
+<input type="number" value="" class="d-none" id="id_plan">
+<script>
+
+   function agregarElementoALista() {
+  // Obtenemos el elemento input con el id "descrip"
+
+  const inputDescrip = document.getElementById('d-adicionales');
+
+  // Obtenemos el valor del input
+  const valorInput = inputDescrip.value;
+
+if(valorInput.length > 3) {
+
+    $.ajax({
+              url:  '/crear-adicionales',
+              data: {
+                  id: document.querySelector('#id_plan').value,
+              input: valorInput,
+        }, })
+
+    // Creamos un nuevo elemento li
+    const nuevoLi = document.createElement('li');
+
+    // Asignamos el valor del input al contenido del li
+    nuevoLi.textContent = valorInput;
+
+    // Obtenemos la lista con la clase "d-adicionales"
+    const lista = document.querySelector('.list');
+    // Agregamos el nuevo li a la lista
+    lista.appendChild(nuevoLi);
+
+    // Limpiamos el valor del input para la próxima vez
+    inputDescrip.value = '';
+
+}
+
+}
+
+function FinalPrice() {
+  // Obtenemos el elemento input con el id "descrip"
+    console.log('Final price')
+  const input_price = document.getElementById('p-adicionales');
+
+  // Obtenemos el valor del input
+  const v_price = input_price.value;
+
+if(v_price.length > 0) {
+
+        $.ajax({
+                url:  '/crear-p-adicionales',
+                data: {
+                    id: document.querySelector('#id_plan').value,
+                input: parseInt(v_price.replace(',', '')),
+            }, })
+
+        v_price.value = '';
+
+    }
+
+}
+
+document.querySelectorAll('.inputs-2').forEach(input => {
+          input.addEventListener('input', function(e) {
+              // Remueve todo lo que no sea dígito
+
+              let value = this.value.replace(/\D/g, '');
+      
+              // Añade comas en los lugares correctos
+              this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      
+
+      
+              // Evita letras y otros caracteres no numéricos
+              if (/\D/.test(e.data)) {
+                  this.value = this.value.replace(e.data, '');
+              }
+
+          });
+});
+
+
+function TerminarCita(){
+    console.log('Succes')
+    $.ajax({
+            url:  '/terminar-cita',
+            data: {
+                id: document.querySelector('#id_plan').value,
+        }, 
+        success: () => {
+            location.reload();
+            
+          }
+    })
+}
+</script>
