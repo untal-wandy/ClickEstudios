@@ -244,21 +244,28 @@
                         <div  class="swiper-int" style="max-height:25rem;">
                               <div class="swiper-container m-3 mt-0" style="border-radius: 1rem; ">
                                     <div class="swiper-wrapper">
+                                          {% if img1.image %}
                                       <div class="swiper-slide">
-                                        <img src="{{img1.image.url}}"  alt="Imagen 1">
-                                      </div>
+                                                 <img src="{{img1.image.url}}"  alt="Imagen 1">
+                                                </div>
+                                          {% endif %}
+   
+                                      {% if img2.image %}
                                       <div class="swiper-slide">
-                                             <img src="{{img2.image.url}}" alt="Imagen 1">
-                                      </div>
+                                                 <img src="{{img2.image.url}}"  alt="Imagen 1">
+                                                </div>
+                                          {% endif %}
+                                          
+                                      {% if img3.image %}
                                       <div class="swiper-slide">
-                                             <img src="{{img3.image.url}}" alt="Imagen 1">
-                                      </div>
-                                      <div class="swiper-slide">
-                                               <img src="{{img4.image.url}}" alt="Imagen 1">
-                                        </div>
+                                                 <img src="{{img3.image.url}}"  alt="Imagen 1">
+                                                </div>
+                                                {% endif %}
+                                        {% if img4.image %}
                                         <div class="swiper-slide">
-                                               <img src="{{img5.image.url}}" alt="Imagen 1">
-                                        </div> 
+                                                 <img src="{{img4.image.url}}"  alt="Imagen 1">
+                                                </div> 
+                                          {% endif %}
                                           <!-- <div class="swiper-slide">
                                                 <img src="{{img6.image.url}}" alt="Imagen 1">
                                     </div> 

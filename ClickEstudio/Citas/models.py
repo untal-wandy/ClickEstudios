@@ -67,20 +67,25 @@ class MomentImage(models.Model):
       name = models.CharField(max_length=255, default='Momento')
       image = models.ImageField(upload_to='media/')
       date_created = models.DateTimeField(auto_now_add=True)
+      service = models.ForeignKey(ServiceImage, related_name='svc_img_g',
+                  on_delete=models.CASCADE,     blank=True,     null=True)
 
       def __str__(self):
             return self.name
 
 
 class MomentRelatedImage(models.Model):
-    moment = models.ForeignKey(MomentImage, related_name='moment_img', on_delete=models.CASCADE, blank=True, null=True)
-    image = models.ImageField(upload_to='media/', blank=True, null=True)
-    img_url = models.URLField(default='', blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
+      moment = models.ForeignKey(MomentImage, related_name='moment_img', 
+                                 on_delete=models.CASCADE, blank=True, null=True)
+      service = models.ForeignKey(ServiceImage, related_name='svc_img',
+                                  on_delete=models.CASCADE, blank=True, null=True)
+      image = models.ImageField(upload_to='media/', blank=True, null=True)
+      img_url = models.URLField(default='', blank=True, null=True)
+      date_created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f'{self.moment.name} - {"Related Image"}'
-  
+      def __str__(self):
+            return f'{self.moment.name} - {"Related Image"}'
+      
   
       
 # Nuestros planes
@@ -153,6 +158,20 @@ class Permisons(models.Model):
       
       def __str__(self):
             return self.role.name
+      
+      
+class ImageServiceImg(models.Model):
+      img_service = models.ForeignKey(ServiceImage,
+                  related_name='img_service', on_delete=models.CASCADE, blank=True,  null=True)
+      name = models.CharField(default='...', max_length=100, blank=True,  null=True)
+      moment = models.ForeignKey(MomentImage, related_name='moment_img_service',
+                  on_delete=models.CASCADE,  blank=True,  null=True)
+      date = models.DateTimeField(auto_now_add=True)
+      
+      def __str__(self):
+            return self.name
+      
+      
       
 
 class Tweet(models.Model):

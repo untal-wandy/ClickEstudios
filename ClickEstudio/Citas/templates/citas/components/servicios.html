@@ -14,10 +14,10 @@
                   Nuestros servicios
             </h6>
       {% endif %} -->
-      <section class="section d-flex     flex-wrap justify-content-around" >
+      <section class="section d-flex     flex-wrap justify-content-center" >
       {% if service %}
             {% for s in service %}
-            <div id='delete-c{{s.id}}'  class="position-relative  d-flex flex-wrap  w-100 m-1 p-0" 
+            <div id='delete-c{{s.id}}'  class="position-relative  d-flex flex-wrap  w-100 m-2 p-0" 
                   style="max-width: 410px;  min-width: 410px; height: max-content;">
                   {% if service_admin %}
                   <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" p-1 rounded-circle position-absolute end-0 top-0 border-0 d-flex justify-content-center font-primary text-white  delete-icon  border-0" 
@@ -31,7 +31,7 @@
                   <div>
                         <a href="{% url "citas:service-select" s.id %}"
                         class='position-relative  w-100 '>
-                        <img src="{{s.image.url}}"  alt=""   class="m-0" style=" filter: brightness(50%); 
+                        <img src="{{s.image.url}}"  alt=""   class="m-0" style=" filter: brightness(90%); 
                         width: 410px; height: 240px; 
                         border-radius: 2rem;
                          /* border-top-left-radius: 1rem;
@@ -42,29 +42,35 @@
                          ">
                   </a>  
                   </div>
-                  <div class=" justify-content-center w-100 flex-wrap    "  
+                  <div class=" justify-content-start w-100 flex-wrap    "  
                         style="     border-top-left-radius: 1rem;
                         border-top-right-radius: 1rem;
                         border-bottom-left-radius: 1rem;
                         border-bottom-right-radius: 1rem;
                         ">
-
-                        <div class="w-100 d-flex justify-content-center ps-2">
-                              <div class="d-flex justify-content-center  ">
-                                    {% if service_admin %}
+                      
+                        <div class="w-100 justify-content-start ps-2">
+                              <span class="text-white   ms-2 baloo-paaji-2 " 
+                              style="font-size: 14px;font-weight: bold; max-height: 2rem;">
+                              {{s.name}}
+                               </span>
+                            
+                              <div class="d-flex justify-content-star  ">
+                                    {% if service_admin %} 
+                                    
                                     <a class=" " style='max-height: 2rem;' 
                                           href="{% url "citas:service-update" s.id %}">
-                                          <button class="border-1" style="font-size: 14px;   border-radius: 2rem;
+                                          <button class="border-0 bg-white bg-opacity-10" style="font-size: 14px;   border-radius: 2rem;
                                           background-color: transparent;
                                           color: white;
                                           border: none;
                                           padding: 0.3rem;
                                           margin: 0.2rem;
-                                          width: 10rem;
+                                          width: 5rem;
                                           font-weight: bold;
                                           border: 1px solid rgb(190, 190, 190);
                                           ">
-                                                Editar Servicio
+                                                Editar 
                                           </button>
                                     </a>
                                     {% if s.gastos_service.all %}
@@ -77,15 +83,24 @@
             
                               {% endif %}
                               <a href="{% url "citas:crear-gastos-service"  s.id %}">
-                                    Crear Gastos
+                                    <button class="border-0 bg-white bg-opacity-10" style="font-size: 14px;   border-radius: 2rem;
+                                    background-color: transparent;
+                                    color: white;
+                                    border: none;
+                                    padding: 0.3rem;
+                                    margin: 0.2rem;
+                                    width: 10rem;
+                                    font-weight: bold;
+                                    border: 0px solid rgb(190, 190, 190);
+                                    ">
+
+                                    Añadir Gastos
+                                    </button>
                               </a>
                                     {% endif %}
-                              </div>
-                                    <span class="text-white-50 mb-2 mt-2 ms-1 " 
-                                          style="font-size: 14px;font-weight: bold; max-height: 2rem;">
-                                          {{s.name}}
-                                    </span>
-                              </div>
+                              </div> 
+                        </div>
+                 
                               <span class="text-white   " style="font-size: 12px;">
                                     <!-- <p class="p-1 text-white-50 pt-3  overflow-auto" style="height: 5.5rem;">
                                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae possimus libero aperiam illum, nihil qui soluta nam error atque assumenda ea cum. Minima libero cupiditate at voluptatem quae quam sunt. 
