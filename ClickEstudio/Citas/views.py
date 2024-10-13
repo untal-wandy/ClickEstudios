@@ -12,6 +12,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 import random
+from django.core.exceptions import ObjectDoesNotExist
+#
 
 from datetime import datetime
 class DashboardCitas(TemplateView, Mail):
@@ -48,11 +50,11 @@ class DashboardCitas(TemplateView, Mail):
                               return ''  # Devuelve una cadena vacía si no existe
 
                   # Asignar las imágenes a los contextos
-                  context['img1'] = get_image_or_empty(random_ids[0]) if len(random_ids) > 0 else ''
-                  context['img2'] = get_image_or_empty(random_ids[1]) if len(random_ids) > 1 else ''
-                  context['img3'] = get_image_or_empty(random_ids[2]) if len(random_ids) > 2 else ''
-                  context['img4'] = get_image_or_empty(random_ids[3]) if len(random_ids) > 3 else ''
-                  context['img5'] = get_image_or_empty(random_ids[4]) if len(random_ids) > 4 else ''
+                  context['img1'] = get_image_or_empty(random_ids[0]) if len(random_ids) > 0 else False
+                  context['img2'] = get_image_or_empty(random_ids[1]) if len(random_ids) > 1 else False
+                  context['img3'] = get_image_or_empty(random_ids[2]) if len(random_ids) > 2 else False
+                  context['img4'] = get_image_or_empty(random_ids[3]) if len(random_ids) > 3 else False
+                  context['img5'] = get_image_or_empty(random_ids[4]) if len(random_ids) > 4 else False
                   # context['img6'] = get_image_or_empty(random_ids[5]) if len(random_ids) > 5 else ''
                   # context['img7'] = get_image_or_empty(random_ids[6]) if len(random_ids) > 6 else ''
                   # print(f"ID aleatorio seleccionado: {random_id}")
@@ -214,36 +216,46 @@ class GalleryMomentSelect(DetailView):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
-            print(self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all())
-            # context['img_true'] = self.model.objects.get(id=self.kwargs.get('pk'))
             context['moment'] = self.model.objects.get(id=self.kwargs.get('pk'))
 
             if self.request.user.is_authenticated:
                   context['service_admin'] = True
+                  context['service'] = models.ServiceImage.objects.all()
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
-            # Añadir el formulario al contexto
             context['form'] = forms.MomentRelatedImageForm()
             return context
 
       def post(self, request, *args, **kwargs):
-    
+            mment = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
+            if request.POST.get('service_id'):
+                  try:
+                        svm = models.ServiceImage.objects.get(id=int(request.POST.get('service_id')))
+                        for m in mment:
+                              m.service = svm
+                              m.save()
+                        
+                  except models.ServiceImage.DoesNotExist:
+                  # Manejar el caso en que no existe el objeto
+                        svm = None 
             form = forms.MomentRelatedImageForm(request.POST, request.FILES)
-            print(form)
+            # print(form)
             if form.is_valid():
                   # Procesar los datos del formulario, por ejemplo, guardar un modelo
                   # Suponiendo que tu formulario crea una nueva imagen relacionada con un momento
                   new_image = form.save(commit=False)
                   new_image.moment = self.get_object()  # Asumiendo que MomentImage tiene una FK a 
-                  new_image.moment = self.model.objects.get(id=self.kwargs.get('pk'))
                   new_image.save()
                   return redirect(reverse('citas:gallery-moment-select', kwargs={'pk': new_image.moment.id}))
                  
             else:
-                  print(form.errors)
+                  
+              
+                  # print(form.errors)
                   # Si el formulario no es válido, vuelve a mostrar la página con el formulario y errores
                   self.object = self.get_object()
                   context = self.get_context_data(object=self.object, form=form)
                   return self.render_to_response(context)
+
             
       
 class ServiceSelect(DetailView):
@@ -251,23 +263,35 @@ class ServiceSelect(DetailView):
       template_name = 'citas/service-select.html'
 
 
-      # def get(self, request, *args, **kwargs):
-      #       if not request.user.is_authenticated:
-      #             return redirect('/logins/')
-      #       # Si el usuario está autenticado, continúa con el flujo normal y renderiza la plantilla
-      #       return super().get(request, *args, **kwargs)
-      
-      
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['img'] = self.model.objects.get(id=self.kwargs.get('pk')).service_img.all()
+
+            try:
+                  # Intenta obtener el objeto MomentImage
+                  mkl = models.MomentImage.objects.get(service=self.kwargs.get('pk')).moment_img.all()
+                  
+                  # mkl
+                  # Aquí puedes continuar con la lógica si la obtención es exitosa
+                  # ...
+            
+            except ObjectDoesNotExist:
+                  mkl = False
+                  # Manejo si no se encuentra el objeto
+
+
+ 
+            context['img_mkl'] = mkl
             context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             context['plans'] = self.model.objects.get(id=self.kwargs.get('pk')).services.all()
+            # context['img_relate_service'] = img_h.
             if  self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
-
-            
+                  context['service_admin'] = True
+                  context['form'] = forms.ImageServiceImgForm
             return context
+      
+      
+
       
       
       

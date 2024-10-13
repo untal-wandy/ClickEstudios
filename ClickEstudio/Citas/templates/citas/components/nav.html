@@ -52,6 +52,8 @@
       font-style: normal;
       line-height: 17px;
   }
+
+  
 </style>
 
 
@@ -134,7 +136,8 @@ z-index: 10;">
       </div>
 </div>
 
-<div id="div-menu-admin" class='w-100 vh-50  border-0  ' style='display: none; z-index: 1000 !important;'>
+<div id="div-menu-admin" class='w-100 vh-50  border-0  ' style='display: none; z-index: 1000 !important;
+transition: 0.9s !important'>
       <div  class="position-fixed   end-0 me-2  bg-black bg-opacity-75"  
             style="top: 3.5rem; width: max-content; width: 18rem; border-radius: 2rem;   
            border: 1px solid rgba(128, 128, 128, 0.334);
@@ -223,10 +226,11 @@ let CalendarOpen = ()=> {
 
 document.getElementById("div-menu-admin").addEventListener("click", MenuAdmin);      
 function MenuAdmin() {
-            let div = document.getElementById("div-menu-admin");
-            div.focus()
-            if (div.style.display === "none") {
+      let div = document.getElementById("div-menu-admin");
+      div.focus()
+      if (div.style.display === "none") {
                   div.style.display = "block";
+
             } else {
                   div.style.display = "none";
             }

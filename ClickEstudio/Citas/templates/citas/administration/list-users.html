@@ -139,7 +139,7 @@
 
 </style>
 <div class='' >
-      <div class=' vh-100 p-1 '>
+      <div class=' vh-100 p-1 bg-black bg-opacity-25'>
             <div>
                   {% include "citas/components/nav.html" %}
             </div>
@@ -164,11 +164,11 @@
                   </span>
             </a>
             </div>
-            <div class="d-flex justify-content-center  o" style="min-height: 1rem ;
+            <div class="d-flex justify-content-start  o" style="min-height: 1rem ;
                   overflow-y: hidden; overflow-x: scroll;">
                   {% if role %}
                         {% for r in role  %}
-                              <div class='role bg-black bg-opacity-50 p-3 m-1 '>
+                              <div class='role bg-black bg-opacity-50 p-3 m-1 ' style='width: 450px;'>
                                     <span class='w-100 font-primary mklr' style="font-size: 14px;">
                                           {{ r.name }}
                                     </span>

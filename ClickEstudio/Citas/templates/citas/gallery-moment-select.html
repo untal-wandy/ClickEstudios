@@ -64,32 +64,20 @@
 <div class="gallerys w-100 vh-100 bg-black  bg-opacity-25  overflow-auto" 
       style="" >
       {% if service_admin %}
+      
         {% include "citas/components/nav.html" %}
-        <!-- <div class='d-flex flex-wrap justify-content-center mt-1'>
-            <div class="d-flex w-100 justify-content-center flex-wrap border-0">
-                  <div class="w-100 d-flex justify-content-center border-0">
-                        <img id='img2' src="" alt="" class='rounded-4 mb-2 border-0' style='width: 200px;'>
-                  </div>
-                    <form action="" method="post" cenctype="multipart/form-data">
-                              {% csrf_token %}
-                        {{form.image}}
-                        <button id="add-btn" class="border-0 text-white mt-2 mb-4  btn font-secundary"
-                        style="background-color: #3b3b3b75 ; display: none; 
-                              border-radius: 2rem !important; font-size: 14px; ">
-                              Agregar 
-                        </button>
-                  </form>
-            </div>
-            <div class="w-100 d-flex justify-content-center mb-2">
-                  <button onclick="AddImg()" class='text-white-50 d-flex border-0 rounded-4 p-2 pt-1 pb-1 bg-transparent font-primary'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill hover-reserver-icon mt-1 me-1" viewBox="0 0 16 16">
-                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
-                        </svg> 
-                        Añadir Imagen de Momento
-                  </button>                        
-            </div>
+            <div  class='btns p-2' style='width: 15rem;'>
+                  {% if service %}
 
-      </div> -->
+                  {% for s in service %}
+                              <button class=' bg-black bg-opacity-10 rounded-5 text-center mt-2 p-1 ps-4 pe-4' id='{{s.id}}' onclick='AsignarServcio(this.id)'>
+                                    {{s.name}}
+                              </button>
+                  {% endfor %}
+
+            
+            {% endif %}
+            </div>
       
       <div class='d-flex flex-wrap mt-1 w-100' >
             <div class="d-flex w-100  flex-wrap justify-content-center " style="max-width: 300px;">
@@ -245,8 +233,6 @@
       }
 
 </script>
-
-
 <style>
       
       #id_image 
@@ -276,6 +262,30 @@
 
 </style>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+      function AsignarServcio(e){
+            console.log(e)
+            $.ajax({
+                  url: window.location.href,  // Cambia esta URL con la URL donde quieres enviar el POST en Django
+                  type: 'POST',
+                  data: {
+                      'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),  // Token CSRF
+                      'service_id': e,  // Envía el ID del servicio seleccionado
+                  },
+                  success: function(response) {
+                      console.log('Petición enviada correctamente');
+                      // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje o actualizar algo
+                  },
+                  error: function(error) {
+                      console.log('Error al enviar la petición', error);
+                  }
+              });
+      }
+
+    
+
+</script>
 <script>
             TextSession('Galeria de Momentos')
 </script>
