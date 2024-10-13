@@ -94,11 +94,15 @@
 
    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.plan-div span 
+{
+    font-size: 14px;
+}
 
 /* Estilo para la imagen del plan */
 .plan-img {
    width: 100%;
-   height: 200px;
+   height: 100px;
    object-fit: cover;
    border-radius: 20px;
 }
@@ -110,7 +114,7 @@
    left: 0;
    width: 100%;
    height: 100%;
-   background-color: rgba(0, 0, 0, 0.5); /* Fondo negro al 50% */
+   background-color: rgba(0, 0, 0, 0.756); /* Fondo negro al 50% */
    color: white;
    display: flex;
    align-items: center;
@@ -137,6 +141,10 @@
   transform-origin: top; /* Punto de rotación */
   opacity: 0; /* Oculto por defecto */
 }
+.list li 
+{
+    font-size: 12px;
+}
 </style>
 
 <div class='position-absolute  bg-black bg-opacity-75 d-none w-100 overflow-scroll h-100 top-0 ' id="id_container_profile"
@@ -145,9 +153,14 @@
 
    <div class="profile-container position-relative">
 
-            <button class="position-absolute p-3 end-0 top-0" onclick=" Alternar('id_container_profile')">
+        <button onclick=" Alternar('id_container_profile')"
+         class="border-0 position-absolute end-0  me-4 bg-white  justify-content-center d-flex bg-opacity-10" style="font-size: 14px;   border-radius: 2rem;
+            background-color: transparent;
+            color: white; border: none; padding: 0.3rem;
+            margin: 0.2rem; width: 6rem; font-weight: bold;
+            border: 1px solid rgb(190, 190, 190);">
                   Cerrar 
-            </button>
+        </button>
         <!-- Cabecera del perfil -->
         <div class="profile-header">
             <img src="https://via.placeholder.com/80" alt="Perfil">
@@ -209,7 +222,7 @@
                           Opciones
                       </strong>
                       <div>
-                          <button onclick="TerminarCita()" id="add-adicionales" class="border-1 m-1 p-2 rounded-5 bg-danger bg-opacity-10 border-0 ps-4 pe-4">
+                          <button onclick="TerminarCita()" id="add-adicionales" class="border-1 m-1 p-2 rounded-5  border-0 ps-4 pe-4" style="background-color: #474747; font-size: 14px;" >
                               Terminar Cita
                           </button>
                       </div>
