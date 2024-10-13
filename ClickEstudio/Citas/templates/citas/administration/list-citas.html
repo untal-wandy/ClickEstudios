@@ -423,7 +423,7 @@
 
 .bg-danger
 {
-      background-color: rgb(255, 95, 37) !important;
+      background-color: rgb(255, 94, 0) !important;
 }
 
 </style>
@@ -439,18 +439,22 @@
       </p>
 </div>
 
-<section class="w-100 d-flex flex-wrap">
+
+<section class="w-100 d-flex flex-wrap    overflow-auto" style="max-height: 40rem; border-radius: 2rem;">
       {% if c %}
             {% for c in c %}
-            <div id='list-c{{c.id}}' class="card  m-1 bg-white   bg-opacity-10 " 
+            <div id='list-c{{c.id}}' class="card  m-1  bg-white   bg-opacity-10 " 
                   style="width: 22rem; height:14.5rem ; border-radius: 2rem;    
                   border: 1px solid #414141; ">
+                  
 
-                  <button id="{{c.id}}" onclick='HideList(this.id)'  class="  bg-danger p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex font-primary text-white  delete  border-0" 
-                  style="border: 1px solid rgba(75, 75, 75, 0.774); ">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
-                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                  </svg> </button>
+                  <button id="{{c.id}}" onclick='HideList(this.id)'  class="  bg-danger  p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex font-primary text-white   delete  border-0" 
+                  style="border: 1px solid rgba(75, 75, 75, 0.774);    background-color: #474747 !important; ">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi  bi-dash delete-icon" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                      </svg>
+                  </svg> 
+            </button>
 
                   <div id='div-body{{c.id}}'  class="card-body " >
                               <div>
@@ -519,7 +523,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-patch-check-fill mt-1 me-1 reserver-icon " viewBox="0 0 16 16">
                                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                                         </svg>
-                                  Reservar Cita Ahora
+                                  Reservar  Ahora
                               </button> 
 
 

@@ -22,6 +22,7 @@ urlpatterns = [
 
 
     # Administrative views
+    path('gastos', views.Gastos.as_view(), name='gastos'),
     path('administrations-citas', views.CitasAdministrations.as_view(), 
         name='administrations-citas' ),  
     
@@ -41,6 +42,8 @@ urlpatterns = [
     path('moment-image-update/<int:pk>', views.MomentImgeUpdate.as_view(), name='moment-image-update'),
 
     path('plans-create/', views.PlansCreate.as_view(), name='plans-create'),
+    path('crear-gastos/<int:pk>', views.CrearGastos.as_view(), name='crear-gastos'),
+    path('crear-gastos-service/<int:pk>/', views.CrearGastosService.as_view(), name='crear-gastos-service'),
     path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
     path('histori-sale/', views.HistoriSale.as_view(), name='histori-sale'),
     path('create-rele/', views.CreateRole.as_view(), name='create-role'),
@@ -49,6 +52,10 @@ urlpatterns = [
 
 
     # Ajax views
+    path('terminar-cita', views_ajax.Terminar_Cita, name='terminar-cita'),
+    path('crear-adicionales', views_ajax.CreateAdicionales, name='crear-adicionales'),
+    path('crear-p-adicionales', views_ajax.Create_P_Adicionales, name='crear-p-adicionales'),
+    path('adicionales', views_ajax.Adicionales, name='adicionales'),
     path('finished-cita/', views_ajax.FinishedCita, name='finished-cita'),
     path('delete-service/', views_ajax.DeleteService, name='delete-service'),
     path('delete-moment-image/', views_ajax.DeleteMomentImage, name='delete-moment-image'),
@@ -60,7 +67,8 @@ urlpatterns = [
     path('sale-cancel/', views_ajax.SaleCancel, name='sale-cancel'),
 
     path('delete-img-moment/', views_ajax.DeledeteImgMoment, name='delete-img-moment'),
-
+    path("searching", views_ajax.Search, name="searching"),
+    path("searching-client", views_ajax.SearchingClient, name='searching-client'),
 
 
 # Sistem

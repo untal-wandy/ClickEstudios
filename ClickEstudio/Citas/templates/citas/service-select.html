@@ -1,5 +1,6 @@
 {% extends "citas/base/base.html" %}
 {% block content %}
+{% load static %}
 <style>
       .background-container {
             position: relative;
@@ -28,7 +29,10 @@
             margin-bottom: 10rem;
         }
 </style>
-<section class="vh-100">
+<section class="vh-100 overflow-scroll">
+      {% if service_admin %}
+            {% include "citas/components/nav.html" %}
+      {% endif %}
       <div class='w-100'>
             <h5 class='font-primary d-none text-white text-start'>
                   Nuestros servicios
@@ -37,38 +41,25 @@
       {% if plans %}
               {% include "citas/plans.html" %}
       {% else %}
-            <div class='w-100 text-center d-flex  flex-wrap justify-content-center '>
-                  <h5 class='font-primary w-100 text-center mt-3'> 
-                        Aun no hay servicios disponibles 
-                  </h5>
-                  <p class='text-white-50 text-center'>
-                        Por favor, ten paciencia, estamos trabajando arduamente. 
-                  </p>
-            </div>
+      <div class='w-100 text-center d-flex  flex-wrap justify-content-center '>
+            <h5 class='font-primary w-100 text-center mt-3'> 
+                  Aun no hay servicios disponibles 
+            </h5>
+            <p class='text-white-50 text-center'>
+                  Por favor, ten paciencia, estamos trabajando arduamente. 
+            </p>
+      </div>
       {% endif %}
+      <div class='d-flex flex-wrap w-100 justify justify-content-center  '>
+            {% if img_mkl %}
+                  {% for o in img_mkl %}
+                        {% if o.image %}
+                              <img src="{{o.image.url}}" class='m-1' style='width: 300px; border-radius: 1rem;' > 
+                        {% endif %}
+                  {% endfor %}
+            {% endif %}
+      </div>
 </section>
 
 
-
-<div  class='p-2 mt-1 position-fixed w-100 bottom-0  p-4 ps-2 pe-4'
-      style=''>
-      {% if img %}
-      <h3 class='font-primary mb-4'>
-            {% comment %} Servicios   {{s.name}} {% endcomment %}
-            </h3>
-            {% else %}
-                  <h3 class='font-primary text-center mb-4'>
-                        {% comment %} No hay servicios por el momento {% endcomment %}
-                        </h3>
-      {% endif %}
-            <a href="{% url "citas:dashboard-citas" %}">
-                        <button class='border-0 p-1 pe-4 ps-4 mb-4 font-primary' 
-                        style='border-radius: 1rem;'>
-            Atras 
-      </button>
-      </a>
-</div>
-<script>
-
-</script>
 {% endblock  %}

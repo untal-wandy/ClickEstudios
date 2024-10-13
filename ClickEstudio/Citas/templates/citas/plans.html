@@ -115,10 +115,13 @@
                         </button> -->
                         {% if service_admin %}
                               <button onclick='DeledetePlans(this.id)' id="{{p.id}}" class=" bg-delete p-1 rounded-circle position-absolute top-0 end-0 border-0 d-flex font-primary text-white  delete-icon  border-0" 
-                              style="border: 1px solid rgba(15, 15, 15, 0.774);      background-color: rgb(255, 97, 97) !important;">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash3-fill text-white delete-icon" viewBox="0 0 16 16">
-                              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                              </svg> </button>
+                              style="border: 1px solid rgba(15, 15, 15, 0.774);    
+                                background-color: #474747 !important;
+                                ">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash t " viewBox="0 0 16 16">
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                                  </svg>
+                        </button>
                         {% endif %}
       
                         <div class=' p-1 pt-0 position-relative  m-0 border-0 ' style="border-radius: 0rem;" >
@@ -289,6 +292,20 @@
                                                       Editar
                                                 </button>
                                                 </a>
+
+                                                <div class="w-100 text-center mt-2" style>
+                                                      {% if p.gastos_plan.all %}
+                                                            {% for gp in  p.gastos_plan.all %}
+                                                                  <li clase=''>
+                                                                     {{gp.name}}  ${{gp.price|intcomma}}   
+                                                                  </li>
+                                                            {% endfor %}
+
+                                                            {% endif %}
+                                                            <a clase='bg-white bg-opacity-10 p-3' href="{% url "citas:crear-gastos"  p.id %}">
+                                                                  Crear Gastos
+                                                            </a>
+                                                </div>
                                                 {% else %}
                                                       <div class='w-100  d-flex justify-content-center '>
                                                             <div class="form-check rounded-4 p-2 blur" style='transition: none !important;'>
@@ -306,7 +323,7 @@
                                     {% else %}
                                     <div class=' w-100 d-flex justify-content-center  mt-2 ' >
                                           <a href="{% url "citas:create-cita" p.id %}" class="w-100  d-flex justify-content-center">
-                                                <button class='  p-1  text-white font-secundary' 
+                                                <button class='  p-1  text-white bg-black bg-opacity-10 font-secundary' 
                                                 style='width: 8rem; height: 2.4rem; border-radius: 2rem; 
                                                 font-size: 14px;
                                                 font-weight: bold;
@@ -336,10 +353,9 @@
 
             <div class="   m-3 p-3 "  style="max-width: 30rem;  background-color: #32323289;
             border-radius: 1.5rem; " role="alert">
-            <strong>¡Aviso!</strong> 
+                  <strong>¡Aviso!</strong> 
                   <p class="text-white-50 pb-3" style="line-height: 16px; font-size: 14px;"> 
-                   No hay planes registrados,√
-                   cuando agregues planes estos aparenceran aqui.
+                        No hay planes registrados, cuando agregues planes estos aparenceran aqui.
                   </p>
             </div>
 {% endif %}
