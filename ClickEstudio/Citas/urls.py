@@ -49,6 +49,7 @@ urlpatterns = [
     path('create-rele/', views.CreateRole.as_view(), name='create-role'),
     path('Facebook/Histori/1213232', views.Facebook, name='facebook'),
     
+     path('caja', views.CashRegisterView.as_view(), name='caja'),
 
 
     # Ajax views

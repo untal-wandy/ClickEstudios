@@ -175,3 +175,12 @@ class ImageServiceImgForm(forms.ModelForm):
                   'img_service': forms.Select(attrs={'class': 'form-control'}),
                   'moment': forms.Select(attrs={'class': 'form-control'}),
         }
+        
+        
+
+
+class OpenCashForm(forms.Form):
+    opening_balance = forms.DecimalField(max_digits=10, decimal_places=2, label='Monto de Apertura')
+
+class CloseCashForm(forms.Form):
+    closing_balance = forms.DecimalField(max_digits=10, decimal_places=2, label='Monto de Cierre')

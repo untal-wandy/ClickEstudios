@@ -15,3 +15,7 @@ admin.site.register(Permisons)
 admin.site.register(Tweet)
 admin.site.register(ImgTweet)
 admin.site.register(ImageServiceImg)
+
+admin.site.register(CashRegister)
+admin.site.register(Transaction)
+admin.site.register(CashMovement)
