@@ -1,8 +1,11 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 from django.contrib.auth.models import User
 import os
-from django.utils import timezone
+
+
+
 
 
 # Create your models here.
@@ -209,4 +212,64 @@ class Gastos(models.Model):
       
       def __str__(self):
             return self.name
+      
+      
+      
+
+class CashRegister(models.Model):
+    # Estado de la caja (abierta o cerrada)
+    STATUS_CHOICES = [
+        ('open', 'Abierta'),
+        ('closed', 'Cerrada'),
+    ]
+    
+    # Apertura y cierre de caja
+    opened_by = models.ForeignKey(User, related_name='cash_opened', on_delete=models.SET_NULL, null=True)
+    closed_by = models.ForeignKey(User, related_name='cash_closed', on_delete=models.SET_NULL, null=True, blank=True)
+    
+    opening_balance = models.DecimalField(max_digits=10, decimal_places=2)  # Monto inicial en la caja
+    closing_balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # Monto final en la caja
+
+    opened_at = models.DateTimeField(default=timezone.now)  # Fecha y hora de apertura
+    closed_at = models.DateTimeField(null=True, blank=True)  # Fecha y hora de cierre
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='open')  # Estado actual de la caja
+
+    def __str__(self):
+        return f'Caja {self.id} - {self.status}'
+
+class Transaction(models.Model):
+    # Tipos de transacción: venta, salida, entrada, devolución
+    TRANSACTION_TYPE_CHOICES = [
+        ('sale', 'Venta'),
+        ('withdrawal', 'Salida'),
+        ('deposit', 'Entrada'),
+        ('refund', 'Devolución'),
+    ]
+    
+    register = models.ForeignKey(CashRegister, related_name='transactions', on_delete=models.CASCADE)
+    cashier = models.ForeignKey(User, related_name='cashier_transactions', on_delete=models.SET_NULL, null=True)
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)  # Monto de la transacción
+    description = models.TextField(blank=True)  # Descripción opcional de la transacción
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.transaction_type} - {self.amount}'
+
+class CashMovement(models.Model):   
+    # Movimientos de efectivo como entradas o retiros de caja
+    MOVEMENT_TYPE_CHOICES = [
+        ('deposit', 'Depósito'),
+        ('withdrawal', 'Retiro'),
+    ]
+    
+    register = models.ForeignKey(CashRegister, related_name='movements', on_delete=models.CASCADE)
+    movement_type = models.CharField(max_length=20, choices=MOVEMENT_TYPE_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.movement_type} - {self.amount}'
       

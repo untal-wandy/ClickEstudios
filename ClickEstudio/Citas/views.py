@@ -7,13 +7,16 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .Options import Mail, Options
 from django.urls import reverse_lazy, reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 import random
 from django.core.exceptions import ObjectDoesNotExist
 #
+
+from django.utils import timezone
+from django.contrib import messages
 
 from datetime import datetime
 class DashboardCitas(TemplateView, Mail):
@@ -880,6 +883,57 @@ class CrearGastosService(CreateView):
             return context
 
 
+
+class CashRegisterView(View):
+    def get(self, request):
+            # Obtener la caja activa (abierta) si existe
+            cash_register = models.CashRegister.objects.filter(status='open').first()
+            cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
+            transactions = models.Transaction.objects.filter(register=cash_register) if cash_register else None
+            movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
+
+            context = {
+                  'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
+                  'cash_register': cash_register,
+                  'cash_register_last': cash_register_last,
+                  'transactions': transactions,
+                  'movements': movements,
+                  'service_admin': True,
+                  'permisons':  models.Permisons.objects.get(user=self.request.user)
+            }
+            return render(request, 'citas/cash_control.html', context)
+
+    def post(self, request):
+        # Manejar apertura o cierre de caja desde el formulario
+        if 'open_cash' in request.POST:
+            form = forms.OpenCashForm(request.POST)
+            print(form.errors)
+            if form.is_valid():
+                opening_balance = form.cleaned_data['opening_balance']
+                cash_register = models.CashRegister.objects.create(
+                    opened_by=request.user,
+                    opening_balance=opening_balance,
+                    opened_at=timezone.now(),
+                    status='open'
+                )
+                messages.success(request, 'Caja abierta correctamente.')
+            
+                return redirect('/caja')
+
+        elif 'close_cash' in request.POST:
+            form = forms.CloseCashForm(request.POST)
+            print(form)
+            cash_register = models.CashRegister.objects.filter(status='open').first()
+            if cash_register and form.is_valid():
+                cash_register.closing_balance = form.cleaned_data['closing_balance']
+                cash_register.closed_by = request.user
+                cash_register.closed_at = timezone.now()
+                cash_register.status = 'closed'
+                cash_register.save()
+                messages.success(request, 'Caja cerrada correctamente.')
+                return redirect('/caja')
+
+        return self.get(request)
 
 # Sistem
 def Logouts(request):
