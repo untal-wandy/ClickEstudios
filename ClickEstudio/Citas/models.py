@@ -126,6 +126,7 @@ class Adicionales(models.Model):
       
 class Role(models.Model):
       name = models.CharField(max_length=255, default='Indefinido')
+      user = models.ForeignKey(User, related_name='user_role',  on_delete=models.CASCADE, blank=True, null=True)
       description = models.TextField(default="Un rol indefinodo podría tener la capacidad de ver ciertos contenidos que no requieran permisos especiales, como páginas informativas o recursos de ayuda y mas")
       date_created = models.DateTimeField(auto_now_add=True)
       
@@ -273,3 +274,14 @@ class CashMovement(models.Model):
     def __str__(self):
         return f'{self.movement_type} - {self.amount}'
       
+      
+      
+
+
+class Ingreso(models.Model):
+    descripcion = models.CharField(max_length=255)
+    cantidad = models.DecimalField(max_digits=10, decimal_places=2)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.descripcion} - {self.cantidad}"

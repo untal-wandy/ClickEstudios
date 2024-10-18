@@ -1,4 +1,47 @@
 {% extends "citas/base/base.html" %}
 {% block content %}
-      {{form}}
+<style>
+      .form-control 
+      {
+            background-color: rgba(255, 255, 255, 0.334);
+            border: 0px;
+            border-radius: 1.5rem;
+            color: white;
+            width: 340px;
+            margin: 0.2rem;
+            height: 2.8rem;
+      }
+        label,    .helptext 
+      {
+            color: rgb(213, 213, 213);
+            font-size: 12px;
+      }
+
+   
+
+</style>
+<section class="vh-100 bg-black bg-opacity-25">
+      {% include "citas/components/nav.html" %}
+      <div class="d-flex justify-content-center mt-5 pt-5">
+            <div class="p-3 d-flex flex-wrap bg-white bg-opacity-10 rounded-5 pb-3 mt-5 " style="width: 730px; ">
+                 <form action="" method="post" class="w-100 d-flex flex-wrap justify-content-start">
+                        {{form}}
+                        <div class="w-100 mt-2 d-flex justify-content-end mt-4">
+                              <a href="{% url "citas:list-user" %}">
+                                    <label class=" btn p-2 me-2 text-white-50 ps-4 pe-4 rounded-5">
+                                          Cancelar
+                                    </label>
+                              </a>
+                              <button class="bg-white bg-opacity-10 p-2 ps-4 pe-4 rounded-5">
+                                    Guardar cambios
+                              </button>
+                        </div>
+                 </form>
+            </div>
+      </div>
+</section>
+<script>
+      document.querySelector('.helptext').innerHTML = 'Requerido. 150 caracteres maximos o menos. Solo letras, dígitos y (@ .  + - _) '
+      TextSession('Editar usuario ')
+</script>
 {% endblock  %}

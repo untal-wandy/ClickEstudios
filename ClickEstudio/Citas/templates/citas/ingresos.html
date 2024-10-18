@@ -1,0 +1,126 @@
+{% extends "citas/base/base.html" %}
+{% block content %}
+{% load humanize %}
+    <style>
+        .form-control {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.239) !important;
+            border-radius: 2rem;
+            padding: 1rem;
+            height: 3.5rem;
+            margin-top: 10px;
+            border: none; color: white;
+        }
+        .form-class label{
+            font-size: 12px;
+            width: 100%;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.578);
+        }
+        .form-class {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-registar {
+            background-color: #c7c7c738;
+            color: white;
+            padding: 0.2rem 1rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        .btn-registar:hover {
+            background-color: #5d5d5d;
+        }
+        table tr
+        {
+            font-size: 12px;
+            transition: 0.2s !important;
+        }
+        table tr:hover{
+            background-color: rgba(0, 0, 0, 0.282);
+        }
+    </style>
+      <div class='vh-100 bg-black bg-opacity-25'>
+            {% include "citas/components/nav.html" %}
+            <div class="ca">
+                <h1>Lista de Ingresos</h1>
+                <div class="bg-white bg-opacity-10 rounded-4  p-3" style="width: 600px;">
+                    <table  class="w-100">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ingreso in ingresos %}
+                                <tr>
+                                    <td>{{ ingreso.fecha|date:"d/m/Y" }}</td>
+                                    <td>{{ ingreso.descripcion }}</td>
+                                    <td>{{ ingreso.cantidad }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3">No hay ingresos registrados.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <h2>Total de ingresos: {{ total_ingresos|intcomma }}</h2>
+            </div>
+            <div class=" cb bg-white bg-opacity-10 p-2 m-auto mt-4 rounded-5" style="width: 500px;">
+                <h1 class="text-center mb-3">Registrar un nuevo ingreso</h1>
+                <form method="POST">
+                      {% csrf_token %}
+                        <div class="justify-content-center">
+                            <div class="form-class">
+                                {{ form.descripcion }}
+                            </div>
+                            <div class="form-class">
+                                {{ form.cantidad }}
+                            </div>
+                        </div>
+                      <div>
+                            <button type="submit" class="btn-registar p-2" id="submit-btn" style="display: none;">Registrar Ingreso</button>
+                      </div>
+                </form>
+          </div>
+      </div>
+
+
+
+      
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const descripcionInput = document.querySelector('input[name="descripcion"]');
+        const cantidadInput = document.querySelector('input[name="cantidad"]');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function toggleSubmitButton() {
+            if (descripcionInput.value.trim() !== '' && cantidadInput.value.trim() !== '') {
+                submitBtn.style.display = 'inline-block';
+            } else {
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        descripcionInput.addEventListener('input', toggleSubmitButton);
+        cantidadInput.addEventListener('input', toggleSubmitButton);
+
+        toggleSubmitButton(); // Initial check in case inputs are pre-filled
+    });
+
+  </script>
+{% endblock  %}
