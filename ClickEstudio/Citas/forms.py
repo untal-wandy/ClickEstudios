@@ -1,5 +1,6 @@
 from django import forms
 from .  import models
+from django.contrib.auth.models import User
 
 class CustomerForm(forms.ModelForm):
       class Meta:
@@ -184,3 +185,40 @@ class OpenCashForm(forms.Form):
 
 class CloseCashForm(forms.Form):
     closing_balance = forms.DecimalField(max_digits=10, decimal_places=2, label='Monto de Cierre')
+    
+    
+    
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password']  # Campos del formulario
+        labels = {
+            'username': 'Nombre de usuario',
+            'email': 'Correo electrónico',
+            'first_name': 'Nombre',
+            'last_name': 'Apellidos',
+            'password': 'Contraseña',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}) ,
+        }
+        
+        
+
+class IngresoForm(forms.ModelForm):
+      class Meta:
+            model = models.Ingreso
+            fields = ['descripcion', 'cantidad']
+      
+      def __init__(self, *args, **kwargs):
+            super(IngresoForm, self).__init__(*args, **kwargs)
+            # Add the 'form-control' class to all form fields
+            for field in self.fields:
+                  self.fields[field].widget.attrs['class'] = 'form-control'
+            # Add placeholders to form fields
+            self.fields['descripcion'].widget.attrs['placeholder'] = 'Descripción'
+            self.fields['cantidad'].widget.attrs['placeholder'] = 'Cantidad'

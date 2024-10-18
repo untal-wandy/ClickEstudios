@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, DetailView, View, UpdateView
+from django.views.generic import TemplateView, CreateView, DetailView, View, UpdateView, ListView
 from . import forms, models
 from django.urls import reverse 
 from django.http import HttpResponseRedirect
@@ -14,6 +14,7 @@ from django.contrib.auth import logout, login, authenticate
 import random
 from django.core.exceptions import ObjectDoesNotExist
 #
+from django.contrib.auth.models import User
 
 from django.utils import timezone
 from django.contrib import messages
@@ -705,7 +706,7 @@ class ListUser(TemplateView):
             context = super().get_context_data(**kwargs)
             context['service_admin'] = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
-            context['user'] = models.UserA.objects.all()
+            context['user'] = models.User.objects.all()
             context['role'] = models.Role.objects.all()
             return context
       
@@ -761,8 +762,8 @@ class CreateUser(CreateView):
 
 
 class UserUpdate(UpdateView, Options):
-      model = models.UserA
-      form_class = forms.UserAForm
+      model = User
+      form_class = forms.UserForm
       template_name = 'citas/administration/userA-update.html'
       success_url = reverse_lazy('citas:administrations-citas'  )
 
@@ -774,6 +775,7 @@ class UserUpdate(UpdateView, Options):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
+            context['user'] = self.model.objects.get(id=self.kwargs.get('pk'))
             context['service_admin'] = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             return context
@@ -934,6 +936,35 @@ class CashRegisterView(View):
                 return redirect('/caja')
 
         return self.get(request)
+  
+  
+  
+  # Vista para registrar un nuevo ingreso usando CreateView
+class Ingresos(CreateView):
+      model = models.Ingreso
+      form_class = forms.IngresoForm
+      template_name = 'citas/ingresos.html'
+      success_url = reverse_lazy('citas:ingresos')
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            ingresos = models.Ingreso.objects.all()
+            total_ingresos = sum(ingreso.cantidad for ingreso in ingresos)
+            context.update({
+                  'ingresos': ingresos,
+                  'total_ingresos': total_ingresos,
+                  'service_admin': True,
+                  'permisons': models.Permisons.objects.get(user=self.request.user)
+            })
+            return context
+
+      def form_valid(self, form):
+            messages.success(self.request, 'Ingreso registrado correctamente.')
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            messages.error(self.request, 'Error al registrar el ingreso.')
+            return super().form_invalid(form)
 
 # Sistem
 def Logouts(request):
