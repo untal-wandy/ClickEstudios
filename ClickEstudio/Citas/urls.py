@@ -25,6 +25,7 @@ urlpatterns = [
                 path('service-update/<int:pk>', views.ServiceUpdateView.as_view(), name='service-update'),
                     path('service-create/', views.ServiceCreateView.as_view(), name='service-create'),
                 path('moment-image-create/', views.MomentImgeCreate.as_view(), name='moment-image-create'),
+            path('moment-image-update/<int:pk>', views.MomentImgeUpdate.as_view(), name='moment-image-update'),
             path('plans-create/', views.PlansCreate.as_view(), name='plans-create'),
         path('crear-gastos/<int:pk>', views.CrearGastos.as_view(), name='crear-gastos'),
     path('plans-update/<int:pk>', views.PlansUpdate.as_view(), name='plans-update'),
@@ -32,6 +33,7 @@ urlpatterns = [
             path('create-rele/', views.CreateRole.as_view(), name='create-role'),
                 path('Facebook/Histori/1213232', views.Facebook, name='facebook'),
             path('caja', views.CashRegisterView.as_view(), name='caja'),
+        path('crear-gastos-service/<int:pk>/', views.CrearGastosService.as_view(), name='crear-gastos-service'),
 
     path('ingresos', views.Ingresos.as_view(), name='ingresos'),
     path('terminar-cita', views_ajax.Terminar_Cita, name='terminar-cita'),
