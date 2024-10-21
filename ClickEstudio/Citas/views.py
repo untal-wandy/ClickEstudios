@@ -971,6 +971,10 @@ class Ingresos(CreateView):
 def Logouts(request):
     logout(request)  # Cierra la sesión del usuario
     return redirect('/')  
+
+
+
+    
 """
 Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
 """
