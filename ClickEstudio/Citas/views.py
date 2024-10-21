@@ -966,6 +966,7 @@ class Ingresos(CreateView):
             messages.error(self.request, 'Error al registrar el ingreso.')
             return super().form_invalid(form)
 
+
 # Sistem
 def Logouts(request):
     logout(request)  # Cierra la sesión del usuario
