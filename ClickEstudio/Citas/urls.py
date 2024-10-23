@@ -53,4 +53,6 @@ urlpatterns = [
         path("searching-client", views_ajax.SearchingClient, name='searching-client'),
     path('logout/', views.Logouts, name='logout'),  #
 
+    
+
 ]
