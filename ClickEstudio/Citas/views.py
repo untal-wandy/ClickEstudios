@@ -230,35 +230,34 @@ class GalleryMomentSelect(DetailView):
             return context
 
       def post(self, request, *args, **kwargs):
-            mment = self.model.objects.get(id=self.kwargs.get('pk')).moment_img.all()
-            if request.POST.get('service_id'):
-                  try:
-                        svm = models.ServiceImage.objects.get(id=int(request.POST.get('service_id')))
-                        for m in mment:
-                              m.service = svm
-                              m.save()
-                        
-                  except models.ServiceImage.DoesNotExist:
-                  # Manejar el caso en que no existe el objeto
-                        svm = None 
-            form = forms.MomentRelatedImageForm(request.POST, request.FILES)
-            # print(form)
-            if form.is_valid():
-                  # Procesar los datos del formulario, por ejemplo, guardar un modelo
-                  # Suponiendo que tu formulario crea una nueva imagen relacionada con un momento
-                  new_image = form.save(commit=False)
-                  new_image.moment = self.get_object()  # Asumiendo que MomentImage tiene una FK a 
-                  new_image.save()
-                  return redirect(reverse('citas:gallery-moment-select', kwargs={'pk': new_image.moment.id}))
+            mment = self.model.objects.get(id=self.kwargs.get('pk'))
+            service_id = request.POST.get('service_id')
+            if service_id:
+                  svm = models.ServiceImage.objects.get(id=int(service_id))
+                  mv =  self.model.objects.get(id=self.kwargs.get('pk'))
+                  mv.service = svm
+                  mv.save()
                  
             else:
+                  form = forms.MomentRelatedImageForm(request.POST, request.FILES)
+                  # print(form)
+                  if form.is_valid():
+                        # Si el formulario no es válido, vuelve a mostrar la página con el formulario y errores
+                        self.object = self.get_object()
+                        context = self.get_context_data(object=self.object, form=form)
+                        # Procesar los datos del formulario, por ejemplo, guardar un modelo
+                        # Suponiendo que tu formulario crea una nueva imagen relacionada con un momento
+                        new_image = form.save(commit=False)
+                        new_image.moment = self.get_object()  # Asumiendo que MomentImage tiene una FK a 
+                        new_image.save()
+                        return redirect(reverse('citas:gallery-moment-select', kwargs={'pk': new_image.moment.id}))
                   
               
                   # print(form.errors)
-                  # Si el formulario no es válido, vuelve a mostrar la página con el formulario y errores
-                  self.object = self.get_object()
-                  context = self.get_context_data(object=self.object, form=form)
-                  return self.render_to_response(context)
+
+                    
+            return redirect(reverse('citas:gallery-moment-select', kwargs={'pk': self.get_object().id}))
+                  # return self.render_to_response(context)
 
             
       
@@ -888,18 +887,16 @@ class CrearGastosService(CreateView):
 
 class CashRegisterView(View):
     def get(self, request):
-            # Obtener la caja activa (abierta) si existe
             cash_register = models.CashRegister.objects.filter(status='open').first()
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
-            transactions = models.Transaction.objects.filter(register=cash_register) if cash_register else None
+            records = models.FinancialRecord.objects.all()
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
 
             context = {
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
                   'cash_register': cash_register,
                   'cash_register_last': cash_register_last,
-                  'transactions': transactions,
-                  'movements': movements,
+                  'records': records,
                   'service_admin': True,
                   'permisons':  models.Permisons.objects.get(user=self.request.user)
             }
@@ -973,6 +970,25 @@ def Logouts(request):
     return redirect('/')  
 
 
+class FinancialRecordCreateView(CreateView):
+      model = models.FinancialRecord
+      form_class = forms.FinancialRecordForm
+      template_name = 'citas/financial_record_create.html'
+      success_url = reverse_lazy('citas:financial-record-list')
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+
+      def form_valid(self, form):
+            messages.success(self.request, 'Registro financiero creado correctamente.')
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            messages.error(self.request, 'Error al crear el registro financiero.')
+            return super().form_invalid(form)
 
     
 """
