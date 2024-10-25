@@ -93,9 +93,9 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            c_reserver = models.Customer.objects.filter(finished=False, reserve=True, saled=False)
-            context['c'] = models.Customer.objects.filter(finished=False, reserve=False, saled=False)
-            context['c_reserver'] = c_reserver
+            sales_reserver = models.Sale.objects.filter(saled=False, reserver=True)
+            context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
+            context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -167,7 +167,17 @@ class CustomerCita(CreateView, Mail):
                   form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
                   form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
                   form.instance.date_time_choice = datetime.now()
+
+
                   form.save() 
+                  sale = models.Sale(
+                        cliente=models.Customer.objects.get(id=form.instance.id),
+                        plan=form.instance.plans,
+                        price_total=form.instance.plans.price,   
+                  )
+                  sale.save()
+                  print(self.model.objects.get(id=form.instance.id))
+
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
 
       def form_invalid(self, form):
@@ -891,13 +901,22 @@ class CashRegisterView(View):
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
             records = models.FinancialRecord.objects.all()
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
+            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True)
+            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
+
+            count_ingresos = 0
+            count_gastos = 0
+            for i in ingresos:
+                  count_ingresos += i.ingreso
+
+            for i in gastos:
+                  count_gastos += i.gasto
 
             context = {
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
-                  'cash_register': cash_register,
-                  'cash_register_last': cash_register_last,
-                  'records': records,
-                  'service_admin': True,
+                  'cash_register': cash_register, 'cash_register_last': cash_register_last,
+                  'records': records, 'service_admin': True,
+                  'count_gastos': count_gastos,  'count_ingresos': count_ingresos,
                   'permisons':  models.Permisons.objects.get(user=self.request.user)
             }
             return render(request, 'citas/cash_control.html', context)

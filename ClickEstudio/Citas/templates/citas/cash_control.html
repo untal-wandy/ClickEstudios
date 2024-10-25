@@ -32,7 +32,7 @@
                         Ayuda a garantizar que el dinero en efectivo y las transacciones coincidan con las ventas registradas.
                         </p>
                 </div>
-                <section class=' bg-white bg-opacity-10 p-2 rounded-4 m-2 w-100'>
+                <section class=' bg-white bg-opacity-10 p-3 rounded-4 m-2 w-100'>
                     <table class="w-100">
                         <thead>
                             <tr>
@@ -45,14 +45,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for record in financial_records %}
+                            {% for record in records %}
                             <tr>
                                 <td>{{ record.id }}</td>
-                                <td>{{ record.created|date:"d/m/Y" }}</td>
+                                <td>{{ record.date|date:"d/m/Y" }}</td>
                                 <td>{{ record.name }}</td>
-                                <td>RD$ {{ record.description|intcomma }}</td>
-                                <td>{{ record.ingreso }}</td>
-                                <td>{{ record.gasto }}</td>
+                                <td>$ {{ record.description|intcomma }}</td>
+                                <td> 
+                                    {% if record.ingreso %}
+                                        ${{ record.ingreso|intcomma }}
+                                    {% endif %}
+                                
+                                </td>
+                                <td>
+                                    {% if record.gasto %}
+                                        ${{ record.gasto|intcomma }}
+                                    {% endif %}
+                                
+                                </td>
 
                             </tr>
                             {% empty %}
@@ -64,15 +74,15 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <div class="d-flex  w-100 justify-content-end m-2 p-2 pb-0">
-                        <a href="{% url "citas:financial-record-create" %}">  <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> + Ingreso</button> </a>
-                        <a href="{% url "citas:financial-record-create" %}">
-
-                        <button class="btn text-white rounded-5  bg-white bg-opacity-10">+ Gasto</button>
-                        </a>
-                    </div>
-
+                    
                 </section>
+                <div class="d-flex  w-100 justify-content-end  p-2 pb-0">
+                    <a href="{% url "citas:financial-record-create" %}">  <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> + Ingreso</button> </a>
+                    <a href="{% url "citas:financial-record-create" %}">
+
+                    <button class="btn text-white rounded-5  bg-white bg-opacity-10">+ Gasto</button>
+                    </a>
+                </div>
   
                   <div data-aos="fade-up" class="accordion-item m-1 mt-0 w-100 ">
                         <h2 class="accordion-header" id="headingTwo">
@@ -151,7 +161,7 @@
                                 <div class="w-100 d-flex justify-content-center flex-wrap">
                                       {% if cash_register.status == 'open' %}
                                       {% comment %} <strong > Apertura</strong> {% endcomment %}
-                                          <div class='text-center mt-4'>
+                                          <div class='text-center me-3 mt-4 '>
                                                 <h4 class="card-title p-0 m-0 mt-4"> <strong>Caja {{ cash_register.id }}</strong> 
                                                       <span class="text-white-50">
                                                             - Estado: {{ cash_register.get_status_display }}
@@ -159,9 +169,27 @@
                                                 </h4>
                                          
                                                     <p> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register.opening_balance|intcomma }}</span> </p>
-                                                    <p> <strong>Apertura:</strong>  <span class="text-white-50">{{ cash_register.opened_at }} por {{ cash_register.opened_by }}</span> </p>
+                                                    <p> <strong>Apertura:</strong>  
+                                                        <span class="text-white-50">{{ cash_register.opened_at|date:"d/m/Y" }} 
+                                                        por {{ cash_register.opened_by }}</span> </p>
                                                 
           
+                                          </div>
+                                          <div  class="text-center  " style="margin-top: 45px;">
+ 
+                                            <p>
+                                                <strong>Ingresos</strong>
+                                                <span class="text-white-50"> ${{count_ingresos|intcomma}} </span>
+                                            </p>
+                                            <p>
+                                                <strong>Gastos</strong>
+                                                <span class="text-white-50"> ${{count_gastos|intcomma}} </span>
+                                            </p>
+                                            <p>
+                                                <strong>Balance en caja</strong>
+                                                <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
+                                            </p>
+
                                           </div>
                                           {% else %}
                                           <div style='width: 300px;' class='text-center mt-4'>

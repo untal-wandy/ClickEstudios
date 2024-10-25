@@ -57,21 +57,26 @@ def DeleteCaract(request):
       return JsonResponse(list(),  safe=False)
 
 def Reserver(request):
-      c = models.Customer.objects.get(id=request.GET.get('id'))
+      sale = models.Sale.objects.get(id=request.GET.get('id'))
+      print(sale.cliente.name)
+
       print(int(request.GET.get('input')), 'Mas', request.GET.get('id'))
-      if c.reserve == False:
-            c.reserve = True
-            c.reserver_mount = int(request.GET.get('input'))
-            c.price_reserved =  c.plans.price -  c.reserver_mount 
-            c.save()
+      if sale.reserver == False:
+            sale.reserver = True
+            
+            sale.reserver_mount = int(request.GET.get('input'))
+            sale.abonado =  sale.plan.price -  sale.reserver_mount 
+            sale.save()
+
       else:
-            abonado =   c.reserver_mount  + int(request.GET.get('input'))
-            c.reserver_mount = abonado
-            c.price_reserved =   c.plans.price -  c.reserver_mount
-            c.save()
-      if c.reserver_mount ==  c.plans.price:
-            c.saled = True
-            c.save()
+
+            abonado =   sale.reserver_mount  + int(request.GET.get('input'))
+            sale.reserver_mount = abonado
+            sale.abonado =   sale.plan.price -  sale.reserver_mount
+            sale.save()
+      if sale.reserver_mount >=  sale.plan.price:
+            sale.saled = True
+            sale.save() 
       return JsonResponse(list(),  safe=False)
 
 def SaleService(request):
@@ -98,27 +103,29 @@ def SaleCancel(request):
 
 def Search(request):
       lista = []
-      for c in models.Customer.objects.all():
+      for s in models.Sale.objects.all():
             dict_customer = { 
-                  'id': c.id,
-                  'name': c.name 
+                  'id': s.id,
+                  'name': s.cliente.name 
             }
             lista.append(dict_customer)
       return JsonResponse(lista,  safe=False)
 
 def SearchingClient(request):
-      c = models.Customer.objects.get(id=int(request.GET.get('id')))
-      print(c.name)
+      sale = models.Sale.objects.get(id=int(request.GET.get('id')))
       # Obtener todos los planes asociados a ese cliente específico
-      if c.plans_more.exists():
-            planes = c.plans_more.all()
-      else:
-            planes = models.Plans.objects.filter(plans_customer=c)
+      print(sale.plan.name)
+      # Obtener todos los planes asociados a ese cliente específico
+      if sale.plan:
+            planes = models.Plans.objects.filter(plan=sale)
+            # for p in planes:
+            #       print(p.sale)
       dict_client = { 
-            'id': c.id,
-            'name': c.name, 
-            'email': c.email,
-            'number': c.number,
+            'id': sale.cliente.id,
+            'name': sale.cliente.name, 
+            'email': sale.cliente.email,
+            'number': sale.cliente.number,
+            'sale': sale.id,
             'plans':  [{"id": plan.id, "name": plan.name, 
                         "img": plan.img.url, "price": "{:,.2f}".format(plan.price),
                         "is_activate": plan.is_activate  , 
@@ -172,9 +179,18 @@ def Create_P_Adicionales(request):
 
 
 def Terminar_Cita(request):
-      print(request.GET.get('id'))
-      p = models.Plans.objects.get(id=request.GET.get('id'))
-      p.is_activate = False
-      p.save()
+      sale = models.Sale.objects.get(id=request.GET.get('id'))
+      sale.saled_confirm = True
+      sale.save()
+
+      # Create a FinancialRecord for the sale
+      if sale.saled_confirm == True:
+            record = models.FinancialRecord.objects.create(
+            name=sale.cliente.name,
+            description=sale.plan.name,
+            ingreso = sale.price_total
+            )
+
+            record.save()
       
       return JsonResponse(list(),  safe=False)          

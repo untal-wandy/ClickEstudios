@@ -298,3 +298,22 @@ class FinancialRecord(models.Model):
 
       def __str__(self):
             return f"{self.name} - {self.description}"
+
+
+class Sale(models.Model):
+      cliente = models.ForeignKey(Customer, related_name='cliente', 
+            on_delete=models.CASCADE, blank=True, null=True)
+      plan = models.ForeignKey(Plans, related_name='plan', on_delete=models.CASCADE, blank=True, null=True)
+      price_total = models.IntegerField(default=0, blank=True, null=True)
+      date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+      is_activate = models.BooleanField(default=True, blank=True, null=True)
+      saled = models.BooleanField(default=False, blank=True, null=True)
+
+      saled_confirm = models.BooleanField(default=False, blank=True, null=True)
+
+      reserver = models.BooleanField(default=False, blank=True, null=True)
+      reserver_mount = models.IntegerField(default=0, blank=True, null=True)
+      abonado = models.IntegerField(default=0, blank=True, null=True)
+
+      def __str__(self):
+            return f"Venta #vn00{self.id} {self.cliente} - {self.plan} - {self.date} - {'Vendido' if self.saled == True else 'No pagado'}" 

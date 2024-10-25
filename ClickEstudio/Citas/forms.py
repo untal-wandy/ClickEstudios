@@ -231,8 +231,8 @@ class FinancialRecordForm(forms.ModelForm):
             widgets = {
                         'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
                         'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descripción'}),
-                        'ingreso': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Ingreso'}),
-                        'gasto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Gasto'}),
+                        'ingreso': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto de ingreso'}),
+                        'gasto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto de gastos'}),
             }
 
       # Remove labels from form fields

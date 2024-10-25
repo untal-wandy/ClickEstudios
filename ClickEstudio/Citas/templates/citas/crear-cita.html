@@ -50,7 +50,7 @@
                               {% include "citas/components/confirmation.html" %}
                         </section>
                   </div>
-                  <div class="swiper-slide d-none">
+                  <div class="swiper-slide ">
                         {% include "citas/components/calendary.html" %}
                   </div>
                   {{form.plan_choice}}
@@ -69,23 +69,23 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <!-- Inicialización del Swiper -->
   <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          var swiper = new Swiper('.swiper-container', {
-              effect: 'cube',
-              grabCursor: true,
-              cubeEffect: {
-                  shadow: false,
-                  slideShadows: false,
-                  shadowOffset: 20,
-                  shadowScale: 0.94,
-              },
-              loop: true,
-              navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
-              },
-          });
-      });
+            document.addEventListener("DOMContentLoaded", function () {
+            var swiper = new Swiper('.swiper-container', {
+                  effect: 'cube',
+                  grabCursor: true,
+                  cubeEffect: {
+                        shadow: false,
+                        slideShadows: false,
+                        shadowOffset: 20,
+                        shadowScale: 0.94,
+                  },
+                  loop: true,
+                  navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                  },
+            });
+            });
 
             document.addEventListener("DOMContentLoaded", function () {
                   const url = window.location.href;
@@ -159,7 +159,9 @@ return N;
 
   let  Next = ()=> {
                   document.querySelector('.swiper-button-next').click();
-                  document.getElementById('last').classList.remove('d-none');
+                  if(document.getElementById('last')) {
+                        document.getElementById('last').classList.remove('d-none');
+                  }
             }
             let  Last = ()=> {
                   document.querySelector('.swiper-button-prev').click();
