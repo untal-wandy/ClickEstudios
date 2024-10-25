@@ -195,8 +195,8 @@
                               <h6>Monto restante ${{sale_r.abonado|intcomma}}.00 </h6> 
                               <h6>Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 </h6>
                               {% else %}
-                              <h6>Monto restante ${{sale_r.abonado|intcomma}}.00 </h6> 
-                              <h6>Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 </h6>
+                              <h6 style="font-size: 12px; line-height: 8px !important;">Monto restante ${{sale_r.abonado|intcomma}}.00 </h6> 
+                              <h6 style="font-size: 12px; line-height: 8px !important;">Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 </h6>
                               {% endif %}
                         </span>
                   </div>
@@ -233,7 +233,7 @@
                   <h6 class="">¿Con que cantidad desea la reservacion?</h6>
                   <span class="text-white-50 ">Precio del plan <strong>${{sale_r.plan.price|intcomma}}.00</strong> </span>
                  
-                  <p class="text-white-50 " style="font-size: 12px; line-height: 14px;">
+                  <p class="text-white-50 " style="font-size: 12px !important; line-height: 14px;">
                        Monto pagado anteriomente <strong>$ {{sale_r.reserver_mount|intcomma}}.00 </strong> <br>
                        Monto faltante <strong>${{sale_r.price_reserved|intcomma}}.00</strong>
                   </p>

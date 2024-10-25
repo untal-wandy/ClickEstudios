@@ -128,6 +128,12 @@ class CustomerCreateView(CreateView, Mail):
                   nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
                   objeto.plans_more.add(nuevo_plan)
                   print(objeto.plans_more)
+                  sale = models.Sale(
+                        cliente=models.Customer.objects.get(id=form.instance.id),
+                        plan=form.instance.plans,
+                        price_total=form.instance.plans.price,   
+                  )
+                  sale.save()
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
             
             except self.model.MultipleObjectsReturned:
@@ -136,11 +142,23 @@ class CustomerCreateView(CreateView, Mail):
                   objeto = objetos.first()  # Tomamos el primero de la lista
                   nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
                   objeto.plans_more.add(nuevo_plan)
+                  sale = models.Sale(
+                        cliente=models.Customer.objects.get(id=form.instance.id),
+                        plan=form.instance.plans,
+                        price_total=form.instance.plans.price,   
+                  )
+                  sale.save()
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
             
             except self.model.DoesNotExist:
                   if form.is_valid():
                         form.save()
+                        sale = models.Sale(
+                        cliente=models.Customer.objects.get(id=form.instance.id),
+                        plan=form.instance.plans,
+                        price_total=form.instance.plans.price,   
+                  )
+                        sale.save()
                         return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
 
       def form_invalid(self, form):
