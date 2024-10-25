@@ -12,123 +12,89 @@
             font-size: 14px;
       }
 </style>
-<section class='  bg-black bg-opacity-50 overflow-scroll ' >
+<section class='  bg-black bg-opacity-50 overflow-scroll '  >
       {% include "citas/components/nav.html" %}
       <div class="   align-content-end" style='height: 93vh;'>
             
   
    
-            <section class="d-flex     overflow-scroll justify-content-center  flex-wrap " >
-                  <section class='d-flex m-0 w-100'>
-                        <div class="accordion-item mt-1   w-50 "  >
-                              <h2 class="accordion-header" id="headingTwo">
-                                      <button class="accordion-button collapsed  rounded-4 p-2" type="button"  data-bs-toggle="collapse"    data-bs-target="#collapseTwo" style="width: max-content;" aria-expanded="false" aria-controls="collapseTwo">    
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack m-1" viewBox="0 0 16 16">
-                                                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                                                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
-                                              </svg> Movimientos de Efectivo
-                                      </button>
-                          </h2>
-                          <div id="collapseTwo"  class="accordion-collapse collapse w-100 " aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div  style="height: 10rem;" class=" w-100  bg-white bg-opacity-10 rounded-4 p-3 m-1 overflow-scroll">
-                  
-                                      <!-- Tabla de movimientos de efectivo -->
-                                      <table class="w-100">
-                                          <thead>
-                                              <tr>
-                                                  <th>#</th>
-                                                  <th>Tipo de Movimiento</th>
-                                                  <th>Cantidad</th>
-                                                  <th>Realizado Por</th>
-                                                  <th>Fecha</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              {% for movement in movements %}
-                                              <tr>
-                                                  <td>{{ movement.id }}</td>
-                                                  <td>{{ movement.get_movement_type_display }}</td>
-                                                  <td>RD$ {{ movement.amount }}</td>
-                                                  <td>{% if movement.created_by %}{{ movement.created_by.username }}{% else %}N/A{% endif %}</td>
-                                                  <td>{{ movement.created_at|date:"d/m/Y H:i" }}</td>
-                                              </tr>
-                                              {% empty %}
-                                              <tr>
-                                                  <td colspan="5" class="text-center pt-4">
-                                                        <strong>
-                                                              No hay movimientos de efectivo disponibles
-                                                        </strong>      
-                                                  </td>
-                                              </tr>
-                                              {% endfor %}
-                                          </tbody>
-                                      </table>
-                                      </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="accordion-item m-1 w-50 ">
-                          <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed  p-2 rounded-4 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" style="width: max-content;" aria-expanded="true" aria-controls="collapseTwo2">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-2-back-fill m-1" viewBox="0 0 16 16">
-                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5H0zm11.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM0 11v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1z"/>
-                                  </svg>     Transacciones
-                            </button>
-                          </h2>
-                          <div id="collapseTwo2"  class="w-100 accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div   style="height: 10rem;" class=" w-100  bg-white bg-opacity-10 rounded-4 p-3 m-1 overflow-scroll">
-                
-                                      <!-- Tabla de transacciones -->
-                                      <table class="w-100">
-                                          <thead>
-                                              <tr>
-                                                  <th>#</th>
-                                                  <th>Tipo de Transacción</th>
-                                                  <th>Cajero</th>
-                                                  <th>Monto</th>
-                                                  <th>Descripción</th>
-                                                  <th>Fecha</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              {% for transaction in transactions %}
-                                              <tr>
-                                                  <td>{{ transaction.id }}</td>
-                                                  <td>{{ transaction.get_transaction_type_display }}</td>
-                                                  <td>{% if transaction.cashier %}{{ transaction.cashier.username }}{% else %}N/A{% endif %}</td>
-                                                  <td>RD$ {{ transaction.amount }}</td>
-                                                  <td>{{ transaction.description|default:"No disponible" }}</td>
-                                                  <td>{{ transaction.created_at|date:"d/m/Y H:i" }}</td>
-                                              </tr>
-                                              {% empty %}
-                                              <tr>
-                                                  <td colspan="6" class="text-center pt-4">
-                                                          <strong>No hay transacciones disponibles</strong>
-                                                    </td>
-                                              </tr>
-                                              {% endfor %}
-                                          </tbody>
-                                      </table>
-                                        </div>
-                            </div>
-                          </div>
-                        </div>
-                  </section>
+            <section data-aos="fade-up" class="d-flex     overflow-scroll justify-content-center  flex-wrap " >
+      
+                <div class="w-100 d-flex justify-content-start flex-wrap">
+                    <h2 class="accordion-header w-100" id="headingTwo">
+                        <button class="accordion-button collapsed  p-2 rounded-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo3" style="width: max-content;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks-grid me-1" viewBox="0 0 16 16">
+                                <path d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1m9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1m0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0z"/>
+                              </svg> Control de caja
+                        </button>
+                      </h2>
+                      <p class="text-white-50 p-0 ps-2" style="font-size: 12px;">
+                        Ayuda a garantizar que el dinero en efectivo y las transacciones coincidan con las ventas registradas.
+                        </p>
+                </div>
+                <section class=' bg-white bg-opacity-10 p-3 rounded-4 m-2 w-100 overflow-auto' style="height: 15rem;">
+                    <table class="w-100">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Descripción</th>
+                                <th>Ingreso</th>
+                                <th>Gasto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records %}
+                            <tr>
+                                <td>{{ record.id }}</td>
+                                <td>{{ record.date|date:"d/m/Y" }}</td>
+                                <td>{{ record.name }}</td>
+                                <td>{{ record.description|intcomma }}</td>
+                                <td> 
+                                    {% if record.ingreso %}
+                                        ${{ record.ingreso|intcomma }}
+                                    {% endif %}
+                                
+                                </td>
+                                <td>
+                                    {% if record.gasto %}
+                                        ${{ record.gasto|intcomma }}
+                                    {% endif %}
+                                
+                                </td>
+
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center pt-4">
+                                    <strong>No hay registros financieros disponibles</strong>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                </section>
+                <div class="d-flex  w-100 justify-content-end  p-2 pb-0">
+                    <a href="{% url "citas:financial-record-create" %}">  <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> + Ingreso o gastos</button> </a>
+              
+                </div>
   
-                  <div class="accordion-item m-1 w-100 ">
+                  <div data-aos="fade-up" class="accordion-item m-1 mt-0 w-100 ">
                         <h2 class="accordion-header" id="headingTwo">
                           <button class="accordion-button collapsed  p-2 rounded-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo3" style="width: max-content;">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks m-1" viewBox="0 0 16 16">
                                     <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                                  </svg>   Registros de Caja
+                                  </svg>   Historial de caja
                           </button>
                         </h2>
+                        <p class="text-white-50 p-0 ps-2" style="font-size: 12px;">
+                            Garantiza un registro claro y accesible de todas las operaciones para evitar fraudes o errores.
+                          </p>
                         <div id="collapseTwo3"  class="w-100 accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                           <div class="accordion-body">
-                              <div   style="height: 12rem;" class="   bg-white bg-opacity-10 rounded-4 p-3 m-1 overflow-scroll " >
+                              <div   style="height: 20rem;" class="   bg-white bg-opacity-10 rounded-4 p-3 m-1 overflow-scroll " >
             
                                     <!-- Tabla de registros de caja -->
                                     <table class=" w-100">
@@ -172,20 +138,27 @@
                         </div>
                   </div>
             </section>
-            <div class="rounded-5 m-1 p-2   " >
-                  <h1 class="mt-1">Gestión de Caja</h1>
+            <div class="rounded-5 m-1 p-2   " data-aos="fade-up">
+
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed  p-1 rounded-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo3" style="width: max-content;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-fill me-1" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+                          </svg> Gestión de Caja
+                    </button>
+                  </h2>
                   <p class="text-white-50" style="font-size: 12px;">
                     La Gestión de Caja se utiliza para controlar el dinero que entra y sale de la caja registradora de una empresa, tienda o negocio. Permite registrar y supervisar todos los movimientos de efectivo, como ventas, retiros, depósitos y devoluciones.
                   </p>
-                  <section class="w-100  d-flex ">
+                  <section  class="w-100  d-flex ">
                                           <!-- Mostrar información de la caja -->
-                      <div class="card bg-white pt-4 bg-opacity-10 border-0 cj w-100 text-white  " 
-                          style="height: 15rem; border-radius: 1.5rem;">
+                      <div class="card bg-white  bg-opacity-10 border-0 cj w-100 text-white  " 
+                          style="height: 13rem; border-radius: 1.5rem;">
                           <div class="card-body d-flex w-100">
                                 <div class="w-100 d-flex justify-content-center flex-wrap">
                                       {% if cash_register.status == 'open' %}
                                       {% comment %} <strong > Apertura</strong> {% endcomment %}
-                                          <div class='text-center mt-4'>
+                                          <div class='text-center me-3 mt-4 '>
                                                 <h4 class="card-title p-0 m-0 mt-4"> <strong>Caja {{ cash_register.id }}</strong> 
                                                       <span class="text-white-50">
                                                             - Estado: {{ cash_register.get_status_display }}
@@ -193,14 +166,33 @@
                                                 </h4>
                                          
                                                     <p> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register.opening_balance|intcomma }}</span> </p>
-                                                    <p> <strong>Apertura:</strong>  <span class="text-white-50">{{ cash_register.opened_at }} por {{ cash_register.opened_by }}</span> </p>
+                                                    <p> <strong>Apertura:</strong>  
+                                                        <span class="text-white-50">{{ cash_register.opened_at|date:"d/m/Y" }} 
+                                                        por {{ cash_register.opened_by }}</span> </p>
                                                 
           
+                                          </div>
+                                          <div  class="text-center  " style="margin-top: 45px;">
+ 
+                                            <p>
+                                                <strong>Ingresos</strong>
+                                                <span class="text-white-50"> ${{count_ingresos|intcomma}} </span>
+                                            </p>
+                                            <p>
+                                                <strong>Gastos</strong>
+                                                <span class="text-white-50"> ${{count_gastos|intcomma}} </span>
+                                            </p>
+                                            
+                                            <p>
+                                                <strong>Balance en caja</strong>
+                                                <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
+                                            </p>
+                                    
                                           </div>
                                           {% else %}
                                           <div style='width: 300px;' class='text-center mt-4'>
                                          
-                                                <h4 class="card-title p-0 m-0 "> <strong> Caja :</strong>
+                                                <h4 class="card-title p-0 pt-2 m-0 "> <strong> Caja :</strong>
                                                       <span class="text-white-50"> #{{ cash_register_last.id }}
                                                              {{ cash_register_last.get_status_display }}
                                                       </span>
@@ -223,16 +215,23 @@
                                           {% csrf_token %}
                                           <div class="form-group" style='width: 400px;'>
                                               <label for="closing_balance " class="text-white-50">Monto de Cierre</label>
-                                              <p class='text-white-50' style='font-size: 12px;'>
+                                              <p class='text-white-50 mb-2' style='font-size: 12px;'>
                                                 Es la cantidad total de dinero que queda en la caja al final de un turno o día de trabajo
                                               </p>
-                                              <input type="number" class="form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0" name="closing_balance"   step="0.01" required style="">
+                                              <span class="bg-white bg-opacity-10 p-2 rounded-5">
+                                                    <strong>Balance al cierre:</strong> ${{count_ingresos|intcomma}}
+                                              </span>
+                                              <input type="number" class="form-control d-none w-100 text-white bg-white bg-opacity-10 rounded-4 border-0" name="closing_balance"   step="0.01" value="{{count_ingresos}}" required style="">
                                           </div>
-                                          <button type="submit" name="close_cash" class="btn bg-black bg-opacity-25 rounded-4 mt-2 text-white">Cerrar Caja</button>
+                                          
+                                          
+
+                                          <button type="submit" name="close_cash" class="btn bg-black bg-opacity-25 rounded-5 mt-3 text-white ps-4 pe-4"> 
+                                            - Cerrar Caja</button>
                                       </form>
                                   {% else %}
                        
-                                      <div class=' w-100 '>
+                                      <div class=' w-100 mt-3 '>
                                           <form method="post"  class=''>
                                                 
                                                 {% csrf_token %}
@@ -241,7 +240,7 @@
                                                     <p class='text-white-50' style='font-size: 12px;'>
                                                       Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo
                                                     </p>
-                                                    <input type="number" class="form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
+                                                    <input type="number" value="0" class="d-none form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
                                                 </div>
                                                 <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 mt-2 text-white">Abrir nueva caja</button>
                                             </form>
@@ -265,7 +264,7 @@
       TextSession('Control de caja')
       window.onload = function() {
             // Selecciona todos los elementos con la clase 'collapsed'
-            var collapsedElements = document.querySelectorAll('.collapsed');
+            // var collapsedElements = document.querySelectorAll('.collapsed');
             
             // Itera sobre los elementos y simula un clic en cada uno
             collapsedElements.forEach(function(element) {

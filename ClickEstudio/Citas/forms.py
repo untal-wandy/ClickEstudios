@@ -222,3 +222,22 @@ class IngresoForm(forms.ModelForm):
             # Add placeholders to form fields
             self.fields['descripcion'].widget.attrs['placeholder'] = 'Descripción'
             self.fields['cantidad'].widget.attrs['placeholder'] = 'Cantidad'
+
+
+class FinancialRecordForm(forms.ModelForm):
+      class Meta:
+            model = models.FinancialRecord
+            fields = ['name', 'description', 'ingreso', 'gasto', 'is_ingreso_or_gasto']
+            widgets = {
+                        'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+                        'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descripción'}),
+                        'ingreso': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto de ingreso'}),
+                        'gasto': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto de gastos'}),
+            }
+
+      # Remove labels from form fields
+ 
+      def __init__(self, *args, **kwargs):
+            super(FinancialRecordForm, self).__init__(*args, **kwargs)
+            for field in self.fields:
+                  self.fields[field].widget.attrs['class'] = 'form-control'

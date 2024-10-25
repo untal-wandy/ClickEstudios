@@ -60,7 +60,7 @@
 
 
 
-<div class="container-list position-absolute shadow    overflow-auto  mt-2" 
+<div  class="container-list position-absolute shadow    overflow-auto  mt-2" 
 style="border-radius: 1rem ; max-height: 15rem;  width: 30rem;
 position: absolute;
 background-color: rgb(99, 99, 99);
@@ -316,11 +316,12 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                                      success: (data) => { 
                                           let name_user =  document.querySelector('.name-user')
                                           if(name_user){
-                                                name_user.innerHTML = data.name
+                                                name_user.innerHTML = data.name + data.sale
                                           }
                                           let name_email = document.querySelector('.email-user')
                                           if(name_email){
                                                 name_email.innerHTML = data.email
+
                                           } 
 
                                            document.getElementById('id_container_profile') 
@@ -358,7 +359,7 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                                                       if(document.querySelector('.profile-adicionales ')){
                                                             document.querySelector('.profile-adicionales ').classList.remove('d-none')
                                                             document.querySelector('.profile-adicionales').classList.add('flip-down');
-                                                            document.querySelector('#id_plan').value = this.id
+                                                            document.querySelector('#id_plan').value = data.sale
                                                       }
                                                       console.log('ah!')
                                                       $.ajax({

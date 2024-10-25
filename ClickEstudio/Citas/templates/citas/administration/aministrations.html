@@ -116,10 +116,10 @@
       <input type="text" id="id_number">
 </div>
 <div class="background-containers vh-100 p-0 overflow-auto " id="bg-admin" >
-      <div class="content blur bg-black bg-opacity-25 border-0 h-100 overflow-auto">
+      <div class="content blur bg-black bg-opacity-25 border-0 vh-100 overflow-auto">
             {% include "citas/components/nav.html" %}
                 <!-- Aquí va el contenido -->
-            <div  class="  p-3 w-100 border-0 d-flex flex-wrap overflow-auto  mb-5 pb-5 justify-content-center" style="width: max-content;" >
+            <div  data-aos="fade-up" class="  p-3 w-100 border-0 h-100 align-content-start   d-flex flex-wrap overflow-auto  mb-5 pb-5 justify-content-center" style="width: max-content; " >
 
                   {% include "citas/administration/list-citas.html" %}
                   {% include "citas/administration/reservados.html" %}
