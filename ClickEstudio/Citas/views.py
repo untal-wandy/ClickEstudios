@@ -899,18 +899,20 @@ class CashRegisterView(View):
     def get(self, request):
             cash_register = models.CashRegister.objects.filter(status='open').first()
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
-            records = models.FinancialRecord.objects.all()
+            records = models.FinancialRecord.objects.filter(is_activate=True)
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
-            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True)
-            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
+            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True, is_activate=True)
+            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, is_activate=True)
 
             count_ingresos = 0
             count_gastos = 0
             for i in ingresos:
-                  count_ingresos += i.ingreso
+                  if i.ingreso:
+                        count_ingresos += i.ingreso
 
-            for i in gastos:
-                  count_gastos += i.gasto
+            for g in gastos:
+                  if g.gasto:
+                        count_gastos += g.gasto
 
             context = {
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
@@ -932,8 +934,8 @@ class CashRegisterView(View):
                     opened_by=request.user,
                     opening_balance=opening_balance,
                     opened_at=timezone.now(),
-                    status='open'
-                )
+                    status='open')
+
                 messages.success(request, 'Caja abierta correctamente.')
             
                 return redirect('/caja')
@@ -948,6 +950,10 @@ class CashRegisterView(View):
                 cash_register.closed_at = timezone.now()
                 cash_register.status = 'closed'
                 cash_register.save()
+                records = models.FinancialRecord.objects.filter(is_activate=True)
+                for r in records:
+                        r.is_activate = False
+                        r.save()
                 messages.success(request, 'Caja cerrada correctamente.')
                 return redirect('/caja')
 
@@ -993,7 +999,7 @@ class FinancialRecordCreateView(CreateView):
       model = models.FinancialRecord
       form_class = forms.FinancialRecordForm
       template_name = 'citas/financial_record_create.html'
-      success_url = reverse_lazy('citas:financial-record-list')
+      success_url = reverse_lazy('citas:caja')
 
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -1002,6 +1008,10 @@ class FinancialRecordCreateView(CreateView):
             return context
 
       def form_valid(self, form):
+            if form.instance.ingreso == None:
+                  form.instance.is_ingreso_or_gasto = False
+                  form.save()
+            print(form.instance.ingreso)
             messages.success(self.request, 'Registro financiero creado correctamente.')
             return super().form_valid(form)
 

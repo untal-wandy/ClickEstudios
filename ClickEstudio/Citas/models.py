@@ -295,6 +295,7 @@ class FinancialRecord(models.Model):
       ingreso = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
       gasto = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
       is_ingreso_or_gasto = models.BooleanField(default=True, blank=True, null=True)
+      is_activate = models.BooleanField(default=True, blank=True, null=True)
 
       def __str__(self):
             return f"{self.name} - {self.description}"

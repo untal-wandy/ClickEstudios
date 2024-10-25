@@ -75,6 +75,7 @@ def Reserver(request):
             sale.abonado =   sale.plan.price -  sale.reserver_mount
             sale.save()
       if sale.reserver_mount >=  sale.plan.price:
+            
             sale.saled = True
             sale.save() 
       return JsonResponse(list(),  safe=False)
