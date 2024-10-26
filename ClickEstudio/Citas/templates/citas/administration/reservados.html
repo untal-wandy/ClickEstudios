@@ -210,7 +210,6 @@
                                     {% if sale_r.plan.price == sale_r.reserver_mount %}
                            
 
-            
                                     <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex"  >
                                           Pago Completado
                                     </button>
@@ -220,7 +219,7 @@
                                           Cancelar Cita
                                     </button>
                                    
-                                    <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv  bg-transparent reserver text-white d-flex" style='color: rgb(255, 69, 69) !important; ''>
+                                    <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv  bg-transparent reserver text-white d-flex" style='color: rgb(255, 69, 69) !important; '>
                                           Completar Pago
                                     </button>
                                     {% endif %}
@@ -235,7 +234,7 @@
                  
                   <p class="text-white-50 " style="font-size: 12px !important; line-height: 14px;">
                        Monto pagado anteriomente <strong>$ {{sale_r.reserver_mount|intcomma}}.00 </strong> <br>
-                       Monto faltante <strong>${{sale_r.price_reserved|intcomma}}.00</strong>
+                       Monto faltante <strong>${{sale_r.abonado|intcomma}}.00</strong>
                   </p>
                   
                   <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-4 "> Ingresar cantidad de reservacion</label>
