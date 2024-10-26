@@ -159,13 +159,13 @@
                                       {% if cash_register.status == 'open' %}
                                       {% comment %} <strong > Apertura</strong> {% endcomment %}
                                           <div class='text-center me-3 mt-4 '>
-                                                <h4 class="card-title p-0 m-0 mt-4"> <strong>Caja {{ cash_register.id }}</strong> 
+                                                <h4 class="card-title p-0 m-0 mt-4" style="font-size: 14px;"> <strong>Caja {{ cash_register.id }}</strong> 
                                                       <span class="text-white-50">
                                                             - Estado: {{ cash_register.get_status_display }}
                                                       </span>
                                                 </h4>
                                          
-                                                    <p> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register.opening_balance|intcomma }}</span> </p>
+                                                    <p class="p-0 m-0"> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register.opening_balance|intcomma }}</span> </p>
                                                     <p> <strong>Apertura:</strong>  
                                                         <span class="text-white-50">{{ cash_register.opened_at|date:"d/m/Y" }} 
                                                         por {{ cash_register.opened_by }}</span> </p>
@@ -174,16 +174,16 @@
                                           </div>
                                           <div  class="text-center  " style="margin-top: 45px;">
  
-                                            <p>
+                                            <p class="m-0 p-0">
                                                 <strong>Ingresos</strong>
                                                 <span class="text-white-50"> ${{count_ingresos|intcomma}} </span>
                                             </p>
-                                            <p>
+                                            <p class="m-0 p-0">
                                                 <strong>Gastos</strong>
                                                 <span class="text-white-50"> ${{count_gastos|intcomma}} </span>
                                             </p>
                                             
-                                            <p>
+                                            <p class="m-0 p-0">
                                                 <strong>Balance en caja</strong>
                                                 <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
                                             </p>

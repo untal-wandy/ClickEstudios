@@ -162,7 +162,9 @@ return N;
 
   let  Next = ()=> {
                   document.querySelector('.swiper-button-next').click();
-                  document.getElementById('last').classList.remove('d-none');
+                 if( document.getElementById('last')){
+                        document.getElementById('last').classList.remove('d-none');
+                 }
             }
             let  Last = ()=> {
                   document.querySelector('.swiper-button-prev').click();
