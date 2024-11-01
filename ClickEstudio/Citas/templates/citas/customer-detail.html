@@ -45,13 +45,18 @@
         }
  
 </style>
-<div class="background-containesr vh-100 mb-5 pb-5" style='' id="bg-dos" >
-      <div class="contenst">
-          <!-- Aquí va el contenido -->
-      </div>
-  </div>
-<div class=' w-100 text-center position-absolute  d-flex justify-content-center flex-wrap'
-      style='top:5rem;' >
+
+<div class=' w-100 text-center   vh-100 d-flex justify-content-center flex-wrap overflow-scroll' >
+{% if service_admin %}
+{% include "citas/components/nav.html" %}
+            <div class='d-flex justify-content-center mb-5'>
+                  <a href="{% url "citas:administrations-citas" %}"> 
+                        <button class='text-white-50 border-0 bg-transparent font-primary'>
+                              Volver a atras
+                        </button>      
+                  </a>
+            </div>
+      {% endif %}
       <h3 class="font-primary w-100" 
             style='text-shadow: 1px 2px 4px solid grey;
             font-size:20px;'>Agendado Exitoso</h3>
@@ -128,16 +133,8 @@
             {% comment %} Si tiene alguna pregunta o necesita reprogramar su cita, no dude en p {% endcomment %}
                   
       </div>
+      
 </div>
-{% if service_admin %}
-      <div class='d-flex justify-content-center mb-5 mt-3'>
-            <a href="{% url "citas:administrations-citas" %}"> 
-                  <button class='text-white-50 border-0 bg-transparent font-primary'>
-                        Volver a atras
-                  </button>      
-            </a>
-      </div>
-{% endif %}
 
 <style>
       #divs-btns {
@@ -145,6 +142,6 @@
       }
 </style>
 <script>
-
+      TextSession('Agendado')
 </script>
 {% endblock  %}

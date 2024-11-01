@@ -94,9 +94,11 @@ class CitasAdministrations(TemplateView, Mail):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             sales_reserver = models.Sale.objects.filter(saled=False, reserver=True)
+            saled_citas = models.Sale.objects.filter(saled=True, reserver=True)
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
+            context['saled_citas'] = saled_citas
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
                   context['service_admin'] = True
@@ -235,7 +237,10 @@ class CustomerDetailView(DetailView):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['service_admin'] = True
+            if self.request.user.is_authenticated:
+                  context['service_admin'] = True
+                  context['service'] = models.ServiceImage.objects.all()
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
 
             context['c'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
@@ -314,6 +319,7 @@ class ServiceSelect(DetailView):
             context['img_mkl'] = mkl
             context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             context['plans'] = self.model.objects.get(id=self.kwargs.get('pk')).services.all()
+            context['No_autorize'] = True
             # context['img_relate_service'] = img_h.
             if  self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -503,6 +509,16 @@ class PlansCreate(CreateView):
             return context
       
       def form_valid(self, form):
+            img = self.request.FILES.get('img')
+            if img:
+                  image = Image.open(img)
+                  image = image.convert('RGB')  # Convert to RGB mode
+                  image = image.resize((220, 220), Image.LANCZOS)
+                  output = BytesIO()
+                  image.save(output, format='JPEG', quality=10)
+                  output.seek(0)
+                  form.instance.img = InMemoryUploadedFile(output, 'ImageField', img.name, 'image/jpeg', output.getbuffer().nbytes, None)
+                  form.save()
             return super().form_valid(form)
 
       def form_invalid(self, form):
@@ -535,6 +551,16 @@ class PlansUpdate(UpdateView):
             return context
       
       def form_valid(self, form):
+            img = self.request.FILES.get('img')
+            if img:
+                  image = Image.open(img)
+                  image = image.convert('RGB')  # Convert to RGB mode
+                  image = image.resize((220, 220), Image.LANCZOS)
+                  output = BytesIO()
+                  image.save(output, format='JPEG', quality=10)
+                  output.seek(0)
+                  form.instance.img = InMemoryUploadedFile(output, 'ImageField', img.name, 'image/jpeg', output.getbuffer().nbytes, None)
+                  form.save()
             return super().form_valid(form)
 
       def form_invalid(self, form):
@@ -590,6 +616,9 @@ from django.db.models import Count, IntegerField
 from django.db.models.functions import ExtractMonth, ExtractYear
 import calendar
 import locale
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 class HistoriSale(TemplateView, Options):
       model = models.Customer
       # form_class = forms.CustomerForm2

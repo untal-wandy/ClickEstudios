@@ -1,3 +1,17 @@
+<style>
+      .inputs 
+      {
+            border-radius: 1rem;
+            height: 2.9rem;
+            /* border: solid 1px rgba(152, 152, 152, 0.733) !important;  */
+      }
+      label 
+      {
+            font-size: 12px;
+            color: rgb(156, 156, 156);
+            margin-left: 0.5rem;
+      }
+</style>
 <div class="background-containers " id="bg-con">
       <div class="contents">
             <div id="search-div" class="p-2  d-none   justify-content-center  flex-wrap w-100" 
@@ -28,31 +42,31 @@
                   <div class="d-flex  w-100 flex-wrap justify-content-center " 
                   style="max-width: 30rem;">
       
-                  <div class="form-floating  w-100">
+                  <div class="form-floatings  w-100">
+                        <label for="id_name" class="w-100">Nombre y apellidos</label>
                         {{form.name}}
-                        <label for="id_name">Nombre y apellidos</label>
                   </div>   
                         
                   <div  class="w-100 mt-2" id="email">
-                        <div class="form-floating ">
+                        <div class="form-floatings d-flex flex-wrap ">
+                              <label for="id_email" class="w-100">Correo electronico</label>
                               {{ form.email }}
-                              <label for="id_email">Correo electronico</label>
                         </div>
                   </div>
       
                   <div  class="w-100 mt-2" >
-                        <div class="form-floating w-100" id="number" >
+                        <div class="form-floatings w-100" id="number" >
+                              <label for="id_number" class="w-100">Numero de telefono </label>
                               {{ form.number }}
-                              <label for="id_number">Numero </label>
                         </div>
                   </div>
             </div>
             </div>
           
-            <span class=" d-flex justify-content-center text-center mt-4 w-100">
-                  <span onclick="Next()" style="background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important; 
+            <span class=" d-flex justify-content-end text-center mt-4 w-100">
+                  <span onclick="Next()" style="
                     border-radius: 1.5rem; height: auto;
-                    width: 10rem;" class="text-white p-2">
+                    width: 10rem;" class="text-white bg-white bg-opacity-10 p-2">
                     Siguiente
                   </span>
             </span>

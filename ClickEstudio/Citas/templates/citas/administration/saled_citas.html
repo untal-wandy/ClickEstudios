@@ -1,0 +1,31 @@
+{% if saled_citas %}
+
+<div class='d-flex w-100 bg-white bg-opacity-10 p-2'>
+      <table class='w-100'>
+            <thead>
+                  <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Plan</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                  </tr>
+            </thead>
+            <div>
+                  <tbody>
+                        {% for cita in saled_citas %}
+                        <tr>
+                              <td>{{ cita.id }}</td>
+                              <td>{{ cita.cliente.name }}</td>
+                              <td>{{ cita.plan.name }}</td>
+                              <td>{{ cita.cliente.date_choice|date:"d/M/Y" }}</td>
+                              <td>{{ cita.cliente.date_time_choice }}</td>
+                        </tr>
+                        {% endfor %}
+                  </tbody>
+            </div>
+      </table>
+</div>
+
+
+{% endif %}

@@ -3,6 +3,7 @@
 <style>
       input {
             border-radius: 1rem !important;
+            background-color: rgba(0, 0, 0, 0.568);
       }
       #base-plans
       {
@@ -49,13 +50,13 @@
                   <img src="{{img}}" id="view-imge" class="rounded-4" alt="" 
                   style="max-height: 200px;">
             </div>
-           <section class="d-flex ">
+           <section class="d-flex flex-wrap ">
                  <div class='form-floatin mb-1 m-1 w-50'>
                        <label for="id_name">Nombre del plan</label>
                        {{form.name}}
                  </div>
-                 <div class='form-floatin m-1 w-50'>
-                       <label for="id_price">Precio del plan</label>
+                 <div class='form-floatin m-1 w-20    '>
+                       <!-- <label for="id_price">Precio del plan</label> -->
                        {{form.price}}
                  </div>
            </section>
@@ -106,7 +107,7 @@ document.getElementById('id_img').addEventListener('change', function(event) {
     });
 
            
-TextSession('Agregar, Editar y Listado de Planes')
+TextSession('Editar Planes')
 
 
 
