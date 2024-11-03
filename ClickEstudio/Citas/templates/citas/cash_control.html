@@ -192,14 +192,14 @@
                                           {% else %}
                                           <div style='width: 300px;' class='text-center mt-4'>
                                          
-                                                <h4 class="card-title p-0 pt-2 m-0 "> <strong> Caja :</strong>
+                                                <h6 class="card-title p-0 pt-2 m-0 "> <strong> Caja :</strong>
                                                       <span class="text-white-50"> #{{ cash_register_last.id }}
                                                              {{ cash_register_last.get_status_display }}
                                                       </span>
-                                                </h4>
-                                                    <p> <strong>Cerrado por:</strong>  <span class="text-white-50 text-capitalize" >  {{ cash_register_last.closed_by }}  </span> </p>
-                                                    <p> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register_last.opening_balance|intcomma }}</span> </p>
-                                                    <p> <strong>Balance de Cierre:</strong> <span class="text-white-50"> RD$ {{ cash_register_last.closing_balance|intcomma }}</span> </p>
+                                                </h6>
+                                                    <p class="p-0 m-0"> <strong>Cerrado por:</strong>  <span class="text-white-50 text-capitalize" >  {{ cash_register_last.closed_by }}  </span> </p>
+                                                    <p class="p-0 m-0"> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register_last.opening_balance|intcomma }}</span> </p>
+                                                    <p class="p-0 m-0"> <strong>Balance de Cierre:</strong> <span class="text-white-50"> RD$ {{ cash_register_last.closing_balance|intcomma }}</span> </p>
                                                     <span >
                                                       <strong > Ultimo cierre <span class='text-white-50'>{{cash_register_last.closed_at}}</span> </strong> 
                                                 </span>
@@ -240,7 +240,7 @@
                                                     <p class='text-white-50' style='font-size: 12px;'>
                                                       Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo
                                                     </p>
-                                                    <input type="number" value="0" class="d-none form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
+                                                    <input type="number" value="{{ cash_register_last.closing_balance}}" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
                                                 </div>
                                                 <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 mt-2 text-white">Abrir nueva caja</button>
                                             </form>
