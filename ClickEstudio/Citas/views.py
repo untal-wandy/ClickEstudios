@@ -961,7 +961,35 @@ class CashRegisterView(View):
                   if g.gasto:
                         count_gastos += g.gasto
 
+
+            
+            years = list(range(2020, 2031))
+            current_year = datetime.now().year
+            months = [
+                  {'number': 1, 'name': 'Enero'},
+                  {'number': 2, 'name': 'Febrero'},
+                  {'number': 3, 'name': 'Marzo'},
+                  {'number': 4, 'name': 'Abril'},
+                  {'number': 5, 'name': 'Mayo'},
+                  {'number': 6, 'name': 'Junio'},
+                  {'number': 7, 'name': 'Julio'},
+                  {'number': 8, 'name': 'Agosto'},
+                  {'number': 9, 'name': 'Septiembre'},
+                  {'number': 10, 'name': 'Octubre'},
+                  {'number': 11, 'name': 'Noviembre'},
+                  {'number': 12, 'name': 'Diciembre'},
+            ]
+
+   
+
+
+
+
             context = {
+                  'current_year': current_year,
+                  'years': years,
+
+                  'months': months,
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
                   'cash_register': cash_register, 'cash_register_last': cash_register_last,
                   'records': records, 'service_admin': True,
