@@ -1,6 +1,6 @@
 {% extends "citas/base/base.html" %}
-
 {% block content %}
+{% load humanize %}
 
 <style>
       .form-control {
@@ -19,7 +19,7 @@
       {
             display: none;
       }
-      #id_ingreso, #id_gasto
+      #id_ingreso, #id_name
       {
             display: none;
       }
@@ -27,31 +27,233 @@
       {
             transition: 0.2s !important;
       }
+      #id_description, #id_name
+      {
+            color: white !important;
+            border: 0px !important;
+      }
+      #id_gasto
+      {
+            width: 100%;
+            height: 3.4rem;
+            margin-top: 23px;
+            
+      }
+      tr 
+      {
+            font-size: 14px !important;
+      }
+      #id_description 
+      {
+            height: 5rem;
+      }
+      td
+      {
+            color: rgb(161, 161, 161); font-size: 14px;
+      }
+      
 </style>
-<section class="vh-100 w-100 bg-black bg-opacity-25">  
+<section class="vh-100  bg-black bg-opacity-50 overflow-scroll">  
       {% include "citas/components/nav.html" %}     
-      <div  data-aos="fade-up" class="w-100 d-flex justify-content-center mt-5 pt-5">
-            <form action="" method="post" class="post-form  p-3 rounded-5" style="width: 40rem;">
+      <div class="ms-3 mt-5">
+            <h6>
+                  Listado de gastos o agregar
+            </h6>
+            <p class="text-white-50" style="font-size: 12px;">
+                  Aquí puedes ver los gastos que has registrado o agregar uno nuevo.
+            </p>
+      </div>
+      <div class="d-flex ms-2">
+            <p class="bg-white bg-opacity-10 p-1 ps-4 pe-4 rounded-5" style="width: max-content;">
+                  <strong style="font-weight: 400;  font-size: 13px;">Gastos fijos:</strong> ${{gastos_recurrentes_total|intcomma}}
+            </p>
+             <p class="bg-white bg-opacity-10 rounded-5 ms-1 p-1 ps-4 pe-4" style="width: max-content;">
+                  <strong style="font-weight: 400;  font-size: 13px;">Gastos corrientes:</strong> ${{gastos_otros_total|intcomma}}
+            </p> 
+            <p class="bg-white bg-opacity-10 rounded-5 ms-1 p-1 ps-4 pe-4" style="width: max-content;">
+                  <strong style="font-weight: 400; font-size: 13px;" class="">Total de gastos: </strong> ${{gastos_total|intcomma}}
+            </p>
+      </div>
+      <div  data-aos="fade-up" class="m-2 mt-0 rounded-3  d-flex justify-content-center bg-white bg-opacity-10   pt-1" style="min-height: 70vh; ">
+        
+            <div class=" mt-1  p-2 m-2 rounded-4 bg-black bg-opacity-25 w-100">
+                  <section class=" h-50 overflow-scroll  rounded-4 p-2">
+                        <table class="w-100">
+                              <thead>
+                                    <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Fecha </th>
+                                    <th scope="col">Se renueva</th>
+                              </tr>
+                        </thead>
+      
+                        <tbody>
+                                    <style>
+                                          .class1 
+                                          {
+                                                /* background-color: rgba(0, 0, 0, 0.36) !important; */
+                                                /* color: rgb(176, 176, 176); */
+                                          }
+                                          .class2 
+                                          {
+                                                /* background-color: #5858582d !important; */
+                                          }
+                                   
+                                    </style>
+                                    <div class="bgd">
+                                          {% if gastos_recurrentes %}
+                                          <td><strong style="font-weight: 400;">Gastos fijos recurrentes  </strong></td>
+                                          {% for g in gastos_recurrentes %}
+                                                <tr class="class1">
+                                                      <td> N#{{g.id}} </td>
+                                                      <td> {{g.name}} </td>
+                                                      <td> {{g.description}} </td>
+                                                      <td> ${{g.gasto|intcomma}} </td>
+                                                      <td> 
+                                                            {% if g.gasto_recurrente %}
+                                                            {{g.renovacion_mensual_gasto_recurrente}} {{fecha}} 
+                                                            {% else %}
+                                                            {{ g.created|date:"d/m/Y" }}
+                                                            {% endif %}
+                                                      </td>
+                                                      <td>
+                                                            {% if g.gasto_recurrente %}
+                                                            Si
+                                                            {% else %}
+                                                            No
+                                                            {% endif %}
+                                                      </td>
+                                                </tr>
+                                         
+                                         
+                                          {% endfor %}
+                                          {% else %}
+                                                <tr>
+                                                      <td colspan="4">No hay gastos registrados</td>
+                                                </tr>
+                                    {% endif %}
+                                    </div>
+                        </tbody>
+                         </table>
+                  </section>
+                  <section class="h-50 rounded-4 p-2 overflow-scroll">
+                        <table class="w-100">
+                              <thead>
+                                    <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Fecha </th>
+                                    <th scope="col">Se renueva</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                              {% if gastos_otros %}
+                              <td><strong style="font-weight: 400;">Gastos corrientes</strong></td>
+                              {% for g in gastos_otros %}
+                                  
+                                  <tr class="class2">
+                                        <td> N#{{g.id}} </td>
+                                        <td> {{g.name}} </td>
+                                        <td> {{g.description}} </td>
+                                        <td> ${{g.gasto|intcomma}} </td>
+                                        <td> 
+                                              {% if g.gasto_recurrente %}
+                                              {{g.renovacion_mensual_gasto_recurrente}} {{fecha}} 
+                                              {% else %}
+                                              {{ g.created|date:"d/m/Y" }}
+                                              {% endif %}
+                                        </td>
+                                        <td>
+                                              {% if g.gasto_recurrente %}
+                                              Si
+                                              {% else %}
+                                              No
+                                              {% endif %}
+                                        </td>
+                                  </tr>
+
+                              {% endfor %}
+                            {% else %}
+                                  <tr>
+                                        <td colspan="4">No hay gastos registrados</td>
+                                  </tr>
+                      {% endif %}
+                  </tbody>
+            </table>
+                  </section>
+            </div>
+
+            <form action="" method="post" class="post-form  p-2 rounded-5" style="width: 40rem;">
               
+                  <span  style="font-weight: 500;">
+                        Crear un nuevo gasto
+                  </span>
+                  <section class="d-flex ">
+                        <div class="mb-1 text-white me-1 ">
+                              
+                              <label for="business_expense_type" class="f text-white" style="font-size: 12px;">Tipo de Gasto:</label>
+                              <select class=" bg-black text-white w-100  border-0 rounded-4 p-3 bg-opacity-25" id="business_expense_type" name="business_expense_type">
+                                      <option class="text-white" value="Otro">Otro</option>
+                                      <option class="text-white" value="Renta">Renta</option>
+                                      <option class="text-white" value="Servicios">Servicios </option>
+                                      <option class="text-white" value="Salarios">Salarios</option>
+                                      <option class="text-white" value="Suministros">Suministros</option>
+                                      <option class="text-white" value="Marketing">Marketing</option>
+                                      <option class="text-white" value="Mantenimiento">Mantenimiento</option>
+                              </select>
+                        </div>
+      
+                        {{ form.gasto}}
+                  </section>
+
                   {% csrf_token %}
+                 <div class="mb-1 pb-2">
                   {{ form.name }}
+                 </div>
                   {{ form.description}}
-                  <span class="text-white-50 ">
-                        Seleciona el tipo a registrar
-                  </span> <br>
-                  <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="financial_type" id="income" value="income" checked>
-                        <label class="form-check-label text-white "  for="income">Ingreso</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="financial_type" id="expense" value="expense">
+
+                  <div class="form-check form-check-inline d-none">
+                        <input class="form-check-input" type="radio" name="financial_type" id="expense" value="expense" checked>
                         <label class="form-check-label text-white" for="expense">Gasto</label>
                   </div>
-                  <div>
+                  <div class="">
                         {{ form.ingreso}}
-                        {{ form.gasto}}
+           
                   </div>
 
+                  <span>
+                        <label for="fixed_expense" class="f text-white" style="font-size: 12px;"> ¿Es un gasto recurrente? </label>
+                  </span>
+                  <div class="form-check form-check-inline ms-3">
+                        <input class="form-check-input" type="radio" name="fixed_expense" id="fixed_expense_yes" value="yes">
+                        <label class="form-check-label text-white" for="fixed_expense_yes">Sí</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fixed_expense" id="fixed_expense_no" value="no" checked>
+                        <label class="form-check-label text-white" for="fixed_expense_no">No</label>
+                  </div>
+                  <p class="text-white-50 mt-2 " style="font-size: 14px;">Un gasto fijo es un gasto recurrente que se mantiene constante durante un período de tiempo, como el alquiler o los servicios públicos.</p>
+                  <div id="detail" class="d-none">
+                        <label class="w-100" for="renovacion_mensual_gasto_recurrente" style="font-size: 12px;">
+                              Selecciona el dia en que se renovara este gasto mensual 
+                        </label> 
+                        <p class="text-white-50 mt-2 " style="font-size: 14px;">
+                              Por ejemplo, si el gasto se aplica los dias 15 del mes este se renovara el dia 15 de cada mes.
+                        </p>
+                        {{form.renovacion_mensual_gasto_recurrente}}
+                        <style>
+                              #id_renovacion_mensual_gasto_recurrente
+                              {
+                                    width:6rem;
+                                    
+                              }
+                        </style>
+                  </div>      
                   <div class="w-100 d-flex justify-content-end">
                         <a href="{% url "citas:caja" %}" style="margin-top: 13px;" class=" me-3 text-white-50"> 
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left-circle-fill mt-1" viewBox="0 0 16 16">
@@ -62,31 +264,33 @@
                   </div>
             </form>
       </div>
+    
 </section>
 <script>
-        TextSession('Registrar gasto o ingresos');
+        TextSession('Listado de gastos o agregar');
+
+      function toggleDetail() {
+            if (document.getElementById('fixed_expense_yes').checked) {
+                  document.getElementById('detail').classList.remove('d-none');
+            } else {
+                  document.getElementById('detail').classList.add('d-none');
+            }
+      }
+
+      document.getElementById('fixed_expense_yes').addEventListener('change', toggleDetail);
+      document.getElementById('fixed_expense_no').addEventListener('change', toggleDetail);
 
       document.addEventListener('DOMContentLoaded', function() {
-            const incomeRadio = document.getElementById('income');
-            const expenseRadio = document.getElementById('expense');
-            const ingresoField = document.getElementById('id_ingreso');
-            const gastoField = document.getElementById('id_gasto');
+            toggleDetail();
+      });
 
-            function toggleFields() {
-                  if (incomeRadio.checked) {
-                        ingresoField.style.display = 'block';
-                        gastoField.style.display = 'none';
-                  } else if (expenseRadio.checked) {
-                        ingresoField.style.display = 'none';
-                        gastoField.style.display = 'block';
-                  }
-            }
+      document.getElementById('business_expense_type').addEventListener('change', function() {
+            const selectedValue = this.value;
+            document.getElementById('id_name').value = selectedValue;
+      });
 
-            incomeRadio.addEventListener('change', toggleFields);
-            expenseRadio.addEventListener('change', toggleFields);
-
-            // Initialize the fields based on the current selection
-            toggleFields();
+      document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('id_name').value = 'Otro';
       });
 
 </script>

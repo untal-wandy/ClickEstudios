@@ -1074,11 +1074,22 @@ class FinancialRecordCreateView(CreateView):
       model = models.FinancialRecord
       form_class = forms.FinancialRecordForm
       template_name = 'citas/financial_record_create.html'
-      success_url = reverse_lazy('citas:caja')
+      success_url = reverse_lazy('citas:financial-record-create')
 
       def get_context_data(self, **kwargs):
+
             context = super().get_context_data(**kwargs)
+            gastos_total = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
+            gastos_recurrentes = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=True)
+            gastos_otros = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=False)
             context['service_admin'] = True
+            context['gastos_recurrentes'] = gastos_recurrentes
+            context['gastos_recurrentes_total'] = sum(gasto.gasto for gasto in gastos_recurrentes)
+            context['gastos_otros'] = gastos_otros
+            context['gastos_otros_total'] = sum(gasto.gasto for gasto in gastos_otros)
+            context['gastos_total'] = sum(gasto.gasto for gasto in gastos_total)
+            context['fecha'] =     datetime.now().strftime('%B %Y')
+
             context['permisons'] = models.Permisons.objects.get(user=self.request.user)
             return context
 

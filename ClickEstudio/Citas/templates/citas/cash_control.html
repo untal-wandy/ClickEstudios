@@ -115,7 +115,7 @@
                                 {% csrf_token %}
                                 <div class="form-group" style='width: 300px;'>
                                     <label for="opening_balance">Monto de Apertura</label>
-                                    <p class='text-white-50' style='font-size: 12px;'>
+                                    <p class='text-white-50' style='font-size: 12px; line-height: 8px;'>
                                         Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo
                                     </p>
                                     <input type="number" value="{{ cash_register_last.closing_balance}}" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
@@ -198,7 +198,7 @@
                     <a href="{% url "citas:financial-record-create" %}">  
                         <button class="btn text-white rounded-5  bg-primary bg-opacity-25   me-2" 
                             style="font-size: 14px; margin-top: 2px;"> 
-                            + Nuevo gastos
+                             Listado de gastos
                         </button> 
                     </a> 
                     <form action="" method="post" class="d-flex">
@@ -239,7 +239,7 @@
                                   </svg>   Historial de caja
                           </button>
                         </h2>
-                        <p class="text-white-50 p-0 ps-2" style="font-size: 12px;">
+                        <p class="text-white-50 p-0 ps-2" style="font-size: 12px;  line-height: 8px">
                             Garantiza un registro claro y accesible de todas las operaciones para evitar fraudes o errores.
                           </p>
                         <div id="collapseTwo3"  class="w-100 accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">

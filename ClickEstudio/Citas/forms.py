@@ -227,12 +227,14 @@ class IngresoForm(forms.ModelForm):
 class FinancialRecordForm(forms.ModelForm):
       class Meta:
             model = models.FinancialRecord
-            fields = ['name', 'description', 'ingreso', 'gasto', 'is_ingreso_or_gasto']
+            fields = ['name', 'description', 'ingreso', 'gasto', 'is_ingreso_or_gasto', 'gasto_recurrente', 'renovacion_mensual_gasto_recurrente']
             widgets = {
                         'name': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Nombre'}),
                         'description': forms.Textarea(attrs={'class': 'inputs', 'placeholder': 'Descripción'}),
                         'ingreso': forms.NumberInput(attrs={'class': 'inputs', 'placeholder': 'Monto de ingreso'}),
                         'gasto': forms.NumberInput(attrs={'class': 'inputs', 'placeholder': 'Monto de gastos'}),
+                        'gasto_recurrente': forms.CheckboxInput(attrs={'class': 'inputs'}),
+                        'renovacion_mensual_gasto_recurrente': forms.NumberInput(attrs={'class': 'inputs', 'placeholder': 'Renovación mensual'}),
             }
 
       # Remove labels from form fields
