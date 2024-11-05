@@ -52,9 +52,9 @@
                             {% if cash_register.status == 'open' %}
                             <div class='text-start me-3 d-flex ps312'>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
-                                        <strong> #{{ cash_register.id }}</strong> 
+                                        <strong> Caja #{{ cash_register.id }}</strong> 
                                         <span class="text-white-50">
-                                            - Estado: {{ cash_register.get_status_display }}</span>
+                                            : {{ cash_register.get_status_display }}</span>
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 15rem; height: max-content;">
                                         <strong>Balance de Aper..</strong> 
@@ -62,8 +62,8 @@
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 16rem; height: max-content;">
                                         <strong>Apertura:</strong>  
-                                        <span class="text-white-50">{{ cash_register.opened_at|date:"d/m/Y" }} 
-                                        por {{ cash_register.opened_by }}</span> 
+                                        <span class="text-white-50 text-uppercase"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
+                                        </span> 
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 9rem; height: max-content;">
                                         <strong>Ingresos</strong>
@@ -74,9 +74,14 @@
                                         <span class="text-white-50"> ${{count_gastos|intcomma}} </span>
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 14rem; height: max-content;">
-                                        <strong>Balance en caja</strong>
+                                        <strong>Balance actual</strong>
                                         <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
                                     </p>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 14rem; height: max-content;">
+                                        <strong>Balance en caja</strong>
+                                        <span class="text-white-50">  ${{dinero_en_caja|intcomma}}</span>
+                                    </p>
+                  
                             
                             </div>
                         {% else %}
@@ -100,6 +105,8 @@
                                     <strong>Balance de Cierre:</strong>
                                     <span class="text-white-50">$ {{ cash_register_last.closing_balance|intcomma }}</span> 
                                 </p>
+                
+                                
                                 <p>
                                         <strong > Ultimo cierre 
                                             <span class='text-white-50'>        
@@ -115,10 +122,10 @@
                                 {% csrf_token %}
                                 <div class="form-group" style='width: 300px;'>
                                     <label for="opening_balance">Monto de Apertura</label>
-                                    <p class='text-white-50' style='font-size: 12px; line-height: 8px;'>
-                                        Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo
+                                    <p class='text-white-50' style='font-size: 12px; line-height: 14px;'>
+                                        Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo, esta cantidad sera reflejada como un ingreso mas
                                     </p>
-                                    <input type="number" value="{{ cash_register_last.closing_balance}}" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
+                                    <input type="number" value="0" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
                                 </div>
                                 <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 mt-2 text-white" 
                                     style="font-size: 14px;">Abrir nueva caja
@@ -170,7 +177,8 @@
                             {% empty %}
                             <tr>
                                 <td colspan="6" class="text-center pt-4">
-                                    <strong>No hay registros financieros disponibles</strong>
+                                    <strong>No hay registros financieros disponibles en esta caja</strong>
+                                    <p>Se muestra este aviso ya que no hay datos financieros disponibles para mostrar en la caja actual</p>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -187,7 +195,7 @@
                   
                                 <input type="number" class="form-control d-none w-100 text-white bg-white bg-opacity-10 rounded-4 border-0" name="closing_balance"   step="0.01" value="{{count_ingresos}}" required style="">
                             </div>
-                            <button type="submit" name="close_cash" class="btn me-1 mt-1˝ bg-danger bg-opacity-25 rounded-5  text-white ps-4 pe-4" 
+                            <button type="submit" name="close_cash" class="btn me-1 mt-1 bg-danger bg-opacity-25 rounded-5  text-white ps-4 pe-4" 
                             style="font-size: 14px;"> 
                                 Cerrar Caja
                             </button>

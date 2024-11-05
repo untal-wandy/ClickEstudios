@@ -64,13 +64,11 @@ def Reserver(request):
             sale.reserver_mount = int(request.GET.get('input'))
             sale.abonado =  sale.plan.price -  sale.reserver_mount 
             sale.save()
-            Options.Guardar_Ingreso(sale,int(request.GET.get('input')) )     
-            print(Options.Guardar_Ingreso(sale,int(request.GET.get('input')) )     )
-            print('depuración')
+            Options.Guardar_Ingreso(sale,int(request.GET.get('input')), ' - Abono'  )     
 
       else:
 
-            Options.Guardar_Ingreso(sale,int(request.GET.get('input')) )  
+            Options.Guardar_Ingreso(sale,int(request.GET.get('input')), ' - Abono' )  
             print('depuración')
             abonado =   sale.reserver_mount  + int(request.GET.get('input'))
             sale.reserver_mount = abonado
@@ -187,7 +185,7 @@ def Terminar_Cita(request):
       sale.save()
 
 
-      Options.Guardar_Ingreso(sale,sale.price_total )       
+      Options.Guardar_Ingreso(sale,sale.price_total, ' - Saldado' )       
    
       
       return JsonResponse(list(),  safe=False)          

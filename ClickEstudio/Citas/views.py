@@ -961,6 +961,7 @@ class CashRegisterView(View):
                   if g.gasto:
                         count_gastos += g.gasto
 
+            last_cash = models.CashRegister.objects.filter(status='open').last()
 
             
             years = list(range(2020, 2031))
@@ -982,18 +983,25 @@ class CashRegisterView(View):
 
    
 
-
-
+            dinero_en_caja = 0            
+            dinero =  models.CashRegister.objects.all()
+            
+            for d in dinero:
+                    if d.closing_balance:
+                              dinero_en_caja += float(d.closing_balance)
+                              dinero_en_caja += float(d.opening_balance)
 
             context = {
                   'current_year': current_year,
+                  # 'last_cash': last_cash.opening_balance,
                   'years': years,
-
+                  'dinero_en_caja': dinero_en_caja - count_gastos, 
                   'months': months,
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
-                  'cash_register': cash_register, 'cash_register_last': cash_register_last,
+                  'cash_register': cash_register, 
+                  'cash_register_last': cash_register_last,
                   'records': records, 'service_admin': True,
-                  'count_gastos': count_gastos,  'count_ingresos': count_ingresos,
+                  'count_gastos': count_gastos,  'count_ingresos': count_ingresos - count_gastos,
                   'permisons':  models.Permisons.objects.get(user=self.request.user)
             }
             return render(request, 'citas/cash_control.html', context)
@@ -1004,27 +1012,43 @@ class CashRegisterView(View):
             form = forms.OpenCashForm(request.POST)
             print(form.errors)
             if form.is_valid():
-                opening_balance = form.cleaned_data['opening_balance']
-                cash_register = models.CashRegister.objects.create(
+                  opening_balance = form.cleaned_data['opening_balance']
+                  cash_register = models.CashRegister.objects.create(
                     opened_by=request.user,
                     opening_balance=opening_balance,
                     opened_at=timezone.now(),
                     status='open')
+                    
+                  record = models.FinancialRecord.objects.create(
+                  name=request.user.username,
 
-                messages.success(request, 'Caja abierta correctamente.')
+                  description=  'Apertura de caja',
+                  ingreso = opening_balance
+                  # ingreso=sale.price_total
+                  )
+                  record.save()
+
+                  messages.success(request, 'Caja abierta correctamente.')
             
-                return redirect('/caja')
+                  return redirect('/caja')
 
         elif 'close_cash' in request.POST:
             form = forms.CloseCashForm(request.POST)
             print(form)
             cash_register = models.CashRegister.objects.filter(status='open').first()
             if cash_register and form.is_valid():
-                cash_register.closing_balance = form.cleaned_data['closing_balance']
+                cash_register.closing_balance = form.cleaned_data['closing_balance'] 
                 cash_register.closed_by = request.user
                 cash_register.closed_at = timezone.now()
                 cash_register.status = 'closed'
                 cash_register.save()
+                record = models.FinancialRecord.objects.create(
+                  name=request.user.username,
+                  description=  'Cierre de caja',
+                  ingreso = form.cleaned_data['closing_balance'] 
+                  # ingreso=sale.price_total
+                  )
+                record.save()
                 records = models.FinancialRecord.objects.filter(is_activate=True)
                 for r in records:
                         r.is_activate = False

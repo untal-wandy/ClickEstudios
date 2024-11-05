@@ -31,11 +31,11 @@ class Options:
 
 
       # Esta función es útil para registrar automáticamente los ingresos en la base de datos cuando una venta ha sido confirmada.
-      def Guardar_Ingreso(sale, ingreso):
+      def Guardar_Ingreso(sale, ingreso, tipo):
 
             record = models.FinancialRecord.objects.create(
                   name=sale.cliente.name,
-                  description=sale.plan.name,
+                  description=sale.plan.name + tipo,
                   ingreso = ingreso
                   # ingreso=sale.price_total
                   )
