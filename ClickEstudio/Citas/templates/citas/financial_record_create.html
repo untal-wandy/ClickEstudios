@@ -79,6 +79,7 @@
             <div class=" mt-1  p-2 m-2 rounded-4 bg-black bg-opacity-25 w-100">
                   <section class=" h-50 overflow-scroll  rounded-4 p-2">
                         <table class="w-100">
+                              {% if gastos_recurrentes %}
                               <thead>
                                     <tr>
                                           <th scope="col">#</th>
@@ -86,7 +87,7 @@
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Fecha </th>
-                                    <th scope="col">Se renueva</th>
+                                    <!-- <th scope="col"> Opciones</th> -->
                               </tr>
                         </thead>
       
@@ -104,7 +105,7 @@
                                    
                                     </style>
                                     <div class="bgd">
-                                          {% if gastos_recurrentes %}
+                                        
                                           <td><strong style="font-weight: 400;">Gastos fijos recurrentes  </strong></td>
                                           {% for g in gastos_recurrentes %}
                                                 <tr class="class1">
@@ -120,20 +121,22 @@
                                                             {% endif %}
                                                       </td>
                                                       <td>
-                                                            {% if g.gasto_recurrente %}
+                                                            <!-- {% if g.gasto_recurrente %}
                                                             Si
                                                             {% else %}
                                                             No
-                                                            {% endif %}
+                                                            {% endif %} -->
                                                       </td>
                                                 </tr>
                                          
                                          
                                           {% endfor %}
                                           {% else %}
-                                                <tr>
-                                                      <td colspan="4">No hay gastos registrados</td>
-                                                </tr>
+                                          <div style="font-weight: 500;"  class="w-100 text-start">No hay gastos recurrentes registrados
+                                                <p class="text-white-50" style="font-size: 12px;">
+                                                      Estos gastos constantes que no varían con el nivel de actividad, como alquiler, salarios, y seguros.
+                                                </p>
+                                          </div>
                                     {% endif %}
                                     </div>
                         </tbody>
@@ -141,18 +144,18 @@
                   </section>
                   <section class="h-50 rounded-4 p-2 overflow-scroll">
                         <table class="w-100">
+                              {% if gastos_otros %}
                               <thead>
                                     <tr>
-                                          <th scope="col">#</th>
-                                          <th scope="col">Nombre</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Fecha </th>
-                                    <th scope="col">Se renueva</th>
+                                    <!-- <th scope="col">Opciones</th> -->
                               </tr>
                         </thead>
                         <tbody>
-                              {% if gastos_otros %}
                               <td><strong style="font-weight: 400;">Gastos corrientes</strong></td>
                               {% for g in gastos_otros %}
                                   
@@ -169,19 +172,22 @@
                                               {% endif %}
                                         </td>
                                         <td>
-                                              {% if g.gasto_recurrente %}
+                                              <!-- {% if g.gasto_recurrente %}
                                               Si
                                               {% else %}
                                               No
-                                              {% endif %}
+                                              {% endif %} -->
                                         </td>
                                   </tr>
 
                               {% endfor %}
                             {% else %}
-                                  <tr>
-                                        <td colspan="4">No hay gastos registrados</td>
-                                  </tr>
+                            <div style="font-weight: 500;"  class="w-100 text-start">
+                              No hay gastos variables registrados
+                              <p class="text-white-50" style="font-size: 12px;">
+                                    Cambian en función de la producción o ventas, como materias primas, comisiones, y costos de transporte.
+                              </p>
+                            </div>
                       {% endif %}
                   </tbody>
             </table>

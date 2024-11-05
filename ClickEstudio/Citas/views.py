@@ -1080,8 +1080,8 @@ class FinancialRecordCreateView(CreateView):
 
             context = super().get_context_data(**kwargs)
             gastos_total = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
-            gastos_recurrentes = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=True)
-            gastos_otros = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=False)
+            gastos_recurrentes = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=True).order_by('-id')
+            gastos_otros = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=False).order_by('-id')
             context['service_admin'] = True
             context['gastos_recurrentes'] = gastos_recurrentes
             context['gastos_recurrentes_total'] = sum(gasto.gasto for gasto in gastos_recurrentes)
@@ -1095,7 +1095,12 @@ class FinancialRecordCreateView(CreateView):
 
       def form_valid(self, form):
             if form.instance.ingreso == None:
+
                   form.instance.is_ingreso_or_gasto = False
+                  if self.request.POST.get('fixed_expense') == 'yes':
+                        form.instance.gasto_recurrente = True
+      
+
                   form.save()
             print(form.instance.ingreso)
             messages.success(self.request, 'Registro financiero creado correctamente.')
