@@ -71,7 +71,7 @@
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 9rem; height: max-content;">
                                         <strong>Gastos</strong>
-                                        <span class="text-white-50"> ${{count_gastos|intcomma}} </span>
+                                        <span class="text-white-50"> ${{count_gastos}} </span>
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 14rem; height: max-content;">
                                         <strong>Balance actual</strong>
@@ -156,13 +156,15 @@
                         <tbody>
                             {% for record in records %}
                             <tr>
-                                <td>{{ record.id }}</td>
-                                <td>{{ record.date|date:"d/m/Y" }}</td>
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ record.date|date:"d/m/Y" }} {{ record.date|date:"H:i" }}</td>
                                 <td>{{ record.name }}</td>
                                 <td>{{ record.description|intcomma }}</td>
                                 <td> 
                                     {% if record.ingreso %}
                                         ${{ record.ingreso|intcomma }}
+                                        {% else %}
+                                        $0.00
                                     {% endif %}
                                 
                                 </td>

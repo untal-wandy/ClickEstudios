@@ -116,55 +116,38 @@ class CustomerCreateView(CreateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['service_admin'] = True
-            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            if self.request.user.is_authenticated:
+                  context['service_admin'] = True
+
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             return context
 
       def form_valid(self, form):
             form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
             form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
             
-            try:
-                  # Intentamos obtener el objeto
-                  objeto = self.model.objects.get(email=form.instance.email)
-                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
-                  objeto.plans_more.add(nuevo_plan)
-                  print(objeto.plans_more)
-                  sale = models.Sale(
-                        cliente=models.Customer.objects.get(id=form.instance.id),
-                        plan=form.instance.plans,
-                        price_total=form.instance.plans.price,   
-                  )
-                  sale.save()
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
-            
-            except self.model.MultipleObjectsReturned:
-                  # Maneja el caso de múltiples objetos
-                  objetos = self.model.objects.filter(email=form.instance.email)
-                  objeto = objetos.first()  # Tomamos el primero de la lista
-                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
-                  objeto.plans_more.add(nuevo_plan)
-                  sale = models.Sale(
-                        cliente=models.Customer.objects.get(id=form.instance.id),
-                        plan=form.instance.plans,
-                        price_total=form.instance.plans.price,   
-                  )
-                  sale.save()
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
-            
-            except self.model.DoesNotExist:
-                  if form.is_valid():
+            if form.is_valid():
+                  cliente = models.Customer.objects.filter(email=form.instance.email).first()
+                  if cliente:
+                        sale = models.Sale(
+                              cliente=cliente,
+                              plan=form.instance.plans,
+                              price_total=form.instance.plans.price,
+                        )
+                        sale.save()
+                  else:
                         form.save()
                         sale = models.Sale(
-                        cliente=models.Customer.objects.get(id=form.instance.id),
-                        plan=form.instance.plans,
-                        price_total=form.instance.plans.price,   
-                  )
+                              cliente=models.Customer.objects.get(id=form.instance.id),
+                              plan=form.instance.plans,
+                              price_total=form.instance.plans.price,
+                        )
                         sale.save()
+                 
                         return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': sale.cliente.id}))
 
       def form_invalid(self, form):
-            print(form.errors)
             return super().form_invalid(form)
       
       
@@ -946,20 +929,20 @@ class CashRegisterView(View):
     def get(self, request):
             cash_register = models.CashRegister.objects.filter(status='open').first()
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
-            records = models.FinancialRecord.objects.filter(is_activate=True)
+            records = models.FinancialRecord.objects.all()
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
             ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True, is_activate=True)
-            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, is_activate=True)
+            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
 
             count_ingresos = 0
             count_gastos = 0
             for i in ingresos:
-                  if i.ingreso:
+                  if i.ingreso != 0:
                         count_ingresos += i.ingreso
 
             for g in gastos:
                   if g.gasto:
-                        count_gastos += g.gasto
+                        count_gastos += float(g.gasto)
 
             last_cash = models.CashRegister.objects.filter(status='open').last()
 
@@ -995,13 +978,14 @@ class CashRegisterView(View):
                   'current_year': current_year,
                   # 'last_cash': last_cash.opening_balance,
                   'years': years,
-                  'dinero_en_caja': dinero_en_caja - count_gastos, 
+                  'dinero_en_caja': dinero_en_caja -  int(count_gastos), 
                   'months': months,
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
                   'cash_register': cash_register, 
                   'cash_register_last': cash_register_last,
                   'records': records, 'service_admin': True,
-                  'count_gastos': count_gastos,  'count_ingresos': count_ingresos - count_gastos,
+                  'count_gastos': sum(gasto.gasto for gasto in gastos), 
+                   'count_ingresos': count_ingresos,
                   'permisons':  models.Permisons.objects.get(user=self.request.user)
             }
             return render(request, 'citas/cash_control.html', context)
