@@ -193,13 +193,13 @@
                                           </button>
                                                 
                                           {% else %}
-                                          <button onclick="SaleCancel(this.id)" id="{{sale_r.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
+                                          <!-- <button onclick="SaleCancel(this.id)" id="{{sale_r.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
                                                 Cancelar Cita
-                                          </button>
+                                          </button> -->
                                           
                                           <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv bg-transparent reserver text-white d-flex" 
                                           style='color: rgb(255, 69, 69) !important; '>
-                                                Completar Pago
+                                                Completar pago
                                           </button>
                                     {% endif %}
                         </div>
@@ -210,14 +210,14 @@
                         <span class="text-white-50 ">Precio del plan <strong> ${{sale_r.plan.price|intcomma}}.00</strong> </span>
                   
                         <p class="text-white-50 " style="font-size: 12px !important; line-height: 14px;">
-                        Monto pagado anteriomente <strong>$ {{sale_r.reserver_mount|intcomma}}.00 </strong> <br>
-                        Monto faltante <strong>${{sale_r.abonado|intcomma}}.00</strong>
+                        Pagado anteriomente <strong>$ {{sale_r.reserver_mount|intcomma}}.00 </strong> <br>
+                        Faltante <strong>${{sale_r.abonado|intcomma}}.00</strong>
                         </p>
                         
-                        <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-4 "> 
+                        <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-0 "> 
                               Ingresar cantidad de reservacion
                         </label>
-                        <input type="text"id="ct-p{{sale_r.id}}"   class="bg-black inputs-2 w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{sale_r.abonado}}"  style="border-radius: 1rem;">
+                        <input type="text"id="ct-p{{sale_r.id}}"   class="bg-black inputs-2 w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{sale_r.abonado}}"  style="border-radius: 1rem; outline: none !important;">
 
                         <div class="d-flex div-btns border-0 pt-1 justify-content-center">
                               <button onclick="AcPay2(this.id)"id="{{sale_r.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">

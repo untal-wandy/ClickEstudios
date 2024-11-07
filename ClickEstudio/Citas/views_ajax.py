@@ -1,11 +1,9 @@
 from . import models 
 from django.http import JsonResponse
 from .Options import Options
-def FinishedCita(request):
-      c = models.Customer.objects.get(id=request.GET.get('c_id'))
-      if c.finished == False:
-            c.finished = True
-            c.save()
+def Sale_Delete(request):
+      sale_delete = models.Sale.objects.get(id=request.GET.get('sale_id'))
+      sale_delete.delete()
       return JsonResponse(list(),  safe=False)
 
 
