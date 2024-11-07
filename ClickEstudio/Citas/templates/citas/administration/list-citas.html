@@ -456,7 +456,7 @@
                   </svg> 
             </button>
 
-                  <div id='div-body{{sale.cliente.id}}'  class="card-body " >
+                  <div id='div-body{{sale.id}}'  class="card-body " >
                               <div>
                                           <span class=' w-100 d-flex align-content-center flex-wrap  m-0 pt-2 p-0'>
                                           
@@ -519,7 +519,7 @@
                         <!-- </a> -->
       
 
-                              <button id='{{sale.cliente.id}}'onclick="AcPay(this.id)"  class="font-primary reserv  bg-transparent reserver text-white d-flex">
+                              <button id='{{sale.id}}'onclick="AcPay(this.id)"  class="font-primary reserv  bg-transparent reserver text-white d-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-patch-check-fill mt-1 me-1 reserver-icon " viewBox="0 0 16 16">
                                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                                         </svg>
@@ -548,8 +548,8 @@
 
                   </div>
 
-                  <div id="div-body2{{sale.cliente.id}}" class="d-none p-3"> 
-                        <h6 class="">¿Con que cantidad desea la reservacion?</h6>
+                  <div id="div-body2{{sale.id}}" class="d-none p-3"> 
+                        <h6 class="" style="font-size: 12px;">¿Con que cantidad desea la reservacion?</h6>
                         <span class="text-white-50 ">Precio del plan <strong>${{sale.plan.price|intcomma}}.00</strong> </span>
                        
                         <p class="text-white-50 " style="font-size: 12px; line-height: 14px;">
@@ -557,15 +557,15 @@
                         </p>
    
                         
-                            <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-3 "> Ingresar cantidad de reservacion</label>
-                            <input type="text"id="ct-p{{sale.id}}"   class="bg-black inputs w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{sale.plan.price}}"  style="border-radius: 1rem;">
+                            <label for="ct-p" style="font-size: 12px;" class="text-white-50 "> Ingresar cantidad de reservacion</label>
+                            <input type="text"id="ct-p{{sale.id}}"   class="bg-black inputs w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{sale.plan.price}}"  style="border-radius: 1rem; outline: none !important;">
 
                         
 
                         
                             <div class="d-flex div-btns border-0 pt-1 justify-content-center">
       
-                                    <button onclick="AcPay(this.id)"id="{{sale.cliente.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
+                                    <button onclick="AcPay(this.id)"id="{{sale.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
                                           No, volver atras
                                     </button>
                               <!-- </a> -->
