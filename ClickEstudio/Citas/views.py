@@ -978,7 +978,7 @@ class CashRegisterView(View):
                   'current_year': current_year,
                   # 'last_cash': last_cash.opening_balance,
                   'years': years,
-                  'dinero_en_caja': dinero_en_caja -  int(count_gastos), 
+                  'dinero_en_caja': dinero_en_caja + count_ingresos -  int(count_gastos), 
                   'months': months,
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
                   'cash_register': cash_register, 
