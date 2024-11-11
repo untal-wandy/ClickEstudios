@@ -931,7 +931,7 @@ class CashRegisterView(View):
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
             records = models.FinancialRecord.objects.all()
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
-            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True, is_activate=True)
+            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True)
             gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
 
             count_ingresos = 0
@@ -971,14 +971,15 @@ class CashRegisterView(View):
             
             for d in dinero:
                     if d.closing_balance:
-                              dinero_en_caja += float(d.closing_balance)
-                              dinero_en_caja += float(d.opening_balance)
+                        pass
+                              # dinero_en_caja += float(d.closing_balance)
+                              # dinero_en_caja += float(d.opening_balance)
 
             context = {
                   'current_year': current_year,
                   # 'last_cash': last_cash.opening_balance,
                   'years': years,
-                  'dinero_en_caja': dinero_en_caja + count_ingresos -  int(count_gastos), 
+                  'dinero_en_caja':   int(count_ingresos) -  int(count_gastos), 
                   'months': months,
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
                   'cash_register': cash_register, 
@@ -1026,13 +1027,6 @@ class CashRegisterView(View):
                 cash_register.closed_at = timezone.now()
                 cash_register.status = 'closed'
                 cash_register.save()
-                record = models.FinancialRecord.objects.create(
-                  name=request.user.username,
-                  description=  'Cierre de caja',
-                  ingreso = form.cleaned_data['closing_balance'] 
-                  # ingreso=sale.price_total
-                  )
-                record.save()
                 records = models.FinancialRecord.objects.filter(is_activate=True)
                 for r in records:
                         r.is_activate = False
