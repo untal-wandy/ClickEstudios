@@ -1,11 +1,9 @@
 from . import models 
 from django.http import JsonResponse
-
-def FinishedCita(request):
-      c = models.Customer.objects.get(id=request.GET.get('c_id'))
-      if c.finished == False:
-            c.finished = True
-            c.save()
+from .Options import Options
+def Sale_Delete(request):
+      sale_delete = models.Sale.objects.get(id=request.GET.get('sale_id'))
+      sale_delete.delete()
       return JsonResponse(list(),  safe=False)
 
 
@@ -58,18 +56,18 @@ def DeleteCaract(request):
 
 def Reserver(request):
       sale = models.Sale.objects.get(id=request.GET.get('id'))
-      print(sale.cliente.name)
 
-      print(int(request.GET.get('input')), 'Mas', request.GET.get('id'))
       if sale.reserver == False:
             sale.reserver = True
-            
             sale.reserver_mount = int(request.GET.get('input'))
             sale.abonado =  sale.plan.price -  sale.reserver_mount 
             sale.save()
+            Options.Guardar_Ingreso(sale,int(request.GET.get('input')), ' - Abono'  )     
 
       else:
 
+            Options.Guardar_Ingreso(sale,int(request.GET.get('input')), ' - Abono' )  
+            print('depuración')
             abonado =   sale.reserver_mount  + int(request.GET.get('input'))
             sale.reserver_mount = abonado
             sale.abonado =   sale.plan.price -  sale.reserver_mount
@@ -184,14 +182,8 @@ def Terminar_Cita(request):
       sale.saled_confirm = True
       sale.save()
 
-      # Create a FinancialRecord for the sale
-      if sale.saled_confirm == True:
-            record = models.FinancialRecord.objects.create(
-            name=sale.cliente.name,
-            description=sale.plan.name,
-            ingreso = sale.price_total
-            )
 
-            record.save()
+      Options.Guardar_Ingreso(sale,sale.price_total, ' - Saldado' )       
+   
       
       return JsonResponse(list(),  safe=False)          

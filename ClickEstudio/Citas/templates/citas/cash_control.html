@@ -11,15 +11,28 @@
       {
             font-size: 14px;
       }
+      .ps312 p
+      {
+        margin: 0.2rem !important; 
+        text-align: center !important;
+        
+      }
+      .ps312 
+      {
+        font-size: 14px;
+      }
+      strong
+        {
+                font-size: 14px;
+                font-weight: 500; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
 </style>
 <section class='  bg-black bg-opacity-50 overflow-scroll '  >
       {% include "citas/components/nav.html" %}
-      <div class="   align-content-end" style='height: 93vh;'>
-            
-  
-   
-            <section data-aos="fade-up" class="d-flex     overflow-scroll justify-content-center  flex-wrap " >
-      
+      <div class="   align-content-start" style='height: 93vh;'>
+        
+            <section data-aos="fade-up" class="d-flex overflow-scroll justify-content-center  flex-wrap " >
+           
                 <div class="w-100 d-flex justify-content-start flex-wrap">
                     <h2 class="accordion-header w-100" id="headingTwo">
                         <button class="accordion-button collapsed  p-2 rounded-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo3" style="width: max-content;">
@@ -29,10 +42,106 @@
                         </button>
                       </h2>
                       <p class="text-white-50 p-0 ps-2" style="font-size: 12px;">
-                        Ayuda a garantizar que el dinero en efectivo y las transacciones coincidan con las ventas registradas.
+                        Ayuda a garantizar que el dinero en efectivo y las transacciones coincidan con las ventas registradas. 
                         </p>
                 </div>
-                <section class=' bg-white bg-opacity-10 p-3 rounded-4 m-2 w-100 overflow-auto' style="height: 15rem;">
+
+
+                <div class="card-body d-flex w-100  overflow-scroll">
+                    <div class="w-100 d-flex justify-content-start  ">
+                            {% if cash_register.status == 'open' %}
+                            <div class='text-start me-3 d-flex ps312'>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
+                                        <strong> Caja #{{ cash_register.id }}</strong> 
+                                        <span class="text-white-50">
+                                            : {{ cash_register.get_status_display }}</span>
+                                    </p>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 15rem; height: max-content;">
+                                        <strong>Balance de Aper..</strong> 
+                                        <span class="text-white-50"> $ {{ cash_register.opening_balance|intcomma }}</span> 
+                                    </p>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 16rem; height: max-content;">
+                                        <strong>Apertura:</strong>  
+                                        <span class="text-white-50 text-uppercase"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
+                                        </span> 
+                                    </p>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 9rem; height: max-content;">
+                                        <strong>Ingresos</strong>
+                                        <span class="text-white-50"> ${{count_ingresos|intcomma}} </span>
+                                    </p>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 9rem; height: max-content;">
+                                        <strong>Gastos</strong>
+                                        <span class="text-white-50"> ${{count_gastos}} </span>
+                                    </p>
+                                    <!-- <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 14rem; height: max-content;">
+                                        <strong>Balance actual</strong>
+                                        <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
+                                    </p> -->
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 14rem; height: max-content;">
+                                        <strong>Balance en caja</strong>
+                                        <span class="text-white-50">  ${{dinero_en_caja|intcomma}}</span>
+                                    </p>
+                  
+                            
+                            </div>
+                        {% else %}
+                            <div style='width: 100%;' class='text-start  ms-3 p-2  ps-4 bg-white bg-opacity-10 rounded-4 '>
+                            
+                                <h6 class="card-title p-0  m-0 "> 
+                                    <strong> Caja :</strong>
+                                        <span class="text-white-50"> #{{ cash_register_last.id }}
+                                                {{ cash_register_last.get_status_display }}
+                                        </span>
+                                </h6>
+                                <p class="p-0 m-0"> 
+                                    <strong>Cerrado por:</strong>
+                                    <span class="text-white-50 text-capitalize" >  {{ cash_register_last.closed_by }}  </span>
+                                    </p>
+                                <p class="p-0 m-0"> 
+                                    <strong>Balance de Apertura:</strong> 
+                                    <span class="text-white-50"> $ {{ cash_register_last.opening_balance|intcomma }}</span>
+                                    </p>
+                                <p class="p-0 m-0"> 
+                                    <strong>Balance de Cierre:</strong>
+                                    <span class="text-white-50">$ {{ cash_register_last.closing_balance|intcomma }}</span> 
+                                </p>
+                
+                                
+                                <p>
+                                        <strong > Ultimo cierre 
+                                            <span class='text-white-50'>        
+                                                {{cash_register_last.closed_at}}
+                                            </span>
+                                        </strong> 
+                                    </p>
+                            
+                            </div>
+
+                        <div class=' w-100 mt-0 ms-3'>
+                            <form method="post"  class=''>
+                                {% csrf_token %}
+                                <div class="form-group" style='width: 300px;'>
+                                    <label for="opening_balance">Monto de Apertura</label>
+                                    <p class='text-white-50' style='font-size: 12px; line-height: 14px;'>
+                                        Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo, esta cantidad sera reflejada como un ingreso mas
+                                    </p>
+                                    <input type="number" value="0" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
+                                </div>
+                                <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 mt-2 text-white" 
+                                    style="font-size: 14px;">Abrir nueva caja
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+
+            
+                </div>
+
+                <section class=' bg-white bg-opacity-10 p-3 rounded-4 m-2 mt-0 w-100 overflow-auto'          
+                style="
+                height: calc(100vh - 15rem);
+                 ">
                     <table class="w-100">
                         <thead>
                             <tr>
@@ -47,13 +156,15 @@
                         <tbody>
                             {% for record in records %}
                             <tr>
-                                <td>{{ record.id }}</td>
-                                <td>{{ record.date|date:"d/m/Y" }}</td>
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ record.date|date:"d/m/Y" }} {{ record.date|date:"H:i" }}</td>
                                 <td>{{ record.name }}</td>
                                 <td>{{ record.description|intcomma }}</td>
                                 <td> 
                                     {% if record.ingreso %}
                                         ${{ record.ingreso|intcomma }}
+                                        {% else %}
+                                        $0.00
                                     {% endif %}
                                 
                                 </td>
@@ -68,20 +179,71 @@
                             {% empty %}
                             <tr>
                                 <td colspan="6" class="text-center pt-4">
-                                    <strong>No hay registros financieros disponibles</strong>
+                                    <strong>No hay registros financieros disponibles en esta caja</strong>
+                                    <p>Se muestra este aviso ya que no hay datos financieros disponibles para mostrar en la caja actual</p>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    
                 </section>
                 <div class="d-flex  w-100 justify-content-end  p-2 pb-0">
-                    <a href="{% url "citas:financial-record-create" %}">  <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> + Ingreso o gastos</button> </a>
-              
+                    <div class="  "  style="width: max-content;">
+
+                        {% if cash_register.status == 'open' %}
+                        <form method="post" class="mt-0 w-100">
+                                {% csrf_token %}
+                                <div class="form-group p" style=' '>
+                  
+                                <input type="number" class="form-control d-none w-100 text-white bg-white bg-opacity-10 rounded-4 border-0" name="closing_balance"   step="0.01" value="{{count_ingresos}}" required style="">
+                            </div>
+                            <button type="submit" name="close_cash" class="btn me-1 mt-1 bg-danger bg-opacity-25 rounded-5  text-white ps-4 pe-4" 
+                            style="font-size: 14px;"> 
+                                Cerrar Caja
+                            </button>
+                        </form>
+                        
+                        {% else %}
+
+                        {% endif %}
+                    </div>
+                    <a href="{% url "citas:financial-record-create" %}">  
+                        <button class="btn text-white rounded-5  bg-primary bg-opacity-25   me-2" 
+                            style="font-size: 14px; margin-top: 2px;"> 
+                             Listado de gastos
+                        </button> 
+                    </a> 
+                    <form action="" method="post" class="d-flex">
+                        {% csrf_token %}
+                        <select class="form-select select-3 bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar año" style="width: max-content;">
+                            {% for year in years %}
+                                <option value="{{ year }}" {% if year == current_year %}selected{% endif %}>
+                                    {{ year }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    
+                        <select class="form-select select-1  bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar mes" style="width: max-content;">
+                            {% for month in months %}
+                                <option value="{{ month.value }}" {% if month.value == current_month %}selected{% endif %}>
+                                {{ month.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <select class="form-select select-2  bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar mes" style="width: max-content;">
+                            {% for month in months %}
+                                <option value="{{ month.value }}" {% if month.value == current_month %}selected{% endif %}>
+                                  {{ month.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> 
+                            Filtrar
+                        </button>
+                    </form>
                 </div>
   
-                  <div data-aos="fade-up" class="accordion-item m-1 mt-0 w-100 ">
+                <div data-aos="fade-up" class="accordion-item d-none m-1 mt-0 w-100 ">
                         <h2 class="accordion-header" id="headingTwo">
                           <button class="accordion-button collapsed  p-2 rounded-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo3" style="width: max-content;">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks m-1" viewBox="0 0 16 16">
@@ -89,13 +251,12 @@
                                   </svg>   Historial de caja
                           </button>
                         </h2>
-                        <p class="text-white-50 p-0 ps-2" style="font-size: 12px;">
+                        <p class="text-white-50 p-0 ps-2" style="font-size: 12px;  line-height: 8px">
                             Garantiza un registro claro y accesible de todas las operaciones para evitar fraudes o errores.
                           </p>
                         <div id="collapseTwo3"  class="w-100 accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                           <div class="accordion-body">
                               <div   style="height: 20rem;" class="   bg-white bg-opacity-10 rounded-4 p-3 m-1 overflow-scroll " >
-            
                                     <!-- Tabla de registros de caja -->
                                     <table class=" w-100">
                                         <thead>
@@ -125,138 +286,32 @@
                                             {% empty %}
                                             <tr>
                                                     <td colspan="8" class="text-center pt-4">
-                                                          <strong>
+                                                            <strong>
                                                                 No hay registros de caja disponibles
-                                                          </strong>
+                                                            </strong>
                                                     </td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                     </table>
-                                  </div>
+                                </div>
                           </div>
                         </div>
                   </div>
             </section>
-            <div class="rounded-5 m-1 p-2   " data-aos="fade-up">
+            
+            <div class="rounded-1 m-1 p-2   " >
 
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed  p-1 rounded-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo3" style="width: max-content;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-fill me-1" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
-                          </svg> Gestión de Caja
-                    </button>
-                  </h2>
-                  <p class="text-white-50" style="font-size: 12px;">
-                    La Gestión de Caja se utiliza para controlar el dinero que entra y sale de la caja registradora de una empresa, tienda o negocio. Permite registrar y supervisar todos los movimientos de efectivo, como ventas, retiros, depósitos y devoluciones.
-                  </p>
+     
+
+                  <!-- Mostrar información de la caja -->
                   <section  class="w-100  d-flex ">
-                                          <!-- Mostrar información de la caja -->
-                      <div class="card bg-white  bg-opacity-10 border-0 cj w-100 text-white  " 
-                          style="height: 13rem; border-radius: 1.5rem;">
-                          <div class="card-body d-flex w-100">
-                                <div class="w-100 d-flex justify-content-center flex-wrap">
-                                      {% if cash_register.status == 'open' %}
-                                      {% comment %} <strong > Apertura</strong> {% endcomment %}
-                                          <div class='text-center me-3 mt-4 '>
-                                                <h4 class="card-title p-0 m-0 mt-4" style="font-size: 14px;"> <strong>Caja {{ cash_register.id }}</strong> 
-                                                      <span class="text-white-50">
-                                                            - Estado: {{ cash_register.get_status_display }}
-                                                      </span>
-                                                </h4>
-                                         
-                                                    <p class="p-0 m-0"> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register.opening_balance|intcomma }}</span> </p>
-                                                    <p> <strong>Apertura:</strong>  
-                                                        <span class="text-white-50">{{ cash_register.opened_at|date:"d/m/Y" }} 
-                                                        por {{ cash_register.opened_by }}</span> </p>
-                                                
-          
-                                          </div>
-                                          <div  class="text-center  " style="margin-top: 45px;">
- 
-                                            <p class="m-0 p-0">
-                                                <strong>Ingresos</strong>
-                                                <span class="text-white-50"> ${{count_ingresos|intcomma}} </span>
-                                            </p>
-                                            <p class="m-0 p-0">
-                                                <strong>Gastos</strong>
-                                                <span class="text-white-50"> ${{count_gastos|intcomma}} </span>
-                                            </p>
-                                            
-                                            <p class="m-0 p-0">
-                                                <strong>Balance en caja</strong>
-                                                <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
-                                            </p>
-                                    
-                                          </div>
-                                          {% else %}
-                                          <div style='width: 300px;' class='text-center mt-4'>
-                                         
-                                                <h4 class="card-title p-0 pt-2 m-0 "> <strong> Caja :</strong>
-                                                      <span class="text-white-50"> #{{ cash_register_last.id }}
-                                                             {{ cash_register_last.get_status_display }}
-                                                      </span>
-                                                </h4>
-                                                    <p> <strong>Cerrado por:</strong>  <span class="text-white-50 text-capitalize" >  {{ cash_register_last.closed_by }}  </span> </p>
-                                                    <p> <strong>Balance de Apertura:</strong> <span class="text-white-50"> RD$ {{ cash_register_last.opening_balance|intcomma }}</span> </p>
-                                                    <p> <strong>Balance de Cierre:</strong> <span class="text-white-50"> RD$ {{ cash_register_last.closing_balance|intcomma }}</span> </p>
-                                                    <span >
-                                                      <strong > Ultimo cierre <span class='text-white-50'>{{cash_register_last.closed_at}}</span> </strong> 
-                                                </span>
-                                            
-                                          </div>
-                                              
-                                          {% endif %}
-                                </div>
-                                <div class="w-100">
-
-                                      {% if cash_register.status == 'open' %}
-                                      <form method="post" class="mt-4">
-                                          {% csrf_token %}
-                                          <div class="form-group" style='width: 400px;'>
-                                              <label for="closing_balance " class="text-white-50">Monto de Cierre</label>
-                                              <p class='text-white-50 mb-2' style='font-size: 12px;'>
-                                                Es la cantidad total de dinero que queda en la caja al final de un turno o día de trabajo
-                                              </p>
-                                              <span class="bg-white bg-opacity-10 p-2 rounded-5">
-                                                    <strong>Balance al cierre:</strong> ${{count_ingresos|intcomma}}
-                                              </span>
-                                              <input type="number" class="form-control d-none w-100 text-white bg-white bg-opacity-10 rounded-4 border-0" name="closing_balance"   step="0.01" value="{{count_ingresos}}" required style="">
-                                          </div>
-                                          
-                                          
-
-                                          <button type="submit" name="close_cash" class="btn bg-black bg-opacity-25 rounded-5 mt-3 text-white ps-4 pe-4"> 
-                                            - Cerrar Caja</button>
-                                      </form>
-                                  {% else %}
-                       
-                                      <div class=' w-100 mt-3 '>
-                                          <form method="post"  class=''>
-                                                
-                                                {% csrf_token %}
-                                                <div class="form-group" style='width: 400px;'>
-                                                    <label for="opening_balance">Monto de Apertura</label>
-                                                    <p class='text-white-50' style='font-size: 12px;'>
-                                                      Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo
-                                                    </p>
-                                                    <input type="number" value="0" class="d-none form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
-                                                </div>
-                                                <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 mt-2 text-white">Abrir nueva caja</button>
-                                            </form>
-                                    </div>
-                  
-                           
-                                  {% endif %}
-                                </div>
-                          </div>
+                      <div class="card bg-transparent   border-0 cj w-100 text-white  " 
+                          style=" border-radius: 1rem;">
+                        
                       </div>
-      
                   </section>
             </div>
-
-
-
       </div>
 </section>
 
@@ -271,6 +326,7 @@
                 element.click();
             });
         };
+
 </script>
 
 {% endblock  %}

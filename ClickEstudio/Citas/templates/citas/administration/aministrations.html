@@ -1,6 +1,6 @@
 {% extends "citas/base/base.html" %}
 {% block content %}
-      <style>
+<style>
             {% comment %} body 
             {
                   background: white;
@@ -129,7 +129,7 @@
 
                   {% include "citas/administration/list-citas.html" %}
                   {% include "citas/administration/reservados.html" %}
-
+                  {% include "citas/administration/saled_citas.html" %}
                   {% include "citas/administration/profile.html" %}
             </div>
       </div>
@@ -137,15 +137,7 @@
 
 <script>
 
-
       TextSession('Listado de citas')
-
-
-
-//       document.getElementById("div-menu-admin").addEventListener('focus', () => {
-//             document.getElementById("div-menu-admin").classList.add('p-2', 'shadow'); // Agrega la clase si hay foco
-// });
-
 
 </script>
 

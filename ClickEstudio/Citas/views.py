@@ -94,9 +94,11 @@ class CitasAdministrations(TemplateView, Mail):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             sales_reserver = models.Sale.objects.filter(saled=False, reserver=True)
+            saled_citas = models.Sale.objects.filter(saled=True, reserver=True)
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
+            context['saled_citas'] = saled_citas
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
                   context['service_admin'] = True
@@ -114,55 +116,38 @@ class CustomerCreateView(CreateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['service_admin'] = True
-            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            if self.request.user.is_authenticated:
+                  context['service_admin'] = True
+
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             return context
 
       def form_valid(self, form):
             form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
             form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
             
-            try:
-                  # Intentamos obtener el objeto
-                  objeto = self.model.objects.get(email=form.instance.email)
-                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
-                  objeto.plans_more.add(nuevo_plan)
-                  print(objeto.plans_more)
-                  sale = models.Sale(
-                        cliente=models.Customer.objects.get(id=form.instance.id),
-                        plan=form.instance.plans,
-                        price_total=form.instance.plans.price,   
-                  )
-                  sale.save()
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
-            
-            except self.model.MultipleObjectsReturned:
-                  # Maneja el caso de múltiples objetos
-                  objetos = self.model.objects.filter(email=form.instance.email)
-                  objeto = objetos.first()  # Tomamos el primero de la lista
-                  nuevo_plan = models.Plans.objects.get(id=self.kwargs.get('pk'))
-                  objeto.plans_more.add(nuevo_plan)
-                  sale = models.Sale(
-                        cliente=models.Customer.objects.get(id=form.instance.id),
-                        plan=form.instance.plans,
-                        price_total=form.instance.plans.price,   
-                  )
-                  sale.save()
-                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': objeto.id}))
-            
-            except self.model.DoesNotExist:
-                  if form.is_valid():
+            if form.is_valid():
+                  cliente = models.Customer.objects.filter(email=form.instance.email).first()
+                  if cliente:
+                        sale = models.Sale(
+                              cliente=cliente,
+                              plan=form.instance.plans,
+                              price_total=form.instance.plans.price,
+                        )
+                        sale.save()
+                  else:
                         form.save()
                         sale = models.Sale(
-                        cliente=models.Customer.objects.get(id=form.instance.id),
-                        plan=form.instance.plans,
-                        price_total=form.instance.plans.price,   
-                  )
+                              cliente=models.Customer.objects.get(id=form.instance.id),
+                              plan=form.instance.plans,
+                              price_total=form.instance.plans.price,
+                        )
                         sale.save()
+                 
                         return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': form.instance.id}))
+                  return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': sale.cliente.id}))
 
       def form_invalid(self, form):
-            print(form.errors)
             return super().form_invalid(form)
       
       
@@ -235,7 +220,10 @@ class CustomerDetailView(DetailView):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['service_admin'] = True
+            if self.request.user.is_authenticated:
+                  context['service_admin'] = True
+                  context['service'] = models.ServiceImage.objects.all()
+                  context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
 
             context['c'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
@@ -314,6 +302,7 @@ class ServiceSelect(DetailView):
             context['img_mkl'] = mkl
             context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             context['plans'] = self.model.objects.get(id=self.kwargs.get('pk')).services.all()
+            context['No_autorize'] = True
             # context['img_relate_service'] = img_h.
             if  self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -503,6 +492,16 @@ class PlansCreate(CreateView):
             return context
       
       def form_valid(self, form):
+            img = self.request.FILES.get('img')
+            if img:
+                  image = Image.open(img)
+                  image = image.convert('RGB')  # Convert to RGB mode
+                  image = image.resize((220, 220), Image.LANCZOS)
+                  output = BytesIO()
+                  image.save(output, format='JPEG', quality=10)
+                  output.seek(0)
+                  form.instance.img = InMemoryUploadedFile(output, 'ImageField', img.name, 'image/jpeg', output.getbuffer().nbytes, None)
+                  form.save()
             return super().form_valid(form)
 
       def form_invalid(self, form):
@@ -535,6 +534,16 @@ class PlansUpdate(UpdateView):
             return context
       
       def form_valid(self, form):
+            img = self.request.FILES.get('img')
+            if img:
+                  image = Image.open(img)
+                  image = image.convert('RGB')  # Convert to RGB mode
+                  image = image.resize((220, 220), Image.LANCZOS)
+                  output = BytesIO()
+                  image.save(output, format='JPEG', quality=10)
+                  output.seek(0)
+                  form.instance.img = InMemoryUploadedFile(output, 'ImageField', img.name, 'image/jpeg', output.getbuffer().nbytes, None)
+                  form.save()
             return super().form_valid(form)
 
       def form_invalid(self, form):
@@ -590,6 +599,9 @@ from django.db.models import Count, IntegerField
 from django.db.models.functions import ExtractMonth, ExtractYear
 import calendar
 import locale
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 class HistoriSale(TemplateView, Options):
       model = models.Customer
       # form_class = forms.CustomerForm2
@@ -917,26 +929,64 @@ class CashRegisterView(View):
     def get(self, request):
             cash_register = models.CashRegister.objects.filter(status='open').first()
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
-            records = models.FinancialRecord.objects.filter(is_activate=True)
+            records = models.FinancialRecord.objects.all()
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
-            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True, is_activate=True)
-            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, is_activate=True)
+            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True)
+            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
 
             count_ingresos = 0
             count_gastos = 0
             for i in ingresos:
-                  if i.ingreso:
+                  if i.ingreso != 0:
                         count_ingresos += i.ingreso
 
             for g in gastos:
                   if g.gasto:
-                        count_gastos += g.gasto
+                        count_gastos += float(g.gasto)
+
+            last_cash = models.CashRegister.objects.filter(status='open').last()
+
+            
+            years = list(range(2020, 2031))
+            current_year = datetime.now().year
+            months = [
+                  {'number': 1, 'name': 'Enero'},
+                  {'number': 2, 'name': 'Febrero'},
+                  {'number': 3, 'name': 'Marzo'},
+                  {'number': 4, 'name': 'Abril'},
+                  {'number': 5, 'name': 'Mayo'},
+                  {'number': 6, 'name': 'Junio'},
+                  {'number': 7, 'name': 'Julio'},
+                  {'number': 8, 'name': 'Agosto'},
+                  {'number': 9, 'name': 'Septiembre'},
+                  {'number': 10, 'name': 'Octubre'},
+                  {'number': 11, 'name': 'Noviembre'},
+                  {'number': 12, 'name': 'Diciembre'},
+            ]
+
+   
+
+            dinero_en_caja = 0            
+            dinero =  models.CashRegister.objects.all()
+            
+            for d in dinero:
+                    if d.closing_balance:
+                        pass
+                              # dinero_en_caja += float(d.closing_balance)
+                              # dinero_en_caja += float(d.opening_balance)
 
             context = {
+                  'current_year': current_year,
+                  # 'last_cash': last_cash.opening_balance,
+                  'years': years,
+                  'dinero_en_caja':   int(count_ingresos) -  int(count_gastos), 
+                  'months': months,
                   'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
-                  'cash_register': cash_register, 'cash_register_last': cash_register_last,
+                  'cash_register': cash_register, 
+                  'cash_register_last': cash_register_last,
                   'records': records, 'service_admin': True,
-                  'count_gastos': count_gastos,  'count_ingresos': count_ingresos,
+                  'count_gastos': sum(gasto.gasto for gasto in gastos), 
+                   'count_ingresos': count_ingresos,
                   'permisons':  models.Permisons.objects.get(user=self.request.user)
             }
             return render(request, 'citas/cash_control.html', context)
@@ -947,23 +997,32 @@ class CashRegisterView(View):
             form = forms.OpenCashForm(request.POST)
             print(form.errors)
             if form.is_valid():
-                opening_balance = form.cleaned_data['opening_balance']
-                cash_register = models.CashRegister.objects.create(
+                  opening_balance = form.cleaned_data['opening_balance']
+                  cash_register = models.CashRegister.objects.create(
                     opened_by=request.user,
                     opening_balance=opening_balance,
                     opened_at=timezone.now(),
                     status='open')
+                    
+                  record = models.FinancialRecord.objects.create(
+                  name=request.user.username,
 
-                messages.success(request, 'Caja abierta correctamente.')
+                  description=  'Apertura de caja',
+                  ingreso = opening_balance
+                  # ingreso=sale.price_total
+                  )
+                  record.save()
+
+                  messages.success(request, 'Caja abierta correctamente.')
             
-                return redirect('/caja')
+                  return redirect('/caja')
 
         elif 'close_cash' in request.POST:
             form = forms.CloseCashForm(request.POST)
             print(form)
             cash_register = models.CashRegister.objects.filter(status='open').first()
             if cash_register and form.is_valid():
-                cash_register.closing_balance = form.cleaned_data['closing_balance']
+                cash_register.closing_balance = form.cleaned_data['closing_balance'] 
                 cash_register.closed_by = request.user
                 cash_register.closed_at = timezone.now()
                 cash_register.status = 'closed'
@@ -1017,17 +1076,33 @@ class FinancialRecordCreateView(CreateView):
       model = models.FinancialRecord
       form_class = forms.FinancialRecordForm
       template_name = 'citas/financial_record_create.html'
-      success_url = reverse_lazy('citas:caja')
+      success_url = reverse_lazy('citas:financial-record-create')
 
       def get_context_data(self, **kwargs):
+
             context = super().get_context_data(**kwargs)
+            gastos_total = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
+            gastos_recurrentes = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=True).order_by('-id')
+            gastos_otros = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, gasto_recurrente=False).order_by('-id')
             context['service_admin'] = True
+            context['gastos_recurrentes'] = gastos_recurrentes
+            context['gastos_recurrentes_total'] = sum(gasto.gasto for gasto in gastos_recurrentes)
+            context['gastos_otros'] = gastos_otros
+            context['gastos_otros_total'] = sum(gasto.gasto for gasto in gastos_otros)
+            context['gastos_total'] = sum(gasto.gasto for gasto in gastos_total)
+            context['fecha'] =     datetime.now().strftime('%B %Y')
+
             context['permisons'] = models.Permisons.objects.get(user=self.request.user)
             return context
 
       def form_valid(self, form):
             if form.instance.ingreso == None:
+
                   form.instance.is_ingreso_or_gasto = False
+                  if self.request.POST.get('fixed_expense') == 'yes':
+                        form.instance.gasto_recurrente = True
+      
+
                   form.save()
             print(form.instance.ingreso)
             messages.success(self.request, 'Registro financiero creado correctamente.')

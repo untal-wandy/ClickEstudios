@@ -296,6 +296,12 @@ class FinancialRecord(models.Model):
       gasto = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
       is_ingreso_or_gasto = models.BooleanField(default=True, blank=True, null=True)
       is_activate = models.BooleanField(default=True, blank=True, null=True)
+      created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+      gasto_recurrente = models.BooleanField(default=False, blank=True, null=True)
+      renovacion_mensual_gasto_recurrente = models.IntegerField(default=15, blank=True, null=True)
+      # Renovacion_mensual_gasto_recurrente en la que se renobara el gasto automaticamente
+      # Un gasto recurrente es un gasto recurrente que se mantiene constante durante un período de tiempo, como el alquiler o los servicios públicos.
 
       def __str__(self):
             return f"{self.name} - {self.description}"

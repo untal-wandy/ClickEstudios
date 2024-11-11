@@ -3,6 +3,7 @@
 # La función SendMail se encarga de enviar un correo electrónico utilizando el protocolo SMTP (Simple Mail Transfer Protocol). Toma como parámetros el destinatario del correo (Destinario), el asunto del correo (Asunto) y el mensaje del correo (Mensaje).
 from email.mime.text import MIMEText
 from ClickEstudio import settings
+from . import models
 import smtplib
 
 class Mail:
@@ -29,6 +30,17 @@ class Options:
 
 
 
+      # Esta función es útil para registrar automáticamente los ingresos en la base de datos cuando una venta ha sido confirmada.
+      def Guardar_Ingreso(sale, ingreso, tipo):
+
+            record = models.FinancialRecord.objects.create(
+                  name=sale.cliente.name,
+                  description=sale.plan.name + tipo,
+                  ingreso = ingreso
+                  # ingreso=sale.price_total
+                  )
+            record.save()
+            return 'Ingreso Guardado'
 
 
 
