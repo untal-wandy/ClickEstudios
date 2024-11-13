@@ -141,7 +141,17 @@
                         {% include "citas/administration/list-citas.html" %}
                   </div>
                   {% include "citas/administration/reservados.html" %}
-                  {% include "citas/administration/saled_citas.html" %}
+                 <div class='w-100'>
+                        <div>
+                              <h6 class='p-0 m-0 mt-4'>
+                                    Citas vendidas listas para procesar
+                              </h6>
+                              <p class='text-white-50'>
+                                 Al procesar una cita, iniciará un proceso en cual se le asignar mas opciones al cliente y afectar el precio filnal con opciones.
+                              </p>
+                        </div>
+                        {% include "citas/administration/saled_citas.html" %}
+                 </div>
                   {% include "citas/administration/profile.html" %}
             </div>
       </div>

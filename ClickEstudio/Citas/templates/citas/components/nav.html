@@ -173,6 +173,9 @@ transition: 0.9s !important'>
             <a href="{% url "citas:administrations-citas" %}"  class="text-white p-0 pt-1 pb-0">
                   Punto de venta
             </a>
+            <a href="{% url "citas:pack-opciones-create" %}"  class="text-white p-0 pt-1 pb-0">
+                  Paquete de Opciones
+            </a>
 
                   {% if permisons.priori >= 3 %}
                   {% include "citas/components/configuracion-nav.html" %}

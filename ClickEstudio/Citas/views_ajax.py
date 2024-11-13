@@ -204,3 +204,21 @@ def DeleteOption(request):
       option = models.Opciones.objects.get(id=request.GET.get('option_id'))
       option.delete()
       return JsonResponse(list(), safe=False)
+
+
+def DeletePaquetOption(request):
+      option = models.PackOpciones.objects.get(id=request.GET.get('option_id'))
+      option.delete()
+      return JsonResponse(list(), safe=False)
+
+
+def CreateOption(request):
+      sale = models.Sale.objects.get(id=int(request.GET.get('saled_id')))
+      options = models.Opciones(
+            sale=sale,
+            name = request.GET.get('name'),
+            preci = int(request.GET.get('price')),
+            description = request.GET.get('description'),
+            )
+      options.save()
+      return JsonResponse(list(),  safe=False)

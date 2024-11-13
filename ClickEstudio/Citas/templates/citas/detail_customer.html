@@ -25,9 +25,17 @@
       {
             font-size: 12px;
       }
+      .form-control 
+      {
+            color: white !important;
+            background: rgba(60, 60, 60, 0.5) !important;
+            border: 0px !important;
+            outline: none !important;
+      }
 </style>
 <input type="number" value='{{sale.id}}' class='d-none' id='saled_id'>
 <section class="vh-100 bg-black   bg-opacity-50 blur overflow-scroll detail-c">
+      
       {% include "citas/components/nav.html" %}
       <div class="p-3 pb-0">
             <div>
@@ -47,7 +55,7 @@
                   {% if opciones %}
                   <div class='p-3 m-1 w-100 bg-white ms-3 overflow-scroll bg-opacity-10 rounded-4' style='height: 11.5rem !important;'>
                         <h6 class='p-0 m-0  '> 
-                              Opciones Disponibles
+                              Opciones seleciones
                         </h6>
 
                         <div class='w-100 rounded-4 p-2'>
@@ -57,7 +65,9 @@
                                                 <th scope="col">Nombre</th>
                                                 <th scope="col">Descripción</th>
                                                 <th scope="col">Precio</th>
+                                                {% if sale.saled_end == False %}
                                                 <th scope='col'>Accion</th>
+                                                {% endif %}
                                           </tr>
                                     </thead>
                                     <tbody>
@@ -66,9 +76,11 @@
                                                       <td  class='text-white-50' style='font-size:14px;'>{{ option.name }}</td>
                                                       <td  class='text-white-50' style='font-size:14px;'>{{ option.description }}</td>
                                                       <td  class='text-white-50' style='font-size:14px;'>${{ option.preci|intcomma }}.00</td>
-                                                      <td onclick='DeleteOption(this.id)' id='{{option.id}}' >
-                                                            Eliminar
-                                                      </td>
+                                                      {% if sale.saled_end == False %}
+                                                            <td onclick='DeleteOption(this.id)' id='{{option.id}}' >
+                                                                  Eliminar
+                                                            </td>
+                                                      {% endif %}
                                                 </tr>
                                                 {% endfor %}
                                           </tbody>
@@ -77,6 +89,10 @@
                         </div>
 
                   </div>
+                  {% else %}
+                  {% comment %} <span class='ms-3'>
+                        !No hay opciones disponibles
+                  </span> {% endcomment %}
             {% endif %}
             </div>
             <div>
@@ -88,34 +104,126 @@
                               Selecciona los paquetes de opciones que deseas agregar a la cita seleccionada
                         </p>
                   </div>
-                  {% if pack_options %}
-                        {% include "citas/administration/pack_options.html" %}
-                  {% endif %}
+                  <div class='d-flex overflow-scroll'>
+                        {% if pack_options %}
+                              {% include "citas/administration/pack_options.html" %}
+                        {% endif %}
+                  </div>
+                  <div>
+                        <button style="font-size: 14px;"  class=" btn-opcions border-0 bg-black bg-opacity-50 p-2 pe-3 ps-3">
+                              Crear opciones 
+                        </button>
+                  </div>
             </div>
         
-            <div class="position-relative w-100 mt-5 pt-5 bottom-0 position-sticky start-0 ">
-                  <div class="card bg-black   rounded-4 m-1 start-0 w-100  text-white mt-4">
+
+            
+            {% comment %} <div class="alert alert-warning border-0 position-absolute top-0  bg-black text-white end-50 z-10" role="alert">
+                  <strong>Advertencia</strong> <p class='text-white-50' style='font-size:14px;'>Asegúrate de revisar todas las opciones antes de aplicar los cambios, una vez haces clien en el botón "Aplicar y terminar" no podrás hacer cambios.</p>
+            </div> {% endcomment %}
+            <div class="position-relative w-100 mt-5 pt-5 bottom-0  position-sticky start-0 ">
+                  {% if sale.saled_end == False %}
+                  <div class="card  bg-transparent  border-0  rounded-4 m-1 start-0 w-100  text-white ">
                         <div class="card-body">
+                              <p class='text-white-50' style='font-size:14px;'>Asegúrate de revisar todas las opciones antes de aplicar los cambios, una vez haces clien en el botón "Aplicar y terminar" no podrás hacer cambios.</p>
                               <h5 class="card-title m-0 p-0">
                                     Total: ${{total_m_opciones|intcomma}}.00 </h5>
                                     {% if options_total > 0 %}
-                                           <p class="card-text p-0 m-0" style='font-size: 14px;'>Total en opciones: ${{ options_total|intcomma}}.00</p>
+                                           <p class="card-text p-0 m-0" style='font-size: 14px;'>Total de las opciones: ${{ options_total|intcomma}}.00</p>
+                                    {% endif %}
+                                    <form action="" method="post">
+                                          {% csrf_token %}
+                                          <button id="apply-btn" 
+                                          style='font-size: 14px;'
+                                          class="btn mt-3 text-white rounded-5 bg-white bg-opacity-10">
+                                          Aplicar y terminar</button>
+                                    </form>
+                        </div>
+                  </div>
+                  {% else %}
+                  <div class="card  bg-transparent  border-0  rounded-4 m-1 start-0 w-100  text-white ">
+                        <div class="card-body">
+                              <h5 class="card-title m-0 p-0">
+                                    Vendido en: ${{total_m_opciones|intcomma}}.00 </h5>
+                                    {% if options_total > 0 %}
+                                           <p class="card-text p-0 m-0" style='font-size: 14px;'> Opciones que se agregaron: ${{ options_total|intcomma}}.00</p>
                                     {% endif %}
                               <button id="apply-btn" 
                               style='font-size: 14px;'
                               class="btn mt-3 text-white rounded-5 bg-white bg-opacity-10">
-                              Aplicar y terminar</button>
+                                    Citar terminada
+                        </button>
                         </div>
                   </div>
+                  {% endif %}
             </div>
 
 
       </div>
+      
+
+
+      <div id="optionModal2" class="d-none position-fixed top-0 start-0 w-100 vh-100 bg-black bg-opacity-50 d-flex justify-content-center align-items-center">
+            <div class="bg-black rounded-3 p-4 " style="width: 90%; max-width: 500px; z-index: 1000;">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="modal-title">Crear nueva opción</h5>
+                        <button type="button" class="btn-close" onclick="closeOptionModal()"></button>
+                  </div>
+                  <div>
+                        <form id="optionForm">
+                              <div class="mb-3">
+                                    <label for="optionName" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="optionName" required>
+                              </div>
+                              <div class="mb-3">
+                                    <label for="optionDescription" class="form-label">Descripción</label>
+                                    <textarea class="form-control" id="optionDescription" rows="3" required></textarea>
+                              </div>
+                              <div class="mb-3">
+                                    <label for="optionPrice" class="form-label">Precio</label>
+                                    <input type="number" class="form-control" id="optionPrice" required>
+                              </div>
+                        </form>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" onclick="OpenModalOption()">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="createOption()">Guardar</button>
+                  </div>
+            </div>
+      </div>
+
+
+
+      <script>
+            function createOption() {
+                  const name = document.getElementById('optionName').value;
+                  const description = document.getElementById('optionDescription').value;
+                  const price = document.getElementById('optionPrice').value;
+
+                  $.ajax({
+                        url: '/create-option/',
+                        data: {
+                              name: name,
+                              description: description,
+                              price: price,
+                              saled_id: document.getElementById('saled_id').value,
+                        },
+                        success: function(response) {
+                              location.reload();
+                        },
+                        error: function(error) {
+                              console.error('Error:', error);
+                        }
+                  });
+            }
+      </script>
 
 </section>
 <script>
 TextSession('Detalles')
-
+setTimeout(function() {
+      document.querySelector('.alert').classList.add('d-none');
+}, 10000);
 </script>
 <script>
       function AddOption(id) {
@@ -148,6 +256,22 @@ TextSession('Detalles')
                   }
             });
       }
+
+
+      document.querySelector('.btn-opcions').addEventListener('click', function() {
+            OpenModalOption();
+
+      });
+
+function OpenModalOption() {
+      var optionModalElement = document.getElementById('optionModal2');
+      if (optionModalElement.classList.contains('d-none')) {
+            optionModalElement.classList.remove('d-none');
+      } else {
+            optionModalElement.classList.add('d-none');
+      }
+
+}
 </script>
 
 {% endblock %}

@@ -37,6 +37,7 @@ urlpatterns = [
 
         path('financial-record-create', views.FinancialRecordCreateView.as_view(), name='financial-record-create') ,
 
+        path('pack-opciones-create/', views.PackOpcionesCreateView.as_view(), name='pack-opciones-create'),
 
 
 
@@ -64,5 +65,7 @@ urlpatterns = [
 
     path('customer-detail-c/<int:pk>/', views.CustomerDetail.as_view(), name='customer-detail-c'),
 
+    path('delete-paquet-option/', views_ajax.DeletePaquetOption, name='delete-paquet-option'),
+    path('create-option/', views_ajax.CreateOption, name='create-option'),
 
 ]
