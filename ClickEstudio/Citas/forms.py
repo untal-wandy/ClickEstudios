@@ -243,3 +243,26 @@ class FinancialRecordForm(forms.ModelForm):
             super(FinancialRecordForm, self).__init__(*args, **kwargs)
             for field in self.fields:
                   self.fields[field].widget.attrs['class'] = 'inputs'
+
+
+class PackOpcionesForm(forms.ModelForm):
+      class Meta:
+            model = models.PackOpciones
+            fields = ['img', 'name', 'description', 'preci', ]
+            labels = {
+                    'img': 'Imagen',
+                    'name': 'Nombre',
+                    'description': 'Descripción',
+                    'preci': 'Precio',
+            }
+            widgets = {
+                    'img': forms.ClearableFileInput(attrs={'class': 'inputs'}),
+                    'name': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Paqute navideño premium'}),
+                    'description': forms.Textarea(attrs={'class': 'inputs', 'placeholder': 'Vestido de Santa, gorro, barba, etc'}),
+                    'preci': forms.NumberInput(attrs={'class': 'inputs', 'placeholder': ''}),
+            }
+
+      def __init__(self, *args, **kwargs):
+            super(PackOpcionesForm, self).__init__(*args, **kwargs)
+            for field in self.fields:
+                  self.fields[field].widget.attrs['class'] = 'inputs'

@@ -322,5 +322,30 @@ class Sale(models.Model):
       reserver_mount = models.IntegerField(default=0, blank=True, null=True)
       abonado = models.IntegerField(default=0, blank=True, null=True)
 
+      saled_end = models.BooleanField(default=False, blank=True, null=True)
+
       def __str__(self):
             return f"Venta #vn00{self.id} {self.cliente} - {self.plan} - {self.date} - {'Vendido' if self.saled == True else 'No pagado'}" 
+
+
+class Opciones(models.Model):
+      sale = models.ForeignKey(Sale, related_name='opciones', on_delete=models.CASCADE)
+      name = models.CharField(max_length=255)
+      description = models.TextField(blank=True, null=True)
+      preci = models.IntegerField(default=0)
+      date = models.DateTimeField(auto_now_add=True)
+
+
+      def __str__(self):
+            return f"{self.name} - {self.description}"
+
+
+class PackOpciones(models.Model):
+      img = models.ImageField(upload_to='media/', blank=True, null=True)
+      name = models.CharField(max_length=255)
+      description = models.TextField(blank=True, null=True)
+      preci = models.IntegerField(default=0)
+      date = models.DateTimeField(auto_now_add=True)
+
+      def __str__(self):
+            return f"{self.name} - {self.description}"

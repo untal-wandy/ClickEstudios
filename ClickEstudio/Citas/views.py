@@ -94,7 +94,7 @@ class CitasAdministrations(TemplateView, Mail):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             sales_reserver = models.Sale.objects.filter(saled=False, reserver=True)
-            saled_citas = models.Sale.objects.filter(saled=True, reserver=True)
+            saled_citas = models.Sale.objects.filter(saled=True, reserver=True, saled_end=False)
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
@@ -1112,7 +1112,66 @@ class FinancialRecordCreateView(CreateView):
             messages.error(self.request, 'Error al crear el registro financiero.')
             return super().form_invalid(form)
 
-    
-"""
-Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
-"""
+
+
+class CustomerDetail(DetailView):
+      model = models.Sale
+      template_name = 'citas/detail_customer.html'
+      context_object_name = 'customer'
+
+      def get_context_data(self, **kwargs):
+            opciones = models.Opciones.objects.filter(sale=self.get_object()).order_by('-id')
+            context = super().get_context_data(**kwargs)
+
+            context['options_total'] = sum(opciones.preci for opciones in opciones)
+            context['opciones'] = opciones
+
+            if self.request.user.is_authenticated:
+                  context['c'] = self.get_object().cliente
+                  context['service_admin'] = True
+                  context['pack_options'] = models.PackOpciones.objects.all()
+                  context['total_m_opciones'] = self.get_object().plan.price + sum(opciones.preci for opciones in opciones)
+                  context['sale'] = self.get_object()
+                  context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+
+      def post(self, request, *args, **kwargs):
+            opciones = models.Opciones.objects.filter(sale=self.get_object()).order_by('-id')
+            kl = self.get_object()
+            kl.price_total =  sum(opciones.preci for opciones in opciones)
+            kl.saled_end = True
+            kl.save()
+
+            for op in opciones:
+            
+                  ingreso= models.FinancialRecord(
+                        is_ingreso_or_gasto=True, 
+                        name = op.name,
+                        description = op.description,
+                        ingreso = op.preci,
+                  )
+                  ingreso.save()
+            return redirect('citas:customer-detail-c', pk=self.get_object().id)
+
+
+class PackOpcionesCreateView(CreateView):
+      model = models.PackOpciones
+      form_class = forms.PackOpcionesForm
+      template_name = 'citas/pack_opciones_create.html'
+      success_url = reverse_lazy('citas:pack-opciones-create')
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['create_paquet'] = True
+            context['pack_options'] = models.PackOpciones.objects.all()
+            context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+
+      def form_valid(self, form):
+            messages.success(self.request, 'Pack de opciones creado correctamente.')
+            return super().form_valid(form)
+
+      def form_invalid(self, form):
+            messages.error(self.request, 'Error al crear el pack de opciones.')
+            return super().form_invalid(form)

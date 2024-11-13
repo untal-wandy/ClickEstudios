@@ -77,13 +77,13 @@
       <div  data-aos="fade-up" class="m-2 mt-0 rounded-3  d-flex justify-content-center bg-white bg-opacity-10   pt-1" style="min-height: 70vh; ">
         
             <div class=" mt-1  p-2 m-2 rounded-4 bg-black bg-opacity-25 w-100">
-                  <section class=" h-50 overflow-scroll  rounded-4 p-2">
+                  <section class=" h-50 overflow-scroll  rounded-4 d-none p-2">
                         <table class="w-100">
                               {% if gastos_recurrentes %}
                               <thead>
                                     <tr>
-                                          <th scope="col">#</th>
-                                          <th scope="col">Nombre</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Fecha </th>
@@ -142,7 +142,7 @@
                         </tbody>
                          </table>
                   </section>
-                  <section class="h-50 rounded-4 p-2 overflow-scroll">
+                  <section class=" rounded-4 p-2 overflow-scroll">
                         <table class="w-100">
                               {% if gastos_otros %}
                               <thead>
@@ -223,7 +223,7 @@
                  </div>
                   {{ form.description}}
 
-                  <div class="form-check form-check-inline d-none">
+                  <div class="form-check form-check-inline d-none ">
                         <input class="form-check-input" type="radio" name="financial_type" id="expense" value="expense" checked>
                         <label class="form-check-label text-white" for="expense">Gasto</label>
                   </div>
@@ -232,18 +232,18 @@
            
                   </div>
 
-                  <span>
+                  <span class='d-none'>
                         <label for="fixed_expense" class="f text-white" style="font-size: 12px;"> ¿Es un gasto recurrente? </label>
                   </span>
-                  <div class="form-check form-check-inline ms-3">
+                  <div class="form-check form-check-inline ms-3 d-none">
                         <input class="form-check-input" type="radio" name="fixed_expense" id="fixed_expense_yes" value="yes">
                         <label class="form-check-label text-white" for="fixed_expense_yes">Sí</label>
                   </div>
-                  <div class="form-check form-check-inline">
+                  <div class="form-check form-check-inline d-none">
                         <input class="form-check-input" type="radio" name="fixed_expense" id="fixed_expense_no" value="no" checked>
                         <label class="form-check-label text-white" for="fixed_expense_no">No</label>
                   </div>
-                  <p class="text-white-50 mt-2 " style="font-size: 14px;">Un gasto fijo es un gasto recurrente que se mantiene constante durante un período de tiempo, como el alquiler o los servicios públicos.</p>
+                  <p class="text-white-50 mt-2 d-none " style="font-size: 14px;">Un gasto fijo es un gasto recurrente que se mantiene constante durante un período de tiempo, como el alquiler o los servicios públicos.</p>
                   <div id="detail" class="d-none">
                         <label class="w-100" for="renovacion_mensual_gasto_recurrente" style="font-size: 12px;">
                               Selecciona el dia en que se renovara este gasto mensual 
