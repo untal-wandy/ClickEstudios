@@ -1,0 +1,153 @@
+{% include "citas/base/base.html" %}
+{% block content %}  {% load humanize %}
+<style>
+      #btn-action {
+            display: none !important; 
+        }
+      #divs-btns {
+            display: none !important;
+        }
+
+      .detail-c label h2
+      {
+            font-size: 14px !important;
+      }
+      .delete, .div-btns, .ac , .hr
+      {
+            display: none !important;
+      }
+      .sale
+      {
+            height: 11.5rem !important;
+            min-width: 20rem;
+      }
+      .td 
+      {
+            font-size: 12px;
+      }
+</style>
+<input type="number" value='{{sale.id}}' class='d-none' id='saled_id'>
+<section class="vh-100 bg-black   bg-opacity-50 blur overflow-scroll detail-c">
+      {% include "citas/components/nav.html" %}
+      <div class="p-3 pb-0">
+            <div>
+                  <h6 class='p-0 m-0 mt-4'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg> <strong> {{ sale.cliente.name }}</strong>
+                  </h6>
+                  <p class='text-white-50'>
+                        {{ sale.cliente.date_created|date:"M/d/Y" }} - {{ sale.cliente.date_created|date:"H:i" }}
+                  </p>
+            </div>
+            <div class="d-flex  justify-content-start w-100  ">
+                  
+                  {% include "citas/administration/saled_sales.html" %}
+                  {% if opciones %}
+                  <div class='p-3 m-1 w-100 bg-white ms-3 overflow-scroll bg-opacity-10 rounded-4' style='height: 11.5rem !important;'>
+                        <h6 class='p-0 m-0  '> 
+                              Opciones Disponibles
+                        </h6>
+
+                        <div class='w-100 rounded-4 p-2'>
+                              <table class="w-100">
+                                    <thead>
+                                          <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Descripción</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope='col'>Accion</th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                                {% for option in opciones %}
+                                                <tr>
+                                                      <td  class='text-white-50' style='font-size:14px;'>{{ option.name }}</td>
+                                                      <td  class='text-white-50' style='font-size:14px;'>{{ option.description }}</td>
+                                                      <td  class='text-white-50' style='font-size:14px;'>${{ option.preci|intcomma }}.00</td>
+                                                      <td onclick='DeleteOption(this.id)' id='{{option.id}}' >
+                                                            Eliminar
+                                                      </td>
+                                                </tr>
+                                                {% endfor %}
+                                          </tbody>
+                                    </table>
+      
+                        </div>
+
+                  </div>
+            {% endif %}
+            </div>
+            <div>
+                  <div>
+                        <h6 class='p-0 m-0 mt-4'>
+                              Paquetes de opciones
+                        </h6>
+                        <p class='text-white-50'>
+                              Selecciona los paquetes de opciones que deseas agregar a la cita seleccionada
+                        </p>
+                  </div>
+                  {% if pack_options %}
+                        {% include "citas/administration/pack_options.html" %}
+                  {% endif %}
+            </div>
+        
+            <div class="position-relative w-100 mt-5 pt-5 bottom-0 position-sticky start-0 ">
+                  <div class="card bg-black   rounded-4 m-1 start-0 w-100  text-white mt-4">
+                        <div class="card-body">
+                              <h5 class="card-title m-0 p-0">
+                                    Total: ${{total_m_opciones|intcomma}}.00 </h5>
+                                    {% if options_total > 0 %}
+                                           <p class="card-text p-0 m-0" style='font-size: 14px;'>Total en opciones: ${{ options_total|intcomma}}.00</p>
+                                    {% endif %}
+                              <button id="apply-btn" 
+                              style='font-size: 14px;'
+                              class="btn mt-3 text-white rounded-5 bg-white bg-opacity-10">
+                              Aplicar y terminar</button>
+                        </div>
+                  </div>
+            </div>
+
+
+      </div>
+
+</section>
+<script>
+TextSession('Detalles')
+
+</script>
+<script>
+      function AddOption(id) {
+            $.ajax({
+                  url: '/agregar-options/',
+                  data: {
+                        pack_options_id: id,
+                        saled_id: document.getElementById('saled_id').value,
+                  },
+                  success: function(response) {
+                        location.reload();
+                  },
+                  error: function(error) {
+                        console.error('Error:', error);
+                  }
+            });
+      }
+
+      function DeleteOption(id) {
+            $.ajax({
+                  url: '/delete-options/',
+                  data: {
+                        option_id: id,
+                  },
+                  success: function(response) {
+                        location.reload();
+                  },
+                  error: function(error) {
+                        console.error('Error:', error);
+                  }
+            });
+      }
+</script>
+
+{% endblock %}

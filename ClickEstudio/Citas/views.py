@@ -1112,7 +1112,26 @@ class FinancialRecordCreateView(CreateView):
             messages.error(self.request, 'Error al crear el registro financiero.')
             return super().form_invalid(form)
 
-    
-"""
-Manera de obtimizar es que la funcion se active cada 5 horas para verificar cuales usuarios estaran hoy, para enviar un correo de recordatorio
-"""
+
+
+class CustomerDetail(DetailView):
+      model = models.Sale
+      template_name = 'citas/detail_customer.html'
+      context_object_name = 'customer'
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+
+            opciones = models.Opciones.objects.filter(sale=self.get_object()).order_by('-id')
+            context['options_total'] = sum(opciones.preci for opciones in opciones)
+            context['opciones'] = opciones
+
+            if self.request.user.is_authenticated:
+                  context['c'] = self.get_object().cliente
+                  context['service_admin'] = True
+                  context['pack_options'] = models.PackOpciones.objects.all()
+                  context['total_m_opciones'] = self.get_object().plan.price + sum(opciones.preci for opciones in opciones)
+                  context['sale'] = self.get_object()
+                  context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+

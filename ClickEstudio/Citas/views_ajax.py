@@ -187,3 +187,20 @@ def Terminar_Cita(request):
    
       
       return JsonResponse(list(),  safe=False)          
+
+def AgregarOpcion(request):
+      pack_options = models.PackOpciones.objects.get(id=int(request.GET.get('pack_options_id')))
+      sale = models.Sale.objects.get(id=int(request.GET.get('saled_id')))
+      options = models.Opciones(
+            sale=sale,
+            name = pack_options.name,
+            preci = pack_options.preci,
+            description = pack_options.description,
+            )
+      options.save()
+      return JsonResponse(list(),  safe=False)
+
+def DeleteOption(request):
+      option = models.Opciones.objects.get(id=request.GET.get('option_id'))
+      option.delete()
+      return JsonResponse(list(), safe=False)

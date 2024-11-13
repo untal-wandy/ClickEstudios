@@ -9,6 +9,9 @@
                         <th>Plan</th>
                         <th>Fecha</th>
                         <th>Hora</th>
+                        <th>
+                              Procesar
+                        </th>
                   </tr>
             </thead>
             <div>
@@ -20,6 +23,11 @@
                               <td>{{ cita.plan.name }}</td>
                               <td>{{ cita.cliente.date_choice|date:"d/M/Y" }}</td>
                               <td>{{ cita.cliente.date_time_choice }}</td>
+                              <td>  
+                                    <a href="{% url 'citas:customer-detail-c' cita.id %}">
+                                          Detalles
+                                    </a>
+                              </td>
                         </tr>
                         {% endfor %}
                   </tbody>

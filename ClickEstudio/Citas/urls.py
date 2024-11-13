@@ -37,6 +37,9 @@ urlpatterns = [
 
         path('financial-record-create', views.FinancialRecordCreateView.as_view(), name='financial-record-create') ,
 
+
+
+
     path('ingresos', views.Ingresos.as_view(), name='ingresos'),
     path('terminar-cita', views_ajax.Terminar_Cita, name='terminar-cita'),
         path('crear-adicionales', views_ajax.CreateAdicionales, name='crear-adicionales'),
@@ -55,7 +58,11 @@ urlpatterns = [
         path("searching-client", views_ajax.SearchingClient, name='searching-client'),
     path('logout/', views.Logouts, name='logout'),  #
      path('delete-img-moment/', views_ajax.DeledeteImgMoment, name='delete-img-moment'),
+     
+    path('agregar-options/', views_ajax.AgregarOpcion, name='agregar-options'),
+    path('delete-options/', views_ajax.DeleteOption, name='delete-options'),
 
+    path('customer-detail-c/<int:pk>/', views.CustomerDetail.as_view(), name='customer-detail-c'),
 
 
 ]
