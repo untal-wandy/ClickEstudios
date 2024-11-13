@@ -164,7 +164,7 @@
                                     {% if record.ingreso %}
                                         ${{ record.ingreso|intcomma }}
                                         {% else %}
-                                        $0.00
+                                        {% comment %} $0.00 {% endcomment %}
                                     {% endif %}
                                 
                                 </td>
