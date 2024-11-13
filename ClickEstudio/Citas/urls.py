@@ -38,7 +38,7 @@ urlpatterns = [
         path('financial-record-create', views.FinancialRecordCreateView.as_view(), name='financial-record-create') ,
 
         path('pack-opciones-create/', views.PackOpcionesCreateView.as_view(), name='pack-opciones-create'),
-
+        path('historial-citas', views.HistorialCitas.as_view(), name='historial-citas'),
 
 
     path('ingresos', views.Ingresos.as_view(), name='ingresos'),

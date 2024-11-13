@@ -1175,3 +1175,14 @@ class PackOpcionesCreateView(CreateView):
       def form_invalid(self, form):
             messages.error(self.request, 'Error al crear el pack de opciones.')
             return super().form_invalid(form)
+
+
+class HistorialCitas(TemplateView):
+      template_name = 'citas/historial.html'
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['sale_historial'] = models.Sale.objects.all().order_by('-id')
+            context['service_admin'] = True
+            context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
