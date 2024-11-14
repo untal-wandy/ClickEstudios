@@ -4,18 +4,23 @@
             color: rgb(139, 139, 139);
             font-size: 14px;
       }
+      tr{
+            font-size: 12px !important;
+
+      }
 </style>
 <div class='d-flex w-100 bg-white bg-opacity-10 rounded-3 p-2'>
       <table class='w-100'>
             <thead>
                   <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Plan</th>
-                        <th>Fecha</th>
+                        <th>#</th>
+                        <th>Nombre de cliente</th>
+                        <th>Plan selecionado</th>
+                        <th> 
+                               Fecha de reservacion</th>
                         <th>Hora</th>
                         <th>
-                              Procesar
+                              Accion de cita
                         </th>
                   </tr>
             </thead>
@@ -23,15 +28,20 @@
                   <tbody>
                         {% for cita in saled_citas %}
                         <tr>
-                              <td>{{ cita.id }}</td>
+                              <td>
+                                    ({{ forloop.counter }})
+                              </td>
                               <td>{{ cita.cliente.name }}</td>
                               <td>{{ cita.plan.name }}</td>
-                              <td>{{ cita.cliente.date_choice|date:"d/M/Y" }}</td>
+                              <td> 
+                                     {{ cita.cliente.date_choice|date:"d/M/Y" }}</td>
                               <td>{{ cita.cliente.date_time_choice }}</td>
                               <td>  
                                     <a href="{% url 'citas:customer-detail-c' cita.id %}" 
-                                          class='btn btn-primary  bg-black bg-opacity-25 border-0 rounded-5 pe-3  ps-3'>
-                                          Ir a la cita
+                                          class='btn btn-primary  bg-black bg-opacity-25 border-0 rounded-5 pe-3  ps-3' style="font-size: 14px;">
+                                          Ir a la cita <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right-circle-fill" viewBox="0 0 16 16">
+                                                <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8m5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707z"/>
+                                              </svg>
                                     </a>
                               </td>
                         </tr>
