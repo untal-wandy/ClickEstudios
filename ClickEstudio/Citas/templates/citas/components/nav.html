@@ -89,12 +89,12 @@ z-index: 10;">
 
       <div class='w-50 d-flex justify-content-center border-0  ' style="z-index: 100 !important;">
 
-            <input type="search" placeholder="Buscador" class="bg-white ms-2 text-center  bg-opacity-10  outline-none p-1 rounded-5  ps-4" style="width: 15rem;"
+            <input type="search" placeholder="Nombre, numero o correo, fecha" class="bg-white ms-2 text-center  bg-opacity-10  outline-none p-1 rounded-5  ps-4" style="width: 18.8rem; outline: none !important;"
             onclick="SearchAvanced('.container-list', '#search-client' )" name="" id="search-client">
 
             <div id='input-searching-id' class='border-0 d-flex d-none mt-1  align-content-center bg-black bg-opacity-50  flex-wrap '
                   style="border-radius: 2.5rem; height: 2rem; width: 10rem; font-size: 12px;" >
-                  <input type="search" id="search" class='input ms-4   bg-transparent  text-center' placeholder="Buscar Cita">
+                  <input type="search" id="search" class='input ms-4  outline-none  bg-transparent  text-center' placeholder="Buscar Cita" style='outline: none !important;'>
                    <button onclick="CalendarOpen()" class="border-0 d-none bg-transparent text-white d-flex  me-1  align-content-center  flex-wrap ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date-fill p-0 m-0 text-white-50" viewBox="0 0 16 16">
                               <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2"/>
@@ -299,7 +299,7 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                   search.addEventListener('input', (event) => {
                         const input_value = event.target.value;
                         const filtered_data = data.filter((li) => {
-                              return li.name.toLowerCase().includes(input_value.toLowerCase());
+                              return li.name_search.toLowerCase().includes(input_value.toLowerCase());
                         });
                   if (search.value == '') { // o puedes usar if (!search)
                                     container.classList.add('d-none')
@@ -313,7 +313,7 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                         d.classList.add('justify-content-start', 'd-flex', "bg-black", "bg-opacity-10", "mt-1", "rounded-4", "p-2",);
                         d.id = c.id
 
-                        d.textContent = c.name; // Asegúrate de agregar contenido al div
+                        d.textContent = c.name + ' ' + c.sale_d + ' ' + c.sale_h
                         d.addEventListener("click", function() {
                               document.getElementById(this.id).classList.add("bg-white", "bg-opacity-10", )
                                $.ajax({
@@ -387,7 +387,6 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                                                                         console.log(a.description)
                                                                         const nuevoLi = document.createElement('li');
 
-// Asignamos el valor del input al contenido del li
                                                                               nuevoLi.textContent = a.description;
 
 

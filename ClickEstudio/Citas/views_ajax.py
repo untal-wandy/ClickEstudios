@@ -102,34 +102,33 @@ def SaleCancel(request):
 
 def Search(request):
       lista = []
-      for s in models.Sale.objects.all():
+      # sale =''
+      for s in models.Customer.objects.all():
             dict_customer = { 
-                  'id': s.id,
-                  'name': s.cliente.name 
+                        'id': s.id,
+                        'name': s.name,
+                        'name_search': s.name + ' ' + s.number + " " + s.email + '' + models.Sale.objects.get(cliente=s).cliente.date_choice.strftime('%d/%m/%Y'),
+                        'sale_d': models.Sale.objects.get(cliente=s).cliente.date_choice.strftime('%d/%m/%Y'),
+                        'sale_h': models.Sale.objects.get(cliente=s).cliente.date_time_choice.strftime('%H:%M'),
             }
+
+            # models.Sale.objects.get(cliente=s),
+            # sale = 
+
             lista.append(dict_customer)
       return JsonResponse(lista,  safe=False)
 
 def SearchingClient(request):
-      sale = models.Sale.objects.get(id=int(request.GET.get('id')))
+      sale = models.Customer.objects.get(id=int(request.GET.get('id')))
       # Obtener todos los planes asociados a ese cliente específico
-      print(sale.plan.name)
       # Obtener todos los planes asociados a ese cliente específico
-      if sale.plan:
-            planes = models.Plans.objects.filter(plan=sale)
-            # for p in planes:
-            #       print(p.sale)
+
       dict_client = { 
-            'id': sale.cliente.id,
-            'name': sale.cliente.name, 
-            'email': sale.cliente.email,
-            'number': sale.cliente.number,
-            'sale': sale.id,
-            'plans':  [{"id": plan.id, "name": plan.name, 
-                        "img": plan.img.url, "price": "{:,.2f}".format(plan.price),
-                        "is_activate": plan.is_activate  , 
-                        "final_price": plan.final_price,
-                        } for plan in planes],
+            'id': cliente.id,
+            'name': cliente.name, 
+            'email': cliente.email,
+            'number': cliente.number,
+            'sale': id,
       }
       return JsonResponse(dict_client,  safe=False)         
 
