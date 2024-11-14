@@ -14,7 +14,8 @@
             <thead>
                   <tr>
                         <th>#</th>
-                        <th>Nombre de cliente</th>
+                        <th>Nombre </th>
+                        <th>Telefono</th>
                         <th>Plan selecionado</th>
                         <th> 
                                Fecha de reservacion</th>
@@ -32,6 +33,7 @@
                                     ({{ forloop.counter }})
                               </td>
                               <td>{{ cita.cliente.name }}</td>
+                              <td>{{ cita.cliente.number }}</td>
                               <td>{{ cita.plan.name }}</td>
                               <td> 
                                      {{ cita.cliente.date_choice|date:"d/M/Y" }}</td>
