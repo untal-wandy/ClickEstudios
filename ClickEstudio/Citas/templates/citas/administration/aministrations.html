@@ -121,42 +121,45 @@
       <input type="email" name="" id="id_email">
       <input type="text" id="id_number">
 </div>
-<div class="background-containers vh-100 p-0 overflow-auto " id="bg-admin" >
-      <div class="content blur bg-black bg-opacity-25 border-0 vh-100 overflow-auto">
+<div class="bg-black bg-opacity-50 vh-100 overflow-scroll p-0  " id="bg-admin" >
+      <div class="border-0 ">
             {% include "citas/components/nav.html" %}
                 <!-- Aquí va el contenido -->
             <div  data-aos="fade-up" class="  p-3 w-100 border-0 h-100 align-content-start   d-flex flex-wrap overflow-auto  mb-5 pb-5 justify-content-center" style="width: max-content; " >
                   <div class='w-100'>
-                        <div class="border-0 mt-4 ms-2 w-100">
+                        <div class="border-0 mt-2 ms-2  w-100" style='height: 2.5rem;'>
                               <h6 class="w-100 font-secundary  d-flex" style="font-size: 14px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-calendar-event-fill me-1 mt-1" viewBox="0 0 16 16">
-                                          <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
-                                        </svg>  Citas agendadas
+                                   <span class='ms-1'>
+                                          Citas agendadas
+                                          <p class=" text-white-50 font-secundary" 
+                                                style="font-size: 14px;">
+                                                Pueden desaparecer tras 48 horas
+                                          </p>
+                                    </span>
                               </h6>
-                              <p class=" text-white-50 font-secundary ms-3" style="font-size: 14px;">
-                                    Pueden desaparecer tras 58 horas de no ser procesadas
-                              </p>
                         </div>
-    
-
+                        <div class='calendary d-none position-absolute top-50'>
+                              {% include "citas/components/little-calendary.html" %}
+                        </div>
                         {% include "citas/administration/list-citas.html" %}
-
                   </div>
-                  <div class="border-0 mt-4 ms-2 w-100">
+                  <div class="border-0 mt-5 ms-2  w-100" style='height: 2.5rem;'>
                         <h6 class="w-100 font-secundary  d-flex" style="font-size: 14px;">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-calendar-event-fill me-1 mt-1" viewBox="0 0 16 16">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar-event-fill me-1 mt-1" viewBox="0 0 16 16">
                                     <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
-                                  </svg>  Citas reservadas
+                                  </svg>  <span class='ms-1'>
+                                    Citas reservadas
+                                    <p class=" text-white-50 font-secundary" style="font-size: 14px;">
+                                          Estas citas no pueden ser modificadas
+                                    </p>
+                              </span>
                         </h6>
-                        <p class=" text-white-50 font-secundary ms-3" style="font-size: 14px;">
-                              Estas citas no pueden ser modificadas
-                        </p>
                   </div>
 
                   {% include "citas/administration/reservados.html" %}
 
  
-                        <div class='w-100'>
+                        {% comment %} <div class='w-100'>
                                     <div>
                                           <h6 class='p-0 m-0 mt-4' style="font-size: 14px;">
                                                 Citas vendidas listas para procesar
@@ -166,7 +169,7 @@
                                           </p>
                                     </div>
                                     {% include "citas/administration/saled_citas.html" %}
-                        </div>
+                        </div> {% endcomment %}
 
                   {% include "citas/administration/profile.html" %}
             </div>

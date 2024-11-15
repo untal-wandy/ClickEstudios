@@ -126,12 +126,12 @@
 
 </style>
 
-<section id="div-reserv"  class=" p-1 overflow-auto   d-flex flex-wrap   w-100">
+<section id="div-reserv"  class=" p-1 d-flex flex-wrap justify-content-center w-100">
 {% if sales_reserver %}
       {% for sale_r in sales_reserver %}
 
       <div id='list-cr{{sale_r.id}}' class="card m-1 bg-white  bg-opacity-10 " 
-            style="width: 22rem; height:14.5rem; border-radius: 2rem;    
+            style="width: 25rem; height:14.5rem; border-radius: 1.5rem;    
             border: 1px solid #414141; ">
 
             <div class="card-body">
@@ -167,15 +167,15 @@
                         <div class="pt-2">
                               <span class="text-white-50" style="font-size: 12px !important;">
                                     {% if sale_r.plan.price == sale_r.reserver_mount %}
-                                          <h6> Monto restante ${{sale_r.abonado|intcomma}}.00 </h6> 
-                                          <h6>
-                                                Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 
-                                          </h6>
+                        
+                                    <h6 style="font-size: 12px; line-height: 18px !important;">
+                                          Monto   ${{sale_r.reserver_mount|intcomma}}.00 
+                                    </h6>
                                           {% else %}
                                           <h6 style="font-size: 12px; line-height: 8px !important;">
                                                 Monto restante ${{sale_r.abonado|intcomma}}.00 
                                           </h6> 
-                                          <h6 style="font-size: 12px; line-height: 8px !important;">
+                                          <h6 style="font-size: 12px; line-height: 18px !important;">
                                                 Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 
                                           </h6>
                                     {% endif %}
@@ -186,10 +186,15 @@
                               <hr class="m-0 p-0 mt-1 ms-2 me-2">
                         </div>
 
-                        <div class="d-flex div-btns border-0 pt-1 justify-content-center">
+                        <div class="d-flex div-btns border-0  justify-content-start">
                                     {% if sale_r.plan.price == sale_r.reserver_mount %}
-                                          <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex">
-                                                Pago Completado
+                                          <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex mt-1" style=>
+                                                <a href="{% url 'citas:customer-detail-c' sale_r.id %}" 
+                                                class='btn btn-primary  bg-black d-flex bg-opacity-25 border-0 rounded-5 pe-3  ps-3' style="font-size: 14px; ">
+                                                Ir a la cita <svg xmlns="http://www.w3.org/2000/svg" width="16"  height="16" fill="currentColor" class="bi bi-arrow-up-right-circle-fill mt-1 ms-1" viewBox="0 0 16 16">
+                                                      <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8m5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707z"/>
+                                                    </svg>
+                                          </a>
                                           </button>
                                                 
                                           {% else %}
@@ -197,7 +202,7 @@
                                                 Cancelar Cita
                                           </button> -->
                                           
-                                          <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv bg-transparent reserver text-white d-flex" 
+                                          <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv mt-2 bg-transparent reserver text-white d-flex" 
                                           style='color: rgb(255, 69, 69) !important; '>
                                                 Completar pago
                                           </button>
@@ -214,7 +219,7 @@
                         Faltante <strong>${{sale_r.abonado|intcomma}}.00</strong>
                         </p>
                         
-                        <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-0 "> 
+                        <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-5 "> 
                               Ingresar cantidad de reservacion
                         </label>
                         <input type="text"id="ct-p{{sale_r.id}}"   class="bg-black inputs-2 w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{sale_r.abonado}}"  style="border-radius: 1rem; outline: none !important;">
