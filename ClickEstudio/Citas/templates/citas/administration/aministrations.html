@@ -1,5 +1,6 @@
 {% extends "citas/base/base.html" %}
 {% block content %}
+
 <style>
             {% comment %} body 
             {
@@ -115,6 +116,23 @@
 {
       display: none !important;
 }
+
+@keyframes flip-down2 {
+    0% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+/* Clase que aplicará la animación */
+.flip-down2 {
+    animation: flip-down2 0.5s ease-out forwards;
+    transform-origin: top; /* Punto de rotación */
+}
 </style>
 <div class="d-none">
       <input type="text" id="id_name">
@@ -138,14 +156,16 @@
                                     </span>
                               </h6>
                         </div>
-                        <div class='calendary d-none position-absolute top-50'>
+                        <div class='calendary d-none position-absolute bg-black z-10 rounded-4 bg-gradient p-2 '
+                              style="top: 43%;;">
                               {% include "citas/components/little-calendary.html" %}
                         </div>
                         {% include "citas/administration/list-citas.html" %}
                   </div>
                   <div class="border-0 mt-5 ms-2  w-100" style='height: 2.5rem;'>
                         <h6 class="w-100 font-secundary  d-flex" style="font-size: 14px;">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar-event-fill me-1 mt-1" viewBox="0 0 16 16">
+                              <svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="currentColor" class="bi bi-calendar-event-fill me-1 "
+                              style='margin-top: 6px; transition: 0.1s !important;' viewBox="0 0 16 16" id="calendary-svg" onclick='OpenCalendary(this.id)'> 
                                     <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
                                   </svg>  <span class='ms-1'>
                                     Citas reservadas
@@ -179,6 +199,19 @@
 <script>
 
       TextSession('Listado de citas')
+      function OpenCalendary(d)
+      {
+            $('.calendary').toggleClass('d-none')
+            document.querySelector('.calendary').classList.add('flip-down2')
+
+            var element = document.getElementById(d);
+            if (element.classList.contains('text-white-50')) {
+                    element.classList.remove('text-white-50');
+            } else {
+                    element.classList.add('text-white-50');
+            }
+            
+      }
 
 </script>
 
