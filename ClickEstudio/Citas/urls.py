@@ -40,6 +40,7 @@ urlpatterns = [
         path('pack-opciones-create/', views.PackOpcionesCreateView.as_view(), name='pack-opciones-create'),
         path('historial-citas', views.HistorialCitas.as_view(), name='historial-citas'),
 
+        path('customer-sales-list/<int:pk>', views.CustomerSalesList.as_view(), name='customer-sales-list'),
 
     path('ingresos', views.Ingresos.as_view(), name='ingresos'),
     path('terminar-cita', views_ajax.Terminar_Cita, name='terminar-cita'),

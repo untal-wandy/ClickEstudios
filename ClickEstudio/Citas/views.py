@@ -1183,7 +1183,27 @@ class HistorialCitas(TemplateView):
 
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context['sale_historial'] = models.Sale.objects.all().order_by('-id')
+            context['sale_historial'] = models.Sale.objects.filter(saled_end=True).order_by('-id')
             context['service_admin'] = True
             context['permisons'] = models.Permisons.objects.get(user=self.request.user)
             return context
+
+
+class CustomerSalesList(ListView):
+      model = models.Customer
+      template_name = 'citas/customer_sales_list.html'
+      context_object_name = 'sales'
+
+      def get_object(self):
+            return models.Customer.objects.get(id=self.kwargs.get('pk'))
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['sales_reserver'] =  models.Sale.objects.filter(cliente=self.get_object())  
+            context['customer'] = self.get_object()
+            context['sales_list'] = True
+            context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+
+
