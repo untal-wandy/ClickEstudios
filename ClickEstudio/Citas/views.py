@@ -93,7 +93,7 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            sales_reserver = models.Sale.objects.filter( reserver=True)
+            sales_reserver = models.Sale.objects.filter( reserver=True, saled_end=False).order_by('-id')
             saled_citas = models.Sale.objects.filter(saled=True, reserver=True).order_by('-id')
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
