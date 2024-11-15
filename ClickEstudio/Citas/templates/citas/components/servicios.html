@@ -20,14 +20,16 @@
             <div id='delete-c{{s.id}}'  class="position-relative  d-flex flex-wrap  w-100 m-2 p-0" 
                   style="max-width: 410px;  min-width: 410px; height: max-content;">
                   {% if service_admin %}
-                  <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" p-1 rounded-circle position-absolute end-0 top-0 border-0 d-flex  justify-content-center font-primary text-white  delete-icon  border-0" 
-                  style="border: 1px solid rgba(75, 75, 75, 0.774); 
-                  background-color: #474747;
-                  width: 1.5rem; z-index: 10; top: 10px;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash t " viewBox="0 0 16 16">
-                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-                      </svg>
-            </button>
+                        {% if service_true %}
+                              <button onclick='DeledeteService(this.id)' id="{{s.id}}" class=" p-1 rounded-circle position-absolute end-0 top-0 border-0 d-flex  justify-content-center font-primary text-white  delete-icon  border-0" 
+                              style="border: 1px solid rgba(75, 75, 75, 0.774); 
+                              background-color: #474747;
+                              width: 1.5rem; z-index: 10; top: 10px;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash t " viewBox="0 0 16 16">
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                              </svg>
+                        </button>
+                  {% endif %}
             {% endif %}
                   <div>
                         <a href="{% url "citas:service-select" s.id %}"

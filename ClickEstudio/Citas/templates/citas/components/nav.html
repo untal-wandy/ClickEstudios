@@ -313,7 +313,7 @@ function SearchAvanced(ContainerSelector, SearchSelector){
                         d.classList.add('justify-content-start', 'd-flex', "bg-black", "bg-opacity-10", "mt-1", "rounded-4", "p-2",);
                         d.id = c.id
 
-                        d.textContent = c.name + ' ' + c.sale_d + ' ' + c.sale_h
+                        d.textContent = c.name,
                         d.addEventListener("click", function() {
                               document.getElementById(this.id).classList.add("bg-white", "bg-opacity-10", )
                                $.ajax({

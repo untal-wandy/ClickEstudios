@@ -107,9 +107,9 @@ def Search(request):
             dict_customer = { 
                         'id': s.id,
                         'name': s.name,
-                        'name_search': s.name + ' ' + s.number + " " + s.email + '' + models.Sale.objects.get(cliente=s).cliente.date_choice.strftime('%d/%m/%Y'),
-                        'sale_d': models.Sale.objects.get(cliente=s).cliente.date_choice.strftime('%d/%m/%Y'),
-                        'sale_h': models.Sale.objects.get(cliente=s).cliente.date_time_choice.strftime('%H:%M'),
+                        'name_search': s.name + ' ' + s.number + " " + s.email,
+                        # 'sale_d': models.Sale.objects.get(cliente=s).cliente.date_choice.strftime('%d/%m/%Y'),
+                        # 'sale_h': models.Sale.objects.get(cliente=s).cliente.date_time_choice.strftime('%H:%M'),
             }
 
             # models.Sale.objects.get(cliente=s),
