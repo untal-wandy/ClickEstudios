@@ -93,8 +93,8 @@ class CitasAdministrations(TemplateView, Mail):
       
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            sales_reserver = models.Sale.objects.filter(saled=False, reserver=True)
-            saled_citas = models.Sale.objects.filter(saled=True, reserver=True, saled_end=False)
+            sales_reserver = models.Sale.objects.filter( reserver=True, saled_end=False).order_by('-id')
+            saled_citas = models.Sale.objects.filter(saled=True, reserver=True).order_by('-id')
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
@@ -348,7 +348,7 @@ class ServiceCreateView(CreateView):
             context['service_admin'] = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             context['plans'] = models.Plans.objects.all()
-
+            context['service_true'] = True
             # context['service'] = self.model.objects.get(id=self.kwargs.get('pk'))
             return context
       
@@ -486,6 +486,7 @@ class PlansCreate(CreateView):
             context = super().get_context_data(**kwargs)
             context['plans'] = models.Plans.objects.all()
             context['edit'] = True
+            context['plans_true']  = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
             # context['moment'] = models.MomentImage.objects.all()
             context['service_admin'] = True
@@ -1175,3 +1176,33 @@ class PackOpcionesCreateView(CreateView):
       def form_invalid(self, form):
             messages.error(self.request, 'Error al crear el pack de opciones.')
             return super().form_invalid(form)
+
+
+class HistorialCitas(TemplateView):
+      template_name = 'citas/historial.html'
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['sale_historial'] = models.Sale.objects.filter(saled_end=True).order_by('-id')
+            context['service_admin'] = True
+            context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+
+
+class CustomerSalesList(ListView):
+      model = models.Customer
+      template_name = 'citas/customer_sales_list.html'
+      context_object_name = 'sales'
+
+      def get_object(self):
+            return models.Customer.objects.get(id=self.kwargs.get('pk'))
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['service_admin'] = True
+            context['sales_reserver'] =  models.Sale.objects.filter(cliente=self.get_object())  
+            context['customer'] = self.get_object()
+            context['sales_list'] = True
+            context['permisons'] = models.Permisons.objects.get(user=self.request.user)
+            return context
+

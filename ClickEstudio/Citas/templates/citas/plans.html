@@ -144,9 +144,17 @@
                                           {% if p.plans %}
                                                 {% for pl in p.plans.all  %}
                                                       {% if service_admin %}
-                                                            <li id='list{{pl.id}}' value="{{pl.id}}" onclick="DeleteCaract(this.value)"
+                                                            {% if plans_true %}
+                                                                  <li id='list{{pl.id}}' value="{{pl.id}}" onclick="DeleteCaract(this.value)"
                                                                   class='w-100 list lis-none'>
-                                                                  <span class='text-white '>{{pl.name}}  </span>  </li>
+                                                                        <span class='text-white '>{{pl.name}}  </span>
+                                                                    </li>
+                                                                    {% else %}
+                                                                    <li id='list{{pl.id}}' value="{{pl.id}}" 
+                                                                    class='w-100 list lis-none'>
+                                                                          <span class='text-white '>{{pl.name}}  </span>
+                                                                      </li>
+                                                            {% endif %}
                                                             {% else %}
                                                             <li id='list{{pl.id}}'>{{pl.name}}</li>
                                                       {% endif %}

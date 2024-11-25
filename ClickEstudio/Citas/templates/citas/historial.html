@@ -1,0 +1,37 @@
+{% extends "citas/base/base.html" %}
+{% block content %}
+{% load static %}
+      <section class='vh-100 bg-black bg-opacity-50 blur'>
+            {% include "citas/components/nav.html" %}
+
+            <div class='bg-white bg-opacity-10 m-3 rounded-3 p-2'>
+                  <table class="w-100">
+                        <thead>
+                              <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Plan</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                              {% for cita in sale_historial %}
+                              <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ cita.date|date:"Y-m-d" }}</td>
+                                    <td>{{ cita.date|date:"h:i A" }}</td>
+                                    <td>{{ cita.cliente }}</td>
+                                    <td>{{ cita.plan.name }}</td>
+                              </tr>
+                              {% endfor %}
+                        </tbody>
+                  </table>
+            </div>
+      </section>
+      <script>
+
+            TextSession('Historial de ventas')
+      
+      </script>
+{% endblock %}

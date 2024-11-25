@@ -126,21 +126,23 @@
 
 </style>
 
-<section id="div-reserv"  class=" p-1 overflow-auto   d-flex flex-wrap   w-100">
+<section id="div-reserv"  class=" p-1 d-flex flex-wrap justify-content-start w-100">
 {% if sales_reserver %}
       {% for sale_r in sales_reserver %}
 
       <div id='list-cr{{sale_r.id}}' class="card m-1 bg-white  bg-opacity-10 " 
-            style="width: 22rem; height:14.5rem; border-radius: 2rem;    
+            style="width: 25rem; height:14.5rem; border-radius: 1.5rem;    
             border: 1px solid #414141; ">
 
             <div class="card-body">
                   <div id="div-body{{sale_r.id}}"> 
-                              <span class=' w-100 d-flex align-content-center flex-wrap m-0 pt-2 p-0'>
+                        <a href="{% url "citas:customer-sales-list" sale_r.cliente.id %}">  
+                        <span class=' w-100 d-flex align-content-center flex-wrap m-0 pt-2 p-0'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
                                     <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
                               </svg> {{sale_r.cliente.name}} 
                         </span>
+                        </a>
                         <span class=' w-100 d-flex align-content-center flex-wrap  m-0 p-0'>
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill mt-1 me-1" viewBox="0 0 16 16"><path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14span.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/><path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
                               </svg>  
@@ -158,7 +160,7 @@
                         </span>  
                         <span class="w-100 p-0 m-0 d-flex align-content-center flex-wrap">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3 text-white mt-1 me-1" viewBox="0 0 16 16"><path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/><path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg> 
-                                          {{ sale_r.cliente.date_choice|date:"d/M/Y" }}
+                                          {{ sale_r.cliente.date_choice|date:"d/m/Y" }}
                               </span> 
                         <span class="w-100 d-flex align-content-center flex-wrap">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill text-white mt-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/></svg>
@@ -167,15 +169,15 @@
                         <div class="pt-2">
                               <span class="text-white-50" style="font-size: 12px !important;">
                                     {% if sale_r.plan.price == sale_r.reserver_mount %}
-                                          <h6> Monto restante ${{sale_r.abonado|intcomma}}.00 </h6> 
-                                          <h6>
-                                                Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 
-                                          </h6>
+                        
+                                    <h6 style="font-size: 12px; line-height: 18px !important;">
+                                          Monto   ${{sale_r.reserver_mount|intcomma}}.00 
+                                    </h6>
                                           {% else %}
                                           <h6 style="font-size: 12px; line-height: 8px !important;">
                                                 Monto restante ${{sale_r.abonado|intcomma}}.00 
                                           </h6> 
-                                          <h6 style="font-size: 12px; line-height: 8px !important;">
+                                          <h6 style="font-size: 12px; line-height: 18px !important;">
                                                 Monto  de reserva abonado ${{sale_r.reserver_mount|intcomma}}.00 
                                           </h6>
                                     {% endif %}
@@ -186,21 +188,36 @@
                               <hr class="m-0 p-0 mt-1 ms-2 me-2">
                         </div>
 
-                        <div class="d-flex div-btns border-0 pt-1 justify-content-center">
+                        <div class="d-flex div-btns border-0  justify-content-start">
                                     {% if sale_r.plan.price == sale_r.reserver_mount %}
-                                          <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex">
-                                                Pago Completado
+                                 
+                                          <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex border-0 mt-1" style=>
+                                                <a href="{% url 'citas:customer-detail-c' sale_r.id %}" 
+                                                class='btn btn-primary  bg-black d-flex bg-opacity-25 border-0 rounded-5 pe-3  ps-3' style="font-size: 14px; ">
+
+                                              Detalles de la cita
+
+                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16"  height="16" fill="currentColor" class="bi bi-arrow-up-right-circle-fill mt-1 ms-1" viewBox="0 0 16 16">
+                                                      <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8m5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707z"/>
+                                                    </svg>
+                                          </a>
                                           </button>
                                                 
                                           {% else %}
                                           <!-- <button onclick="SaleCancel(this.id)" id="{{sale_r.id}}" class="font-primary  bg-transparent text-white-50 edit d-flex">
                                                 Cancelar Cita
                                           </button> -->
-                                          
-                                          <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv bg-transparent reserver text-white d-flex" 
+                                          {% if sales_list %}
+                                          <button id='{{sale_r.id}}' class="font-primary text-danger reserv mt-1 border-0 bg-transparent reserver text-white d-flex" 
                                           style='color: rgb(255, 69, 69) !important; '>
-                                                Completar pago
-                                          </button>
+                                          Sin completar pago
+                                                 </button>
+                                          {% else %}
+                                          <button id='{{sale_r.id}}' onclick="AcPay(this.id)" class="font-primary text-danger reserv mt-1 border-0 bg-transparent reserver text-white d-flex" 
+                                          style='color: rgb(255, 69, 69) !important; '>
+                                          Completar pago
+                                    </button>
+                                    {% endif %}
                                     {% endif %}
                         </div>
                   </div>
@@ -214,7 +231,7 @@
                         Faltante <strong>${{sale_r.abonado|intcomma}}.00</strong>
                         </p>
                         
-                        <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-0 "> 
+                        <label for="ct-p" style="font-size: 12px;" class="text-white-50 mt-5 "> 
                               Ingresar cantidad de reservacion
                         </label>
                         <input type="text"id="ct-p{{sale_r.id}}"   class="bg-black inputs-2 w-100 bg-opacity-10 p-2  border-1 outline-none" placeholder="Cantidad" min="10" max="{{sale_r.abonado}}"  style="border-radius: 1rem; outline: none !important;">
