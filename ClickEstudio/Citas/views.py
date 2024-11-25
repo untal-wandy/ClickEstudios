@@ -1206,4 +1206,3 @@ class CustomerSalesList(ListView):
             context['permisons'] = models.Permisons.objects.get(user=self.request.user)
             return context
 
-
