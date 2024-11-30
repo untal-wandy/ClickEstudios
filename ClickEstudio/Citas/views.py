@@ -990,7 +990,7 @@ class CashRegisterView(View):
                    'count_ingresos': count_ingresos,
                   'permisons':  models.Permisons.objects.get(user=self.request.user)
             }
-            return render(request, 'citas/cash_control.html', context)
+            return render(request, 'citas/caja.html', context)
 
     def post(self, request):
         # Manejar apertura o cierre de caja desde el formulario
