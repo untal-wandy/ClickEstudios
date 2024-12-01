@@ -927,116 +927,104 @@ class CrearGastosService(CreateView):
 
 
 class CashRegisterView(View):
-    def get(self, request):
+      def get(self, request):
+            # Obtener registros de caja y datos relacionados
             cash_register = models.CashRegister.objects.filter(status='open').first()
             cash_register_last = models.CashRegister.objects.filter(status='closed').order_by('-closed_at').first()
-            records = models.FinancialRecord.objects.all()
+
+            # Mes para filtrar (por defecto 11)
+            mes_default = datetime.now().month
+            year_default = datetime.now().year
+
+            mes = request.POST.get('mes', mes_default)
+            year = request.POST.get('year', year_default)
+
+            if request.POST.get('filter_type') == 'only_year':
+                  only_year = request.POST.get('only_year')
+                  print(only_year, 'Only year')
+                  # Registros financieros filtrados por mes
+                  records = models.FinancialRecord.objects.filter( created__year=only_year)
+                  ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True,  created__year=only_year)
+                  gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False,  created__year=only_year)
+            else:
+                  only_year = None
+                  records = models.FinancialRecord.objects.filter(created__month=mes, created__year=year)
+                  ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True, created__month=mes, created__year=year)
+                  gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False, created__month=mes, created__year=year)
+
+            # Movimientos y totales
             movements = models.CashMovement.objects.filter(register=cash_register) if cash_register else None
-            ingresos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=True)
-            gastos = models.FinancialRecord.objects.filter(is_ingreso_or_gasto=False)
+            count_ingresos = sum(float(i.ingreso) for i in ingresos if i.ingreso)
+            count_gastos = sum(float(g.gasto) for g in gastos if g.gasto)
 
-            count_ingresos = 0
-            count_gastos = 0
-            for i in ingresos:
-                  if i.ingreso != 0:
-                        count_ingresos += i.ingreso
+            # Dinero en caja
+            dinero_en_caja = int(count_ingresos) - int(count_gastos)
 
-            for g in gastos:
-                  if g.gasto:
-                        count_gastos += float(g.gasto)
-
-            last_cash = models.CashRegister.objects.filter(status='open').last()
-
-            
-            years = list(range(2020, 2031))
-            current_year = datetime.now().year
-            months = [
-                  {'number': 1, 'name': 'Enero'},
-                  {'number': 2, 'name': 'Febrero'},
-                  {'number': 3, 'name': 'Marzo'},
-                  {'number': 4, 'name': 'Abril'},
-                  {'number': 5, 'name': 'Mayo'},
-                  {'number': 6, 'name': 'Junio'},
-                  {'number': 7, 'name': 'Julio'},
-                  {'number': 8, 'name': 'Agosto'},
-                  {'number': 9, 'name': 'Septiembre'},
-                  {'number': 10, 'name': 'Octubre'},
-                  {'number': 11, 'name': 'Noviembre'},
-                  {'number': 12, 'name': 'Diciembre'},
-            ]
-
-   
-
-            dinero_en_caja = 0            
-            dinero =  models.CashRegister.objects.all()
-            
-            for d in dinero:
-                    if d.closing_balance:
-                        pass
-                              # dinero_en_caja += float(d.closing_balance)
-                              # dinero_en_caja += float(d.opening_balance)
-
+            # Preparar el contexto para la plantilla
             context = {
-                  'current_year': current_year,
-                  # 'last_cash': last_cash.opening_balance,
-                  'years': years,
-                  'dinero_en_caja':   int(count_ingresos) -  int(count_gastos), 
-                  'months': months,
-                  'cash_registers':  models.CashRegister.objects.all().order_by('-id'),
-                  'cash_register': cash_register, 
+                  'cash_registers': models.CashRegister.objects.all().order_by('-id'),
+                  'cash_register': cash_register,
                   'cash_register_last': cash_register_last,
-                  'records': records, 'service_admin': True,
-                  'count_gastos': sum(gasto.gasto for gasto in gastos), 
-                   'count_ingresos': count_ingresos,
-                  'permisons':  models.Permisons.objects.get(user=self.request.user)
+                  'service_admin': True,
+                  'records': records,
+                  'dinero_en_caja': dinero_en_caja,
+                  'count_gastos': count_gastos,
+                  'count_ingresos': count_ingresos,
+                  'permisons': models.Permisons.objects.get(user=request.user),
+                  'mes': mes,  # Para mostrar el mes seleccionado en la plantilla
+                  'year': year,
+                  'only_year' : only_year 
             }
             return render(request, 'citas/caja.html', context)
 
-    def post(self, request):
-        # Manejar apertura o cierre de caja desde el formulario
-        if 'open_cash' in request.POST:
-            form = forms.OpenCashForm(request.POST)
-            print(form.errors)
-            if form.is_valid():
-                  opening_balance = form.cleaned_data['opening_balance']
-                  cash_register = models.CashRegister.objects.create(
-                    opened_by=request.user,
-                    opening_balance=opening_balance,
-                    opened_at=timezone.now(),
-                    status='open')
-                    
-                  record = models.FinancialRecord.objects.create(
-                  name=request.user.username,
+      def post(self, request):
+            # Mes recibido por POST
+            mes = request.POST.get('mes', 11)
 
-                  description=  'Apertura de caja',
-                  ingreso = opening_balance
-                  # ingreso=sale.price_total
-                  )
-                  record.save()
+            # Apertura de caja
+            if 'open_cash' in request.POST:
+                  form = forms.OpenCashForm(request.POST)
+                  if form.is_valid():
+                        opening_balance = form.cleaned_data['opening_balance']
+                        # Crear caja
+                        models.CashRegister.objects.create(
+                              opened_by=request.user,
+                              opening_balance=opening_balance,
+                              opened_at=timezone.now(),
+                              status='open'
+                        )
+                        # Crear registro financiero
+                        models.FinancialRecord.objects.create(
+                              name=request.user.username,
+                              description='Apertura de caja',
+                              ingreso=opening_balance
+                        )
+                        messages.success(request, 'Caja abierta correctamente.')
+                        return redirect('/caja')
+                  else:
+                        messages.error(request, 'Error al abrir la caja. Verifica los datos.')
 
-                  messages.success(request, 'Caja abierta correctamente.')
-            
-                  return redirect('/caja')
+            # Cierre de caja
+            elif 'close_cash' in request.POST:
+                  form = forms.CloseCashForm(request.POST)
+                  cash_register = models.CashRegister.objects.filter(status='open').first()
+                  if cash_register and form.is_valid():
+                        cash_register.closing_balance = form.cleaned_data['closing_balance']
+                        cash_register.closed_by = request.user
+                        cash_register.closed_at = timezone.now()
+                        cash_register.status = 'closed'
+                        cash_register.save()
 
-        elif 'close_cash' in request.POST:
-            form = forms.CloseCashForm(request.POST)
-            print(form)
-            cash_register = models.CashRegister.objects.filter(status='open').first()
-            if cash_register and form.is_valid():
-                cash_register.closing_balance = form.cleaned_data['closing_balance'] 
-                cash_register.closed_by = request.user
-                cash_register.closed_at = timezone.now()
-                cash_register.status = 'closed'
-                cash_register.save()
-                records = models.FinancialRecord.objects.filter(is_activate=True)
-                for r in records:
-                        r.is_activate = False
-                        r.save()
-                messages.success(request, 'Caja cerrada correctamente.')
-                return redirect('/caja')
+                  # Desactivar registros financieros activos
+                        models.FinancialRecord.objects.filter(is_activate=True).update(is_activate=False)
 
-        return self.get(request)
-  
+                        messages.success(request, 'Caja cerrada correctamente.')
+                        return redirect('/caja')
+                  else:
+                    messages.error(request, 'Error al cerrar la caja. Verifica los datos.')
+
+            # Si no es válido, regresar al método GET con el mes seleccionado
+            return self.get(request)  
   
   
   # Vista para registrar un nuevo ingreso usando CreateView

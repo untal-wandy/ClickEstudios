@@ -48,7 +48,7 @@
 
 
                 <div class="card-body d-flex w-100  overflow-scroll">
-                    <div class="w-100 d-flex justify-content-around  ">
+                    <div class="w-100 d-flex justify-content-start ms-1  ">
                             {% if cash_register.status == 'open' %}
                             <div class='text-start me-3 d-flex ps312'>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
@@ -60,7 +60,7 @@
                                         <strong>Balance de Aper..</strong> 
                                         <span class="text-white-50"> $ {{ cash_register.opening_balance|intcomma }}</span> 
                                     </p>
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 16rem; height: max-content;">
+                                    <p class="p-0 m-0  ps-4 pe-4 bg-white bg-opacity-10 rounded-4 p-1" style="width: max-content; height: max-content;">
                                         <strong>Apertura:</strong>  
                                         <span class="text-white-50  text-capitalize"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
                                         </span> 
@@ -77,8 +77,9 @@
                                         <strong>Balance actual</strong>
                                         <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
                                     </p> -->
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 14rem; height: max-content;">
-                                        <strong>Balance en caja</strong>
+                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" 
+                                        style="width: 10rem; height: max-content;">
+                                        <strong>Balance</strong>
                                         <span class="text-white-50">  ${{dinero_en_caja|intcomma}}</span>
                                     </p>
                   
@@ -188,7 +189,7 @@
                     </table>
                 </section>
                 <div class="d-flex  w-100 justify-content-end  p-2 pb-0">
-                    <div class="  "  style="width: max-content;">
+                    <div class="  position-absolute start-0 ms-2"  style="width: max-content;">
 
                         {% if cash_register.status == 'open' %}
                         <form method="post" class="mt-0 w-100">
@@ -199,7 +200,7 @@
                             </div>
                             <button type="submit" name="close_cash" class="btn me-1 mt-1 bg-danger bg-opacity-25 rounded-5  text-white ps-4 pe-4" 
                             style="font-size: 14px;"> 
-                                Cerrar Caja
+                                Cerrar caja
                             </button>
                         </form>
                         
@@ -207,39 +208,176 @@
 
                         {% endif %}
                     </div>
-                    <a href="{% url "citas:financial-record-create" %}">  
-                        <button class="btn text-white rounded-5  bg-primary bg-opacity-25   me-2" 
-                            style="font-size: 14px; margin-top: 2px;"> 
-                             Listado de gastos
-                        </button> 
-                    </a> 
+                    <style>
+                    .hidden {
+                            display: none;
+                    }
+                    </style>
+
                     <form action="" method="post" class="d-flex">
-                        {% csrf_token %}
-                        <select class="form-select select-3 bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar año" style="width: max-content;">
-                            {% for year in years %}
-                                <option value="{{ year }}" {% if year == current_year %}selected{% endif %}>
-                                    {{ year }}
-                                </option>
-                            {% endfor %}
-                        </select>
+
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            
+                            
+                      
+
+                            <select id="filter_type" class="bg-transparent border-0 text-white"
+                            style="font-weight: bold; outline: none !important;"  name="filter_type" onchange="toggleInputs()"> 
+                                <option value="" selected disabled>Seleccionar filtro</option>
+                                {% if only_year %}
+                                <option value="only_year" selected>Año específico</option>
+                                <option value="mes" >Mes específico</option>
+                                {% else %}
+                                <option value="only_year" >Año específico</option>
+                                <option value="mes" selected>Mes específico</option>
+                                {% endif %}
+                                {% comment %} <option value="mes_rango">Rango de meses</option> {% endcomment %}
+                                {% comment %} <option value="anio_rango">Rango de años</option> {% endcomment %}
+                            </select>
                     
-                        <select class="form-select select-1  bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar mes" style="width: max-content;">
+                            <!-- Input para un mes -->
+                        
+                        <div id="mes_input"     {% if only_year %}  
+                         class=" hidden ms-1 me-1"  {% else %}    class="  ms-1 me-1"   {% endif %} >
+                           
+                         
+                                <select id="{{year}}" class=" filter_type_year bg-transparent m-1 border-0 text-white" onchange="ClickbtbFilter()" 
+                                style="font-weight: bold; outline: none !important;"   name="year" >
+                                    <option value="2024" >2024</option>
+                                    <option value="2025" >2025</option>
+                                    <option value="2026" >2026</option>
+                                    <option value="2027" >2027</option>
+                                    <option value="2028" >2028</option>
+                                </select>
+                                <select id="{{mes}}" class="bg-transparent filter_type_mes m-1 border-0 text-white"
+                                style="font-weight: bold; outline: none !important;"   name="mes" onchange="ClickbtbFilter()" >
+                                    <option value="1" >Enero</option>
+                                    <option value="2" >Febrero</option>
+                                    <option value="3" >Marzo</option>
+                                    <option value="4" >Abril</option>
+                                    <option value="5" >Mayo</option>
+                                    <option value="6" >Junio</option>
+                                    <option value="7" >Julio</option>
+                                    <option value="8" >Agosto</option>
+                                    <option value="9" >Septiembre</option>
+                                    <option value="10" >Octubre</option>
+                                    <option value="11" >Noviembre</option>
+                                    <option value="12" >Diciembre</option>
+                            </div>
+
+                             <div id="anio_input" 
+                             {% if only_year %}  
+                           {% else %}    class="hidden"  {% endif %} >
+
+                                <select id="{{only_year}}" class="  filter_type_only_year bg-transparent m-1 border-0 text-white" onchange="ClickbtbFilter()" 
+                                style="font-weight: bold; outline: none !important;"   name="only_year" >
+                                {% if only_year %}
+                                    <option value="2024" > 
+                                             ({{only_year}})
+                                            </option>
+                                        {% endif %}
+                                    <option  >...</option>
+                                    <option value="2024" >2024</option>
+                                    <option value="2025" >2025</option>
+                                    <option value="2026" >2026</option>
+                                    <option value="2027" >2027</option>
+                                    <option value="2028" >2028</option>
+                                </select>
+                            </div> 
+                
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    // Obtener la fecha actual
+                                    const now = new Date();
+                                    const currentYear = now.getFullYear();
+                                    const currentMonth = now.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
+
+
+                           
+
+                                    const yearSelect = document.querySelector('.filter_type_year');
+                                    if (yearSelect) {
+                                        const monthOption = yearSelect.querySelector(`option[value="${document.querySelector('.filter_type_year').id}"]`);
+                                        if (monthOption) {
+                                            monthOption.selected = true;
+                                        }
+                                    }
+                  
+                            
+                                    // Seleccionar el mes actual
+                                    const monthSelect = document.querySelector('.filter_type_mes');
+                                    if (monthSelect) {
+                                        const monthOption = monthSelect.querySelector(`option[value="${document.querySelector('.filter_type_mes').id}"]`);
+                                        if (monthOption) {
+                                            monthOption.selected = true;
+                                        }
+                                    }
+                                });
+                            </script>
+                    
+                            <!-- Inputs para rango de meses -->
+                            <div id="mes_rango_inputs" class="hidden">
+                                <label for="mes1">Desde:</label>
+                                <input type="month" id="mes1" name="mes1">
+                                <label for="mes2">Hasta:</label>
+                                <input type="month" id="mes2" name="mes2">
+                            </div>
+                    
+                            <!-- Input para un año -->
+                   
+                    
+                            <!-- Inputs para rango de años -->
+                            <div id="anio_rango_inputs" class="hidden">
+                                <label for="anio1">Desde:</label>
+                                <input type="number" id="anio1" name="anual1" placeholder="Ejemplo: 2020" min="2000" max="2100">
+                                <label for="anio2">Hasta:</label>
+                                <input type="number" id="anio2" name="anual2" placeholder="Ejemplo: 2024" min="2000" max="2100">
+                            </div>
+                    
+                            <!-- Botón para enviar -->
+                            <button id="btn-filter" class="d-none" type="submit">Filtrar</button>
+                        </form>
+                    
+                        <script>
+
+                            function ClickbtbFilter(){
+                                document.getElementById('btn-filter').click()
+                            }
+
+                            function toggleInputs() {
+                                // Ocultar todos los inputs
+                                document.getElementById('mes_input').classList.add('hidden');
+                                document.getElementById('mes_rango_inputs').classList.add('hidden');
+                                document.getElementById('anio_input').classList.add('hidden');
+                                document.getElementById('anio_rango_inputs').classList.add('hidden');
+                    
+                                // Mostrar el input correspondiente
+                                const filterType = document.getElementById('filter_type').value;
+                                if (filterType === 'mes') {
+                                    document.getElementById('mes_input').classList.remove('hidden');
+                                } else if (filterType === 'mes_rango') {
+                                    document.getElementById('mes_rango_inputs').classList.remove('hidden');
+                                } else if (filterType === 'only_year') {
+                                    document.getElementById('anio_input').classList.remove('hidden');
+                                } else if (filterType === 'anio_rango') {
+                                    document.getElementById('anio_rango_inputs').classList.remove('hidden');
+                                }
+                            }
+                        </script>
+                    
+                        <!-- <select class="form-select select-1  bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar mes" style="width: max-content;">
                             {% for month in months %}
                                 <option value="{{ month.value }}" {% if month.value == current_month %}selected{% endif %}>
                                 {{ month.name }}
                                 </option>
                             {% endfor %}
-                        </select>
-                        <select class="form-select select-2  bg-white bg-opacity-10 text-white border-0 rounded-3 me-2" aria-label="Seleccionar mes" style="width: max-content;">
-                            {% for month in months %}
-                                <option value="{{ month.value }}" {% if month.value == current_month %}selected{% endif %}>
-                                  {{ month.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> 
+                        </select> -->
+
+                        <!-- <button class="btn text-white rounded-5  bg-white bg-opacity-10 me-2"> 
                             Filtrar
-                        </button>
+                        </button> -->
                     </form>
                 </div>
   

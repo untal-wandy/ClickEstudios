@@ -158,9 +158,20 @@
                         </div>
                         <div class='calendary d-none position-absolute bg-black z-10 rounded-4 bg-gradient p-2 '
                               style="top: 47vh;;">
-                              {% include "citas/components/little-calendary.html" %}
+                       {% include "citas/components/little-calendary.html" %}
                         </div>
-                        {% include "citas/administration/list-citas.html" %}
+                  <section class="d-flex overflow-scroll">
+                        <a href="{% url "citas:all-plans" %}">   
+                        <div style="min-width: 350px; height: 228px; cursor: pointer;" class="m-1 rounded-5 d-flex flex-wrap align-content-center justify-content-center bg-white bg-opacity-10">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor" class="bi bi-plus-circle-fill text-white-50" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                  </svg>
+
+                             </div>
+                        </a> 
+                             
+                             {% include "citas/administration/list-citas.html" %}
+                  </section>
                   </div>
                   <div class="border-0 mt-5 ms-2  w-100" style='height: 2.5rem;'>
                         <h6 class="w-100 font-secundary  d-flex" style="font-size: 14px;">
