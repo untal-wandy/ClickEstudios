@@ -12,7 +12,7 @@
             margin-left: 0.5rem;
       }
 </style>
-<div class="background-containers " id="bg-con">
+<div data-aos="fade-up" class="background-containers " id="bg-con">
       <div class="contents">
             <div id="search-div" class="p-2  d-none   justify-content-center  flex-wrap w-100" 
             style="margin: 0 auto; margin-top: 10rem; max-width: 30rem; ">
@@ -27,10 +27,10 @@
                   </div>
             </div>
           <!-- Aquí va el contenido -->
-          <div id="form-div" class="p-2   d-flex justify-content-center  flex-wrap w-100" 
+          <div id="form-div" class="p-2 rounded-5   d-flex justify-content-center  flex-wrap w-100" 
             style="margin: 0 auto; margin-top: 10rem; max-width: 30rem; ">
-            <div class="w-100 mb-3" style="line-height: 14px; ">
-                  <h4 class="font-primary mt-4 mb-1 " 
+            <div class="w-100 text-center mb-3" style="line-height: 14px; ">
+                  <h4 class="font-primary text-center mt-4 mb-1 " 
                         style="font-size: 16px;">
                         Informacion personal 
                   </h4>
@@ -38,8 +38,8 @@
                         Si el usuario fue anteriormente registrado puedes buscarlo 
                   </span>
             </div>
-            <div class="w-100 d-flex  justify-content-center"> 
-                  <div class="d-flex  w-100 flex-wrap justify-content-center " 
+            <div class="w-100 d-flex  justify-content-center "> 
+                  <div class="d-flex  w-100  p-2 rounded-5 flex-wrap justify-content-center " 
                   style="max-width: 30rem;">
       
                   <div class="form-floatings  w-100">
@@ -47,27 +47,61 @@
                         {{form.name}}
                   </div>   
                         
-                  <div  class="w-100 mt-2" id="email">
-                        <div class="form-floatings d-flex flex-wrap ">
-                              <label for="id_email" class="w-100">Correo electronico</label>
+                  <div class=" mb-1   m-0 mt-1 w-100  justify-content-start d-flex text-start flex-wrap">
+                        <label for="contact-method" style="">Metodo de contacto, se usara para para su notificacion de su cita</label>
+                        <select id="contact-method" class="form-select m-0 w-100 ms-3 p-0 bg-transparent text-white border-0" 
+                        style="outline: none !important; width: 100%; font-weight: bold;">
+                            <option value="email" selected>Correo electrónico</option>
+                            <option value="number">Número de teléfono</option>
+                        </select>
+                  </div>
+                  <div  class="w-100 mt-1 d-flex" id="email">
+                          
+                          <div id="email-container" class="form-floatings  w-100">
+                              <label for="id_email" class="w-100">Correo electrónico</label>
                               {{ form.email }}
-                        </div>
+                          </div>
+                          
+                          <div id="number-container" class="form-floatings w-100 d-none">
+                              <label for="id_number" class="w-100">Número de teléfono</label>
+                              {{ form.number }}
+                          </div>
+                          <style>
+                              .d-none {
+                        display: none !important;
+                        }
+                        </style>
+                        <script>
+                              document.getElementById('contact-method').addEventListener('change', function () {
+                                    const selectedMethod = this.value;
+
+                                    // Contenedores de los campos
+                                    const emailContainer = document.getElementById('email-container');
+                                    const numberContainer = document.getElementById('number-container');
+
+                                    // Alternar visibilidad
+                                    if (selectedMethod === 'email') {
+                                          emailContainer.classList.remove('d-none');
+                                          numberContainer.classList.add('d-none');
+                                    } else if (selectedMethod === 'number') {
+                                          emailContainer.classList.add('d-none');
+                                          numberContainer.classList.remove('d-none');
+                                    }
+                                    });
+                          </script>
                   </div>
       
                   <div  class="w-100 mt-2" >
-                        <div class="form-floatings w-100" id="number" >
-                              <label for="id_number" class="w-100">Numero de telefono </label>
-                              {{ form.number }}
-                        </div>
+                     
                   </div>
             </div>
             </div>
           
-            <span class=" d-flex justify-content-end text-center mt-4 w-100">
+            <span class=" d-flex justify-content-end text-center me-1 mt-2 w-100">
                   <span onclick="Next()" style="
-                    border-radius: 1.5rem; height: auto;
-                    width: 10rem;" class="text-white bg-white bg-opacity-10 p-2">
-                    Siguiente
+                    border-radius: 2rem; height: auto; font-size: 14px; font-weight: bold;
+                    width: max-content;" class="text-white bg-white bg-opacity-10 p-2 ps-4 pe-4">
+                    Continuar
                   </span>
             </span>
             {% if service_admin %}
