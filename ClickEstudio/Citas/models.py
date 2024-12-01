@@ -235,7 +235,8 @@ class CashRegister(models.Model):
     closed_at = models.DateTimeField(null=True, blank=True)  # Fecha y hora de cierre
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='open')  # Estado actual de la caja
-
+      
+    date = models.DateTimeField(default=timezone.now) # Crear fecha atuacal
     def __str__(self):
         return f'Caja {self.id} - {self.status}'
 
