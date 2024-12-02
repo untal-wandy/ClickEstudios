@@ -221,3 +221,8 @@ def CreateOption(request):
             )
       options.save()
       return JsonResponse(list(),  safe=False)
+
+
+def CheckCitasToDay(request):
+      print(request.GET.get('date'))
+      return JsonResponse(list(),  safe=False)

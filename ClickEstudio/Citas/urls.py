@@ -69,4 +69,6 @@ urlpatterns = [
     path('delete-paquet-option/', views_ajax.DeletePaquetOption, name='delete-paquet-option'),
     path('create-option/', views_ajax.CreateOption, name='create-option'),
 
+    path('check-citas-to-day', views_ajax.CheckCitasToDay, name='check-citas-to-day '), 
+
 ]
