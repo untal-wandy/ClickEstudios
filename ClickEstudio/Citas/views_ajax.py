@@ -1,6 +1,8 @@
 from . import models 
 from django.http import JsonResponse
 from .Options import Options
+from datetime import datetime
+
 def Sale_Delete(request):
       sale_delete = models.Sale.objects.get(id=request.GET.get('sale_id'))
       sale_delete.delete()
@@ -222,7 +224,37 @@ def CreateOption(request):
       options.save()
       return JsonResponse(list(),  safe=False)
 
-
+import pytz
 def CheckCitasToDay(request):
-      print(request.GET.get('date'))
-      return JsonResponse(list(),  safe=False)
+      date_to_day =  request.GET.get('date')
+      if date_to_day:
+
+
+                  # Convierte la fecha recibida a un objeto datetime
+            date_obj = datetime.strptime(date_to_day, "%d/%m/%Y")
+            date_only = date_obj.date()
+                  # Asegúrate de obtener solo la fecha de `date_obj`
+            hours_list = [
+                  '08:00', '09:00', '10:00', '11:00', '12:00',
+                  '1:00', '2:00', '3:00', '4:00', '5:00'
+                  ]
+            list_to_day_sale = []
+            # Realiza la consulta usando el filtro adecuado
+            sale_to_day = models.Sale.objects.filter(cliente__date_choice=date_only)
+
+            if sale_to_day:
+                  for to_day in sale_to_day:
+                        # Verifica si la hora ya está en la lista
+                        time_choice = to_day.cliente.date_time_choice.strftime('%H:%M')  # Formato de la hora, si es necesario
+
+                        # Si la hora no está en la lista, la agrega
+                        if not any(item['hors'] == time_choice for item in list_to_day_sale):
+                              dict_to_day = {
+                              'hors': time_choice,
+                              }
+                              list_to_day_sale.append(dict_to_day)
+
+            for sale in list_to_day_sale:
+                  if sale['hors'] in hours_list:
+                        hours_list.remove(sale['hors'])
+      return JsonResponse(hours_list,  safe=False)

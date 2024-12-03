@@ -317,6 +317,8 @@ class Sale(models.Model):
       is_activate = models.BooleanField(default=True, blank=True, null=True)
       saled = models.BooleanField(default=False, blank=True, null=True)
 
+
+
       saled_confirm = models.BooleanField(default=False, blank=True, null=True)
 
       reserver = models.BooleanField(default=False, blank=True, null=True)

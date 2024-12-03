@@ -73,44 +73,7 @@
   <!-- Swiper JS -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <!-- Inicialización del Swiper -->
-  <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          var swiper = new Swiper('.swiper-container', {
-              effect: 'cube',
-              grabCursor: true,
-              cubeEffect: {
-                  shadow: false,
-                  slideShadows: false,
-                  shadowOffset: 20,
-                  shadowScale: 0.94,
-              },
-              loop: true,
-              navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
-              },
-          });
-      });
 
-            document.addEventListener("DOMContentLoaded", function () {
-                  const url = window.location.href;
-                  const regex = /\/create-customer\/(\d+)/;
-                  const match = url.match(regex);
-                  if (match) {
-                        const number = match[1];
-                        console.log("Número extraído de la URL:", number);
-                         document.getElementById('id_plan_choice').value = number;
-                  } else {
-                         console.log("No se encontró un número en la URL.");
-                  }
-                  // Set the number to the input field
-            });
-
-      document.getElementById('btn-send').addEventListener('click', function() {
-            document.getElementById('form-customer').submit();
-      });
-  </script>
-  
   <style>
       #id_plan_choice  {
             display: none !important;

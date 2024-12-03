@@ -27,41 +27,30 @@ class DashboardCitas(TemplateView, Mail):
       def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
              
-            count =  models.MomentRelatedImage.objects.count()
+
             
             
             # Verificar si existen registros en MomentRelatedImage
             if models.MomentRelatedImage.objects.exists():
                   context['coro'] = True
-                  id_list = models.MomentRelatedImage.objects.values_list('id', flat=True)
+                  
+                  list_img = []
+                  # Mezclar los elementos aleatoriamente
+                  random.shuffle(list_img)
+                  img_all = models.MomentRelatedImage.objects.all()
+                  for img in img_all:
+                        list_img.append(img.id)
 
-                  # Convertir el queryset en una lista
-                  id_list = list(id_list)
-
-                  # Verificar si la lista tiene suficientes elementos
-                  if len(id_list) >= 6:
-                  # Seleccionar 5 IDs únicos si hay suficientes
-                        random_ids = random.sample(id_list, 6)
-                  else:
-                  # Seleccionar tantos como sea posible si hay menos de 5
-                        random_ids = random.sample(id_list, len(id_list))
-
-                  # Asignar imágenes y devolver '' si no existe la imagen
-                  def get_image_or_empty(id):
-                        try:
-                              return models.MomentRelatedImage.objects.get(id=id)
-                        except models.MomentRelatedImage.DoesNotExist:
-                              return ''  # Devuelve una cadena vacía si no existe
-
+                  def get_img_random(element):    
+                        return models.MomentRelatedImage.objects.get(id=list_img[element])
+                  
                   # Asignar las imágenes a los contextos
-                  context['img1'] = get_image_or_empty(random_ids[0]) if len(random_ids) > 0 else False
-                  context['img2'] = get_image_or_empty(random_ids[1]) if len(random_ids) > 1 else False
-                  context['img3'] = get_image_or_empty(random_ids[2]) if len(random_ids) > 2 else False
-                  context['img4'] = get_image_or_empty(random_ids[3]) if len(random_ids) > 3 else False
-                  context['img5'] = get_image_or_empty(random_ids[4]) if len(random_ids) > 4 else False
-                  # context['img6'] = get_image_or_empty(random_ids[5]) if len(random_ids) > 5 else ''
-                  # context['img7'] = get_image_or_empty(random_ids[6]) if len(random_ids) > 6 else ''
-                  # print(f"ID aleatorio seleccionado: {random_id}")
+                  context['img1'] = get_img_random(1)
+                  context['img2'] = get_img_random(2)
+                  context['img3'] = get_img_random(3) 
+                  context['img4'] = get_img_random(4) 
+                  context['img5'] = get_img_random(5)
+                  context['img6'] = get_img_random(6)
                   
             else:
                   print("No hay imágenes relacionadas en MomentRelatedImage.")
