@@ -12,7 +12,7 @@
             margin-left: 0.5rem;
       }
 </style>
-<div data-aos="fade-up" class="background-containers " id="bg-con">
+<div class="background-containers " id="bg-con">
       <div class="contents">
             <div id="search-div" class="p-2  d-none   justify-content-center  flex-wrap w-100" 
             style="margin: 0 auto; margin-top: 10rem; max-width: 30rem; ">
@@ -98,11 +98,20 @@
             </div>
           
             <span class=" d-flex justify-content-end text-center me-1 mt-2 w-100">
-                  <span onclick="Next()" style="
-                    border-radius: 2rem; height: auto; font-size: 14px; font-weight: bold;
-                    width: max-content;" class="text-white bg-white bg-opacity-10 p-2 ps-4 pe-4">
-                    Continuar
-                  </span>
+                  <span  onclick="ensureNotBothHidden()" class=" text-center text-white-50 mt-2  me-3 d-flex justify-content-center" 
+                  style="cursor: pointer;">
+
+
+                       <strong>
+                            Atras
+                      </strong>
+
+              </span>  
+                  <button id="btn-send" type="submit" 
+                  style="
+                  border-radius: 1.5rem; height: auto;
+                  width: 10rem;" class="text-white reloj-btn p-2 border-0 d-none bg-white bg-opacity-10">Confirmar</button>
+               
             </span>
             {% if service_admin %}
 

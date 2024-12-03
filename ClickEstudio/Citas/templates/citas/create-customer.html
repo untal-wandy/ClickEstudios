@@ -48,16 +48,15 @@
             <div class="swiper-container ">
                   <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                        <section class="w-100">
+                        <section class="w-100 calendary-000 ">
                               {% include "citas/components/calendary.html" %}
                         </section>  
+                        <section class="form-basic-000 d-none ">
+                                {% include "citas/components/form-basic.html" %}
+                        </section>
                   </div>
-                  <div class="swiper-slide">
-                        <section class="p-1" id="sliders">
-                              {% include "citas/components/form-basic.html" %}
-                              </section>
-                  </div>
-          
+
+
                   {{form.plan_choice}}
                   </div>
                   <!-- Botones de navegación (opcional) -->
@@ -67,7 +66,25 @@
       </form>
       
 </section>
+<script>
+      function ensureNotBothHidden() {
+    const formBasic = document.querySelector('.form-basic-000');
+    const calendary = document.querySelector('.calendary-000');
 
+    if (!formBasic || !calendary) {
+        console.error('Uno o ambos elementos no existen.');
+        return;
+    }
+
+    if (formBasic.classList.contains('d-none')) {
+        formBasic.classList.remove('d-none');
+        calendary.classList.add('d-none');
+    } else {
+        formBasic.classList.add('d-none');
+        calendary.classList.remove('d-none');
+    }
+}
+</script>
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <!-- Swiper JS -->
