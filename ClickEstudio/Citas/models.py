@@ -12,6 +12,7 @@ import os
 
 class Customer(models.Model):
       name = models.CharField(max_length=255)
+      choice_time = models.CharField(max_length=255, default='10:00', blank=True)
       last_name = models.CharField(max_length=255, default='', blank=True, null=True)
       dni = models.CharField(max_length=20, unique=True, blank=True, null=True)
       email = models.EmailField(default='', blank= True, null=True)  
@@ -317,6 +318,8 @@ class Sale(models.Model):
       is_activate = models.BooleanField(default=True, blank=True, null=True)
       saled = models.BooleanField(default=False, blank=True, null=True)
 
+
+
       saled_confirm = models.BooleanField(default=False, blank=True, null=True)
 
       reserver = models.BooleanField(default=False, blank=True, null=True)
@@ -360,3 +363,6 @@ class Company(models.Model):
 
       def __str__(self):
             return self.name
+
+
+

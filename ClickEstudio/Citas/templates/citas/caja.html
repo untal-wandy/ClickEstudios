@@ -29,7 +29,7 @@
 </style>
 <section class='  bg-black bg-opacity-50 overflow-scroll '  >
       {% include "citas/components/nav.html" %}
-      <div class="   align-content-start" style='height: 93vh;'>
+      <div class="   align-content-start" style='height: 100vh;'>
         
             <section data-aos="fade-up" class="d-flex overflow-scroll justify-content-center  flex-wrap " >
            
@@ -188,8 +188,7 @@
                         </tbody>
                     </table>
                 </section>
-                <div class="d-flex  w-100 justify-content-end  p-2 pb-0">
-                    <div class="  position-absolute start-0 ms-2"  style="width: max-content;">
+                                    <div class="  position-absolute bottom-0 start-0 ms-2"  style="width: max-content;">
 
                         {% if cash_register.status == 'open' %}
                         <form method="post" class="mt-0 w-100">
@@ -208,6 +207,8 @@
 
                         {% endif %}
                     </div>
+                <div class="d-flex  w-100 justify-content-end  p-2 pb-0">
+
                     <style>
                     .hidden {
                             display: none;

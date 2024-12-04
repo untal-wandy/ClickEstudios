@@ -126,12 +126,12 @@
 
 </style>
 
-<section id="div-reserv"  class=" p-1 d-flex flex-wrap justify-content-start w-100">
+<section id="div-reserv"  class=" d-flex flex-wrap justify-content-start w-100 ">
 {% if sales_reserver %}
       {% for sale_r in sales_reserver %}
 
-      <div id='list-cr{{sale_r.id}}' class="card m-1 bg-white  bg-opacity-10 " 
-            style="width: 25rem; height:14.5rem; border-radius: 1.5rem;    
+      <div id='list-cr{{sale_r.id}}' class="card border-0 m-1 mt-0 ms-1 me-0 rounded-5  bg-white  bg-opacity-10 " 
+            style="width: 22rem; height:14.5rem; 
             border: 1px solid #414141; ">
 
             <div class="card-body">
@@ -164,7 +164,7 @@
                               </span> 
                         <span class="w-100 d-flex align-content-center flex-wrap">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill text-white mt-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/></svg>
-                                          {{sale_r.cliente.date_time_choice}} 
+                                          {{sale_r.cliente.choice_time}} 
                         </span>
                         <div class="pt-2">
                               <span class="text-white-50" style="font-size: 12px !important;">
@@ -188,14 +188,14 @@
                               <hr class="m-0 p-0 mt-1 ms-2 me-2">
                         </div>
 
-                        <div class="d-flex div-btns border-0  justify-content-start">
+                        <div class="d-flex div-btns border-0  justify-content-center">
                                     {% if sale_r.plan.price == sale_r.reserver_mount %}
                                  
-                                          <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex border-0 mt-1" style=>
+                                          <button id='{{sale_r.id}}' class="font-primary reserv  bg-transparent reserver text-white d-flex border-0 mt-1" >
                                                 <a href="{% url 'citas:customer-detail-c' sale_r.id %}" 
-                                                class='btn btn-primary  bg-black d-flex bg-opacity-25 border-0 rounded-5 pe-3  ps-3' style="font-size: 14px; ">
+                                                class='btn btn-primary  bg-black d-flex bg-opacity-25 border-0 rounded-5 pe-4 ps-4' style="font-size: 14px; ">
 
-                                              Detalles de la cita
+                                                Depurar cita
 
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="16"  height="16" fill="currentColor" class="bi bi-arrow-up-right-circle-fill mt-1 ms-1" viewBox="0 0 16 16">
                                                       <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8m5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707z"/>
