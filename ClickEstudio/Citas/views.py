@@ -1110,6 +1110,7 @@ class CustomerDetail(DetailView):
                   context['c'] = self.get_object().cliente
                   context['service_admin'] = True
                   context['pack_options'] = models.PackOpciones.objects.all()
+                  context['total_plan'] = self.get_object().plan.price 
                   context['total_m_opciones'] = self.get_object().plan.price + sum(opciones.preci for opciones in opciones)
                   context['sale'] = self.get_object()
                   context['permisons'] = models.Permisons.objects.get(user=self.request.user)
