@@ -71,4 +71,10 @@ urlpatterns = [
 
     path('check-citas-to-day', views_ajax.CheckCitasToDay, name='check-citas-to-day '), 
 
+
+
+
+    # Nuevo comienso 
+    path('dashboard', views.Dashboard.as_view(), name='dashboard'),
+    
 ]

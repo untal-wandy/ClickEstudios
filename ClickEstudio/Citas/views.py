@@ -112,6 +112,7 @@ class CustomerCreateView(CreateView, Mail):
             return context
 
       def form_valid(self, form):
+            print(form.instance.date_time_choice, 'hay que ver')
             form.instance.plan_choice = int(self.request.POST.get('plan_choice'))
             form.instance.plans = models.Plans.objects.get(id=self.kwargs.get('pk'))
             
@@ -137,6 +138,7 @@ class CustomerCreateView(CreateView, Mail):
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': sale.cliente.id}))
 
       def form_invalid(self, form):
+            # print(form.errors)
             return super().form_invalid(form)
       
       
@@ -1182,4 +1184,15 @@ class CustomerSalesList(ListView):
             context['sales_list'] = True
             context['permisons'] = models.Permisons.objects.get(user=self.request.user)
             return context
+
+
+
+class Dashboard(TemplateView):
+      template_name = 'clickestudios/1-dashboard.html'
+
+      def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            return context
+
+
 

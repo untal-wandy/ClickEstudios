@@ -12,6 +12,7 @@ import os
 
 class Customer(models.Model):
       name = models.CharField(max_length=255)
+      choice_time = models.CharField(max_length=255, default='10:00', blank=True)
       last_name = models.CharField(max_length=255, default='', blank=True, null=True)
       dni = models.CharField(max_length=20, unique=True, blank=True, null=True)
       email = models.EmailField(default='', blank= True, null=True)  
@@ -362,3 +363,6 @@ class Company(models.Model):
 
       def __str__(self):
             return self.name
+
+
+

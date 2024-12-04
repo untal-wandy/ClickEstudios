@@ -53,9 +53,9 @@
                   
                   {% include "citas/administration/saled_sales.html" %}
                   {% if opciones %}
-                  <div class='p-3 m-1 w-100 bg-white ms-3 overflow-scroll bg-opacity-10 rounded-4' style='height: 11.5rem !important;'>
-                        <h6 class='p-0 m-0  '> 
-                              Opciones seleciones
+                  <div class='p-3 m-1 w-100 bg-white ms-3 overflow-scroll bg-opacity-10 rounded-5' style='height: 11.5rem !important;'>
+                        <h6 class='p-0 m-0  text-white-50 mt-3'> 
+                              Opciones selecionadas
                         </h6>
 
                         <div class='w-100 rounded-4 p-2'>
@@ -127,7 +127,8 @@
             {% comment %} <div class="alert alert-warning border-0 position-absolute top-0  bg-black text-white end-50 z-10" role="alert">
                   <strong>Advertencia</strong> <p class='text-white-50' style='font-size:14px;'>Asegúrate de revisar todas las opciones antes de aplicar los cambios, una vez haces clien en el botón "Aplicar y terminar" no podrás hacer cambios.</p>
             </div> {% endcomment %}
-            <div class="position-relative w-100 mt-5 pt-5 bottom-0  position-sticky start-0 ">
+            <div class="position-relative bg-white bg-opacity-10 w-100 mt-5 p-2 rounded-5   bottom-0   start-0"
+            style='  '>
                   {% if sale.saled_end == False %}
                   <div class="card  bg-transparent  border-0  rounded-4 m-1 start-0 w-100  text-white ">
                         <div class="card-body">
