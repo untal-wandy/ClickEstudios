@@ -153,15 +153,8 @@
   
   <script>
 
-document.querySelectorAll('.div_list li').forEach(li => {
-    li.addEventListener('click', function() {
-        // Remover la clase 'select_li' de todos los elementos
-        document.querySelector('.select_li')?.classList.remove('select_li');
-        console.log('uhs')
-        // Agregar la clase 'select_li' al elemento clicado
-        this.classList.add('select_li');
-    });
-});
+
+
 
       document.addEventListener("DOMContentLoaded", function() {
           const monthSelect = document.getElementById('month');
@@ -229,6 +222,7 @@ document.querySelectorAll('.div_list li').forEach(li => {
                   dayElement.addEventListener('click', function() {
                       document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
                       dayElement.classList.add('selected');
+                
                       console.log(`Selected : ${day}/${month + 1}/${year}`);
                       let mes = month + 1;
                         let date = day + '/' + mes + '/' + year;
@@ -281,13 +275,15 @@ function ChekCitasToDay(date){
                     li.classList.add('lis_hors')
                      li.innerText = hour       
                      li.addEventListener('click', function() {
-                        console.log(this.id)
+                        document.querySelectorAll('.lis_hors').forEach(element => {
+                            element.classList.remove('bg-black', 'bg-opacity-10');
+                        });
+                       document.getElementById( this.id).classList.add('bg-black', 'bg-opacity-10')
                         // Al hacer clic, establece el id (hora) en el input
                         document.querySelector('#id_choice_time').value = this.id ;
                         console.log(document.querySelector('#id_choice_time').value)
                         // alert(document.querySelector('#id_time_choice').value)
                     });
-
                     // Agrega el elemento <li> al contenedor con la clase div_list
                         div_list.append(li);
                 });     

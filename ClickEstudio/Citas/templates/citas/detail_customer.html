@@ -45,7 +45,7 @@
                               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
                             </svg> <strong> {{ sale.cliente.name }}</strong>
                   </h6>
-                  <p class='text-white-50'>
+                  <p class='text-white-50 ms-3' style="font-size: 12px;">
                         {{ sale.cliente.date_created|date:"M/d/Y" }} - {{ sale.cliente.date_created|date:"H:i" }}
                   </p>
             </div>
@@ -65,9 +65,9 @@
                                                 <th scope="col">Nombre</th>
                                                 <th scope="col">Descripción</th>
                                                 <th scope="col">Precio</th>
-                                                {% if sale.saled_end == False %}
+                                                <!-- {% if sale.saled_end == False %} -->
                                                 <th scope='col'>Accion</th>
-                                                {% endif %}
+                                                <!-- {% endif %} -->
                                           </tr>
                                     </thead>
                                     <tbody>
@@ -97,10 +97,11 @@
             </div>
             <div>
                   <div>
-                        <h6 class='p-0 m-0 mt-4'>
+                        <!-- <h6 class='p-0 m-0 mt-4'>
                               Paquetes de opciones
-                        </h6>
-                        <p class='text-white-50'>
+                        </h6> -->
+                        <p class='text-white-50 mt-2'
+                        style="font-size: 14px;">
                               Selecciona los paquetes de opciones que deseas agregar a la cita seleccionada
                         </p>
                   </div>
@@ -116,9 +117,11 @@
                         {% endif %}
                   </div>
                   <div>
-                        <button style="font-size: 14px;"  class=" btn-opcions border-0 bg-black bg-opacity-50 p-2 pe-3 ps-3">
-                              Crear adicional unico 
-                        </button>
+                        {% if sale.saled_end == False %}
+                              <button style="font-size: 14px;"  class=" btn-opcions border-0 bg-white bg-opacity-10 p-2 pe-3 ps-3">
+                                    Crear adicional 
+                              </button>
+                        {% endif %}
                   </div>
             </div>
         
@@ -134,9 +137,12 @@
                         <div class="card-body">
                               <p class='text-white-50' style='font-size:14px;'>Asegúrate de revisar todas las opciones antes de aplicar los cambios, una vez haces clien en el botón "Aplicar y terminar" no podrás hacer cambios.</p>
                               <h5 class="card-title m-0 p-0">
-                                    Total: ${{total_m_opciones|intcomma}}.00 </h5>
+                                    Vendido por: ${{total_plan|intcomma}}.00 </h5>
                                     {% if options_total > 0 %}
-                                           <p class="card-text p-0 m-0" style='font-size: 14px;'>Total de las opciones: ${{ options_total|intcomma}}.00</p>
+                                    <span>
+                                          Sumas totales en esta venta ${{total_m_opciones|intcomma}}.00 
+                                    </span>
+                                    <p class="card-text p-0 m-0" style='font-size: 14px;'>Pendiente: ${{ options_total|intcomma}}.00</p>
                                     {% endif %}
                                     <form action="" method="post">
                                           {% csrf_token %}
@@ -151,15 +157,21 @@
                   <div class="card  bg-transparent  border-0  rounded-4 m-1 start-0 w-100  text-white ">
                         <div class="card-body">
                               <h5 class="card-title m-0 p-0">
-                                    Vendido en: ${{total_m_opciones|intcomma}}.00 </h5>
+
+
+                                    Vendido por: ${{total_plan|intcomma}}.00 </h5>
                                     {% if options_total > 0 %}
-                                           <p class="card-text p-0 m-0" style='font-size: 14px;'> Opciones que se agregaron: ${{ options_total|intcomma}}.00</p>
+                                    <span>
+                                          Total + opcionales ${{total_m_opciones|intcomma}}.00 
+                                    </span>
+                                    <!-- <p class="card-text p-0 m-0" style='font-size: 14px;'>Pendiente: ${{ options_total|intcomma}}.00</p> -->
+                                     {%  else %}
+                                          <button id="apply-btn" 
+                                                style='font-size: 14px;'
+                                                class="btn mt-3 text-white rounded-5 bg-white bg-opacity-10">
+                                                      Cita terminada
+                                          </button>
                                     {% endif %}
-                              <button id="apply-btn" 
-                              style='font-size: 14px;'
-                              class="btn mt-3 text-white rounded-5 bg-white bg-opacity-10">
-                                    Cita terminada
-                        </button>
                         </div>
                         <div>
 

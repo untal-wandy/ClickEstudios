@@ -48,7 +48,7 @@
 
 
                 <div class="card-body d-flex w-100  overflow-scroll">
-                    <div class="w-100 d-flex justify-content-start ms-1  ">
+                    <div class="w-100 d-flex justify-content-start  ">
                             {% if cash_register.status == 'open' %}
                             <div class='text-start me-3 d-flex ps312'>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
@@ -86,9 +86,9 @@
                             
                             </div>
                         {% else %}
-                            <div style='width: 100%;' class='text-start  ms-3 p-2  ps-4 bg-white bg-opacity-10 rounded-4 '>
+                            <div style='width: 100%;' class='text-start   p-2 ms-2 ps-4 bg-white bg-opacity-10 rounded-5 '>
                             
-                                <h6 class="card-title p-0  m-0 "> 
+                                <h6 class="card-title p-0  m-0 mt-3 "> 
                                     <strong> Caja :</strong>
                                         <span class="text-white-50"> #{{ cash_register_last.id }}
                                                 {{ cash_register_last.get_status_display }}
@@ -124,13 +124,15 @@
                                 <div class="form-group" style='width: 300px;'>
                                     <label for="opening_balance">Monto de Apertura</label>
                                     <p class='text-white-50' style='font-size: 12px; line-height: 14px;'>
-                                        Indica la cantidad de dinero con la que se inicia la caja al comenzar un turno o un día de trabajo, esta cantidad sera reflejada como un ingreso mas
+                                        Desea agregar un monto adicionar a la apertura de caja 
                                     </p>
-                                    <input type="number" value="0" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required>
                                 </div>
-                                <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 mt-2 text-white" 
-                                    style="font-size: 14px;">Abrir nueva caja
-                                </button>
+                                <div class="d-flex " style="width: 17rem;">
+                                    <input type="number" value="0" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required > 
+                                    <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 ms-1 text-white" 
+                                        style="font-size: 14px;" >Abrir 
+                                    </button>
+                                </div>
                             </form>
                         </div>
                         {% endif %}
