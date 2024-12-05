@@ -6,8 +6,9 @@
                 <select id="month" class=" bg-black" 
                 style="outline: none;"></select>
                     <select id="year"  class=" text-white bg-transparent" 
-                style="outline: none; appearance: none;"   disabled>
-                    <option value=""></option>
+                style="outline: none; appearance: none;"   >
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
                 </select>
             </div>
             <div class="calendar-grid" id="calendar">
@@ -34,7 +35,7 @@
         <div class="d-flex w-100 justify-content-center  flex-wrap   align-content-center mt-5 ">
             <span  onclick="ensureNotBothHidden()" class=" text-center text-white-50 mt-2  me-3 d-flex justify-content-center" 
                 style="cursor: pointer;">
-              <!-- {{form.date_choice}} -->
+              {{form.date_only_choice}}
               <!-- {{form.choice_time}} -->
               <!-- <a href="{% url "citas:dashboard-citas" %}"> -->
                      <strong>
@@ -57,7 +58,7 @@
   
   <style>
      #id_date_choice, #id_choice_time{
-            display: none !important;
+            /* display: none !important; */
     }  
       #month {
         background: linear-gradient(120deg, #ffffff 0%, #ffffff 100%);
@@ -155,99 +156,107 @@
 
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    const monthSelect = document.getElementById('month');
+    const yearSelect = document.getElementById('year');
+    const calendar = document.getElementById('calendar');
+    const dateInput = document.getElementById('id_date_only_choice'); // Input para la fecha seleccionada
 
-      document.addEventListener("DOMContentLoaded", function() {
-          const monthSelect = document.getElementById('month');
-          const yearSelect = document.getElementById('year');
-          const calendar = document.getElementById('calendar');
-  
-          const months = [
-              'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-              'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-          ];
-  
-          const now = new Date();
-          const currentMonth = now.getMonth();
-          const currentYear = now.getFullYear();
-  
-          // Fill month select
-          months.forEach((month, index) => {
-              const option = document.createElement('option');
-              option.value = index;
-              option.textContent = month;
-              if (index === currentMonth) {
-                  option.selected = true;
-              }
-              monthSelect.appendChild(option);
-          });
-  
-          // Fill year select
-          const yearOption = document.createElement('option');
-          yearOption.value = currentYear;
-          yearOption.textContent = currentYear;
-          yearOption.selected = true;
-          yearSelect.appendChild(yearOption);
-  
-          const renderCalendar = () => {
-              const month = parseInt(monthSelect.value);
-              const year = parseInt(yearSelect.value);
-  
-              // Prevent selecting a previous month in the current year
-              if (year === currentYear) {
-                  Array.from(monthSelect.options).forEach(option => {
-                      option.disabled = option.value < currentMonth;
-                  });
-              } else {
-                  Array.from(monthSelect.options).forEach(option => {
-                      option.disabled = false;
-                  });
-              }
-  
-              const firstDay = new Date(year, month, 1).getDay();
-              const daysInMonth = new Date(year, month + 1, 0).getDate();
-  
-              calendar.innerHTML = '';
-  
-              // Add empty days for the first week
-              for (let i = 0; i < firstDay; i++) {
-                  const emptyDay = document.createElement('div');
-                  calendar.appendChild(emptyDay);
-              }
-  
-              // Add days of the month
-              for (let day = 1; day <= daysInMonth; day++) {
-                  const dayElement = document.createElement('div');
-                  dayElement.className = 'day';
-                  dayElement.textContent = day;
-                  dayElement.addEventListener('click', function() {
-                      document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
-                      dayElement.classList.add('selected');
+    const months = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    // Fill month select
+    months.forEach((month, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = month;
+        if (index === currentMonth) {
+            option.selected = true; // Selecciona el mes actual
+        }
+        monthSelect.appendChild(option);
+    });
+
+    // Fill year select
+    const yearOption = document.createElement('option');
+    yearOption.value = currentYear;
+    yearOption.textContent = currentYear;
+    yearOption.selected = true; // Selecciona el año actual
+    yearSelect.appendChild(yearOption);
+
+    const renderCalendar = () => {
+        const month = parseInt(monthSelect.value);
+        const year = parseInt(yearSelect.value);
+
+        // Prevent selecting a previous month in the current year
+        Array.from(monthSelect.options).forEach(option => {
+            const optionValue = parseInt(option.value);
+            if (year === currentYear && optionValue < currentMonth) {
+                option.disabled = true;
+            } else {
+                option.disabled = false;
+            }
+        });
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        calendar.innerHTML = '';
+
+        // Add empty days for the first week
+        for (let i = 0; i < firstDay; i++) {
+            const emptyDay = document.createElement('div');
+            calendar.appendChild(emptyDay);
+        }
+
+        // Add days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            dayElement.textContent = day;
+            dayElement.addEventListener('click', function() {
+                document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
+                dayElement.classList.add('selected');
                 
-                      console.log(`Selected : ${day}/${month + 1}/${year}`);
-                      let mes = month + 1;
-                        let date = day + '/' + mes + '/' + year;
-                        ChekCitasToDay(date);
-                        document.querySelector('.reloj-btn').classList.remove('d-none')
-                    //   const dateChoiceInput = document.getElementById('id_date_choice');
-                    const selectedDay = dayElement.textContent;
-                    const selectedMonth = parseInt(monthSelect.value) + 1;
-                    const selectedYear = parseInt(yearSelect.value);
-                    // dateChoiceInput.value = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+                console.log(`Selected : ${day}/${month + 1}/${year}`);
+                
+                const selectedMonth = (month + 1).toString().padStart(2, '0'); // Mes con dos dígitos
+                const selectedDay = day.toString().padStart(2, '0'); // Día con dos dígitos
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const period = hours >= 12 ? 'p.m.' : 'a.m.';
+                const formattedHour = hours % 12 || 12; // Formato de 12 horas
 
+                // Formatear la fecha en el estilo deseado
+                // const formattedDate = `${selectedDay}-${selectedMonth}-${year}`;
+                const formattedDate = `${year}-${selectedMonth.toString().padStart(2, '0')}-${selectedDay.toString().padStart(2, '0')}`;
+                // document.getElementById('date_only_choice').value = formattedDate;
 
-             
+                console.log(formattedDate, 'uh!')
+                
+                // Actualizar el input con la fecha seleccionada
+                if (dateInput) {
+                    dateInput.value = formattedDate;
+                }
 
-                  });
-                  calendar.appendChild(dayElement);
-              }
-          };
-  
-          monthSelect.addEventListener('change', renderCalendar);
-  
-          // Initial render
-          renderCalendar();
-      });
+                ChekCitasToDay(formattedDate);
+                document.querySelector('.reloj-btn').classList.remove('d-none');
+            });
+            calendar.appendChild(dayElement);
+        }
+    };
 
+    monthSelect.addEventListener('change', renderCalendar);
+    yearSelect.addEventListener('change', renderCalendar);
+
+    // Initial render
+    renderCalendar();
+});
 //       document.querySelectorAll('.day').forEach(day => {
 //     day.addEventListener('click', () => {
 //         console.log('Hola');
