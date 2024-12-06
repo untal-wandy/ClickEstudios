@@ -16,9 +16,12 @@ class Customer(models.Model):
       last_name = models.CharField(max_length=255, default='', blank=True, null=True)
       dni = models.CharField(max_length=20, unique=True, blank=True, null=True)
       email = models.EmailField(default='', blank= True, null=True)  
-      number = models.CharField(max_length=20, blank=True, null=True)
+      number = models.CharField(max_length=20, blank=True, null=True, default='809-000-0000')
       date_created = models.DateTimeField(auto_now_add=True)
       date_choice = models.DateTimeField(default=datetime.now, blank=True, null=True)
+
+      date_only_choice = models.DateField(default=datetime.now, blank=True, null=True)
+
       date_time_choice = models.TimeField(default='10:00') 
       plan_choice = models.IntegerField(default=2, blank=True, null=True)
       finished = models.BooleanField(default=False)

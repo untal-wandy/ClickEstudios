@@ -67,12 +67,13 @@
                         {{ form.email }}
 
                   </div>
-                  <div class="form-floating m-1" id="number" >
-                        {{ form.number }}
-
-                  </div>
+                  {% if number %} 
+                        <div class="form-floating m-1" id="number" >
+                              {{ form.number }}
+                        </div>
+                  {% endif %}
                   <div class="form-floating  m-1" id="id_date_choice" >
-                        {{ form.date_choice }}
+                        {{ form.date_only_choice }}
 
                   </div>
                   <div class="form-floating m-1" id="id_date_time_choice" >

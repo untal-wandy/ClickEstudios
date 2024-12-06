@@ -109,13 +109,7 @@ def Search(request):
             dict_customer = { 
                         'id': s.id,
                         'name': s.name,
-           'name_search': (
-    s.name + ' ' + 
-    (s.number if s.number else '...') + ' ' + 
-    (s.email if s.email else '...') + ' ' + 
-    s.date_choice.strftime('%d/%m/%Y') + ' ' + 
-    s.date_time_choice.strftime('%H:%M')
-),
+                        'name_search': s.name + ' ' + s.number + " " + s.email + " " + s.date_choice.strftime('%d/%m/%Y') + " " + s.date_time_choice.strftime('%H:%M') ,
       
             }
 
@@ -236,8 +230,10 @@ def CheckCitasToDay(request):
 
 
                   # Convierte la fecha recibida a un objeto datetime
-            date_obj = datetime.strptime(date_to_day, "%d/%m/%Y")
-            date_only = date_obj.date()
+            print(date_to_day)
+            date_obj = datetime.strptime(date_to_day, "%Y-%m-%d").date()
+            print("Fecha procesada correctamente:", date_obj)
+            date_only = date_obj
                   # Asegúrate de obtener solo la fecha de `date_obj`
             hours_list = [
                   '08:00', '09:00', '10:00', '11:00', '12:00',

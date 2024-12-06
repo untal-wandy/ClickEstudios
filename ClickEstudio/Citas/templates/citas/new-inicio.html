@@ -188,47 +188,84 @@
                   </div>
       {% endif %}
       <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+      <style>
+            /* 
+                  Estilos para ajustar el tamaño de las imágenes
+            */
+            .swiper-wrapper
+            {
+                  /* overflow: scroll; */
+                  display: flex;
+                  border-radius: 1rem; max-height:25rem;   /* Ajusta el ancho como desees, o usa un valor fijo */
+               
+            }
 
+            .swiper-slide img {
+              width: 100%;   
+              aspect-ratio: 16 / 9;
+              height:25rem;
+              /* max-width: 400px; */
+              /* height: 100%; */ 
+            
+              border-radius: 1.5rem; 
+              object-fit:  cover;
+            }
+            @media (max-width: 768px) { 
+                  .swiper-slide img {
+              width: 100%;
+              height:30rem;
+              /* margin: 0 10px;    */
+              /* min-width: 300px; */
+              aspect-ratio: 16 / 9; }
+
+              .clickestudios 
+              {
+                  margin-top: 1rem !important;
+              }
+
+              .swiper-div
+              {
+                  margin-top: 2rem !important;
+                  /* max-height: 30rem !important; */
+              }
+
+              .swiper-int 
+              {
+                  max-height: 40rem !important;
+              }
+
+            }
+
+          </style>
       {% if coro %}
 
 
-           <section class='w-100   overflow-hidden mb-5  swiper-div '  style="height: 30rem;" >
-                        <div  class="swiper-int w-100  h-100 "  style="max-height:30rem; max-width: 600px;">
-                              <div class="swiper my-slider   mt-0" style="border-radius: 1rem; ">
-                                    <div class="swiper-wrapper ">
+           <section class='w-100   overflow-hidden  swiper-div '  style="height: 30rem;" >
+                        <div  class="swiper-int" style="max-height:25rem;">
+                              <div class="swiper-container m-3 mt-0" style="border-radius: 1rem; ">
+                                    <div class="swiper-wrapper">
                                           {% if img1.image %}
-                                      <div class="swiper-slide d-flex">
-                                                 <img src="{{img1.image.url}}"  class="object-cover"  alt="Imagen 1">
+                                      <div class="swiper-slide">
+                                                 <img src="{{img1.image.url}}"  alt="Imagen 1">
                                                 </div>
                                           {% endif %}
    
                                       {% if img2.image %}
-                                      <div class="swiper-slide d-flex">
-                                                 <img src="{{img2.image.url}}"  class="object-cover"  alt="Imagen 1">
+                                      <div class="swiper-slide">
+                                                 <img src="{{img2.image.url}}"  alt="Imagen 1">
                                                 </div>
                                           {% endif %}
                                           
                                       {% if img3.image %}
-                                      <div class="swiper-slide d-flex">
-                                                 <img src="{{img3.image.url}}"  class="object-cover"  alt="Imagen 1">
+                                      <div class="swiper-slide">
+                                                 <img src="{{img3.image.url}}"  alt="Imagen 1">
                                                 </div>
                                                 {% endif %}
-                                                {% if img4.image %}
-                                                <div class="swiper-slide d-flex">
-                                                           <img src="{{img4.image.url}}"  class="object-cover"  alt="Imagen 1">
-                                                          </div>
-                                                          {% endif %}
-                                                          {% if img5.image %}
-                                                          <div class="swiper-slide d-flex">
-                                                                     <img src="{{img5.image.url}}"  class="object-cover"  alt="Imagen 1">
-                                                                    </div>
-                                                                    {% endif %}
-                                                                    {% if img6.image %}
-                                                                    <div class="swiper-slide d-flex">
-                                                                               <img src="{{img6.image.url}}"  class="object-cover"  alt="Imagen 1">
-                                                                              </div>
-                                                                              {% endif %}
-                               
+                                        {% if img4.image %}
+                                        <div class="swiper-slide">
+                                                 <img src="{{img4.image.url}}"  alt="Imagen 1">
+                                                </div> 
+                                          {% endif %}
                                           <!-- <div class="swiper-slide">
                                                 <img src="{{img6.image.url}}" alt="Imagen 1">
                                     </div> 
@@ -269,7 +306,72 @@
 </span>
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
+      // Crear un MediaQueryList usando matchMedia
+const mediaQuery = window.matchMedia('(max-width: 768px)');
 
+// Función para manejar los cambios en la media query
+function handleMobileChange(e) {
+    if (e.matches) {
+        // Si el ancho de la pantalla es menor o igual a 768px
+        console.log('Pantalla móvil activada');
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,          // Mostrar 3 slides al mismo tiempo
+            centeredSlides: true,       // Centrar el slide activo
+            spaceBetween: 0,           // Espacio entre slides
+            // loop: true,                 // Habilitar loop infinito
+            effect: 'coverflow',        // Efecto de coverflow
+            coverflowEffect: {
+              rotate: 5,               // Rotación de los slides laterales
+              stretch: 0,               // Estiramiento de los slides laterales
+              depth: 90,               // Profundidad de los slides laterales
+              modifier: 9,              // Intensidad del efecto
+              slideShadows: false,       // Sombras detrás de los slides laterales
+            },
+            autoplay: {
+              delay: 3000,              // Retraso de 3 segundos
+              disableOnInteraction: true, // No detener la animación en la interacción del usuario
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+
+    } else {
+        // Si el ancho de la pantalla es mayor a 768px
+        console.log('Pantalla de escritorio activada');
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,          // Mostrar 3 slides al mismo tiempo
+            centeredSlides: true,       // Centrar el slide activo
+            spaceBetween: 60,           // Espacio entre slides
+            // loop: true,                 // Habilitar loop infinito
+            effect: 'coverflow',        // Efecto de coverflow
+            coverflowEffect: {
+              rotate: 0,               // Rotación de los slides laterales
+              stretch: 0,               // Estiramiento de los slides laterales
+              depth: 0,               // Profundidad de los slides laterales
+              modifier: 9,              // Intensidad del efecto
+              slideShadows: false,       // Sombras detrás de los slides laterales
+            },
+            autoplay: {
+              delay: 3000,              // Retraso de 3 segundos
+              disableOnInteraction: true, // No detener la animación en la interacción del usuario
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+
+    }
+}
+
+// Escuchar los cambios en el tamaño de la pantalla
+mediaQuery.addListener(handleMobileChange);
+
+// Ejecutar la función al cargar la página
+handleMobileChange(mediaQuery);
+    
 
   </script>
       <section class="  mb-5 pb-5  " style="margin-top: 2rem !important; margin-bottom: 6rem !important;">
@@ -295,75 +397,13 @@
                   {% include "citas/components/category-moments.html" %}
             </section>
             <section  class="p-2 d-flex justify-content-center bg-white bg-opacity-10"  style="margin-top: 6rem; margin-bottom: 3rem;"  >
-                  {% include "citas/components/contacto.html" %} lo
+                  {% include "citas/components/contacto.html" %} 
             </section>
       </div>
 </section>
 </section>
-<style>
-
-.swiper-div {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.swiper {
-  width: 100%;
-  max-width: 100vw;
-  height: 100%;
-  display: flex; justify-content: center;
-
-}
-
-.swiper-slide {
-  display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
-  border-radius: 50px; /* Bordes redondeados grandes */
-  /* overflow: hidden; */
-
-}
-
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 40px;
-  
-}
-
-.swiper-pagination-bullet {
-  background: white; /* Puntos de navegación */
-  opacity: 0.6;
-}
-.swiper-pagination-bullet-active {
-  background: #ff9800; /* Punto activo */
-  opacity: 1;
-}
-</style>
 
 <script>
-const swiper = new Swiper('.my-slider', {
-  slidesPerView: 1.3,      // Muestra 1.5 slides
-  spaceBetween: 5,        // Espacio entre slides
-  centeredSlides: false,    // Centra las slides activas
-  loop: true,              // Ciclo infinito
-  grabCursor: false,        // Cursor tipo "mano"
-  autoplay: {
-    delay: 5000,           // Tiempo entre cambios (en ms)
-    disableOnInteraction: false, // Sigue reproduciéndose aunque interactúes
-  },
-  loopAdditionalSlides: 2, // Añade 2 slides duplicados para asegurar el ciclo
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: false,
-  },
-});
-      
       TextSession('ClickEstudios')
       AOS.init();
       window.onload = RemovePulseClass("recordin");

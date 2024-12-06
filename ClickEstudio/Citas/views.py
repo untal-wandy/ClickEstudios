@@ -138,7 +138,7 @@ class CustomerCreateView(CreateView, Mail):
                   return HttpResponseRedirect(reverse('citas:customer-detail', kwargs={'pk': sale.cliente.id}))
 
       def form_invalid(self, form):
-            # print(form.errors)
+            print(form.errors)
             return super().form_invalid(form)
       
       
