@@ -109,7 +109,7 @@ def Search(request):
             dict_customer = { 
                         'id': s.id,
                         'name': s.name,
-                        'name_search': s.name + ' ' + s.number + " " + s.email + " " + s.date_choice.strftime('%d/%m/%Y') + " " + s.date_time_choice.strftime('%H:%M') ,
+                     'name_search': (s.name or "") + (s.email or "") + (s.date_only_choice.strftime('%d/%m/%Y') if s.date_only_choice else "")
       
             }
 
