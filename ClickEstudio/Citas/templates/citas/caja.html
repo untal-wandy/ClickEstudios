@@ -52,7 +52,7 @@
                             {% if cash_register.status == 'open' %}
                             <div class='text-start me-3 d-flex ps312'>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
-                                        <strong> Caja #{{ cash_register.id }}</strong> 
+                                        <strong> Caja #{{ cash_register.number_caja }}</strong> 
                                         <span class="text-white-50">
                                             : {{ cash_register.get_status_display }}</span>
                                     </p>
@@ -62,7 +62,7 @@
                                     </p>
                                     <p class="p-0 m-0  ps-4 pe-4 bg-white bg-opacity-10 rounded-4 p-1" style="width: max-content; height: max-content;">
                                         <strong>Apertura:</strong>  
-                                        <span class="text-white-50  text-capitalize"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
+                                        <span class="text-white-50 " style="text-transform: capitalize;"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
                                         </span> 
                                     </p>
                                     <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
@@ -90,7 +90,7 @@
                             
                                 <h6 class="card-title p-0  m-0 mt-3 "> 
                                     <strong> Caja :</strong>
-                                        <span class="text-white-50"> #{{ cash_register_last.id }}
+                                        <span class="text-white-50"> #{{ cash_register_last.number_caja }}
                                                 {{ cash_register_last.get_status_display }}
                                         </span>
                                 </h6>
