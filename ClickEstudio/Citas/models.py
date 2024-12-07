@@ -321,7 +321,7 @@ class Sale(models.Model):
       is_activate = models.BooleanField(default=True, blank=True, null=True)
       saled = models.BooleanField(default=False, blank=True, null=True)
 
-
+      date_only_choice = models.DateField(default=datetime.now, blank=True, null=True)
 
       saled_confirm = models.BooleanField(default=False, blank=True, null=True)
 
@@ -332,7 +332,7 @@ class Sale(models.Model):
       saled_end = models.BooleanField(default=False, blank=True, null=True)
 
       def __str__(self):
-            return f"Venta #vn00{self.id} {self.cliente} - {self.plan} - {self.date} - {'Vendido' if self.saled == True else 'No pagado'}" 
+            return f"Venta #vn00{self.id} {self.cliente} - {self.plan} - {self.cliente.date_only_choice} - {'Vendido' if self.saled == True else 'No pagado'}" 
 
 
 class Opciones(models.Model):
@@ -359,6 +359,7 @@ class PackOpciones(models.Model):
 
 
 class Company(models.Model):
+      # company =  models.ForeignKey(User, related_name='user_company', on_delete=models.CASCADE)
       name = models.CharField(max_length=255 , blank=True, null=True)
       description = models.TextField(blank=True, null=True )
       logo = models.ImageField(upload_to='media/', blank=True, null=True)

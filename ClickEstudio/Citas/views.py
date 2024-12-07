@@ -688,6 +688,8 @@ class Plans(TemplateView):
             context = super().get_context_data(**kwargs)
             context['plans'] =   self.model.objects.all()        
             context['service'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['service_admin'] = True
             return context
       
       
@@ -699,6 +701,7 @@ class Sale(TemplateView):
             context['plans'] =   self.model.objects.all()        
             context['service'] = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['service_admin'] = True
             return context
       
       
@@ -1108,6 +1111,7 @@ class CustomerDetail(DetailView):
 
             if self.request.user.is_authenticated:
                   context['c'] = self.get_object().cliente
+                  context['company'] =  models.Company.objects.filter(name='ClickEstudios').first()
                   context['service_admin'] = True
                   context['pack_options'] = models.PackOpciones.objects.all()
                   context['total_plan'] = self.get_object().plan.price 
