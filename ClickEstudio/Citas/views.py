@@ -87,6 +87,8 @@ class CitasAdministrations(TemplateView, Mail):
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
+            context['cash_register']   = models.CashRegister.objects.filter(status='open').order_by('-closed_at').first()
+            context['company'] =  models.Company.objects.filter(name='ClickEstudios').first()
             context['saled_citas'] = saled_citas
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
