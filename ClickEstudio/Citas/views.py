@@ -87,6 +87,8 @@ class CitasAdministrations(TemplateView, Mail):
             context['sales'] = models.Sale.objects.filter(saled=False, reserver=False)
             context['sales_reserver'] = sales_reserver
             context['plans'] = models.Plans.objects.filter()
+            context['cash_register']   = models.CashRegister.objects.filter(status='open').order_by('-closed_at').first()
+            context['company'] =  models.Company.objects.filter(name='ClickEstudios').first()
             context['saled_citas'] = saled_citas
             if self.request.user.is_authenticated:
                   context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
@@ -676,7 +678,11 @@ def Logins(request):
             else:
                  error = 'Usuario o contraseña incorrectos'
 
-      return render(request, 'citas/login.html', {'error': error} )
+      return render(request, 'citas/login.html', 
+      {
+            'error': error,
+            "company": models.Company.objects.filter(name='ClickEstudios').first()
+      } )
 
 
 
@@ -688,6 +694,8 @@ class Plans(TemplateView):
             context = super().get_context_data(**kwargs)
             context['plans'] =   self.model.objects.all()        
             context['service'] = True
+            context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['service_admin'] = True
             return context
       
       
@@ -699,6 +707,7 @@ class Sale(TemplateView):
             context['plans'] =   self.model.objects.all()        
             context['service'] = True
             context['permisons'] =  models.Permisons.objects.get(user=self.request.user)
+            context['service_admin'] = True
             return context
       
       
@@ -1108,6 +1117,7 @@ class CustomerDetail(DetailView):
 
             if self.request.user.is_authenticated:
                   context['c'] = self.get_object().cliente
+                  context['company'] =  models.Company.objects.filter(name='ClickEstudios').first()
                   context['service_admin'] = True
                   context['pack_options'] = models.PackOpciones.objects.all()
                   context['total_plan'] = self.get_object().plan.price 
