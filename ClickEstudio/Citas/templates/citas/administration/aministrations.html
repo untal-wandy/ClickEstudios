@@ -315,24 +315,18 @@
       <div  data-aos="fade-in" data-aos-easing="linear" data-aos-duration="1500"class="d-flex   justify-content-center flex-wrap align-content-center  w-100 vh-100">
             <div 
             class="bg-black p-3 text-center bg-opacity-50 position-relative rounded-5 mb-5"
-            style="width: 49rem; height: 28rem;">
+            style="width: 40rem; height: 27rem;">
             <div  data-aos="fade-in" style="transition-delay: 1s !important;"  class="w-100 d-flex align-content-center flex-wrap">
                   {% if company.logo2.url %}
-                        <img src="{{company.logo2.url}}"  class="  start-0"  width="150"  alt="{{company.name}}">
+                        <img src="{{company.logo2.url}}"  class="  start-0"  width="120"  alt="{{company.name}}">
                   {% endif %}
             <div   data-aos="fade-right" style="transition-delay: 1s !important;" class=" d-flex flex-wrap align-content-center"> 
                   <div class="w-100 justify-content-end text-start">
-                        <strong class="text-white-50 me-1">  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>   {{request.user.username}}</strong> 
+                        <strong class="text-white-50 me-1" style="font-size: 12px;">   {{request.user.username}}</strong> 
                   </div>
                 
                 <div  data-aos="fade-right" style="transition-delay: 1.5s !important;" class="w-100 text-start" >
-                  <strong class="text-white-50 me-1">  <svg xmlns="http://www.w3.org/2000/svg"
-                         width="10" height="10" fill="currentColor" class="bi bi-calendar3-event-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2h16a2 2 0 0 0-2-2zM0 14V3h16v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m12-8a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
-                      </svg>  {{request.user.date_joined}}</strong>
+                  <strong class="text-white-50 me-1">  {{ request.user.first_name }} {{ request.user.last_name }} </strong>
    
                 </div>
 
@@ -340,8 +334,8 @@
       </div>
             </div>
        
-             <div  class="w-100 d-flex justify-content-center mb-2  mt-3"  >  
-                  <strong style="font-size: 16px;"   data-aos="fade-in" style="transition-delay: 2s !important;" class="text-white-50 text-center mt-3"> Estado de caja cerrada</strong>
+             <div  class="w-100 d-flex justify-content-center mb-2  mt-5"  >  
+                  <strong style="font-size: 16px;"   data-aos="fade-in" style="transition-delay: 2s !important;" class="text-white-50 text-center mt-3"> Caja admistrativa altualmente cerrada</strong>
             </div>
                   <p  data-aos="fade-in" style="font-size: 12px; transition-delay: 1s !important;" class="text-white-50 w-100 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
@@ -349,7 +343,7 @@
                             </svg>     Para garantizar el registro adecuado de las transacciones, como ventas y otras gestiones, es necesario abrir una nueva caja, esto asegura un control eficiente y transparente de las operaciones.
                   </p>
           
-                  <div data-aos="fade-right" class="w-100 d-flex justify-content-end m-0 start-0 pb-2 pe-2  position-absolute bottom-0" style="transition-delay: 4s !important;">
+                  <div data-aos="fade-right" class="w-100 d-flex justify-content-center m-0 mt-5 start-0 pb-2 pe-2   bottom-0" style="transition-delay: 4s !important;">
                         <a  href="{% url "citas:caja" %}"  class='text-white-50  btn-opcions' style="cursor: pointer; font-weight: bold;" >
                         <button style="font-size: 14px;"  class=" border-0 bg-white bg-opacity-10 p-2 pe-3 ps-3">
                                      Abrir  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right-circle-fill" viewBox="0 0 16 16">
