@@ -678,7 +678,11 @@ def Logins(request):
             else:
                  error = 'Usuario o contraseña incorrectos'
 
-      return render(request, 'citas/login.html', {'error': error} )
+      return render(request, 'citas/login.html', 
+      {
+            'error': error,
+            "company": models.Company.objects.filter(name='ClickEstudios').first()
+      } )
 
 
 

@@ -2,7 +2,7 @@
 {% block content %}
 <style>
       .background-container-l {
-            background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn');
+            /* background-image: url('https://th.bing.com/th/id/OIG1.r2i2ZrF7tkAwblF84mhg?pid=ImgGn'); */
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
@@ -30,12 +30,15 @@
 
       }     
       input {
-            border-radius: 1.5rem !important;
-            color: rgb(193, 193, 193) !important;
+            border-radius: 0rem !important;
+            color: #c1c1c1 !important;
             transition: 0.3s !important;
             width: 100% !important;
             max-width: 30rem;
-            border: 1px solid #41414196;
+            height: 2.9rem; outline: none;
+            border: 1px solid #61616168;
+            border-left: none; border-top: none; border-right: none;
+            background-color: transparent !important;
       }
 
       #divs-btns {
@@ -53,52 +56,56 @@
 <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
 
 <div class='background-container-l bg-transparent vh-100 ' id='bg-login'>
-      <div class='content-lo vh-100 '>
-            <h6 class=" text-center d-none text-white mb-4 w-100 mt-5 " style="text-shadow: #000 1px 2px 3px; font-family: Kavoon, serif !important;
-                  font-weight: 400;">
-                  ClickEstudios.com 
-                  <svg id="recordin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-fill animations-pulse text-danger" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
-                  </svg>
-            </h6>
+      <div class='content-lo vh-100 bg-black bg-opacity-10 '>
+            
         
-            <form action="" method="post" class='w-100  ' >
+            <form  action="" method="post" class='w-100  ' >
                   {% csrf_token %}
-                  <div class='container-fluid w-100 d-flex  justify-content-center flex-wrap' >
-                        <div style='width: 25rem; border-radius: 2.5rem;
-                         border: 1px solid #414141;'  class=' bg-black blur bg-opacity-10 p-3'>
-                              <div class='w-100 text-center '>
+                  <div   class='container-fluid w-100 d-flex  justify-content-center flex-wrap' >
+                        <div   style='max-width: 27rem; border-radius: 2.5rem;
+                         border: 1px solid #414141; '   class=' bg-black  position-relative border-0 bg-opacity-25 p-4'>
+                         <div class="d-flex ">
+                                          {% if company.logo2.url %}
+                                          <img src="{{company.logo2.url}}"  data-aos="fade-right"  style="transition-delay: 0.8s;" class="  top-0 start-0"  width="90"  alt="{{company.name}}">
+                                          {% endif %}
+
+                                          <h6 class=" text-center  text-white  d-flex flex-wrap align-content-center " style=" font-family: Kavoon, serif !important;
+                                          font-weight: 400;">
+                                          <!-- ClickEstudios -->
+                                    </h6>
+                                    <p  data-aos="zoom-in"   class="text-white-50 mt-4 text-center info-p" 
+                                    style="font-size: 12px; list-style: 10px ; transition-delay: 0.9s !important;">
+      
+                              </p>
+                              </div>
+                              <div>
+                                   
+                                  </div>
+                              <div class='w-100 text-center mt-2 '>
                                     {% if error %}
                                     <h6 class='text-danger font-secondary-50 pb-3'>
                                           Datos incorrectos
                                     </h6>
-                                    {% else %}
-                                    <h6 class='text-white-50 font-secundary pb-3'>
-                                          Acceder al admin
-                                    </h6>
                                     {% endif %}
                               </div>
-                              <div class=" mb-3  " >
+                              <div  data-aos="fade-up"  class=" mb-2  " >
                                     <input type="text" class=" font-secundary p-3 inp"  name='user' id="floatingInput" placeholder="Nombre de usuario">
                        
                                   </div>
-                                  <div class=" ">
+                                  <div data-aos="fade-up" style="transition-delay: 0.2s !important;"  class=" ">
                                     <input type="password" class=" font-secundary p-3  inp" name='pwd' id="floatingPassword" placeholder="Contraseña">
                                  
                                   </div>
-                                  <div>
-                                    <p class="text-white-50 mt-2" style="font-size: 12px; list-style: 10px;">
-                                          Comunicate con   <a  href="https://api.whatsapp.com/send?phone=+18295577196&text=Hola!, creame una cuenta."  >  809-557-7196 </a> para comenzar el proceso de creación de cuenta.
-                                    </p>
-                                  </div>
+                            
                                   
-                                  <div class='w-100 text-center justify-content-start d-flex align-content-center flex-wrap '>
-                                    <a href="{% url "citas:dashboard-citas" %}" class='mt-3 btn text-white' style="font-size: 14px;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi text-white-50 bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                                  <div data-aos="fade-in" style="transition-delay: 3s !important;"  class='w-100 text-center mt-3 justify-content-start d-flex align-content-center flex-wrap '>
+                                    <a href="{% url "citas:dashboard-citas" %}" class='mt-3 btn text-white' style="font-size: 12px; font-weight: bold;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi text-white-50  bi-arrow-left-circle-fill"  viewBox="0 0 16 16">
                                           <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                        </svg></a>
-                                    <button type="submit" class=" border-0 ms-2 p-2 mt-3 text-white  font-secundary" 
+                                        </svg> </a>
+                                    <button type="submit" class=" btn-su d-none  border-0 bg-white bg-opacity-10 ms-2 p-2 mt-3 text-white  font-secundary" 
                                     style=' border-radius: 2rem; 
-                                    background-color: rgba(255, 234, 73, 0.146);
-                                    width: 15rem; font-size: 14px;
+                                    font-weight: bold;
+                                    width: 7rem; font-size: 14px;
                                     '>Ingresar</button>
             
                                     <div class='w-100 mt-2 font-primary'>
@@ -114,6 +121,37 @@
 </div>
 
 <script>
+const m = [
+  "¡Explorar el estudio nunca fue tan inspirador, donde cada rincón refleja arte y pasión!",
+  "¡Sumérgete en el estudio, un espacio donde la creatividad cobra vida en cada detalle!",
+  "¡Descubre un estudio lleno de magia, donde cada momento es una obra de arte en proceso!",
+  "¡El estudio te espera para transformar ideas en realidades artísticas únicas y sorprendentes!",
+  "¡Cada paso en el estudio es un viaje hacia la expresión creativa más auténtica!"
+];
+TextRandon(m, '.info-p')
+
+function TextRandon(messages, clase) {
+            // Selecciona un mensaje aleatorio
+            let random_menssage = messages[Math.floor(Math.random() * messages.length)];
+            // Inserta el mensaje en el elemento con clase 
+            let element = document.querySelector(clase);
+            if (element) {
+                  element.textContent = random_menssage;
+            }
+}
+
+document.addEventListener('input', () => {
+  const inputUser = document.querySelector('#floatingInput');
+  const inputPassword = document.querySelector('#floatingPassword');
+  const button = document.querySelector('.btn-su');
+
+  // Verifica la longitud de los valores en ambos inputs
+  if (inputUser.value.length > 2 && inputPassword.value.length > 2) {
+    button.classList.remove('d-none'); // Muestra el botón
+  } else {
+    button.classList.add('d-none'); // Oculta el botón
+  }
+});
 
 </script>
 {% endblock  %}
