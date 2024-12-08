@@ -34,7 +34,7 @@
             color: #c1c1c1 !important;
             transition: 0.3s !important;
             width: 100% !important;
-            max-width: 30rem;
+            /* max-width: 30rem; */
             height: 2.9rem; outline: none;
             border: 1px solid #61616168;
             border-left: none; border-top: none; border-right: none;
@@ -56,24 +56,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
 
 <div class='background-container-l bg-transparent vh-100 ' id='bg-login'>
-      <div class='content-lo vh-100 bg-black bg-opacity-10 '>
+      <div class='content-lo vh-100 bg-black bg-opacity-50 '>
             
         
             <form  action="" method="post" class='w-100  ' >
                   {% csrf_token %}
                   <div   class='container-fluid w-100 d-flex  justify-content-center flex-wrap' >
-                        <div   style='max-width: 27rem; border-radius: 2.5rem;
-                         border: 1px solid #414141; '   class=' bg-black  position-relative border-0 bg-opacity-25 p-4'>
+                        <div   style='max-width: 40rem; border-radius: 2.5rem;
+                         border: 1px solid #414141; '   class=' bg-black  position-relative border-0 bg-opacity-50 p-5'>
                          <div class="d-flex ">
                                           {% if company.logo2.url %}
-                                          <img src="{{company.logo2.url}}"  data-aos="fade-right"  style="transition-delay: 0.8s;" class="  top-0 start-0"  width="90"  alt="{{company.name}}">
+                                          <img src="{{company.logo2.url}}"  data-aos="fade-right"  style="transition-delay: 0.8s;" class="  top-0 start-0"  width="120"  alt="{{company.name}}">
                                           {% endif %}
 
-                                          <h6 class=" text-center  text-white  d-flex flex-wrap align-content-center " style=" font-family: Kavoon, serif !important;
+                                          <h6 class=" text-start  text-white  d-flex flex-wrap align-content-center " style=" font-family: Kavoon, serif !important;
                                           font-weight: 400;">
                                           <!-- ClickEstudios -->
                                     </h6>
-                                    <p  data-aos="zoom-in"   class="text-white-50 mt-4 text-center info-p" 
+                                    <p  data-aos="fade-in"   class="text-white-50 mt-4 text-start info-p" 
                                     style="font-size: 12px; list-style: 10px ; transition-delay: 0.9s !important;">
       
                               </p>
@@ -81,25 +81,25 @@
                               <div>
                                    
                                   </div>
-                              <div class='w-100 text-center mt-2 '>
+                              <div class='w-100 text-center mt-3 '>
                                     {% if error %}
                                     <h6 class='text-danger font-secondary-50 pb-3'>
                                           Datos incorrectos
                                     </h6>
                                     {% endif %}
                               </div>
-                              <div  data-aos="fade-up"  class=" mb-2  " >
+                              <div  data-aos="zoom-in"  class=" mb-2  " >
                                     <input type="text" class=" font-secundary p-3 inp"  name='user' id="floatingInput" placeholder="Nombre de usuario">
                        
                                   </div>
-                                  <div data-aos="fade-up" style="transition-delay: 0.2s !important;"  class=" ">
+                                  <div data-aos="zoom-in" style="transition-delay: 0.2s !important;"  class=" ">
                                     <input type="password" class=" font-secundary p-3  inp" name='pwd' id="floatingPassword" placeholder="Contraseña">
                                  
                                   </div>
                             
                                   
-                                  <div data-aos="fade-in" style="transition-delay: 3s !important;"  class='w-100 text-center mt-3 justify-content-start d-flex align-content-center flex-wrap '>
-                                    <a href="{% url "citas:dashboard-citas" %}" class='mt-3 btn text-white' style="font-size: 12px; font-weight: bold;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi text-white-50  bi-arrow-left-circle-fill"  viewBox="0 0 16 16">
+                                  <div data-aos="fade-left" style="transition-delay: 1.6s !important;"  class='w-100 text-center mt-5 justify-content-start d-flex align-content-center flex-wrap '>
+                                    <a href="{% url "citas:dashboard-citas" %}" class='mt-3 btn text-white' style="font-size: 12px; font-weight: bold;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi text-white-50  bi-arrow-left-circle-fill"  viewBox="0 0 16 16">
                                           <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
                                         </svg> </a>
                                     <button type="submit" class=" btn-su d-none  border-0 bg-white bg-opacity-10 ms-2 p-2 mt-3 text-white  font-secundary" 
@@ -122,11 +122,11 @@
 
 <script>
 const m = [
-  "¡Explorar el estudio nunca fue tan inspirador, donde cada rincón refleja arte y pasión!",
-  "¡Sumérgete en el estudio, un espacio donde la creatividad cobra vida en cada detalle!",
-  "¡Descubre un estudio lleno de magia, donde cada momento es una obra de arte en proceso!",
-  "¡El estudio te espera para transformar ideas en realidades artísticas únicas y sorprendentes!",
-  "¡Cada paso en el estudio es un viaje hacia la expresión creativa más auténtica!"
+  "¡Explorar el estudio nunca fue tan inspirador! Cada rincón está diseñado para reflejar arte, pasión y dedicación, invitándote a soñar en grande.",
+  "¡Sumérgete en el estudio, un espacio único donde la creatividad fluye libremente en cada detalle, convirtiendo tus ideas en obras maestras inolvidables!",
+  "¡Descubre un estudio lleno de magia y posibilidades infinitas! Cada momento aquí se transforma en un paso hacia la creación de algo extraordinario.",
+  "¡El estudio te espera con los brazos abiertos! Es un lugar diseñado para dar vida a tus ideas y convertirlas en realidades artísticas llenas de emoción.",
+  "¡Cada paso que das en el estudio es un viaje hacia la autenticidad creativa! Aquí, cada instante cuenta para crear algo realmente único y trascendental."
 ];
 TextRandon(m, '.info-p')
 
