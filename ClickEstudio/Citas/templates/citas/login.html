@@ -35,7 +35,7 @@
             transition: 0.3s !important;
             width: 100% !important;
             /* max-width: 30rem; */
-            height: 2.9rem; outline: none;
+            height: 2.9rem; outline: none;;
             border: 1px solid #61616168;
             border-left: none; border-top: none; border-right: none;
             background-color: transparent !important;
@@ -62,18 +62,20 @@
             <form  action="" method="post" class='w-100  ' >
                   {% csrf_token %}
                   <div   class='container-fluid w-100 d-flex  justify-content-center flex-wrap' >
-                        <div   style='max-width: 40rem; border-radius: 2.5rem;
-                         border: 1px solid #414141; '   class=' bg-black  position-relative border-0 bg-opacity-50 p-5'>
-                         <div class="d-flex ">
-                                          {% if company.logo2.url %}
-                                          <img src="{{company.logo2.url}}"  data-aos="fade-right"  style="transition-delay: 0.8s;" class="  top-0 start-0"  width="120"  alt="{{company.name}}">
-                                          {% endif %}
+                        <div   style='max-width: 35rem; border-radius: 2.5rem;
+                         border: 1px solid #414141; '   class=' bg-black  position-relative border-0 bg-opacity-50 p-4'>
+                                      <div class="text-center">
+                                    </div>
+                                    <div class="d-flex ">
+                               {% if company.logo2.url %}
+                               <img src="{{company.logo2.url}}"  data-aos="fade-right"  style="transition-delay: 0.8s;" class="  top-0 start-0"  width="90"  alt="{{company.name}}">
+                               {% endif %}
 
                                           <h6 class=" text-start  text-white  d-flex flex-wrap align-content-center " style=" font-family: Kavoon, serif !important;
                                           font-weight: 400;">
                                           <!-- ClickEstudios -->
                                     </h6>
-                                    <p  data-aos="fade-in"   class="text-white-50 mt-4 text-start info-p" 
+                                    <p  data-aos="fade-in"   class="text-white-50 mt-4 text-center info-p" 
                                     style="font-size: 12px; list-style: 10px ; transition-delay: 0.9s !important;">
       
                               </p>
