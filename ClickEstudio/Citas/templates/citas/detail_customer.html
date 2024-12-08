@@ -115,7 +115,7 @@
 
 
 
-      <div class="invoice position-absolute  d-none  z-2">
+      <div class="invoice position-absolute  d-none   z-2">
             <div class="header  d-flex  m-0   p-0 position-relative" style="height: 9rem;">
                   {% if company.logo.url %}
                   <img src="{{company.logo.url}}"  class="object-fit-cover position-absolute   start-0"  width="150"  alt="Click Estudios">
@@ -126,15 +126,24 @@
                         <p class="w-100" style="font-size: 14px !important;"><strong>RNC:</strong> 133-22445-3</p>
                         <p class="w-100" style="font-size: 14px !important;"><strong>Fecha:</strong>  <span class="date text-black"> </span> </p>
                         <p class="w-100" style="font-size: 14px !important;"><strong>Cliente:</strong> {{ sale.cliente.name }} </p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>RNC Cliente:</strong> 131-24041-2</p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>NCF:</strong> B0100000001</p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>NCF Válido hasta:</strong> 31/12/2026</p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>Factura ID:</strong> CL-00001</p>
+                        <p class="w-100" style="font-size: 14px !important;"><strong>RNC cliente:</strong> 131-24041-2</p>
+                        <p class="w-100" style="font-size: 14px !important;"><strong>NCF:</strong> 
+                              {{sale.ncf}}
+                        </p>
+                        <p class="w-100" style="font-size: 14px !important;"><strong>NCF válido hasta:</strong> 31/12/2026</p>
+                        <p class="w-100" style="font-size: 14px !important;"><strong>Factura ID:</strong> CL-{{sale.sale_secuencia}} </p>
             </div>
             
             <div class="w-100 text-center credito-fiscal ">
                   <hr class='m-0 p-0 mb-1 '>
-                  <p  style="font-size: 14px !important;" class='p-0 m-0'>Válido para crédito fiscal</p>
+                  <p  style="font-size: 14px !important;" class='p-0 m-0'> 
+                        Válido para
+                        {% if sale.type_sale_ncf == True %}
+                              crédito fiscal 
+                              {% else %}
+                              consumidor final
+                        {% endif %}
+                  </p>
                   <hr class='m-0 p-0 mb-4 mt-1'>
               </div>
             <div class="table-container"  style="font-size: 14px !important;">
@@ -149,13 +158,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <input type="number" value="{{sale.plan.price}}" id="plan-price">
+                        <input type="number" value="{{sale.itbis}}"  id="itbis">
                         <tr>
                             <td>1</td>
-                            <td>Sesión de fotos con modelos</td>
-                            <td>$7,203.39</td>
-                            <td>$1,296.61</td>
-                            <td>$8,500.00</td>
+                            <td> {{sale.plan.name}} - {{sale.plan.description}} </td>
+                            <td> ${{sale.plan.price|intcomma}} </td>
+                            <td class="ITIBIS"> </td>
+                            <td class="TOTAL"></td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -169,21 +181,46 @@
                         <tbody>
                             <tr>
                                 <td style="padding: 8px; font-weight: bold; color: black;">Neto</td>
-                                <td style="padding: 8px; text-align: right;">$7,203.39</td>
+                                <td style="padding: 8px; text-align: right;" class="NETO" ></td>
                             </tr>
                             <tr>
                                 <td style="padding: 8px; font-weight: bold; color: black;">ITBIS</td>
-                                <td style="padding: 8px; text-align: right;">$1,296.61</td>
+                                <td style="padding: 8px; text-align: right; " class="ITIBIS_NETO"></td>
                             </tr>
                             <tr>
                                 <td style="padding: 8px; font-weight: bold; color: black;">Total</td>
-                                <td style="padding: 8px; text-align: right;">$8,500.00</td>
+                                <td style="padding: 8px; text-align: right;" class="TOTAL_NETO"></td>
                             </tr>
                         </tbody>
                     </table>
             </div>
         
         </div>
+
+        <script>
+            // JavaScript
+function calculateTotal() {
+// Obtener los valores de #plan-price y #itbis
+const planPrice = parseInt(document.querySelector('#plan-price').value) || 0;
+const itbis = parseInt(document.querySelector('#itbis').value) || 0;
+
+// Calcular el porcentaje del ITBIS sobre el precio del plan
+const itbisAmount = (planPrice * itbis) / 100;
+
+// Calcular el total sumando el precio del plan y el ITBIS
+const total = planPrice + itbisAmount;
+document.querySelector('.ITIBIS').innerHTML =  '$' + itbisAmount.toLocaleString('en-US'); 
+// Mostrar el total en el campo #TOTAL
+document.querySelector('.TOTAL').innerHTML =  '$' + total.toLocaleString('en-US'); 
+
+document.querySelector('.NETO').innerHTML ='$' +  planPrice.toLocaleString('en-US'); 
+document.querySelector('.ITIBIS_NETO').innerHTML = '$' +  itbisAmount.toLocaleString('en-US'); 
+document.querySelector('.TOTAL_NETO').innerHTML = '$' + total.toLocaleString('en-US'); 
+
+}
+window.onload = calculateTotal();
+
+      </script>
 
       <div data-aos="fade-up" class="p-3   pb-0">
             <div>
@@ -202,30 +239,29 @@
                   {% include "citas/administration/saled_sales.html" %}
                   {% if opciones %}
                   <div class='p-3 m-1 w-100 bg-white ms-3 overflow-scroll bg-opacity-10 rounded-5' style='height: 11.5rem !important;'>
-                        <h6 class='p-0 m-0  text-white-50 mt-3'> 
+                        <strong class='p-0 m-0  text-white-50 mt-3'> 
                               Opciones selecionadas
-                        </h6> 
+                        </strong> 
 
-                        <div class='w-100 rounded-4 p-2'>
-                              <table class="w-100">
+                        <div class='w-100 rounded-4 bg-transparent p-2'>
+                              <table class="w-100" id="ta-d"  style='background-color: transparent !important;'>
                                     <thead>
-                                          <tr>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Descripción</th>
-                                                <th scope="col">Precio</th>
-                                                <!-- {% if sale.saled_end == False %} -->
-                                                <th scope='col'>Accion</th>
-                                                <!-- {% endif %} -->
+                                          <tr class="bg-transparent">
+                                                <th class="bg-transparent border-0"  scope="col">Nombre</th>
+                                                <th class="bg-transparent border-0"  scope="col">Descripción</th>
+                                                <th class="bg-transparent border-0"  scope="col">Precio</th>
+                                                <th class="bg-transparent border-0"  scope='col'>Accion</th>
+
                                           </tr>
                                     </thead>
                                     <tbody>
                                                 {% for option in opciones %}
                                                 <tr>
-                                                      <td  class='text-white-50' style='font-size:14px;'>{{ option.name }}</td>
-                                                      <td  class='text-white-50' style='font-size:14px;'>{{ option.description }}</td>
-                                                      <td  class='text-white-50' style='font-size:14px;'>${{ option.preci|intcomma }}.00</td>
+                                                      <td  class='text-white-50 border-0' style='font-size:14px;'>{{ option.name }}</td>
+                                                      <td  class='text-white-50 border-0' style='font-size:14px;'>{{ option.description }}</td>
+                                                      <td  class='text-white-50 border-0' style='font-size:14px;'>${{ option.preci|intcomma }}.00</td>
                                                       {% if sale.saled_end == False %}
-                                                            <td onclick='DeleteOption(this.id)' id='{{option.id}}' >
+                                                            <td class="border-0"  onclick='DeleteOption(this.id)' id='{{option.id}}' >
                                                                   Eliminar
                                                             </td>
                                                       {% endif %}
@@ -373,10 +409,15 @@
                                         </svg>
                                     Imprimir factura</button>  
                                     
-                                    <button id="send-invoice-btn" 
+                                    <button onclick="InvoiceOn()"  id="send-invoice-btn" 
                                     style='font-size: 14px;'
                                     class="btn text-white rounded-5 bg-white bg-opacity-10 me-2">
-                                    Enviar factura</button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                          <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                        </svg>
+                                     Factura
+                                    </button>
                               </div>
 
                         </div>
@@ -540,6 +581,11 @@ function OpenModalOption() {
 
 }
 
+function InvoiceOn() {
+    const invoice = document.querySelector('.invoice');
+    invoice.classList.toggle('d-none');
+    invoice.classList.add('flip-bottom')
+}
 
 function printInvoice() {
     const invoice = document.querySelector('.invoice').innerHTML; // Obtener el contenido del div
@@ -652,5 +698,11 @@ function printInvoice() {
 }
 
 </script>
+<style>
+      #ta-d 
+      {
+            background-color: transparent !important;
+      }
+</style>
 
 {% endblock %}

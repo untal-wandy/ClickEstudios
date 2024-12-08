@@ -332,7 +332,7 @@ class Sale(models.Model):
       price_total = models.IntegerField(default=0, blank=True, null=True)
       date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
       is_activate = models.BooleanField(default=True, blank=True, null=True)
-      saled = models.BooleanField(default=False, blank=True, null=True)
+      saled = models.BooleanField(default=False, blank=True, null=True) # Si es True fue vendida
 
       date_only_choice = models.DateField(default=datetime.now, blank=True, null=True)
 
@@ -343,6 +343,57 @@ class Sale(models.Model):
       abonado = models.IntegerField(default=0, blank=True, null=True)
 
       saled_end = models.BooleanField(default=False, blank=True, null=True)
+
+      impuestos = models.BooleanField(default=True)
+      itbis = models.IntegerField(default=18) #Impuestos del ITBIS (18%)
+      #  Impuesto sobre la Transferencia de Bienes Industrializados y Servicios
+      type_sale_ncf = models.BooleanField(default=False)  # False -> B02, True -> B01
+      # Campo para almacenar el NCF
+      ncf = models.CharField(max_length=10, default="")
+      
+      def save(self, *args, **kwargs):
+            if self.sale_secuencia == 0:  # Si no tiene un número asignado, asignar uno.
+                  # Contar el total de registros y sumar 1 para generar la secuencia
+                  self.sale_secuencia = Sale.objects.count() + 1
+            
+            # Asegurar que la secuencia sea un número antes de formatear
+            self.sale_secuencia = int(self.sale_secuencia)
+            # Generar el NCF según el tipo de venta
+            if self.type_sale_ncf:
+                  # Si type_sale_ncf es True, es una factura B01 (Crédito Fiscal)
+                  self.ncf = self._generate_ncf("B01")
+            else:
+                  # Si type_sale_ncf es False, es una factura B02 (Consumidor Final)
+                  self.ncf = self._generate_ncf("B02")
+            
+            super(Sale, self).save(*args, **kwargs)
+
+      def _generate_ncf(self, tipo_factura):
+            """
+            Genera un NCF basado en el tipo de factura.
+            El NCF se compone de la sigla (B01 o B02) y una secuencia de 6 dígitos.
+            Consumidor Final (B02), Credito Fiscal (B01) 
+            """
+            # Obtener la última factura del mismo tipo (B01 o B02)
+            last_invoice = Sale.objects.filter( saled_end=True ,type_sale_ncf=(tipo_factura == "B01")).order_by('-id').first()
+            
+            if last_invoice:
+                  # Si existe una factura previa, obtener el número secuencial y aumentar 1
+                  last_secuencia = int(last_invoice.ncf[3:9])  # Extraemos los 6 dígitos de la secuencia
+                  secuencia = last_secuencia + 1
+            else:
+                  # Si no hay facturas previas, iniciar la secuencia desde 000000
+                  secuencia = 0
+            
+            # Generar el NCF con la secuencia en formato de 6 dígitos
+            ncf = f"{tipo_factura}{secuencia:06d}"  # Formato B01-000001, B02-000001, etc.
+            return ncf
+
+
+      sale_secuencia = models.IntegerField(default=0)
+      
+
+
 
       def __str__(self):
             return f"Venta #vn00{self.id} {self.cliente} - {self.plan} - {self.cliente.date_only_choice} - {'Vendido' if self.saled == True else 'No pagado'}" 
