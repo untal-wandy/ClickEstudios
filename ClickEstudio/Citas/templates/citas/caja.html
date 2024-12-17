@@ -26,6 +26,14 @@
                 font-size: 14px;
                 font-weight: 500; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
+
+        .span-close .close-s
+        {
+            padding: 0.3rem; padding-left: 0.9rem; padding-right: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.092);
+            margin: 0.5rem;
+            border-radius: 2rem;
+        }
 </style>
 <section class='  bg-black bg-opacity-50 overflow-scroll '  >
       {% include "citas/components/nav.html" %}
@@ -47,29 +55,29 @@
                 </div>
 
 
-                <div class="card-body d-flex w-100  overflow-scroll">
-                    <div class="w-100 d-flex justify-content-start  ">
+                <div class="card-body d-flex w-100   overflow-scroll">
+                    <div class="w-100 d-flex justify-content-start flex-wrap  ">
                             {% if cash_register.status == 'open' %}
-                            <div class='text-start me-3 d-flex ps312'>
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
-                                        <strong> Caja #{{ cash_register.id }}</strong> 
+                            <div class='text-start  d-flex ps312'>
+                                    <p data-aos="fade-right" class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content; transition-delay: 1s !important;">
+                                        <strong> Caja #{{ cash_register.number_caja }}</strong> 
                                         <span class="text-white-50">
                                             : {{ cash_register.get_status_display }}</span>
                                     </p>
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 15rem; height: max-content;">
+                                    <p data-aos="fade-right" class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 15rem; height: max-content; transition-delay: 0.9s !important;">
                                         <strong>Balance de Aper..</strong> 
                                         <span class="text-white-50"> $ {{ cash_register.opening_balance|intcomma }}</span> 
                                     </p>
-                                    <p class="p-0 m-0  ps-4 pe-4 bg-white bg-opacity-10 rounded-4 p-1" style="width: max-content; height: max-content;">
+                                    <p data-aos="fade-right" class="p-0 m-0  ps-4 pe-4 bg-white bg-opacity-10 rounded-4 p-1" style="width: max-content; height: max-content; transition-delay: 0.8s !important;">
                                         <strong>Apertura:</strong>  
-                                        <span class="text-white-50  text-capitalize"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
+                                        <span class="text-white-50 " style="text-transform: capitalize;"> {{ cash_register.opened_by }} {{ cash_register.opened_at|date:"d/m/Y" }} 
                                         </span> 
                                     </p>
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content;">
+                                    <p  data-aos="fade-right" class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 11rem; height: max-content; transition-delay: 0.6s !important;">
                                         <strong>Ingresos</strong>
                                         <span class="text-white-50"> ${{count_ingresos|intcomma}} </span>
                                     </p>
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 9rem; height: max-content;">
+                                    <p data-aos="fade-right" class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" style="width: 9rem; height: max-content; transition-delay: 0.5s !important;">
                                         <strong>Gastos</strong>
                                         <span class="text-white-50"> ${{count_gastos}} </span>
                                     </p>
@@ -77,8 +85,8 @@
                                         <strong>Balance actual</strong>
                                         <span class="text-white-50">  ${{count_ingresos|intcomma}}</span>
                                     </p> -->
-                                    <p class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" 
-                                        style="width: 10rem; height: max-content;">
+                                    <p data-aos="fade-right" class="p-0 m-0  bg-white bg-opacity-10 rounded-4 p-1" 
+                                        style="width: 10rem; height: max-content; transition-delay: 0.3s !important;">
                                         <strong>Balance</strong>
                                         <span class="text-white-50">  ${{dinero_en_caja|intcomma}}</span>
                                     </p>
@@ -86,64 +94,70 @@
                             
                             </div>
                         {% else %}
-                            <div style='width: 100%;' class='text-start   p-2 ms-2 ps-4 bg-white bg-opacity-10 rounded-5 '>
-                            
-                                <h6 class="card-title p-0  m-0 mt-3 "> 
-                                    <strong> Caja :</strong>
-                                        <span class="text-white-50"> #{{ cash_register_last.id }}
-                                                {{ cash_register_last.get_status_display }}
-                                        </span>
-                                </h6>
-                                <p class="p-0 m-0"> 
-                                    <strong>Cerrado por:</strong>
-                                    <span class="text-white-50 text-capitalize" >  {{ cash_register_last.closed_by }}  </span>
-                                    </p>
-                                <p class="p-0 m-0"> 
-                                    <strong>Balance de Apertura:</strong> 
-                                    <span class="text-white-50"> $ {{ cash_register_last.opening_balance|intcomma }}</span>
-                                    </p>
-                                <p class="p-0 m-0"> 
-                                    <strong>Balance de Cierre:</strong>
-                                    <span class="text-white-50">$ {{ cash_register_last.closing_balance|intcomma }}</span> 
-                                </p>
-                
-                                
-                                <p>
-                                        <strong > Ultimo cierre 
-                                            <span class='text-white-50'>        
-                                                {{cash_register_last.closed_at}}
+                            <div style='width:100%; font-size: 14px;' class='text-start   p-3   rounded-5 '>
+
+                                {%  if  cash_register_last.get_status_display %} 
+                                <div class="d-flex span-close">
+
+                                        <span data-aos="fade-right" style="transition-delay: 1s !important;"  class="close-s">
+                                            <strong>Estado</strong> 
+                                            <span class="text-white-50" style="font-size: 14px;"> #{{ cash_register_last.number_caja }}
+                                                    {{ cash_register_last.get_status_display }}
                                             </span>
-                                        </strong> 
-                                    </p>
+                                        </span>
+        
+                                       <span  data-aos="fade-right" style="transition-delay: 0.9s !important;"   class="close-s">
+                                            <strong>Monto de apertura</strong> 
+                                            <span class="text-white-50"> ${{ cash_register_last.opening_balance|intcomma }}</span>
+                                       </span>
+
+                                       <span data-aos="fade-right" style="transition-delay: 0.8s !important;"  class="close-s">
+                                            <strong>Monto de cierre</strong>
+                                            <span class="text-white-50">${{ cash_register_last.closing_balance|intcomma }}</span> 
+                                       </span>
+                                    
+                                        <span data-aos="fade-right" style="transition-delay: 0.7s !important;"  class="close-s">
+                                            <strong > Usuario
+                                                <span class='text-white-50'>        
+                                                    {{ cash_register_last.closed_by }}  <span class="text-white">cerro</span>
+                                                    {{ cash_register_last.closed_at|date:"F/d/Y - H:i" }}
+                                                </span>
+                                            </strong> 
+                                        </span>
+
+                                </div>
+                                        {% endif %}
                             
                             </div>
 
-                        <div class=' w-100 mt-0 ms-3'>
-                            <form method="post"  class=''>
-                                {% csrf_token %}
-                                <div class="form-group" style='width: 300px;'>
-                                    <label for="opening_balance">Monto de Apertura</label>
-                                    <p class='text-white-50' style='font-size: 12px; line-height: 14px;'>
-                                        Desea agregar un monto adicionar a la apertura de caja 
-                                    </p>
+                            <div  class="w-100 d-flex justify-content-start  p-3 pt-0">
+                                <div  data-aos="zoom-in" style="transition-delay: 1.2s !important;"  class=' m-1 bg-white bg-opacity-10 p-4  rounded-5 mt-0 '>
+                                    <form method="post"  class=''>
+                                        {% csrf_token %}
+                                        <div class="form-group" style='width: 500px;'>
+                                            <label for="opening_balance"> ¿Desea añadir un monto a la apertura? </label>
+                                            <p class='text-white-50' style='font-size: 12px; line-height: 14px;'>
+                                                Este monto se sumara al total de caja, si no dispone de ese monto simplemente deje como esta y continue
+                                            </p>
+                                        </div>
+                                        <div class="d-flex " style="width: 17rem;">
+                                            <input type="number" value="0" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-5 border-0"  style="max-width: 6rem;"  name="opening_balance" step="0.01" required > 
+                                            <button type="submit" name="open_cash" class="btn bg-black bg-opacity-10 ps-4 pe-4 rounded-4 ms-1 text-white" 
+                                                style="font-size: 14px;" >Abrir 
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="d-flex " style="width: 17rem;">
-                                    <input type="number" value="0" class=" form-control w-100 text-white bg-white bg-opacity-10 rounded-4 border-0"  name="opening_balance" step="0.01" required > 
-                                    <button type="submit" name="open_cash" class="btn bg-white bg-opacity-10 ps-4 pe-4 rounded-4 ms-1 text-white" 
-                                        style="font-size: 14px;" >Abrir 
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
                         {% endif %}
                     </div>
 
             
                 </div>
-
-                <section class=' bg-white bg-opacity-10 p-3 rounded-4 m-2 mt-0 w-100 overflow-auto'          
+                {% if cash_register.status == 'open' %}
+                <section  data-aos="zoom-out" class=' bg-white bg-opacity-10 p-3 rounded-5 m-2 mt-0 w-100 overflow-auto'          
                 style="
-                height: calc(100vh - 15rem);
+                height: calc(100vh - 15rem); transition-delay: 1.2s !important;
                  ">
                     <table class="w-100">
                         <thead>
@@ -190,7 +204,8 @@
                         </tbody>
                     </table>
                 </section>
-                                    <div class="  position-absolute bottom-0 start-0 ms-2"  style="width: max-content;">
+                {% endif %}
+                <div   class="  position-absolute bottom-0 start-0 ms-2"  style="width: max-content;">
 
                         {% if cash_register.status == 'open' %}
                         <form method="post" class="mt-0 w-100">
@@ -199,9 +214,9 @@
                   
                                 <input type="number" class="form-control d-none w-100 text-white bg-white bg-opacity-10 rounded-4 border-0" name="closing_balance"   step="0.01" value="{{count_ingresos}}" required style="">
                             </div>
-                            <button type="submit" name="close_cash" class="btn me-1 mt-1 bg-danger bg-opacity-25 rounded-5  text-white ps-4 pe-4" 
-                            style="font-size: 14px;"> 
-                                Cerrar caja
+                            <button type="submit" name="close_cash" class="btn me-1 mt-1 bg-danger bg-opacity-25 rounded-5  text-white ps-3 pe-3" 
+                            style="font-size: 12px; font-weight: bold;"> 
+                                Cerrar 
                             </button>
                         </form>
                         
@@ -216,7 +231,7 @@
                             display: none;
                     }
                     </style>
-
+        {% if cash_register.status == 'open' %}
                     <form action="" method="post" class="d-flex">
 
                         <form method="POST" action="">
@@ -232,7 +247,7 @@
                                 <option value="only_year" selected>Año específico</option>
                                 <option value="mes" >Mes específico</option>
                                 {% else %}
-                                <option value="only_year" >Año específico</option>
+                                <!-- <option value="only_year" >Año específico</option> -->
                                 <option value="mes" selected>Mes específico</option>
                                 {% endif %}
                                 {% comment %} <option value="mes_rango">Rango de meses</option> {% endcomment %}
@@ -242,10 +257,10 @@
                             <!-- Input para un mes -->
                         
                         <div id="mes_input"     {% if only_year %}  
-                         class=" hidden ms-1 me-1"  {% else %}    class="  ms-1 me-1"   {% endif %} >
+                         class=" hidden ms-1 me-1"  {% else %}    class="  ms-1  overflow-hidden   me-1"   {% endif %}  style="height: 2rem;">
                            
                          
-                                <select id="{{year}}" class=" filter_type_year bg-transparent m-1 border-0 text-white" onchange="ClickbtbFilter()" 
+                                <select id="{{year}}" class=" filter_type_year  bg-transparent  m-1 border-0 text-white" onchange="ClickbtbFilter()" 
                                 style="font-weight: bold; outline: none !important;"   name="year" >
                                     <option value="2024" >2024</option>
                                     <option value="2025" >2025</option>
@@ -290,6 +305,7 @@
                             </div> 
                 
 
+                            {% endif %}
                             <script>
                                 document.addEventListener('DOMContentLoaded', () => {
                                     // Obtener la fecha actual
