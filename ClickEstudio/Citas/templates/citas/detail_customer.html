@@ -177,7 +177,7 @@
                             <td>1</td>
                             <td>{{ option.name }} - {{ option.description }}</td>
                             <td class='option-price'></td> <!-- Columna option-price en tercera posición -->
-                            <td>{{ option.sale.itbis }}%</td> <!-- itbis antes de option-total -->
+                            <td class='option-itibis' data-price="{{ option.preci }}">{{ option.sale.itbis }}%</td> <!-- itbis antes de option-total -->
                             <td class='option-total' data-price="{{ option.preci }}">
                                   {{ option.preci|floatformat:2|intcomma }}
                             </td> <!-- option-total en la última columna -->
@@ -186,12 +186,31 @@
                                      
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
+                                  let itibis = 0
+
                                 const optionTotals = document.querySelectorAll('.option-total');
+                                const planPrice = parseInt(document.querySelector('#plan-price').value) || 0;
+                                
+                                const itbis_2 = parseInt(document.querySelector('#itbis').value) || 0;
+                                const itbisAmount_32s = (planPrice * itbis_2) / 100;
+
+                                
+                              // Calcular el porcentaje del ITBIS sobre el precio del plan
+
                                 optionTotals.forEach(function(optionTotal) {
                                     const price = parseFloat(optionTotal.getAttribute('data-price'));
                                     const discountedPrice = price - (price * 0.18);
+
+                                    const itbisAmount = price * 0.18;
+                                    itibis += itbisAmount;
+                                    optionTotal.previousElementSibling.innerHTML = '$' + itbisAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
                                     optionTotal.previousElementSibling.previousElementSibling.innerHTML = '$' + discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                                });
+
+                                    
+                              });
+                              let total = itbisAmount_32s + itibis;
+                              document.querySelector('.ITIBIS_NETO').innerHTML = '$' +  total.toLocaleString('en-US'); 
                             });
                         </script>
                         {% endif %}
@@ -237,15 +256,22 @@ const itbisAmount = (planPrice * itbis) / 100;
 // Calcular el total sumando el precio del plan y el ITBIS
 const total = planPrice + itbisAmount;
 let total_min  = planPrice - itbisAmount;
+
+// Obtener todos los elementos .option-itibis
+const optionItibisElements = document.querySelectorAll('.option-itibis');
+
+// Sumar los valores de data-price de cada .option-itibis a itbisAmount
+
+
 document.querySelector('.ITIBIS').innerHTML =  '$' + itbisAmount.toLocaleString('en-US'); 
 // Mostrar el total en el campo #TOTAL
 document.querySelector('.price-unitario').innerHTML = '$' + total_min.toLocaleString('en-US')
 
 document.querySelector('.NETO').innerHTML = '$' +  planPrice.toLocaleString('en-US'); 
-document.querySelector('.ITIBIS_NETO').innerHTML = '$' +  itbisAmount.toLocaleString('en-US'); 
 document.querySelector('.TOTAL_NETO').innerHTML = '$' + total.toLocaleString('en-US'); 
 
 }
+
 window.onload = calculateTotal();
 
       </script>
