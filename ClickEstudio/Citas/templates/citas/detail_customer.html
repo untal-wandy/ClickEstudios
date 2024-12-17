@@ -115,7 +115,7 @@
 
 
 
-      <div class="invoice position-absolute  d-none   z-2">
+      <div class="invoice position-absolute    z-2">
             <div class="header  d-flex  m-0   p-0 position-relative" style="height: 9rem;">
                   {% if company.logo.url %}
                   <img src="{{company.logo.url}}"  class="object-fit-cover position-absolute   start-0"  width="150"  alt="Click Estudios">
@@ -125,12 +125,16 @@
 
                         <p class="w-100" style="font-size: 14px !important;"><strong>RNC:</strong> 133-22445-3</p>
                         <p class="w-100" style="font-size: 14px !important;"><strong>Fecha:</strong>  <span class="date text-black"> </span> </p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>Cliente:</strong> {{ sale.cliente.name }} </p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>RNC cliente:</strong> 131-24041-2</p>
+                        <p class="w-100" style="font-size: 14px !important;"><strong class="text-capitalize">Cliente:</strong> {{ sale.cliente.name }} </p>
+                        {% if sale.type_sale_ncf == True %}
+                              <p class="w-100" style="font-size: 14px !important;"><strong>RNC cliente:</strong> 131-24041-2</p>
+                        {% endif %}
                         <p class="w-100" style="font-size: 14px !important;"><strong>NCF:</strong> 
                               {{sale.ncf}}
                         </p>
-                        <p class="w-100" style="font-size: 14px !important;"><strong>NCF válido hasta:</strong> 31/12/2026</p>
+                        {% if sale.type_sale_ncf == True %}
+                              <p class="w-100" style="font-size: 14px !important;"><strong>NCF válido hasta:</strong> 31/12/2026</p>
+                        {% endif %}
                         <p class="w-100" style="font-size: 14px !important;"><strong>Factura ID:</strong> CL-{{sale.sale_secuencia}} </p>
             </div>
             
@@ -158,16 +162,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <input type="number" value="{{sale.plan.price}}" id="plan-price">
-                        <input type="number" value="{{sale.itbis}}"  id="itbis">
+                        <input type="number"  class="d-none" value="{{sale.plan.price}}" id="plan-price">
+                        <input type="number"  class="d-none"value="{{sale.itbis}}"  id="itbis">
                         <tr>
                             <td>1</td>
                             <td> {{sale.plan.name}} - {{sale.plan.description}} </td>
-                            <td> ${{sale.plan.price|intcomma}} </td>
+                            <td class='price-unitario'> </td>
                             <td class="ITIBIS"> </td>
-                            <td class="TOTAL"></td>
+                            <td class="TOTAL"> {{sale.plan.price|intcomma}}.00 </td>
                         </tr>
-
+                        {% if sale.opciones.all%}
+                        {% for option in opciones %}
+                        <tr>
+                            <td>1</td>
+                            <td>{{ option.name }} - {{ option.description }}</td>
+                            <td class='option-price'></td> <!-- Columna option-price en tercera posición -->
+                            <td>{{ option.sale.itbis }}%</td> <!-- itbis antes de option-total -->
+                            <td class='option-total' data-price="{{ option.preci }}">
+                                  {{ option.preci|floatformat:2|intcomma }}
+                            </td> <!-- option-total en la última columna -->
+                        </tr>
+                        {% endfor %}
+                                     
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const optionTotals = document.querySelectorAll('.option-total');
+                                optionTotals.forEach(function(optionTotal) {
+                                    const price = parseFloat(optionTotal.getAttribute('data-price'));
+                                    const discountedPrice = price - (price * 0.18);
+                                    optionTotal.previousElementSibling.previousElementSibling.innerHTML = '$' + discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                                });
+                            });
+                        </script>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -209,11 +236,12 @@ const itbisAmount = (planPrice * itbis) / 100;
 
 // Calcular el total sumando el precio del plan y el ITBIS
 const total = planPrice + itbisAmount;
+let total_min  = planPrice - itbisAmount;
 document.querySelector('.ITIBIS').innerHTML =  '$' + itbisAmount.toLocaleString('en-US'); 
 // Mostrar el total en el campo #TOTAL
-document.querySelector('.TOTAL').innerHTML =  '$' + total.toLocaleString('en-US'); 
+document.querySelector('.price-unitario').innerHTML = '$' + total_min.toLocaleString('en-US')
 
-document.querySelector('.NETO').innerHTML ='$' +  planPrice.toLocaleString('en-US'); 
+document.querySelector('.NETO').innerHTML = '$' +  planPrice.toLocaleString('en-US'); 
 document.querySelector('.ITIBIS_NETO').innerHTML = '$' +  itbisAmount.toLocaleString('en-US'); 
 document.querySelector('.TOTAL_NETO').innerHTML = '$' + total.toLocaleString('en-US'); 
 
@@ -240,7 +268,7 @@ window.onload = calculateTotal();
                   {% if opciones %}
                   <div class='p-3 m-1 w-100 bg-white ms-3 overflow-scroll bg-opacity-10 rounded-5' style='height: 11.5rem !important;'>
                         <strong class='p-0 m-0  text-white-50 mt-3'> 
-                              Opciones selecionadas
+                              Adicionales selecionadas
                         </strong> 
 
                         <div class='w-100 rounded-4 bg-transparent p-2'>
